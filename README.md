@@ -1,6 +1,6 @@
 # Quill
 Registration, for hackers!
-
+For Junction!
 Quill is a registration system designed especially for hackathons. For hackers, it’s a clean and streamlined interface to submit registration and confirmation information. For hackathon organizers, it’s an easy way to manage applications, view registration stats, and more!
 
 ![Login Splash](./docs/images/screenshots/login.png)
