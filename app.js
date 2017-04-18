@@ -18,7 +18,6 @@ var settingsConfig  = require('./config/settings');
 var adminConfig     = require('./config/admin');
 
 var app             = express();
-console.log(process.env);
 // Connect to mongodb
 mongoose.connect(database);
 
