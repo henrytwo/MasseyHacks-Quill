@@ -86,7 +86,7 @@ controller.sendVerificationEmail = function(email, token, callback) {
     verifyUrl: ROOT_URL + '/verify/' + token
   };
 
-  console.log(verifyUrl);
+  console.log(locals.verifyUrl);
 
   /**
    * Eamil-verify takes a few template values:
