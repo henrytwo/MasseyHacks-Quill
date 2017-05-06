@@ -47,6 +47,8 @@ function canRegister(email, password, callback){
       return callback({
         message: "Sorry, registration is closed."
       });
+    } else {
+      return callback(null, true);
     }
   });
 }
