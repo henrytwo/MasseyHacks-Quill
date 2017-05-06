@@ -35,8 +35,12 @@ angular.module('reg')
 
       $scope.register = function(){
         resetError();
-        AuthService.register(
-          $scope.email, $scope.password, onSuccess, onError);
+        if ($scope.password === $scope.password_repeat) {
+          AuthService.register(
+            $scope.email, $scope.password, onSuccess, onError);
+        } else {
+          $scope.error = "Passwords don't match."
+        }
       };
 
       $scope.setLoginState = function(state) {
