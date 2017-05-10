@@ -161,6 +161,13 @@ var schema = new mongoose.Schema({
       ]
   },
 
+  nickname: {
+    type: String,
+    min: 1,
+    max: 100,
+    required: true
+  },
+
   password: {
     type: String,
     required: true,

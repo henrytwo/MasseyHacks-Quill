@@ -74,15 +74,15 @@ function sendOne(templateName, options, data, callback){
 * @param  {Function} callback [description]
 * @return {[type]}            [description]
 */
-controller.sendAdmittanceEmail = function(email, callback) {
+controller.sendAdmittanceEmail = function(user, callback) {
 
  var options = {
-   to: email,
+   to: user.email,
    subject: "[Junction Hackathon] - You have been admitted!"
  };
-
+ console.log(user.nickname);
  var locals = {
-   title: 'Congratulations!',
+   title: 'Congratulations, ' + user.nickname + '!',
    body: 'You have been admitted to Junction 2017!.',
  };
 
@@ -106,15 +106,15 @@ controller.sendAdmittanceEmail = function(email, callback) {
 * @param  {Function} callback [description]
 * @return {[type]}            [description]
 */
-controller.sendConfirmationEmail = function(email, token, callback) {
+controller.sendConfirmationEmail = function(user, token, callback) {
 
  var options = {
-   to: email,
+   to: user.email,
    subject: "[Junction Hackathon] - You are confirmed!"
  };
 
  var locals = {
-   title: 'Congratulations!',
+   title: 'Congratulations, ' + user.nickname + '!',
    body: 'You have confirmed your presence at Junction 2017. See you there!',
  };
 
@@ -138,15 +138,15 @@ controller.sendConfirmationEmail = function(email, token, callback) {
 * @param  {Function} callback [description]
 * @return {[type]}            [description]
 */
-controller.sendDeclinedEmail = function(email, token, callback) {
+controller.sendDeclinedEmail = function(user, token, callback) {
 
  var options = {
-   to: email,
+   to: user.email,
    subject: "[Junction Hackathon] - You have declined your invitation"
  };
 
  var locals = {
-   title: 'Sorry to see that you can\'t make it.l',
+   title: 'Sorry to see that you can\'t make it, ' + user.nickname + '.',
    body: 'You have declined your invitation to Junction 2017. Hope to see you there next year!',
  };
 
@@ -171,10 +171,10 @@ controller.sendDeclinedEmail = function(email, token, callback) {
  * @param  {Function} callback [description]
  * @return {[type]}            [description]
  */
-controller.sendVerificationEmail = function(email, token, callback) {
+controller.sendVerificationEmail = function(user, token, callback) {
 
   var options = {
-    to: email,
+    to: user.email,
     subject: "[Junction Hackathon] - Verify your email"
   };
 
@@ -210,10 +210,10 @@ controller.sendVerificationEmail = function(email, token, callback) {
  * @param  {[type]}   token    [description]
  * @param  {Function} callback [description]
  */
-controller.sendPasswordResetEmail = function(email, token, callback) {
+controller.sendPasswordResetEmail = function(user, token, callback) {
 
   var options = {
-    to: email,
+    to: user.email,
     subject: "[Junction Hackathon] - Password reset requested!"
   };
 
@@ -251,10 +251,10 @@ controller.sendPasswordResetEmail = function(email, token, callback) {
  * @param  {[type]}   email    [description]
  * @param  {Function} callback [description]
  */
-controller.sendPasswordChangedEmail = function(email, callback){
+controller.sendPasswordChangedEmail = function(user, callback){
 
   var options = {
-    to: email,
+    to: user.email,
     subject: "[Junction Hackathon] - Your password has been changed!"
   };
 

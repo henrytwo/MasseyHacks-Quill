@@ -119,8 +119,7 @@ UserController.loginWithPassword = function(email, password, callback){
  * @param  {String}   password [description]
  * @param  {Function} callback args(err, user)
  */
-UserController.createUser = function(email, password, callback) {
-
+UserController.createUser = function(email, password, nickname, callback) {
   if (typeof email !== "string"){
     return callback({
       message: "Email must be a string."
@@ -153,6 +152,7 @@ UserController.createUser = function(email, password, callback) {
           // Make a new user
           var u = new User();
           u.email = email;
+          u.nickname = nickname;
           u.password = User.generateHash(password);
           u.save(function(err){
             if (err){
@@ -163,7 +163,7 @@ UserController.createUser = function(email, password, callback) {
 
               // Send over a verification email
               var verificationToken = u.generateEmailVerificationToken();
-              Mailer.sendVerificationEmail(email, verificationToken);
+              Mailer.sendVerificationEmail(u, verificationToken);
 
               return callback(
                 null,
@@ -356,7 +356,7 @@ UserController.updateConfirmationById = function (id, confirmation, callback){
         if (err || !user) {
           return callback(err);
         }
-        Mailer.sendConfirmationEmail(user.email);
+        Mailer.sendConfirmationEmail(user);
         return callback(err, user);
       });
   });
@@ -390,7 +390,7 @@ UserController.declineById = function (id, callback){
       if (err || !user) {
         return callback(err);
       }
-      Mailer.sendDeclinedEmail(user.email);
+      Mailer.sendDeclinedEmail(user);
       return callback(err, user);
     });
 };
@@ -523,7 +523,7 @@ UserController.sendVerificationEmailById = function(id, callback){
         return callback(err);
       }
       var token = user.generateEmailVerificationToken();
-      Mailer.sendVerificationEmail(user.email, token);
+      Mailer.sendVerificationEmail(user, token);
       return callback(err, user);
   });
 };
@@ -543,7 +543,7 @@ UserController.sendPasswordResetEmail = function(email, callback){
       }
 
       var token = user.generateTempAuthToken();
-      Mailer.sendPasswordResetEmail(email, token, callback);
+      Mailer.sendPasswordResetEmail(user, token, callback);
     });
 };
 
@@ -623,7 +623,7 @@ UserController.resetPassword = function(token, password, callback){
           return callback(err);
         }
 
-        Mailer.sendPasswordChangedEmail(user.email);
+        Mailer.sendPasswordChangedEmail(user);
         return callback(null, {
           message: 'Password successfully reset!'
         });
@@ -658,7 +658,7 @@ UserController.admitUser = function(id, user, callback){
         if (err || !user) {
           return callback(err);
         }
-        Mailer.sendAdmittanceEmail(user.email);
+        Mailer.sendAdmittanceEmail(user);
         return callback(err, user);
       });
     });
