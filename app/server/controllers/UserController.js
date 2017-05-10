@@ -352,8 +352,13 @@ UserController.updateConfirmationById = function (id, confirmation, callback){
       }, {
         new: true
       },
-      callback);
-
+      function(err, user) {
+        if (err || !user) {
+          return callback(err);
+        }
+        Mailer.sendConfirmationEmail(user.email);
+        return callback(err, user);
+      });
   });
 };
 
@@ -381,7 +386,13 @@ UserController.declineById = function (id, callback){
     }, {
       new: true
     },
-    callback);
+    function(err, user) {
+      if (err || !user) {
+        return callback(err);
+      }
+      Mailer.sendDeclinedEmail(user.email);
+      return callback(err, user);
+    });
 };
 
 /**
@@ -643,9 +654,15 @@ UserController.admitUser = function(id, user, callback){
       }, {
         new: true
       },
-      callback);
-  });
-};
+      function(err, user) {
+        if (err || !user) {
+          return callback(err);
+        }
+        Mailer.sendAdmittanceEmail(user.email);
+        return callback(err, user);
+      });
+    });
+  };
 
 /**
  * [ADMIN ONLY]

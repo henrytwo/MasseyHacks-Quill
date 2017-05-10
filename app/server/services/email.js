@@ -68,6 +68,102 @@ function sendOne(templateName, options, data, callback){
   });
 }
 
+/*
+* Send a status update email for admittance.
+* @param  {[type]}   email    [description]
+* @param  {Function} callback [description]
+* @return {[type]}            [description]
+*/
+controller.sendAdmittanceEmail = function(email, callback) {
+
+ var options = {
+   to: email,
+   subject: "[Junction Hackathon] - You have been admitted!"
+ };
+
+ var locals = {
+   title: 'Congratulations!',
+   body: 'You have been admitted to Junction 2017!.',
+ };
+
+ sendOne('email-basic', options, locals, function(err, info){
+   if (err){
+     console.log(err);
+   }
+   if (info){
+     console.log(info.message);
+   }
+   if (callback){
+     callback(err, info);
+   }
+ });
+};
+
+/**
+* Send a status update email for submission.
+* @param  {[type]}   email    [description]
+* @param  {[type]}   token    [description]
+* @param  {Function} callback [description]
+* @return {[type]}            [description]
+*/
+controller.sendConfirmationEmail = function(email, token, callback) {
+
+ var options = {
+   to: email,
+   subject: "[Junction Hackathon] - You are confirmed!"
+ };
+
+ var locals = {
+   title: 'Congratulations!',
+   body: 'You have confirmed your presence at Junction 2017. See you there!',
+ };
+
+ sendOne('email-basic', options, locals, function(err, info){
+   if (err){
+     console.log(err);
+   }
+   if (info){
+     console.log(info.message);
+   }
+   if (callback){
+     callback(err, info);
+   }
+ });
+};
+
+/**
+* Send a status update email for submission.
+* @param  {[type]}   email    [description]
+* @param  {[type]}   token    [description]
+* @param  {Function} callback [description]
+* @return {[type]}            [description]
+*/
+controller.sendDeclinedEmail = function(email, token, callback) {
+
+ var options = {
+   to: email,
+   subject: "[Junction Hackathon] - You have declined your invitation"
+ };
+
+ var locals = {
+   title: 'Sorry to see that you can\'t make it.l',
+   body: 'You have declined your invitation to Junction 2017. Hope to see you there next year!',
+ };
+
+ sendOne('email-basic', options, locals, function(err, info){
+   if (err){
+     console.log(err);
+   }
+   if (info){
+     console.log(info.message);
+   }
+   if (callback){
+     callback(err, info);
+   }
+ });
+};
+
+
 /**
  * Send a verification email to a user, with a verification token to enter.
  * @param  {[type]}   email    [description]
@@ -79,7 +175,7 @@ controller.sendVerificationEmail = function(email, token, callback) {
 
   var options = {
     to: email,
-    subject: "[HACKMIT] - Verify your email"
+    subject: "[Junction Hackathon] - Verify your email"
   };
 
   var locals = {
@@ -118,7 +214,7 @@ controller.sendPasswordResetEmail = function(email, token, callback) {
 
   var options = {
     to: email,
-    subject: "[HACKMIT] - Password reset requested!"
+    subject: "[Junction Hackathon] - Password reset requested!"
   };
 
   var locals = {
@@ -159,7 +255,7 @@ controller.sendPasswordChangedEmail = function(email, callback){
 
   var options = {
     to: email,
-    subject: "[HACKMIT] - Your password has been changed!"
+    subject: "[Junction Hackathon] - Your password has been changed!"
   };
 
   var locals = {
