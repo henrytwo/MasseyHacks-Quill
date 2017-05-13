@@ -3,7 +3,38 @@
   width: 100%;
   background-color: #232323;
   background-size: cover;
-
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #000;
+    height: 40px;
+    font-size: 14px;
+    color: #fbfbfb;
+    padding: 0 0 50px 0;
+  }
+  .welcome-text {
+    color: #fbfbfb;
+    text-align:center;
+    margin-bottom: 2em;
+    padding: 0 2em 0 2em;
+  }
+  .footer-text{
+    font-size: 10px;
+    color: #fbfbfb;
+    padding: 0 0 0.5em 0;
+  }
+  .footer-link{
+    font-size: 14px;
+    color: #fbfbfb;
+    margin-bottom: 1em;
+  }
+  a:hover {
+    color: #ef4637;
+  }
+  a:visited {
+    color: #5abecf;
+  }
   > .container {
     position: relative;
     top: 50%;
@@ -11,6 +42,7 @@
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+    
 
     > .content {
       max-width: 320px;
@@ -40,6 +72,6 @@
       }
 
     }
-  }
+  } 
 
 }
