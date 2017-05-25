@@ -1,6 +1,11 @@
 <div id="login">
   <div class="container">
-      <h2 class="welcome-text">Sign up to Junction platform and apply to Junction 2017!</h2>
+      <div ng-show="loginState === 'login'">
+      	<h2 class="welcome-text">Sign up to Junction platform and apply to Junction 2017!</h2>
+      </div>
+      <div ng-show="loginState === 'register'">
+      	<h2 class="welcome-text">Your Junction journey begins here, it's gonna be f**king dynamite!</h2>
+      </div>
 
     <div class="content">
       <div class="ui segment">
@@ -25,7 +30,7 @@
                 <label> Email</label>
                 <input type="email"
                        id='email'
-                       placeholder="foo@bar.edu"
+                       placeholder="hacker@hackjunction.com"
                        ng-model="email">
               </div>
               <div class="field">
@@ -67,7 +72,7 @@
                 <label> Email</label>
                 <input type="email"
                        id='email'
-                       placeholder="foo@bar.edu"
+                       placeholder="hacker@hackjunction.com"
                        ng-model="email">
               </div>
               <div class="field">
@@ -88,7 +93,7 @@
                 <label> What should we call you?</label>
                 <input type="text"
                        id='nickname'
-                       placeholder="Cunt"
+                       placeholder="Hacker"
                        ng-model="nickname" required>
               </div>
 
@@ -112,7 +117,7 @@
                 <label> Email</label>
                 <input type="email"
                        id='email'
-                       placeholder="foo@bar.edu"
+                       placeholder="hacker@hackjunction.com"
                        ng-model="email">
               </div>
               <div class="field">
