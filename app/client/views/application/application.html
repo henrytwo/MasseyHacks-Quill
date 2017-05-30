@@ -27,32 +27,46 @@
                  ng-model="user.profile.name">
         </div>
 
-        <div class="field" ng-show="autoFilledSchool">
-          <label> School </label>
-          <input class="ui input"
-                 disabled="disabled"
-                 ng-show="autoFilledSchool"
-                 ng-model="user.profile.school">
+        <div class="field">
+          <label> Age </label>
+          <input type="number"
+                 name="age"
+                 ng-model="user.profile.age">
         </div>
 
-        <div class="field" ng-show="!autoFilledSchool">
+        <div class="field">
+          <label> Phone </label>
+          <input type="text"
+                 name="phone"
+                 ng-model="user.profile.phone">
+        </div>
+
+        <div class="field">
+          <label> What country are you travelling from? </label>
+          <input type="text"
+                 name="travelFromCountry"
+                 ng-model="user.profile.travelFromCountry">
+        </div>
+
+        <div class="field">
+          <label> What city are you travelling from? </label>
+          <input type="text"
+                 name="travelFromCity"
+                 ng-model="user.profile.travelFromCity">
+        </div>
+
+        <div class="field">
+          <label> What is your home country? </label>
+          <input type="text"
+                 name="homeCountry"
+                 ng-model="user.profile.homeCountry">
+        </div>
+
+        <div class="field">
           <label> School </label>
           <input class="ui input"
                  name="school"
                  ng-model="user.profile.school">
-        </div>
-
-        <div class="field">
-          <label>Graduation Year</label>
-          <select
-            name="year"
-            ng-model="user.profile.graduationYear">
-            <option value="">Graduation Year</option>
-            <option value="2016">2016</option>
-            <option value="2017">2017</option>
-            <option value="2018">2018</option>
-            <option value="2019">2019</option>
-          </select>
         </div>
 
         <div class="field">
@@ -68,39 +82,195 @@
           </select>
         </div>
 
+        <br>
+        <div class="ui checkbox">
+          <input type="checkbox" id="needsReimbursement" ng-model="user.profile.needsReimbursement">
+          <label for="needsReimbursement">I need travel reimbursements</label>
+        </div>
+        <br>
+        <div class="ui checkbox">
+          <input type="checkbox" id="applyAccommodation" ng-model="user.profile.applyAccommodation">
+          <label for="applyAccommodation">I apply for free accommodation</label>
+        </div>
+        <br>
+
         <div class="field">
-          <label>I would describe myself as a...</label>
+          <label>Which track are you most interested in?
+            This question isn’t binding in any case.
+            You can find more info about each track on our website!</label>
+          <select
+            name="mostInterestingTrack"
+            ng-model="user.profile.mostInterestingTrack">
+            <option value="Gaming">Gaming</option>
+            <option value="VR">VR</option>
+            <option value="IoT">IoT</option>
+            <option value="Healthtech">Healthtech</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label> Link to your portfolio </label>
           <input type="text"
-                 placeholder="Designer, Data Scientist, iOS Wizard, Hacker Extraordinaire"
-                 ng-model="user.profile.description">
+                 name="portfolio"
+                 placeholder="https://github.com/foobar"
+                 ng-model="user.profile.portfolio">
+        </div>
+
+        <div class="field">
+          <label>I would describe myself as a... (Select max 2)</label>
+          <select multiple="multiple"
+            name="occupationalStatus"
+            ng-model="user.profile.occupationalStatus">
+            <option value="Student">Student</option>
+            <option value="Full-Stack Web Developer">Full-Stack Web Developer</option>
+            <option value="Backend Web Developer">Backend Web Developer</option>
+            <option value="Frontend Web Developer">Frontend Web Developer</option>
+            <option value="Mobile Developer">Mobile Developer</option>
+            <option value="Manager / Executive">Manager / Executive</option>
+            <option value="Data Scientist">Data Scientist</option>
+            <option value="Entrepreneur">Entrepreneur</option>
+            <option value="Analyst">Analyst</option>
+            <option value="Machine Learning Developer">Machine Learning Developer</option>
+            <option value="Industrial Design">Industrial Design</option>
+            <option value="Web Design">Web Design</option>
+            <option value="Product Design">Product Design</option>
+            <option value="Other design related">Other design related</option>
+            <option value="Server Specialist">Server Specialist</option>
+            <option value="Hardware Technician">Hardware Technician</option>
+            <option value="Hardware Engineer">Hardware Engineer</option>
+            <option value="Unemployed">Unemployed</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Which programming, scripting and markup languages
+            and game engines are you most comfortable with?</label>
+          <select multiple="multiple"
+            name="bestTools"
+            ng-model="user.profile.bestTools">
+            <option value="Student">Student</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>How many years of coding experience do you have?</label>
+          <select
+            name="howManyHackathons"
+            ng-model="user.profile.howManyHackathons">
+            <option value="None">None</option>
+            <option value="1">< 1 Years</option>
+            <option value="1-2">1-2 Years</option>
+            <option value="3-5">3-5 Years</option>
+            <option value="5+">5+ Years</option>
+
+          </select>
+        </div>
+
+        <div class="field">
+          <label>How many hackathons have you attended?</label>
+          <select
+            name="codingExperience"
+            ng-model="user.profile.codingExperience">
+            <option value="None">None</option>
+            <option value="1">1</option>
+            <option value="2-5">2-5</option>
+            <option value="5-10">5-10</option>
+            <option value="10+">10+</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Which of the followings describes your role in a hackathon team the best?</label>
+          <select
+            name="description"
+            ng-model="user.profile.description">
+            <option value="Frontend Developer">Frontend Developer</option>
+            <option value="Backend Developer">Backend Developer</option>
+            <option value="asdf">Kirjotan loppuun joskus myöhemmin</option>
+          </select>
         </div>
 
         <div class="field">
           <label>
-              What would you like to learn or get out of HackMIT? (optional)
+              Why do you want to come to Junction 2017 and why should we choose you?
           </label>
           <textarea ng-model="user.profile.essay">
           </textarea>
         </div>
 
-        <div class="field"
-             ng-hide="isMitStudent">
-          <p>
-            Because of limitations imposed by MIT, we are not legally allowed to host
-            non-MIT minors (those under 18) for HackMIT 2015. Checking the box below affirms that you are or will be 18 years or older by September 19th, 2015.
-          </p>
-          <p>
-            <strong>
-            We will be checking ID. If you are a non-MIT minor, you will be turned away at the door.
-            </strong>
-          </p>
-          <div class="ui checkbox">
-            <input type="checkbox" id="adult" ng-model="user.profile.adult">
-            <label for="adult">I am 18 or older.</label>
-          </div>
+        <div class="field">
+          <label>Have you been to Junction in previous years?</label>
+          <select multiple="multiple"
+            name="previousJunction"
+            ng-model="user.profile.previousJunction">
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label> Secret code - If you are provided with a secret code, please remember to put it here. </label>
+          <input type="text"
+                 name="name"
+                 ng-model="user.profile.secret">
+        </div>
+
+        <div class="field">
+          <label>
+              Free comment - If there’s anything else you would like to say, this is the place to do it.
+          </label>
+          <textarea ng-model="user.profile.freeComment">
+          </textarea>
+        </div>
+
+        <div class="ui checkbox">
+            <input type="checkbox" id="conduct" ng-model="user.profile.conduct">
+            <label for="conduct">I agree with MLH Code of Conduct, which can be found _here_.</label>
         </div>
 
         <br>
+
+        <p>
+          Please go through Junction 2016 Terms and Conditions. You accept the T&C by submitting your application.
+
+          ← Junction 2016 Terms and Conditions →
+          *********************************************************************************************************
+          Junction 2016 is organized by Aalto Entrepreneurship Society, which is a student driven entrepreneurship organization.
+
+          By submitting your application you consent to giving your contact details and any information you provide to Aalto Entrepreneurship Society. Aalto Entrepreneurship Society retains the right to share these with official partners and affiliates. We will never release your personal details to any unassociated 3rd party entities, nor will we sell your personal details for profit to any 3rd party entity. Any information you provide will be used for the purpose of processing your application to enter Junction 2016. This may include sharing content submitted by you to our official partners and affiliates.
+
+          By submitting your application you consent to receiving marketing material and updates regarding Junction 2016. You have the option to opt-out at any given time.
+
+          By submitting you consent to being filmed and/or photographed at the actual event. Furthermore, you consent to any pictures which include you to be shared on official Aalto Entrepreneurship Society media channels. Aalto Entrepreneurship Society will never sell the content created by Aalto Entrepreneurship Society or official partners to 3rd party entities.
+
+          By submitting you confirm that your project during Junction 2016 is programmed only during the event. Pre-written projects aren’t qualified to compete for the prizes.
+          *********************************************************************************************************
+      <p>
+
+      <p> PSST… Two more question! </p>
+
+      <div class="field">
+        <label>Which one of the followings  would you bring to Junction 2016 as your laptop’s operating system?</label>
+        <select
+          name="operatingSystem"
+          ng-model="user.profile.operatingSystem">
+          <option value="lol">asdf</option>
+          <option value="asdf">asdfasdfasdf</option>
+          <option value="fadfa">Kirjotan loppuun joskus myöhemmin</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>And finally… Spaces or tabs?</label>
+        <select
+          name="spacesOrTabs"
+          ng-model="user.profile.spacesOrTabs">
+          <option value="Spaces">Spaces</option>
+          <option value="Tabs">Tabs</option>
+        </select>
+      </div>
 
         <div class="field" ng-hide="regIsClosed">
           <button type="submit"

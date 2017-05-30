@@ -46,6 +46,7 @@ angular.module('reg')
       }
 
       function _updateUser(e){
+        console.log($scope.user.profile);
         UserService
           .updateProfile(Session.getUserId(), $scope.user.profile)
           .success(function(data){
@@ -104,11 +105,11 @@ angular.module('reg')
               ]
             },
             adult: {
-              identifier: 'adult',
+              identifier: 'conduct',
               rules: [
                 {
                   type: 'checked',
-                  prompt: 'You must be an adult, or an MIT student.'
+                  prompt: 'You must accept MLH code of conduct to continue.'
                 }
               ]
             }

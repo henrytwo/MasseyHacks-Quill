@@ -13,23 +13,40 @@ var profile = {
     max: 100,
   },
 
-  adult: {
-    type: Boolean,
-    required: true,
-    default: false,
+  age: {
+    type: Number,
+    min: 18,
+    max: 65,
+  },
+
+  phone: {
+    type: String,
+    min: 6,
+    max: 20,
+  },
+
+  travelFromCountry: {
+    type: String,
+    min: 4,
+    max: 120,
+  },
+
+  travelFromCity: {
+    type: String,
+    min: 2,
+    max: 120,
+  },
+
+  homeCountry: {
+    type: String,
+    min: 4,
+    max: 120,
   },
 
   school: {
     type: String,
     min: 1,
     max: 150,
-  },
-
-  graduationYear: {
-    type: String,
-    enum: {
-      values: '2016 2017 2018 2019'.split(' '),
-    }
   },
 
   description: {
@@ -51,6 +68,72 @@ var profile = {
       values: 'M F O N'.split(' ')
     }
   },
+
+  needsReimbursement: Boolean,
+  applyAccommodation: Boolean,
+
+  mostInterestingTrack: {
+    type: String,
+    max: 120,
+  },
+
+  portfolio: {
+    type: String,
+    min: 5,
+    max: 240,
+  },
+
+  // Multiple choice
+  occupationalStatus: {
+    type: [String],
+    max: 150
+  },
+
+  // Multiple choice
+  bestTools: {
+    type: [String]
+  },
+
+  codingExperience: {
+    type: String,
+    enum : {
+      values: 'None,1,1-2,3-5,5+'.split(',')
+    }
+  },
+
+  howManyHackathons: {
+    type: String,
+    enum : {
+      values: 'None,1,2-5,5-10,10+'.split(',')
+    }
+  },
+
+  previousJunction: {
+    type: [String]
+  },
+
+  secret: {
+    type: String,
+    max: 100,
+  },
+
+  freeComment: {
+    type: String,
+    max: 500,
+  },
+
+  operatingSystem: {
+    type: String
+  },
+
+  spacesOrTabs: {
+    type: String,
+    enum: {
+      values: 'Spaces Tabs'.split(' ')
+    }
+  },
+
+  conduct: Boolean
 
 };
 
@@ -337,9 +420,7 @@ schema.statics.getByToken = function(token, callback){
 schema.statics.validateProfile = function(profile, cb){
   return cb(!(
     profile.name.length > 0 &&
-    profile.adult &&
-    profile.school.length > 0 &&
-    ['2016', '2017', '2018', '2019'].indexOf(profile.graduationYear) > -1 &&
+    profile.conduct &&
     ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1
     ));
 };
