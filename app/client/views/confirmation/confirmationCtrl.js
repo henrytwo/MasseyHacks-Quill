@@ -12,13 +12,14 @@ angular.module('reg')
       var user = currentUser.data;
       $scope.user = user;
 
+      console.log(user.confirmation);
+
       $scope.pastConfirmation = Date.now() > user.status.confirmBy;
 
       $scope.formatTime = Utils.formatTime;
 
       _setupForm();
 
-      $scope.fileName = user._id + "_" + user.profile.name.split(" ").join("_");
 
       // -------------------------------
       // All this just for dietary restriction checkboxes fml
@@ -28,7 +29,8 @@ angular.module('reg')
         'Vegan': false,
         'Halal': false,
         'Kosher': false,
-        'Nut Allergy': false
+        'Nut Allergy': false,
+        'Gluten Free':false,
       };
 
       if (user.confirmation.dietaryRestrictions){
@@ -81,42 +83,6 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please give us a shirt size!'
-                }
-              ]
-            },
-            phone: {
-              identifier: 'phone',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter a phone number.'
-                }
-              ]
-            },
-            signatureLiability: {
-              identifier: 'signatureLiabilityWaiver',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please type your digital signature.'
-                }
-              ]
-            },
-            signaturePhotoRelease: {
-              identifier: 'signaturePhotoRelease',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please type your digital signature.'
-                }
-              ]
-            },
-            signatureCodeOfConduct: {
-              identifier: 'signatureCodeOfConduct',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please type your digital signature.'
                 }
               ]
             },
