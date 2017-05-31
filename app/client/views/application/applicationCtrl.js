@@ -12,20 +12,17 @@ angular.module('reg')
 
       // Set up the user
       $scope.user = currentUser.data;
-
-      // Is the student from MIT?
-      $scope.isMitStudent = $scope.user.email.split('@')[1] == 'mit.edu';
-
-      // If so, default them to adult: true
-      if ($scope.isMitStudent){
-        $scope.user.profile.adult = true;
-      }
-
       // Populate the school dropdown
       populateSchools();
       _setupForm();
 
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
+
+      // Set selected multiselect items
+      $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
+      $("#bestTools").dropdown('set selected', $scope.user.profile.bestTools);
+      $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
+
 
       /**
        * TODO: JANK WARNING
@@ -46,7 +43,18 @@ angular.module('reg')
       }
 
       function _updateUser(e){
-        console.log($scope.user.profile);
+        // Update user teamCode
+        UserService
+          .joinOrCreateTeam($scope.user.teamCode)
+          .success(function(user){
+            console.log('Successfully updated teamCode')
+          })
+          .error(function(res){
+            console.log("Failed to update teamCode");
+          });
+
+
+        // Update user profile
         UserService
           .updateProfile(Session.getUserId(), $scope.user.profile)
           .success(function(data){

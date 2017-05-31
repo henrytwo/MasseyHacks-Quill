@@ -3,6 +3,12 @@
     Application
   </div>
 
+  <!-- Initialize fancy UI scripts -->
+  <script>
+  $('.ui.dropdown')
+    .dropdown();
+  </script>
+
   <div class="ui stackable page grid">
     <div class="column">
       <div class="ui form"
@@ -93,6 +99,7 @@
           <label for="applyAccommodation">I apply for free accommodation</label>
         </div>
         <br>
+        <br>
 
         <div class="field">
           <label>Which track are you most interested in?
@@ -101,12 +108,25 @@
           <select
             name="mostInterestingTrack"
             ng-model="user.profile.mostInterestingTrack">
+            <option value="">Choose a track</option>
             <option value="Gaming">Gaming</option>
             <option value="VR">VR</option>
             <option value="IoT">IoT</option>
             <option value="Healthtech">Healthtech</option>
           </select>
         </div>
+
+        <div class="field">
+          <label> Team (max. 5 members) -
+            If you have a team already, please come up with a somewhat unique string to name it.
+            It is completely fine not to have a team at this point.
+          </label>
+          <input type="text"
+                 name="teamCode"
+                 placeholder="Enormous Cunts"
+                 ng-model="user.teamCode">
+        </div>
+
 
         <div class="field">
           <label> Link to your portfolio </label>
@@ -117,10 +137,13 @@
         </div>
 
         <div class="field">
-          <label>I would describe myself as a... (Select max 2)</label>
+          <label>I would describe myself as a... </label>
           <select multiple="multiple"
+            class="ui multiple dropdown selection"
             name="occupationalStatus"
+            id="occupationalStatus"
             ng-model="user.profile.occupationalStatus">
+            <option value="">Choose all that apply</option>
             <option value="Student">Student</option>
             <option value="Full-Stack Web Developer">Full-Stack Web Developer</option>
             <option value="Backend Web Developer">Backend Web Developer</option>
@@ -147,8 +170,11 @@
           <label>Which programming, scripting and markup languages
             and game engines are you most comfortable with?</label>
           <select multiple="multiple"
+            class="ui dropdown"
             name="bestTools"
+            id="bestTools"
             ng-model="user.profile.bestTools">
+            <option value="">Choose your best tools</option>
             <option value="Student">Student</option>
             <option value="Other">Other</option>
           </select>
@@ -159,6 +185,7 @@
           <select
             name="howManyHackathons"
             ng-model="user.profile.howManyHackathons">
+            <option value="">Coding experience</option>
             <option value="None">None</option>
             <option value="1">< 1 Years</option>
             <option value="1-2">1-2 Years</option>
@@ -173,6 +200,7 @@
           <select
             name="codingExperience"
             ng-model="user.profile.codingExperience">
+            <option value="">Hackathon experience</option>
             <option value="None">None</option>
             <option value="1">1</option>
             <option value="2-5">2-5</option>
@@ -186,6 +214,7 @@
           <select
             name="description"
             ng-model="user.profile.description">
+            <option value="">Role</option>
             <option value="Frontend Developer">Frontend Developer</option>
             <option value="Backend Developer">Backend Developer</option>
             <option value="asdf">Kirjotan loppuun joskus myöhemmin</option>
@@ -199,12 +228,13 @@
           <textarea ng-model="user.profile.essay">
           </textarea>
         </div>
-
         <div class="field">
           <label>Have you been to Junction in previous years?</label>
-          <select multiple="multiple"
+          <select multiple="" class="ui dropdown"
             name="previousJunction"
+            id="previousJunction"
             ng-model="user.profile.previousJunction">
+            <option value="">Junction experience</option>
             <option value="2015">2015</option>
             <option value="2016">2016</option>
           </select>
@@ -227,16 +257,21 @@
 
         <div class="ui checkbox">
             <input type="checkbox" id="conduct" ng-model="user.profile.conduct">
-            <label for="conduct">I agree with MLH Code of Conduct, which can be found _here_.</label>
+            <label for="conduct"><h3>I agree with MLH Code of Conduct, which can be found
+              <a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">here</a></h3></label>
         </div>
 
         <br>
 
         <p>
-          Please go through Junction 2016 Terms and Conditions. You accept the T&C by submitting your application.
-
+          <h3>Please go through Junction 2016 Terms and Conditions.
+            You accept the T&C by submitting your application.</h3>
+          <div align="center">
+            <h3>
           ← Junction 2016 Terms and Conditions →
-          *********************************************************************************************************
+            </h3>
+
+            <textarea>
           Junction 2016 is organized by Aalto Entrepreneurship Society, which is a student driven entrepreneurship organization.
 
           By submitting your application you consent to giving your contact details and any information you provide to Aalto Entrepreneurship Society. Aalto Entrepreneurship Society retains the right to share these with official partners and affiliates. We will never release your personal details to any unassociated 3rd party entities, nor will we sell your personal details for profit to any 3rd party entity. Any information you provide will be used for the purpose of processing your application to enter Junction 2016. This may include sharing content submitted by you to our official partners and affiliates.
@@ -246,16 +281,19 @@
           By submitting you consent to being filmed and/or photographed at the actual event. Furthermore, you consent to any pictures which include you to be shared on official Aalto Entrepreneurship Society media channels. Aalto Entrepreneurship Society will never sell the content created by Aalto Entrepreneurship Society or official partners to 3rd party entities.
 
           By submitting you confirm that your project during Junction 2016 is programmed only during the event. Pre-written projects aren’t qualified to compete for the prizes.
-          *********************************************************************************************************
+          </textarea>
+
+        </div>
       <p>
 
-      <p> PSST… Two more question! </p>
+      <p> PSST… Two more questions! </p>
 
       <div class="field">
         <label>Which one of the followings  would you bring to Junction 2016 as your laptop’s operating system?</label>
         <select
           name="operatingSystem"
           ng-model="user.profile.operatingSystem">
+          <option value="">Operating System</option>
           <option value="lol">asdf</option>
           <option value="asdf">asdfasdfasdf</option>
           <option value="fadfa">Kirjotan loppuun joskus myöhemmin</option>
@@ -267,6 +305,7 @@
         <select
           name="spacesOrTabs"
           ng-model="user.profile.spacesOrTabs">
+          <option value="">Choose wisely</option>
           <option value="Spaces">Spaces</option>
           <option value="Tabs">Tabs</option>
         </select>
@@ -285,3 +324,6 @@
     </div>
   </div>
 </div>
+<script>
+//$('#occupationalStatus').dropdown('set selected', {{user.profile.occupationalStatus}});
+</script>
