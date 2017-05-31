@@ -16,9 +16,16 @@ angular.module('reg')
       $('.ui.dimmer').remove();
       // Populate the size of the modal for when it appears, with an arbitrary user.
       $scope.selectedUser = {};
-      $scope.selectedUser.sections = generateSections({status: '', confirmation: {
+      $scope.selectedUser.sections = generateSections({status: '',
+      confirmation: {
         dietaryRestrictions: []
-      }, profile: ''});
+      }, profile: {
+        occupationalStatus: [],
+        bestTools: [],
+        previousJunction: []
+      }});
+
+      console.log($scope.selectedUser.sections);
 
       function updatePage(data){
         $scope.users = data.users;
@@ -156,6 +163,7 @@ angular.module('reg')
       }
 
       function generateSections(user){
+        console.log(user);
         return [
           {
             name: 'Basic Info',
@@ -190,40 +198,87 @@ angular.module('reg')
                 name: 'Gender',
                 value: user.profile.gender
               },{
+                name: 'Age',
+                value: user.profile.age
+              },{
+                name: 'Gender',
+                value: user.profile.gender
+              },{
+                name: 'Phone',
+                value: user.profile.phone
+              },{
                 name: 'School',
                 value: user.profile.school
               },{
-                name: 'Graduation Year',
-                value: user.profile.graduationYear
+                name: 'Travels from Country',
+                value: user.profile.travelFromCountry
+              },{
+                name: 'Travels from City',
+                value: user.profile.travelFromCity
+              },{
+                name: 'Home Country',
+                value: user.profile.homeCountry
               },{
                 name: 'Description',
                 value: user.profile.description
               },{
                 name: 'Essay',
                 value: user.profile.essay
+              },{
+                name: 'Special Needs',
+                value: user.profile.specialNeeds || 'None'
+              },{
+                name: 'Needs Travel Reimbursement',
+                value: user.profile.needsReimbursement,
+                type: 'boolean'
+              },{
+                name: 'Needs Accommodation',
+                value: user.profile.applyAccommodation,
+                type: 'boolean'
+              },{
+                name: 'Most interesting track',
+                value: user.profile.mostInterestingTrack
+              },{
+                name: 'Occupational status',
+                value: user.profile.occupationalStatus.join(', ')
+              },{
+                name: 'Best tools',
+                value: user.profile.bestTools.join(', ')
+              },{
+                name: 'Coding experience',
+                value: user.profile.codingExperience
+              },{
+                name: 'Hackathons visited',
+                value: user.profile.howManyHackathons
+              },{
+                name: 'Portfolio',
+                value: user.profile.portfolio
+              },{
+                name: 'Previous Junctions',
+                value: user.profile.previousJunction.join(', ')
+              },{
+                name: 'Secret code',
+                value: user.profile.secret
+              },{
+                name: 'Free comment',
+                value: user.profile.freeComment
+              },{
+                name: 'OS',
+                value: user.profile.operatingSystem
+              },{
+                name: 'Spaces or Tabs',
+                value: user.profile.spacesOrTabs
               }
             ]
           },{
             name: 'Confirmation',
             fields: [
               {
-                name: 'Phone Number',
-                value: user.confirmation.phone
-              },{
                 name: 'Dietary Restrictions',
                 value: user.confirmation.dietaryRestrictions.join(', ')
               },{
                 name: 'Shirt Size',
                 value: user.confirmation.shirtSize
-              },{
-                name: 'Major',
-                value: user.confirmation.major
-              },{
-                name: 'Github',
-                value: user.confirmation.github
-              },{
-                name: 'Website',
-                value: user.confirmation.website
               },{
                 name: 'Needs Hardware',
                 value: user.confirmation.needsHardware,
@@ -231,60 +286,8 @@ angular.module('reg')
               },{
                 name: 'Hardware Requested',
                 value: user.confirmation.hardware
-              }
-            ]
-          },{
-            name: 'Hosting',
-            fields: [
-              {
-                name: 'Needs Hosting Friday',
-                value: user.confirmation.hostNeededFri,
-                type: 'boolean'
               },{
-                name: 'Needs Hosting Saturday',
-                value: user.confirmation.hostNeededSat,
-                type: 'boolean'
-              },{
-                name: 'Gender Neutral',
-                value: user.confirmation.genderNeutral,
-                type: 'boolean'
-              },{
-                name: 'Cat Friendly',
-                value: user.confirmation.catFriendly,
-                type: 'boolean'
-              },{
-                name: 'Smoking Friendly',
-                value: user.confirmation.smokingFriendly,
-                type: 'boolean'
-              },{
-                name: 'Hosting Notes',
-                value: user.confirmation.hostNotes
-              }
-            ]
-          },{
-            name: 'Travel',
-            fields: [
-              {
-                name: 'Needs Reimbursement',
-                value: user.confirmation.needsReimbursement,
-                type: 'boolean'
-              },{
-                name: 'Received Reimbursement',
-                value: user.confirmation.needsReimbursement && user.status.reimbursementGiven
-              },{
-                name: 'Address',
-                value: user.confirmation.address ? [
-                  user.confirmation.address.line1,
-                  user.confirmation.address.line2,
-                  user.confirmation.address.city,
-                  ',',
-                  user.confirmation.address.state,
-                  user.confirmation.address.zip,
-                  ',',
-                  user.confirmation.address.country,
-                ].join(' ') : ''
-              },{
-                name: 'Additional Notes',
+                name: 'Additional notes',
                 value: user.confirmation.notes
               }
             ]
@@ -295,46 +298,3 @@ angular.module('reg')
       $scope.selectUser = selectUser;
 
     }]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
