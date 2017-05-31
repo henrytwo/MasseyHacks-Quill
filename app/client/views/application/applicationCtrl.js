@@ -23,7 +23,6 @@ angular.module('reg')
       $("#bestTools").dropdown('set selected', $scope.user.profile.bestTools);
       $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
 
-
       /**
        * TODO: JANK WARNING
        */
@@ -85,21 +84,48 @@ angular.module('reg')
                 }
               ]
             },
-            school: {
-              identifier: 'school',
+            age: {
+              identifier: 'age',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please enter your school name.'
+                  prompt: 'Please enter your age.'
                 }
               ]
             },
-            year: {
-              identifier: 'year',
+            travelFromCountry: {
+              identifier: 'travelFromCountry',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please select your graduation year.'
+                  prompt: 'Please select the country you are travelling from.'
+                }
+              ]
+            },
+            travelFromCity: {
+              identifier: 'travelFromCity',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select the city you are travelling from.'
+                }
+              ]
+            },
+            homeCountry: {
+              identifier: 'homeCountry',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your home country.'
+                }
+              ]
+            },
+            mostInterestingTrack: {
+              identifier: 'mostInterestingTrack',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select the most interesting track for you.'
                 }
               ]
             },
@@ -112,7 +138,7 @@ angular.module('reg')
                 }
               ]
             },
-            adult: {
+            conduct: {
               identifier: 'conduct',
               rules: [
                 {

@@ -25,6 +25,11 @@ var profile = {
     max: 20,
   },
 
+  specialNeeds: {
+    type: String,
+    max: 500,
+  },
+
   travelFromCountry: {
     type: String,
     min: 4,
@@ -61,7 +66,6 @@ var profile = {
     max: 1500
   },
 
-  // Optional info for demographics
   gender: {
     type: String,
     enum : {
