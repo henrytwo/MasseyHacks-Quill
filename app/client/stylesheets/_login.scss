@@ -1,6 +1,7 @@
 #login {
   height: 100%;
   width: 100%;
+  background: url('../assets/images/loginbg1.jpg');
   background-color: #232323;
   background-size: cover;
   .footer {
@@ -42,7 +43,7 @@
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    
+
 
     > .content {
       max-width: 320px;
@@ -72,6 +73,6 @@
       }
 
     }
-  } 
+  }
 
 }
