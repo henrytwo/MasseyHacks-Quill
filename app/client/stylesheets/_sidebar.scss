@@ -35,7 +35,7 @@
 
     &.logo {
       opacity: 1;
-      padding: 30px;
+      padding: 34px;
     }
 
   }
@@ -93,7 +93,6 @@
         // Hack to get the X lined up
         line-height: $sidebar-tab-size;
         text-align: center;
-        padding: 0;
       }
     }
     // When the tab is closed.
