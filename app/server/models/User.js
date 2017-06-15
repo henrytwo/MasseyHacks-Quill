@@ -19,12 +19,6 @@ var profile = {
     max: 65,
   },
 
-  phone: {
-    type: String,
-    min: 6,
-    max: 20,
-  },
-
   specialNeeds: {
     type: String,
     max: 500,
@@ -105,6 +99,8 @@ var profile = {
     }
   },
 
+  jobOpportunities: String,
+
   howManyHackathons: {
     type: String,
     enum : {
@@ -153,6 +149,11 @@ var confirmation = {
   wantsHardware: Boolean,
   hardware: String,
   notes: String,
+  phone: {
+    type: String,
+    min: 6,
+    max: 20,
+  },
 };
 
 var status = {

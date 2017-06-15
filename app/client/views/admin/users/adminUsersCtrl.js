@@ -205,7 +205,7 @@ angular.module('reg')
                 value: user.profile.gender
               },{
                 name: 'Phone',
-                value: user.profile.phone
+                value: user.confirmation.phone
               },{
                 name: 'School',
                 value: user.profile.school
@@ -259,6 +259,9 @@ angular.module('reg')
               },{
                 name: 'Secret code',
                 value: user.profile.secret
+              },{
+                name: 'Interest in job opportunities',
+                value: user.profile.jobOpportunities
               },{
                 name: 'Free comment',
                 value: user.profile.freeComment

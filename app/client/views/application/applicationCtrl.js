@@ -10,6 +10,8 @@ angular.module('reg')
     'UserService',
     function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService){
 
+      $scope.isDisabled = false;
+
       // Set up the user
       $scope.user = currentUser.data;
       // Populate the school dropdown
@@ -19,6 +21,8 @@ angular.module('reg')
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
 
       // Set selected multiselect items
+      $("#homeCountry").dropdown('set selected', $scope.user.profile.homeCountry);
+      $("#travelFromCountry").dropdown('set selected', $scope.user.profile.travelFromCountry);
       $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
       $("#bestTools").dropdown('set selected', $scope.user.profile.bestTools);
       $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
