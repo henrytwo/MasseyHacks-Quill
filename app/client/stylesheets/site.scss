@@ -79,8 +79,10 @@ body {
  * Semantic-UI Overrides for squareishness
  */
 .ui.segment {
-  border-radius: 0;
+  border-radius: 5px;
   box-shadow: none;
+  background-color: $secondary;
+  opacity: 0.95;
 }
 input {
   border-radius: 0 !important;
@@ -125,6 +127,7 @@ fieldset {
 }
 
 a {
-  color: $accent2;
+  color: $accent1;
 }
+
 // @import 'animation';

@@ -1,12 +1,13 @@
 <div id="login">
-  <div class="container">
-      <h2 class="welcome-text">Sign up to Junction platform and apply to Junction 2017!</h2>
-
-    <div class="content">
-      <div class="ui segment">
-
+  <div class="row">
+    <div class="col-6 quotes">
+      <p>"PUZZLEBURGER!! I JUST CAME!!"</p>
+      <p>- Jingwei Liu</p>
+    </div>
+    <div class="col-6 form-padding">
+      <div class="ui segment form">
         <div class="logo">
-          <img src="assets/images/logo_main_black.svg">
+          <img src="assets/images/junction_logo_black.png">
         </div>
 
         <div class="ui divider"></div>
@@ -22,14 +23,14 @@
           <div class="ui login-password form">
             <form ng-submit="login()">
               <div class="field">
-                <label> Email</label>
+                <label class="field-title"> EMAIL</label>
                 <input type="email"
                        id='email'
                        placeholder="foo@bar.edu"
                        ng-model="email">
               </div>
               <div class="field">
-                <label> Password</label>
+                <label class="field-title"> PASSWORD</label>
                 <input type="password"
                        id='password'
                        placeholder="Password (at least 6 characters)"
@@ -64,28 +65,28 @@
           <div class="ui login-password form">
             <form ng-submit="register()">
               <div class="field">
-                <label> Email</label>
+                <label class="field-title"> EMAIL</label>
                 <input type="email"
                        id='email'
                        placeholder="foo@bar.edu"
                        ng-model="email">
               </div>
               <div class="field">
-                <label> Password</label>
+                <label class="field-title"> PASSWORD</label>
                 <input type="password"
                        id='password'
                        placeholder="Password (at least 6 characters)"
                        ng-model="password" required>
               </div>
               <div class="field">
-                <label> Repeat Password</label>
+                <label class="field-title"> REPEAT PASSWORD</label>
                 <input type="password"
                        id='password_repeat'
                        placeholder="Enter password again"
                        ng-model="password_repeat" required>
               </div>
               <div class="field">
-                <label> What should we call you?</label>
+                <label class="field-title"> WHAT SHOULD WE CALL YOU?</label>
                 <input type="text"
                        id='nickname'
                        placeholder="Cunt"
@@ -149,12 +150,11 @@
           </div>
       </div>
     </div>
-
   </div>
 
-  <footer class="footer">&#9400; Junction 2017<br>
+  <footer class="footer">
+    <span class="footer-text">&#9400; Junction 2017</span>
     <a href="http://www.freeprivacypolicy.com/" class="footer-link">Privacy Policy</a>
-    <span>&nbsp;|&nbsp;</span>
     <a href="http://www.freeprivacypolicy.com/" class="footer-link">Code of Conduct</a>
-  </footer>
+</footer>
 </div>
