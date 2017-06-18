@@ -1,3 +1,5 @@
+var quotes;
+
 angular.module('reg')
   .controller('LoginCtrl', [
     '$scope',
@@ -60,3 +62,13 @@ angular.module('reg')
 
     }
   ]);
+  $.getJSON('../assets/quotes.json').done(function(data){
+        quotes = data;
+  });
+  function randomQuote(){
+    var keys = Object.keys(quotes)
+    var randomKey = keys[Math.floor(Math.random() * keys.length)];
+    var ranQuote = quotes[randomKey].quote;
+    document.getElementById("quote").innerHTML = "<p>" + ranQuote + "</p>"
+  }
+  window.onload = randomQuote;
