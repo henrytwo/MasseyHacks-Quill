@@ -1,10 +1,12 @@
 #login {
   height: 100%;
   width: 100%;
-  background: url('../assets/images/loginbg.png');
-  background-attachment: fixed;
-  background-color: #232323;
+  background: url('../assets/images/loginbg.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
+  background-color: #232323;
 
   .footer {
     position: fixed;
@@ -33,11 +35,6 @@
     color: #5abecf;
   }
 
-
-  .form {
-    max-width: 450px;
-    margin: auto;
-  }
   .logo {
     max-width: 391px;
     margin: 1rem auto 1rem auto;
@@ -64,38 +61,42 @@
   .field-title{
     color: $primary;
   }
-  .quotes{
-    padding-top: 10%;
-    padding-bottom: 10%;
-    text-align: center;
 
+  .form {
+    padding-top: 30px;
+    max-width: 450px;
+    margin: auto;
+    vertical-align: middle;
+  }
+
+  .quotes{
+    text-align: center;
+    text-shadow: -0.5px 0 black, 0 .5px black, .5px 0 black, 0 -1px black;
     font-size: 35px;
     font-family: Montserrat;
     color: $secondary;
+    vertical-align: middle;
   }
 
 }
-.col-1 {width: 8.33%;}
-.col-2 {width: 16.66%;}
-.col-3 {width: 25%;}
-.col-4 {width: 33.33%;}
-.col-5 {width: 41.66%;}
-.col-6 {width: 50%;}
-.col-7 {width: 58.33%;}
-.col-8 {width: 66.66%;}
-.col-9 {width: 75%;}
-.col-10 {width: 83.33%;}
-.col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+.row{
+  height: 100%;
+}
+.col-left {width: 50%;}
+.col-right {width: 50%;}
 
 [class*="col-"] {
     float: left;
     padding: 20px;
+    border: 5px solid red;
     height: 100%;
 }
 @media only screen and (max-width: 900px) {
     /* For mobile phones: */
     [class*="col-"] {
         width: 100%;
+    }
+    .quotes{
+      color: $primary;
     }
 }
