@@ -49,8 +49,15 @@
     &.login {
       background: $primary;
     }
+    &.login:focus, &.login:hover{
+      background: darken($primary, 20%);
+    }
+
     &.register {
       background: $register-color;
+    }
+    &.register:focus, &.register:hover{
+      background: darken($register-color, 20%);
     }
 
   }
@@ -78,6 +85,7 @@
 }
 .row{
   height: 100%;
+  width: 100%;
   display: table;
 }
 .col-left {
@@ -94,7 +102,7 @@
   display: table-cell;
   vertical-align: middle;
 }
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 790px) {
     /* For mobile phones: */
     .col-right{
         width: 100%;
