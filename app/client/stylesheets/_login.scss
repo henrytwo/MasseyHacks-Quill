@@ -63,10 +63,8 @@
   }
 
   .form {
-    padding-top: 30px;
     max-width: 450px;
     margin: auto;
-    vertical-align: middle;
   }
 
   .quotes{
@@ -75,28 +73,33 @@
     font-size: 35px;
     font-family: Montserrat;
     color: $secondary;
-    vertical-align: middle;
   }
 
 }
 .row{
   height: 100%;
+  display: table;
 }
-.col-left {width: 50%;}
-.col-right {width: 50%;}
-
-[class*="col-"] {
-    float: left;
-    padding: 20px;
-    border: 5px solid red;
-    height: 100%;
+.col-left {
+  width: 50%;
+  height: 100%;
+  padding: 40px;
+  display: table-cell;
+  vertical-align: middle;
+}
+.col-right {
+  width: 50%;
+  height: 100%;
+  padding: 20px;
+  display: table-cell;
+  vertical-align: middle;
 }
 @media only screen and (max-width: 900px) {
     /* For mobile phones: */
-    [class*="col-"] {
+    .col-right{
         width: 100%;
     }
-    .quotes{
-      color: $primary;
+    .col-left{
+      display: none;
     }
 }
