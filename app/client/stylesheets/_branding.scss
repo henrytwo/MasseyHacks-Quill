@@ -1,7 +1,7 @@
 /** BRANDING COLORS
- * primary (default pink): sidebar color, admitted dashboard status
- * secondary (default purple): header text, submitted/confirmed/checked-in dashboard status
- * tertiary (default blue): waitlist/declined dashboard status
+ * primary (Raisin black): sidebar color..
+ * secondary (Snow): some backgrounds/titles etc.
+ * accent1-3: the 3 accent colors
  */
 
 $primary: #232323;
@@ -10,9 +10,3 @@ $tertiary: #5ABECF;
 $accent1: #5ABECF;
 $accent2: #EF4637;
 $accent3: #EC008B;
-
-/** ASSET URLS
- * login-bg: image for login splash page
- */
-
-$login-bg: url('https://s3.amazonaws.com/hackmit-assets/tintedphoto_1920_1080_low.jpg');

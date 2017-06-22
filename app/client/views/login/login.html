@@ -1,17 +1,11 @@
 <div id="login">
-  <div class="container">
-      <div ng-show="loginState === 'login'">
-      	<h2 class="welcome-text">Sign up to Junction platform and apply to Junction 2017!</h2>
-      </div>
-      <div ng-show="loginState === 'register'">
-      	<h2 class="welcome-text">Your Junction journey begins here, it's gonna be f**king dynamite!</h2>
-      </div>
-
-    <div class="content">
-      <div class="ui segment">
-
+  <div class="row">
+    <div id="quote" class="col-left quotes">
+    </div>
+    <div class="col-right form-padding">
+      <div class="ui segment form">
         <div class="logo">
-          <img src="assets/images/logo_main_black.svg">
+          <img onclick="randomQuote()" src="assets/images/junction_logo_black.png">
         </div>
 
         <div class="ui divider"></div>
@@ -27,14 +21,14 @@
           <div class="ui login-password form">
             <form ng-submit="login()">
               <div class="field">
-                <label> Email</label>
+                <label class="field-title"> EMAIL</label>
                 <input type="email"
                        id='email'
                        placeholder="hacker@hackjunction.com"
                        ng-model="email">
               </div>
               <div class="field">
-                <label> Password</label>
+                <label class="field-title"> PASSWORD</label>
                 <input type="password"
                        id='password'
                        placeholder="Password (at least 6 characters)"
@@ -69,31 +63,31 @@
           <div class="ui login-password form">
             <form ng-submit="register()">
               <div class="field">
-                <label> Email</label>
+                <label class="field-title"> EMAIL</label>
                 <input type="email"
                        id='email'
                        placeholder="hacker@hackjunction.com"
                        ng-model="email">
               </div>
               <div class="field">
-                <label> Password</label>
+                <label class="field-title"> PASSWORD</label>
                 <input type="password"
                        id='password'
                        placeholder="Password (at least 6 characters)"
                        ng-model="password" required>
               </div>
               <div class="field">
-                <label> Repeat Password</label>
+                <label class="field-title"> REPEAT PASSWORD</label>
                 <input type="password"
                        id='password_repeat'
                        placeholder="Enter password again"
                        ng-model="password_repeat" required>
               </div>
               <div class="field">
-                <label> What should we call you?</label>
+                <label class="field-title"> WHAT SHOULD WE CALL YOU?</label>
                 <input type="text"
                        id='nickname'
-                       placeholder="Hacker"
+                       placeholder="Cunt"
                        ng-model="nickname" required>
               </div>
 
@@ -154,12 +148,11 @@
           </div>
       </div>
     </div>
-
   </div>
 
-  <footer class="footer">&#9400; Junction 2017<br>
+  <footer class="footer">
+    <span class="footer-text">&#9400; Junction 2017</span>
     <a href="http://www.freeprivacypolicy.com/" class="footer-link">Privacy Policy</a>
-    <span>&nbsp;|&nbsp;</span>
     <a href="http://www.freeprivacypolicy.com/" class="footer-link">Code of Conduct</a>
-  </footer>
+</footer>
 </div>

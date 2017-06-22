@@ -109,6 +109,26 @@ angular.module('reg')
           requireAdmin: true
         }
       })
+
+
+      .state('app.reimbursement', {
+        url: "/travelreimbursement",
+        templateUrl: "views/reimbursement/reimbursement.html",
+        controller: 'ReimbursementCtrl',
+        data: {
+          requireVerified: false
+        },
+        resolve: {
+          currentUser: function(UserService){
+            return UserService.getCurrentUser();
+          },
+          settings: function(SettingsService){
+            return SettingsService.getPublicSettings();
+          }
+        }
+      })
+
+      
       .state('app.admin.stats', {
         url: "/admin",
         templateUrl: "views/admin/stats/stats.html",
