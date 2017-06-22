@@ -576,6 +576,7 @@
           <label>Gender *</label>
           <select
             class="ui fluid dropdown"
+            id="gender"
             name="gender"
             ng-model="user.profile.gender">
             <option value="">Gender</option>
@@ -617,6 +618,7 @@
           <select
             class="ui fluid dropdown"
             name="mostInterestingTrack"
+            id="mostInterestingTrack"
             ng-model="user.profile.mostInterestingTrack">
             <option value="">Choose a track</option>
             <option value="Gaming">Gaming</option>
@@ -697,8 +699,9 @@
           <label>How many years of coding experience do you have?</label>
           <select
             class="ui fluid dropdown"
-            name="howManyHackathons"
-            ng-model="user.profile.howManyHackathons">
+            name="codingExperience"
+            id="codingExperience"
+            ng-model="user.profile.codingExperience">
             <option value="">Coding experience</option>
             <option value="None">None</option>
             <option value="1">< 1 Years</option>
@@ -713,8 +716,9 @@
           <label>How many hackathons have you attended?</label>
           <select
             class="ui fluid dropdown"
-            name="codingExperience"
-            ng-model="user.profile.codingExperience">
+            name="howManyHackathons"
+            id="howManyHackathons"
+            ng-model="user.profile.howManyHackathons">
             <option value="">Hackathon experience</option>
             <option value="None">None</option>
             <option value="1">1</option>
@@ -729,6 +733,7 @@
           <select
             class="ui fluid dropdown"
             name="description"
+            id="description"
             ng-model="user.profile.description">
             <option value="">Role</option>
             <option value="Frontend Developer">Frontend Developer</option>
@@ -772,6 +777,7 @@
           <select
             class="ui fluid dropdown"
             name="jobOpportunities"
+            id="jobOpportunities"
             ng-model="user.profile.jobOpportunities">
             <option value=""> Choose one </option>
             <option value="Actively Looking">I am actively looking for new job opportunities</option>
@@ -786,6 +792,7 @@
           <select
             class="ui fluid dropdown"
             name="operatingSystem"
+            id="operatingSystem"
             ng-model="user.profile.operatingSystem">
             <option value="">Operating System</option>
             <option value="lol">asdf</option>
@@ -799,6 +806,7 @@
           <select
             class="ui fluid dropdown"
             name="spacesOrTabs"
+            id="spacesOrTabs"
             ng-model="user.profile.spacesOrTabs">
             <option value="">Choose wisely</option>
             <option value="Spaces">Spaces</option>

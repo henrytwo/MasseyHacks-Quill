@@ -21,6 +21,14 @@ angular.module('reg')
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
 
       // Set selected multiselect items
+      $("#spacesOrTabs").dropdown('set selected', $scope.user.profile.spacesOrTabs);
+      $("#operatingSystem").dropdown('set selected', $scope.user.profile.operatingSystem);
+      $("#jobOpportunities").dropdown('set selected', $scope.user.profile.jobOpportunities);
+      $("#description").dropdown('set selected', $scope.user.profile.description);
+      $("#howManyHackathons").dropdown('set selected', $scope.user.profile.howManyHackathons);
+      $("#codingExperience").dropdown('set selected', $scope.user.profile.codingExperience);
+      $("#mostInterestingTrack").dropdown('set selected', $scope.user.profile.mostInterestingTrack);
+      $("#gender").dropdown('set selected', $scope.user.profile.gender);
       $("#homeCountry").dropdown('set selected', $scope.user.profile.homeCountry);
       $("#travelFromCountry").dropdown('set selected', $scope.user.profile.travelFromCountry);
       $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
