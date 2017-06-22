@@ -150,6 +150,15 @@ angular.module('reg')
                   prompt: 'You must accept MLH code of conduct to continue.'
                 }
               ]
+            },
+            termsAndCond: {
+              identifier: 'termsAndCond',
+              rules: [
+                {
+                  type: 'checked',
+                  prompt: 'You must accept Junction Terms & Conditions.'
+                }
+              ]
             }
           }
         });
