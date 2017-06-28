@@ -8,6 +8,10 @@
   background-size: cover;
   background-color: #232323;
 
+  .hidden {
+    display: none
+  }
+
   .footer {
     position: fixed;
     bottom: 0;
@@ -80,6 +84,7 @@
     font-size: 35px;
     font-family: Montserrat;
     color: $secondary;
+    margin: auto;
   }
 
 }
