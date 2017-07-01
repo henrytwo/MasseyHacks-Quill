@@ -105,6 +105,10 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please enter your age.'
+                },
+                {
+                  type: 'integer[13..120]',
+                  prompt: 'You must be at least 13 to attend.'
                 }
               ]
             },
@@ -174,13 +178,10 @@ angular.module('reg')
           },
           onSuccess: function(event, fields){
             _updateUser();
-            console.log("on success");
-            console.log(fields);
           },
           onFailure: function(formErrors, fields){
             $scope.fieldErrors = formErrors;
-            $scope.error = 'There were errors in your application. \
-                            Please check that you filled all required fields.';
+            $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
           }
         });
       }
