@@ -29,6 +29,15 @@
         </div>
 
         <div class="field">
+          <label> Nickname </label>
+          <input type="text"
+                 name="nickname"
+                 disabled="disabled"
+                 ng-model="user.nickname">
+        </div>
+
+
+        <div class="field">
           <label> Full Name * </label>
           <input type="text"
                  name="name"
@@ -38,6 +47,7 @@
         <div class="field">
           <label> Age *</label>
           <input type="number"
+                 min="0"
                  name="age"
                  ng-model="user.profile.age">
         </div>
@@ -566,14 +576,17 @@
         </div>
 
         <div class="field">
-          <label> School </label>
+          <label> Which school are you from? </label>
+          <p style="margin-bottom: 10px;">
+          This should be the school you'll be enrolled in for the 2017-2018 academic year.
+          </p>
           <input class="ui input"
                  name="school"
                  ng-model="user.profile.school">
         </div>
 
         <div class="field">
-          <label>Gender *</label>
+          <label>What gender do you identify as? *</label>
           <select
             class="ui fluid dropdown"
             id="gender"
@@ -588,14 +601,12 @@
         </div>
 
         <div class="field">
-          <label> Do you have any special needs or disabilities we should know about? </label>
-          <input type="text"
-                 name="specialNeeds"
-                 ng-model="user.profile.specialNeeds">
-        </div>
+          <label> Do you need travel reimbursements or free accommodation? </label>
+          <p style="margin-bottom: 10px;">
+            For travel inside Finland, you can apply for reimbursement of 20€.
+            Travelling from Nordics, Baltics or Russia, the reimbursement is 50€. Inside EU, 75€. Outside Europe, 150€.
+          </p>
 
-        <div class="field">
-          <label> Do you need travel reimbursements or free accommodation? Find more info here (ja linkki tähän) </label>
         </div>
         <div class="ui checkbox">
           <input type="checkbox" id="needsReimbursement" ng-model="user.profile.needsReimbursement">
@@ -635,7 +646,7 @@
           </label>
           <input type="text"
                  name="teamCode"
-                 placeholder="Team Name"
+                 placeholder="Bigas Piratica"
                  ng-model="user.teamCode">
         </div>
 
@@ -649,15 +660,13 @@
         </div>
 
         <div class="field">
-          <label>I would describe myself as a... </label>
+          <label>Which of the following choices describes your occupational status the best? You can select max. 2 options </label>
           <select multiple="multiple"
             class="ui multiple dropdown selection"
             limit="2"
             name="occupationalStatus"
             id="occupationalStatus"
-            ng-model="user.profile.occupationalStatus"
-            disabled="isDisabled"
-            >
+            ng-model="user.profile.occupationalStatus">
             <option value="">Choose all that apply</option>
             <option value="Student">Student</option>
             <option value="Full-Stack Web Developer">Full-Stack Web Developer</option>
@@ -690,9 +699,32 @@
             id="bestTools"
             ng-model="user.profile.bestTools">
             <option value="">Choose your best tools</option>
-            <option value="Student">Student</option>
+            <option value="Assembly">Assembly</option>
+            <option value="Java">Java</option>
+            <option value="C">C</option>
+            <option value="C++">C++</option>
+            <option value="C#">C#</option>
+            <option value="Objective-C">Objective-C</option>
+            <option value="PHP">PHP</option>
+            <option value="Python">Python</option>
+            <option value="Ruby">Ruby</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="SQL">SQL</option>
+            <option value="Perl">Perl</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="Swift">Swift</option>
+            <option value="Scala">Scala</option>
+            <option value="Go">Go</option>
+            <option value="R">R</option>
+            <option value="Matlab">Matlab</option>
+            <option value="Haskell">Haskell</option>
+            <option value="Clojure">Clojure</option>
+            <option value="Bash">Bash</option>
             <option value="Other">Other</option>
-          </select>
+            <option value="PowerPoint">PowerPoint</option>
+            <option value="Excel">Excel</option>
+            <option value="None of the above">None of the above</option>          </select>
         </div>
 
         <div class="field">
@@ -738,8 +770,18 @@
             <option value="">Role</option>
             <option value="Frontend Developer">Frontend Developer</option>
             <option value="Backend Developer">Backend Developer</option>
-            <option value="asdf">Kirjotan loppuun joskus myöhemmin</option>
-          </select>
+            <option value="Full-Stack Developer">Full-Stack Developer</option>
+            <option value="Designer">Designer</option>
+            <option value="Ideation">Ideation</option>
+            <option value="Business Development">Business Development</option>
+            <option value="Product Development">Product Development</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Buzzing around">Buzzing around</option>
+            <option value="Moral support">Moral support</option>
+            <option value="I do everything">I do everything</option>
+            <option value="I work without a team">I work without a team</option>
+            <option value="Something else">Something else</option>          </select>
         </div>
 
         <div class="field">
@@ -770,7 +812,12 @@
 
         <br><br>
         <div class="divided title">Final questions</div>
-
+        <div class="field">
+          <label> Do you have any special needs or disabilities we should know about? </label>
+          <input type="text"
+                 name="specialNeeds"
+                 ng-model="user.profile.specialNeeds">
+        </div>
 
         <div class="field">
           <label> Are you interested in job opportunities? </label>
