@@ -152,7 +152,7 @@ var confirmation = {
   notes: String,
   phone: {
     type: String,
-    min: 6,
+    min: 0,
     max: 20,
   },
 };
