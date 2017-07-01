@@ -55,14 +55,16 @@ angular.module('reg')
 
       function _updateUser(e){
         // Update user teamCode
-        UserService
-          .joinOrCreateTeam($scope.user.teamCode)
-          .success(function(user){
-            console.log('Successfully updated teamCode')
-          })
-          .error(function(res){
-            console.log("Failed to update teamCode");
-          });
+        if ($scope.user.teamCode) {
+          UserService
+            .joinOrCreateTeam($scope.user.teamCode)
+            .success(function(user){
+              console.log('Successfully updated teamCode')
+            })
+            .error(function(res){
+              console.log("Failed to update teamCode");
+            });
+          }
 
 
         // Update user profile
@@ -86,6 +88,7 @@ angular.module('reg')
       function _setupForm(){
         // Semantic-UI form validation
         $('.ui.form').form({
+          inline:true,
           fields: {
             name: {
               identifier: 'name',
@@ -168,16 +171,24 @@ angular.module('reg')
                 }
               ]
             }
+          },
+          onSuccess: function(event, fields){
+            _updateUser();
+            console.log("on success");
+            console.log(fields);
+          },
+          onFailure: function(formErrors, fields){
+            $scope.fieldErrors = formErrors;
+            $scope.error = 'There were errors in your application. \
+                            Please check that you filled all required fields.';
           }
         });
       }
 
-
-
       $scope.submitForm = function(){
-        if ($('.ui.form').form('is valid')){
-          _updateUser();
-        }
+        $scope.fieldErrors = null;
+        $scope.error = null;
+        $('.ui.form').form('validate form');
       };
 
     }]);

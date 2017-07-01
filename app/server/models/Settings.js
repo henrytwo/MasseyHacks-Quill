@@ -37,6 +37,10 @@ var schema = new mongoose.Schema({
   confirmationText: {
     type: String
   },
+  schools: {
+    type: [String],
+    default: ['Aalto University', 'Turku University']
+  }
 });
 
 /**
