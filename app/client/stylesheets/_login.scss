@@ -8,6 +8,10 @@
   background-size: cover;
   background-color: #232323;
 
+  .hidden {
+    display: none
+  }
+
   .footer {
     position: fixed;
     bottom: 0;
@@ -77,9 +81,10 @@
   .quotes{
     text-align: center;
     text-shadow: -0.5px 0 black, 0 .5px black, .5px 0 black, 0 -1px black;
-    font-size: 35px;
-    font-family: Montserrat;
+    font-size: 40px;
+    font-family: Lato;
     color: $secondary;
+    margin: auto;
   }
 
 }

@@ -89,20 +89,20 @@
           <p>
             {{ DASHBOARD.SUBMITTED }}
           </p>
-          <div class="ui purple button"
+          <div class="ui teal button"
                ui-sref="app.application">
             Edit your application
           </div>
 
           <div
-            class="ui pink button"
+            class="ui teal button"
             ng-show="!user.teamCode"
             ui-sref="app.team">
             Create or join a team
           </div>
 
           <div
-            class="ui pink button"
+            class="ui teal button"
             ng-show="user.teamCode"
             ui-sref="app.team">
             View your Team
@@ -165,12 +165,12 @@
             </h4>
           </div>
 
-          <div class="ui purple button"
+          <div class="ui teal button"
                ui-sref="app.confirmation">
             Confirm your spot
           </div>
 
-          <div class="ui red button"
+          <div class="ui vermilion button"
                ng-click="declineAdmission()">
             Sorry, I can't make it
           </div>

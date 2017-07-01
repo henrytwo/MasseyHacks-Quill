@@ -1,6 +1,8 @@
 <div id="login">
+  <script>fdIn()</script>
   <div class="row">
     <div id="quote" class="col-left quotes">
+      <script>randomQuote()</script>
     </div>
     <div class="col-right form-padding">
       <div class="ui segment form">
@@ -10,15 +12,15 @@
 
         <div class="ui divider"></div>
 
-        <div class="ui small error message"
-             ng-show="error">
-          {{error}}
-        </div>
 
 <!-- LOGIN FORM -->
 
         <div ng-show="loginState === 'login'">
           <div class="ui login-password form">
+            <div class="ui small negative message"
+                ng-show='error'>
+              {{error}}
+            </div>
             <form ng-submit="login()">
               <div class="field">
                 <label class="field-title"> EMAIL</label>
@@ -61,6 +63,10 @@
 
         <div ng-show="loginState === 'register'">
           <div class="ui login-password form">
+            <div class="ui small negative message"
+                ng-show='error'>
+              {{error}}
+            </div>
             <form ng-submit="register()">
               <div class="field">
                 <label class="field-title"> EMAIL</label>
@@ -87,7 +93,7 @@
                 <label class="field-title"> WHAT SHOULD WE CALL YOU?</label>
                 <input type="text"
                        id='nickname'
-                       placeholder="Cunt"
+                       placeholder="Hacker"
                        ng-model="nickname" required>
               </div>
 

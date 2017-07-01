@@ -96,10 +96,12 @@
             <th>School</th>
             <th>Grad</th>
             <th>V/S/A/C</th>
-            <th>Host</th>
             <th>$</th>
             <th></th>
             <th></th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Home Country</th>
           </tr>
         </thead>
         <tbody>
@@ -173,27 +175,6 @@
 
             </td>
 
-            <!-- Host -->
-            <td
-              class="collapsing">
-
-              <span ng-if="user.status.confirmed">
-                <i
-                  ng-if="user.confirmation.hostNeededFri"
-                  class="home icon">
-                </i>
-                <i
-                  ng-if="!user.confirmation.hostNeededFri && user.confirmation.hostNeededSat"
-                  class="no icon">
-                </i>
-                <i
-                  ng-if="user.confirmation.hostNeededSat"
-                  class="home icon">
-                </i>
-              </span>
-
-            </td>
-
             <td
               class="collapsing">
               <span ng-if="user.status.confirmed">
@@ -241,6 +222,9 @@
               </button>
 
             </td>
+            <td>{user.profile.travelFromCountry}</td>
+            <td>{user.profile.travelFromCity}</td>
+            <td>{user.profile.homeCountry}</td>
           </tr>
         </tbody>
       </table>
