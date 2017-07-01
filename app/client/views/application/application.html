@@ -9,6 +9,12 @@
     $('.ui.dropdown')
       .dropdown();
 
+    // Max selections for occupationalStatus
+    $('.ui.normal.dropdown')
+      .dropdown({
+        maxSelections: 2
+      });
+
   </script>
 
   <div class="ui stackable page grid">
@@ -659,11 +665,11 @@
                  ng-model="user.profile.portfolio">
         </div>
 
+
         <div class="field">
           <label>Which of the following choices describes your occupational status the best? You can select max. 2 options </label>
           <select multiple="multiple"
-            class="ui multiple dropdown selection"
-            limit="2"
+            class="ui multiple normal selection dropdown"
             name="occupationalStatus"
             id="occupationalStatus"
             ng-model="user.profile.occupationalStatus">
