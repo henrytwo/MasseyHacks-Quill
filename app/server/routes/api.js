@@ -347,6 +347,11 @@ module.exports = function(router) {
     SettingsController.updateField('acceptanceText', text, defaultResponse(req, res));
   });
 
+  router.put('/settings/addschool', function(req, res){
+    var school = req.body.school;
+    SettingsController.addSchool(school, defaultResponse(req, res));
+  });
+
   /**
    * Update the confirmation text.
    * body: {

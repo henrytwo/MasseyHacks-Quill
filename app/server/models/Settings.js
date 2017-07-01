@@ -39,7 +39,7 @@ var schema = new mongoose.Schema({
   },
   schools: {
     type: [String],
-    default: ['Aalto University', 'Turku University']
+    default: ['Aalto-Yliopisto']
   }
 });
 
