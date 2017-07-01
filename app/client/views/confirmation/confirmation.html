@@ -132,7 +132,15 @@
             <textarea
               ng-model="user.confirmation.notes"></textarea>
           </div>
-
+          <div class="ui small negative message" 
+              ng-show='error'> 
+              {{error}} <br> 
+            <ul> 
+              <div data-ng-repeat="i in fieldErrors"> 
+                <li>{{ i }}</li> 
+              </div> 
+            </ul> 
+          </div> 
           <div class="field" ng-hide="regIsClosed">
             <button type="submit"
                     class="fluid ui teal button"
