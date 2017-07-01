@@ -93,12 +93,12 @@ UserController.loginWithPassword = function(email, password, callback){
       }
       if (!user) {
         return callback({
-          message: "We couldn't find you!"
+          message: "Incorrect username or password"
         });
       }
       if (!user.checkPassword(password)) {
         return callback({
-          message: "That's not the right password."
+          message: "Incorrect username or password"
         });
       }
 
@@ -122,7 +122,7 @@ UserController.loginWithPassword = function(email, password, callback){
 UserController.createUser = function(email, password, nickname, callback) {
   if (typeof email !== "string"){
     return callback({
-      message: "Email must be a string."
+      message: "Incorrect email format"
     });
   }
 

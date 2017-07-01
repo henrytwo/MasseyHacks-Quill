@@ -12,15 +12,15 @@
 
         <div class="ui divider"></div>
 
-        <div class="ui small error message"
-             ng-show="error">
-          {{error}}
-        </div>
 
 <!-- LOGIN FORM -->
 
         <div ng-show="loginState === 'login'">
           <div class="ui login-password form">
+            <div class="ui small negative message"
+                ng-show='error'>
+              {{error}}
+            </div>
             <form ng-submit="login()">
               <div class="field">
                 <label class="field-title"> EMAIL</label>
@@ -63,6 +63,10 @@
 
         <div ng-show="loginState === 'register'">
           <div class="ui login-password form">
+            <div class="ui small negative message"
+                ng-show='error'>
+              {{error}}
+            </div>
             <form ng-submit="register()">
               <div class="field">
                 <label class="field-title"> EMAIL</label>
