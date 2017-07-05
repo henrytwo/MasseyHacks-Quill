@@ -15,32 +15,37 @@ angular.module('reg')
       // Set up the user
       $scope.user = currentUser.data;
       // Populate the school dropdown
-      _setupForm();
 
+      _setupForm();
       checkSepa();
 
 
+      /**
+       * TODO: JANK WARNING
+       */
 
-      /*function ibanRule() {
-        var country = $('#countryOfB').val();
-        if(country == "Austria"){
-          console.log("TEST");
-          return 20;
-        }
-        else{
-          console.log("YO");
-          return 25;
-        }
-      }*/
 
-      function _updateReimbursement(e){
-        // Update user reimbursement
+      function _updateUser(e){
+        // Update user teamCode
+        if ($scope.user.teamCode) {
+          UserService
+            .joinOrCreateTeam($scope.user.teamCode)
+            .success(function(user){
+              console.log('Successfully updated teamCode')
+            })
+            .error(function(res){
+              console.log("Failed to update teamCode");
+            });
+          }
+
+
+        // Update user profile
         UserService
-          .updateReimbursement(Session.getUserId(), $scope.user.reimbursement)
+          .updateProfile(Session.getUserId(), $scope.user.profile)
           .success(function(data){
             sweetAlert({
               title: "Awesome!",
-              text: "Your travel reimbursement application has been saved.",
+              text: "Your application has been saved.",
               type: "success",
               confirmButtonColor: "#5ABECF"
             }, function(){
@@ -52,12 +57,168 @@ angular.module('reg')
           });
       }
 
+      function getIBANLength(){
+        var country = $('#countryOfB').val();
 
+
+        var ibanCountries = [
+          {
+            'country': 'Austria',
+            'ibanLength': '20'
+          },
+          {
+            'country': 'Belgium',
+            'ibanLength': '16'
+          },
+          {
+            'country': 'Bulgaria',
+            'ibanLength': '22'
+          },
+          {
+            'country': 'Croatia',
+            'ibanLength': '21'
+          },
+          {
+            'country': 'Cyprus',
+            'ibanLength': '28'
+          },
+          {
+            'country': 'Czech Republic',
+            'ibanLength': '24'
+          },
+          {
+            'country': 'Denmark',
+            'ibanLength': '18'
+          },
+          {
+            'country': 'Estonia',
+            'ibanLength': '20'
+          },
+          {
+            'country': 'Finland',
+            'ibanLength': '18'
+          },
+          {
+            'country': 'France',
+            'ibanLength': '27'
+          },
+          {
+            'country': 'Germany',
+            'ibanLength': '22'
+          },
+          {
+            'country': 'Gibraltar',
+            'ibanLength': '23'
+          },
+          {
+            'country': 'Greece',
+            'ibanLength': '27'
+          },
+          {
+            'country': 'Hungary',
+            'ibanLength': '28'
+          },
+          {
+            'country': 'Iceland',
+            'ibanLength': '26'
+          },
+          {
+            'country': 'Ireland',
+            'ibanLength': '22'
+          },
+          {
+            'country': 'Italy',
+            'ibanLength': '27'
+          },
+          {
+            'country': 'Latvia',
+            'ibanLength': '21'
+          },
+          {
+            'country': 'Liechtenstein',
+            'ibanLength': '21'
+          },
+          {
+            'country': 'Lithuania',
+            'ibanLength': '20'
+          },
+          {
+            'country': 'Luxembourg',
+            'ibanLength': '20'
+          },
+          {
+            'country': 'Malta',
+            'ibanLength': '31'
+          },
+          {
+            'country': 'Monaco',
+            'ibanLength': '27'
+          },
+          {
+            'country': 'Netherlands',
+            'ibanLength': '18'
+          },
+          {
+            'country': 'Norway',
+            'ibanLength': '15'
+          },
+          {
+            'country': 'Poland',
+            'ibanLength': '28'
+          },
+          {
+            'country': 'Portugal',
+            'ibanLength': '25'
+          },
+          {
+            'country': 'Romania',
+            'ibanLength': '24'
+          },
+          {
+            'country': 'San Marino',
+            'ibanLength': '27'
+          },
+          {
+            'country': 'Slovakia',
+            'ibanLength': '24'
+          },
+          {
+            'country': 'Slovenia',
+            'ibanLength': '19'
+          },
+          {
+            'country': 'Spain',
+            'ibanLength': '24'
+          },
+          {
+            'country': 'Sweden',
+            'ibanLength': '24'
+          },
+          {
+            'country': 'Switzerland',
+            'ibanLength': '21'
+          },
+          {
+            'country': 'United Kingdom',
+            'ibanLength': '22'
+          },
+        ]
+
+
+        var result = ibanCountries.filter(function(obj) {
+          return obj.country == country;
+        });
+
+        if(result.length > 0){
+          return result[0].ibanLength
+        }
+        return 30;
+
+      }
 
       function _setupForm(){
         // Semantic-UI form validation
-
-        var val = 20;
+        var val = getIBANLength();
         $('.ui.form').form({
           inline:true,
           fields: {
@@ -74,7 +235,7 @@ angular.module('reg')
               identifier: 'dateOfBirth',
               rules: [
                 {
-                  type: 'date',
+                  type: 'empty',
                   prompt: 'Please enter your date of birth.'
                 }
               ]
@@ -133,8 +294,8 @@ angular.module('reg')
                   prompt: 'Please enter your IBAN.'
                 },
                 {
-                  type: 'exactLength[20]',
-                  prompt: 'IT HAZ TO BE 20 LOONG BOI'
+                  type: 'exactLength[' + val + ']',
+                  prompt: 'Your IBAN has to be {ruleValue} long'
                 }
               ]
             },
@@ -191,46 +352,49 @@ angular.module('reg')
         $('.ui.form').form('validate form');
       };
 
-    }]);
+      function checkSepa(){
+        var SEPA = [
+          "Netherlands",
+          "Belgium",
+          "Bulgaria",
+          "Estonia",
+          "Spain",
+          "Ireland",
+          "Great Britain",
+          "Italy",
+          "Austria",
+          "Greece",
+          "Croatia",
+          "Cypros",
+          "Latvia",
+          "Lithuania",
+          "Luxembourg",
+          "Malta",
+          "Portugal",
+          "Poland",
+          "France",
+          "Romania",
+          "Sweden",
+          "Germany",
+          "Slovakia",
+          "Slovenia",
+          "Finland",
+          "Denmark",
+          "Czech Republic",
+          "Hungary",
+          "Iceland",
+          "Liechtenstein",
+          "Norway",
+          "Switzerland",
+        ]
+        $('#countryOfB').change(function() {
+            var check_sepa = SEPA.includes($('#countryOfB').val());
+            $('.notSepa').attr('disabled', check_sepa);
+            $('.sepa').attr('disabled', !check_sepa);
 
-    function checkSepa(){
-      var SEPA = [
-        "Netherlands",
-        "Belgium",
-        "Bulgaria",
-        "Estonia",
-        "Spain",
-        "Ireland",
-        "Great Britain",
-        "Italy",
-        "Austria",
-        "Greece",
-        "Croatia",
-        "Cypros",
-        "Latvia",
-        "Lithuania",
-        "Luxembourg",
-        "Malta",
-        "Portugal",
-        "Poland",
-        "France",
-        "Romania",
-        "Sweden",
-        "Germany",
-        "Slovakia",
-        "Slovenia",
-        "Finland",
-        "Denmark",
-        "Czech Republic",
-        "Hungary",
-        "Iceland",
-        "Liechtenstein",
-        "Norway",
-        "Switzerland",
-      ]
-      $('#countryOfB').change(function() {
-          var check_sepa = SEPA.includes($('#countryOfB').val());
-          $('.notSepa').attr('disabled', check_sepa);
-          $('.sepa').attr('disabled', !check_sepa);
-      });
-    }
+            $('.ui.form').form('destroy');
+            _setupForm();
+        });
+      }
+
+    }]);

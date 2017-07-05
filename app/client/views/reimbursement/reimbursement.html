@@ -26,15 +26,14 @@
           <input type="text"
 
                  name="fullName"
-                 disabled="disabled"
-                 ng-model="user.reimbursement.fullName">
+                 disabled="true"
+                 placeholder="{{user.profile.name}}">
         </div>
 
         <div class="field">
           <label> Date of Birth </label>
           <input type="date"
                  name="dateOfBirth"
-                 disabled="disabled"
                  ng-model="user.reimbursement.dateOfBirth">
         </div>
 
@@ -396,6 +395,17 @@
         </div>
 
         <br>
+        <br>
+        <div class="ui small negative message"
+            ng-show='error'>
+          {{error}} <br>
+          <ul>
+            <div data-ng-repeat="i in fieldErrors">
+              <li>{{ i }}</li>
+            </div>
+          </ul>
+        </div>
+
 
         <div class="field">
           <button type="submit"

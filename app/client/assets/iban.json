@@ -1,0 +1,142 @@
+[
+    {
+      "country": "Austria",
+      "ibanLength": 20,
+    },
+    {
+      "country": "Belgium",
+      "ibanLength": 16
+    },
+    {
+      "country": "Bulgaria",
+      "ibanLength": 22
+    },
+    {
+      "country": "Croatia",
+      "ibanLength": 21
+    },
+    {
+      "country": "Cyprus",
+      "ibanLength": 28
+    },
+    {
+      "country": "Czech Republic",
+      "ibanLength": 24
+    },
+    {
+      "country": "Denmark",
+      "ibanLength": 18
+    },
+    {
+      "country": "Estonia",
+      "ibanLength": 20
+    },
+    {
+      "country": "Finland",
+      "ibanLength": 18
+    },
+    {
+      "country": "France",
+      "ibanLength": 27
+    },
+    {
+      "country": "Germany",
+      "ibanLength": 22
+    },
+    {
+      "country": "Gibraltar",
+      "ibanLength": 23
+    },
+    {
+      "country": "Greece",
+      "ibanLength": 27
+    },
+    {
+      "country": "Hungary",
+      "ibanLength": 28
+    },
+    {
+      "country": "Iceland",
+      "ibanLength": 26
+    },
+    {
+      "country": "Ireland",
+      "ibanLength": 22
+    },
+    {
+      "country": "Italy",
+      "ibanLength": 27
+    },
+    {
+      "country": "Latvia",
+      "ibanLength": 21
+    },
+    {
+      "country": "Liechtenstein",
+      "ibanLength": 21
+    },
+    {
+      "country": "Lithuania",
+      "ibanLength": 20
+    },
+    {
+      "country": "Luxembourg",
+      "ibanLength": 20
+    },
+    {
+      "country": "Malta",
+      "ibanLength": 31
+    },
+    {
+      "country": "Monaco",
+      "ibanLength": 27
+    },
+    {
+      "country": "Netherlands",
+      "ibanLength": 18
+    },
+    {
+      "country": "Norway",
+      "ibanLength": 15
+    },
+    {
+      "country": "Poland",
+      "ibanLength": 28
+    },
+    {
+      "country": "Portugal",
+      "ibanLength": 25
+    },
+    {
+      "country": "Romania",
+      "ibanLength": 24
+    },
+    {
+      "country": "San Marino",
+      "ibanLength": 27
+    },
+    {
+      "country": "Slovakia",
+      "ibanLength": 24
+    },
+    {
+      "country": "Slovenia",
+      "ibanLength": 19
+    },
+    {
+      "country": "Spain",
+      "ibanLength": 24
+    },
+    {
+      "country": "Sweden",
+      "ibanLength": 24
+    },
+    {
+      "country": "Switzerland",
+      "ibanLength": 21
+    },
+    {
+      "country": "United Kingdom",
+      "ibanLength": 22
+    },
+]
