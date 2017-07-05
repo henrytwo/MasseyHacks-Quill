@@ -132,6 +132,10 @@ angular.module('reg')
                   type: 'empty',
                   prompt: 'Please enter your IBAN.'
                 },
+                {
+                  type: 'exactLength[20]',
+                  prompt: 'IT HAZ TO BE 20 LOONG BOI'
+                }
               ]
             },
             accountNumber: {
