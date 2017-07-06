@@ -285,6 +285,11 @@ var schema = new mongoose.Schema({
       ]
   },
 
+  id: {
+      type: String,
+      required: true,
+  },
+
   nickname: {
     type: String,
     min: 1,
