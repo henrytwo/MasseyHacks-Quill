@@ -162,6 +162,45 @@ angular.module('reg')
           .modal('show');
       }
 
+       $scope.exportCSV = function() {
+        UserService
+        .getAll()
+        .success(function(data){
+
+          var output = "";
+          var titles = generateSections(data[0]);
+           for(var i = 0; i < titles.length; i++){
+            for(var j = 0; j < titles[i].fields.length; j++){
+              output += titles[i].fields[j].name + ";";
+            }
+           }
+           output += "\n";
+           
+          for (var rows = 0; rows < data.length; rows++){
+            row = generateSections(data[rows]);
+            for (var i = 0; i < row.length; i++){
+              for(var j = 0; j < row[i].fields.length;j++){
+                if(!row[i].fields[j].value){
+                  output += ";";
+                  continue;
+                }
+                output += row[i].fields[j].value + ";";
+              }
+            }
+            output += "\n";
+          }
+          
+          var element = document.createElement('a');
+          element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
+          element.setAttribute('download', "base.csv");
+          element.style.display = 'none';
+          document.body.appendChild(element);
+          element.click();
+          document.body.removeChild(element);
+            
+          });
+      }
+
       function generateSections(user){
         console.log(user);
         return [
