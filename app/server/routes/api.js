@@ -175,6 +175,13 @@ module.exports = function(router) {
     UserController.updateConfirmationById(id, confirmation, defaultResponse(req, res));
   });
 
+  router.put('/users/:id/reimbursement', isOwnerOrAdmin, function(req, res){
+    var reimbursement = req.body.reimbursement;
+    var id = req.params.id;
+
+    UserController.updateReimbursementById(id, reimbursement, defaultResponse(req, res));
+  });
+
   /**
    * [OWNER/ADMIN]
    *

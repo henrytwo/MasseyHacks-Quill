@@ -185,6 +185,11 @@ var status = {
     required: true,
     default: false,
   },
+  reimbursementApplied: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   declined: {
     type: Boolean,
     required: true,
@@ -207,10 +212,6 @@ var status = {
   }
 };
 var reimbursement = {
-   fullName: {
-     type: String,
-     max: 60
-   },
    dateOfBirth: {
      type: Date
    },
@@ -226,52 +227,49 @@ var reimbursement = {
      type: String,
      max: 20
    },
-   bankInformation: {
-     countryOfBank: {
-       type: String,
-       max: 30
-     },
-     nameOfBank: {
-       type: String,
-       max: 60
-     },
-     address: {
-       type: String,
-       default: '',
-       max: 50
-     },
-     zipCode: {
-       type: String,
-       default: '',
-       max: 10
-     },
-     iban: {
-       type: String,
-       default: '',
-       max: 32
-     },
-     accountNumber: {
-       type: String,
-       default: '',
-       max: 30
-     },
-     swiftOrBicOrClearingCode: {
-       type: String,
-       default: '',
-       max: 11
-     },
-     brokerageInfo: {
-       type: String,
-       default: '',
-       max: 50
+   countryOfBank: {
+     type: String,
+     max: 30
+   },
+   nameOfBank: {
+     type: String,
+     max: 60
+   },
+   addressOfBank: {
+     type: String,
+     default: '',
+     max: 50
+   },
+   zipCode: {
+     type: String,
+     default: '',
+     max: 10
+   },
+   iban: {
+     type: String,
+     default: '',
+     max: 32
+   },
+   accountNumber: {
+     type: String,
+     default: '',
+     max: 30
+   },
+   swiftOrBicOrClearingCode: {
+     type: String,
+     default: '',
+     max: 11
+   },
+   brokerageInfo: {
+     type: String,
+     default: '',
+     max: 50
 
-     },
-     additional: {
-       type: String,
-       default: '',
-       max: 200
-     },
-
+   },
+   additional: {
+     type: String,
+     default: '',
+     max: 200
    }
 };
 // define the schema for our admin model

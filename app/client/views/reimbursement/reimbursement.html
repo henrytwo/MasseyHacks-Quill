@@ -52,6 +52,13 @@
         </div>
 
         <div class="field">
+          <label> State / Province / Region </label>
+          <input type="text"
+                 name="stateProvinceRegion"
+                 ng-model="user.reimbursement.stateProvinceRegion">
+        </div>
+
+        <div class="field">
           <label>Country</label>
           <input type="text"
                  name="country"
@@ -67,7 +74,7 @@
           <select class="ui fluid search selection dropdown"
                  name="countryOfBank"
                  id="countryOfB"
-                 ng-model="user.reimbursement.bankInformation.countryOfBank">
+                 ng-model="user.reimbursement.countryOfBank">
            <option value="">Country...</option>
            <option value="Afganistan">Afghanistan</option>
            <option value="Albania">Albania</option>
@@ -323,50 +330,50 @@
           <label>Name of the bank</label>
           <input type="text"
                  name="nameOfBank"
-                 ng-model="user.reimbursement.bankInformation.nameOfBank">
+                 ng-model="user.reimbursement.nameOfBank">
         </div>
 
         <div class="field">
           <label>SWIFT / BIC / Clearing code</label>
           <input type="text"
                  name="swiftOrBicOrClearingCode"
-                 ng-model="user.reimbursement.bankInformation.swiftOrBicOrClearingCode">
+                 ng-model="user.reimbursement.swiftOrBicOrClearingCode">
         </div>
 
         <div class="field">
           <label>IBAN</label>
           <input type="text"
                  name="iban"
-                 class="sepa"
+                 class="ibanField"
                  disabled="true"
-                 ng-model="user.reimbursement.bankInformation.iban">
+                 ng-model="user.reimbursement.iban">
         </div>
 
         <div class="field">
           <label>Account number</label>
           <input type="text"
                  name="accountNumber"
-                 class="notSepa"
+                 class="accountNumberField"
                  disabled="true"
-                 ng-model="user.reimbursement.bankInformation.accountNumber">
+                 ng-model="user.reimbursement.accountNumber">
         </div>
 
         <div class="field">
           <label>Address of the bank</label>
           <input type="text"
                  name="addressOfBank"
-                 class="notSepa"
+                 class="addressOfBankField"
                  disabled="true"
-                 ng-model="user.reimbursement.bankInformation.addressOfBank">
+                 ng-model="user.reimbursement.addressOfBank">
         </div>
 
         <div class="field">
           <label>ZIP Code</label>
           <input type="text"
                  name="zipCode"
-                 class="notSepa"
+                 class="zipCodeField"
                  disabled="true"
-                 ng-model="user.reimbursement.bankInformation.addressOfBank">
+                 ng-model="user.reimbursement.zipCode">
         </div>
 
 
@@ -374,15 +381,15 @@
         <div class="field">
           <label>Brokerage information</label>
           <input type="text"
-                 name="correspondentBank"
-                 class="notSepa"
+                 name="brokerageInfo"
+                 class="brokerageInfoField"
                  disabled="true"
-                 ng-model="user.reimbursement.bankInformation.brokerageInfo">
+                 ng-model="user.reimbursement.brokerageInfo">
         </div>
 
         <div class="field">
           <label>Additional information</label>
-          <textarea ng-model="user.reimbursement.bankInformation.additional">
+          <textarea ng-model="user.reimbursement.additional">
           </textarea>
         </div>
 

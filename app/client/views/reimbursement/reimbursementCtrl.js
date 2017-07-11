@@ -14,10 +14,14 @@ angular.module('reg')
 
       // Set up the user
       $scope.user = currentUser.data;
-      // Populate the school dropdown
 
       _setupForm();
-      checkSepa();
+      checkCountryType();
+
+      var ibanCountries;
+      $.getJSON('../assets/iban.json').done(function(data){
+            ibanCountries = data;
+      });
 
 
       /**
@@ -26,26 +30,15 @@ angular.module('reg')
 
 
       function _updateUser(e){
-        // Update user teamCode
-        if ($scope.user.teamCode) {
-          UserService
-            .joinOrCreateTeam($scope.user.teamCode)
-            .success(function(user){
-              console.log('Successfully updated teamCode')
-            })
-            .error(function(res){
-              console.log("Failed to update teamCode");
-            });
-          }
 
-
+        console.log($scope.user.reimbursement)
         // Update user profile
         UserService
-          .updateProfile(Session.getUserId(), $scope.user.profile)
+          .updateReimbursement(Session.getUserId(), $scope.user.reimbursement)
           .success(function(data){
             sweetAlert({
               title: "Awesome!",
-              text: "Your application has been saved.",
+              text: "Your travel reimbursement has been saved.",
               type: "success",
               confirmButtonColor: "#5ABECF"
             }, function(){
@@ -58,162 +51,109 @@ angular.module('reg')
       }
 
       function getIBANLength(){
+        console.log($scope.user.reimbursement)
         var country = $('#countryOfB').val();
 
+        //here we get the length for the iban field validation
 
-        var ibanCountries = [
-          {
-            'country': 'Austria',
-            'ibanLength': '20'
-          },
-          {
-            'country': 'Belgium',
-            'ibanLength': '16'
-          },
-          {
-            'country': 'Bulgaria',
-            'ibanLength': '22'
-          },
-          {
-            'country': 'Croatia',
-            'ibanLength': '21'
-          },
-          {
-            'country': 'Cyprus',
-            'ibanLength': '28'
-          },
-          {
-            'country': 'Czech Republic',
-            'ibanLength': '24'
-          },
-          {
-            'country': 'Denmark',
-            'ibanLength': '18'
-          },
-          {
-            'country': 'Estonia',
-            'ibanLength': '20'
-          },
-          {
-            'country': 'Finland',
-            'ibanLength': '18'
-          },
-          {
-            'country': 'France',
-            'ibanLength': '27'
-          },
-          {
-            'country': 'Germany',
-            'ibanLength': '22'
-          },
-          {
-            'country': 'Gibraltar',
-            'ibanLength': '23'
-          },
-          {
-            'country': 'Greece',
-            'ibanLength': '27'
-          },
-          {
-            'country': 'Hungary',
-            'ibanLength': '28'
-          },
-          {
-            'country': 'Iceland',
-            'ibanLength': '26'
-          },
-          {
-            'country': 'Ireland',
-            'ibanLength': '22'
-          },
-          {
-            'country': 'Italy',
-            'ibanLength': '27'
-          },
-          {
-            'country': 'Latvia',
-            'ibanLength': '21'
-          },
-          {
-            'country': 'Liechtenstein',
-            'ibanLength': '21'
-          },
-          {
-            'country': 'Lithuania',
-            'ibanLength': '20'
-          },
-          {
-            'country': 'Luxembourg',
-            'ibanLength': '20'
-          },
-          {
-            'country': 'Malta',
-            'ibanLength': '31'
-          },
-          {
-            'country': 'Monaco',
-            'ibanLength': '27'
-          },
-          {
-            'country': 'Netherlands',
-            'ibanLength': '18'
-          },
-          {
-            'country': 'Norway',
-            'ibanLength': '15'
-          },
-          {
-            'country': 'Poland',
-            'ibanLength': '28'
-          },
-          {
-            'country': 'Portugal',
-            'ibanLength': '25'
-          },
-          {
-            'country': 'Romania',
-            'ibanLength': '24'
-          },
-          {
-            'country': 'San Marino',
-            'ibanLength': '27'
-          },
-          {
-            'country': 'Slovakia',
-            'ibanLength': '24'
-          },
-          {
-            'country': 'Slovenia',
-            'ibanLength': '19'
-          },
-          {
-            'country': 'Spain',
-            'ibanLength': '24'
-          },
-          {
-            'country': 'Sweden',
-            'ibanLength': '24'
-          },
-          {
-            'country': 'Switzerland',
-            'ibanLength': '21'
-          },
-          {
-            'country': 'United Kingdom',
-            'ibanLength': '22'
-          },
-        ]
-
-
-        var result = ibanCountries.filter(function(obj) {
-          return obj.country == country;
-        });
-
-        if(result.length > 0){
-          return result[0].ibanLength
+        if(ibanCountries == undefined){
+          return 100; //this is just when the page loads - the user has to pick some country to this won't stay
         }
-        return 30;
+        else{
+          var result = ibanCountries.filter(function(obj) {
+            return obj.country == country;
+          });
 
+          if(result.length > 0){
+            return result[0].ibanLength
+          }
+
+          return 25;
+        }
+
+      }
+      function checkCountryType(){
+
+        /*var SEPA = [
+          "Netherlands",
+          "Belgium",
+          "Bulgaria",
+          "Estonia",
+          "Spain",
+          "Ireland",
+          "Great Britain",
+          "Italy",
+          "Austria",
+          "Greece",
+          "Croatia",
+          "Cypros",
+          "Latvia",
+          "Lithuania",
+          "Luxembourg",
+          "Malta",
+          "Portugal",
+          "Poland",
+          "France",
+          "Romania",
+          "Sweden",
+          "Germany",
+          "Slovakia",
+          "Slovenia",
+          "Finland",
+          "Denmark",
+          "Czech Republic",
+          "Hungary",
+          "Iceland",
+          "Liechtenstein",
+          "Norway",
+          "Switzerland",
+        ]*/
+        $('#countryOfB').change(function() {
+
+            //When the Country of Bank field gets changed,
+            //look through what is the type of the country
+            //and set the state of disabled attribute based on that
+
+            var disabledToggler = false;
+
+            var filteredCountry = ibanCountries.filter(function(obj) {
+              return obj.country == $('#countryOfB').val();
+            });
+            //filteredCountry is an array of one so we take the first element and check the type
+            var countryType = filteredCountry[0].countryType;
+
+
+            if(countryType == "SEPA" || countryType == "ibanAndBic"){
+              $('.ibanField').attr('disabled', disabledToggler);
+              $('.accountNumberField').attr('disabled', !disabledToggler);
+              $('.addressOfBankField').attr('disabled', !disabledToggler);
+              $('.zipCodeField').attr('disabled', !disabledToggler);
+              $('.brokerageInfoField').attr('disabled', !disabledToggler);
+            }
+            else if(countryType == "ibanOrOther"){
+              $('.ibanField').attr('disabled', disabledToggler);
+              $('.accountNumberField').attr('disabled', disabledToggler);
+              $('.addressOfBankField').attr('disabled', disabledToggler);
+              $('.zipCodeField').attr('disabled', disabledToggler);
+              $('.brokerageInfoField').attr('disabled', disabledToggler);
+            }
+            else if(countryType == "onlyIban"){
+              $('.ibanField').attr('disabled', disabledToggler);
+              $('.accountNumberField').attr('disabled', disabledToggler);
+              $('.addressOfBankField').attr('disabled', disabledToggler);
+              $('.zipCodeField').attr('disabled', disabledToggler);
+              $('.brokerageInfoField').attr('disabled', disabledToggler);
+            }
+            /*console.log(countryType);
+            var check_sepa = SEPA.includes($('#countryOfB').val());
+            $('.notSepa').attr('disabled', check_sepa);
+            $('.sepa').attr('disabled', !check_sepa);*/
+
+            //here the form gets destroed and set up again so that it can be validated again
+
+            $('.ui.form').form('destroy');
+            _setupForm();
+        });
       }
 
       function _setupForm(){
@@ -351,50 +291,5 @@ angular.module('reg')
         $scope.error = null;
         $('.ui.form').form('validate form');
       };
-
-      function checkSepa(){
-        var SEPA = [
-          "Netherlands",
-          "Belgium",
-          "Bulgaria",
-          "Estonia",
-          "Spain",
-          "Ireland",
-          "Great Britain",
-          "Italy",
-          "Austria",
-          "Greece",
-          "Croatia",
-          "Cypros",
-          "Latvia",
-          "Lithuania",
-          "Luxembourg",
-          "Malta",
-          "Portugal",
-          "Poland",
-          "France",
-          "Romania",
-          "Sweden",
-          "Germany",
-          "Slovakia",
-          "Slovenia",
-          "Finland",
-          "Denmark",
-          "Czech Republic",
-          "Hungary",
-          "Iceland",
-          "Liechtenstein",
-          "Norway",
-          "Switzerland",
-        ]
-        $('#countryOfB').change(function() {
-            var check_sepa = SEPA.includes($('#countryOfB').val());
-            $('.notSepa').attr('disabled', check_sepa);
-            $('.sepa').attr('disabled', !check_sepa);
-
-            $('.ui.form').form('destroy');
-            _setupForm();
-        });
-      }
 
     }]);
