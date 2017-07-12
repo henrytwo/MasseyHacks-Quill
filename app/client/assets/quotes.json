@@ -1,15 +1,15 @@
 [
     {
         "id": 1,
-        "quote": "\"The overall atmosphere was great, I felt really good there and the venue was super awesome. Definitely the hack talks were great and the demo expo too.“"
+        "quote": "\"The overall atmosphere was great, I felt really good there and the venue was super awesome. Definitely the Hack Talks was great and the demo expo too.“"
     },
     {
         "id": 2,
-        "quote": "“The experience of the attending to the biggest hackathon in Europe. I got a paulig mug for free :-). And free slush passes and other Terminal events”"
+        "quote": "“The experience of attending to the biggest hackathon in Europe. I got a Paulig mug for free :-). And free Slush passes and other Terminal events!”"
     },
     {
         "id": 3,
-        "quote": "“Having the feeling of \"living\" together with all these people at the event. It really felt as if we were one big family and I could kinda move in ^^”"
+        "quote": "“Having the feeling of \"living\" together with all these people at the event. It really felt as if we were one big family and I could kinda move in. ^^”"
     },
     {
         "id": 4,
@@ -17,11 +17,11 @@
     },
     {
         "id": 5,
-        "quote": "“A lot of different activities. I haven't enough time to visit them all, but I had a big variety in what to do. And a lot of cool swag, of course!”"
+        "quote": "“A lot of different activities. I didn't have enough time to visit them all, but I had a big variety in what to do. And a lot of cool swag, of course!”"
     },
     {
         "id": 6,
-        "quote": "“Great place (Helsinki in general, Wanha Satama as an event home), super cute volunteers, lots of interesting people from all around the globe.”"
+        "quote": "“Great place (Helsinki in general, Wanha Satama as a venue), super cute volunteers, lots of interesting people from all around the globe.”"
     },
     {
         "id": 7,
@@ -37,11 +37,11 @@
     },
     {
         "id": 10,
-        "quote": "“Felt closer to the people I worked with. People who I have never met before and will never meet again (different countries).”"
+        "quote": "“Felt closer to the people I worked with. People who I have never met before and will never meet again (due to different countries).”"
     },
     {
         "id": 11,
-        "quote": "“The environment, the atmosphere, the welcome desk and of course the time away from other stuffs to hack something :)”"
+        "quote": "“The environment, the atmosphere, the welcome desk and of course the time away from other stuff to hack something :)”"
     },
     {
         "id": 12,
@@ -53,11 +53,11 @@
     },
     {
         "id": 14,
-        "quote": "“Everything. Everything was awesome! (maybe real food could be available hours if possible, but that's okay)”"
+        "quote": "“Everything. Everything was awesome!”"
     },
     {
         "id": 15,
-        "quote": "“creativity, innovation, meeting new people and being amazed how far have we come in field of technology”"
+        "quote": "“Creativity, innovation, meeting new people and being amazed how far have we come in the field of technology”"
     },
     {
         "id": 16,
@@ -65,7 +65,7 @@
     },
     {
         "id": 17,
-        "quote": "“The people and the motivational blast that seeing everybody at high level and doing crazy cool stuff!'”"
+        "quote": "“The people and the motivational blast of seeing everybody at high level and doing crazy cool stuff!'”"
     },
     {
         "id": 18,
@@ -105,11 +105,11 @@
     },
     {
         "id": 27,
-        "quote": "“Night karaoke was awesome, It woke me up and give extra hours for hacking.”"
+        "quote": "“Night karaoke was awesome, It woke me up and gave extra hours for hacking.”"
     },
     {
         "id": 28,
-        "quote": "“Playing guitar and wondering around calling with tradition repesentatives”"
+        "quote": "“Playing the guitar and wandering around.”"
     },
     {
         "id": 29,
@@ -122,5 +122,81 @@
     {
         "id": 31,
         "quote": "“Learning new programming things. I never knew Jquery is so easy lol”"
+    },
+    {
+        "id": 32,
+        "quote": "“The cool laser in the ceiling. The mentors. The people there. And especially the events after Junction where we got to meet with the startups and professionals.”"
+    },
+    {
+        "id": 33,
+        "quote": "“I like how it was organized and how many people there was - It's really BIG event.”"
+    },
+    {
+        "id": 34,
+        "quote": "“It was one of the best hackthons that I went to, I met a lot of new people, new technology and new perspective. So, it was awesome.”"
+    },
+    {
+        "id": 35,
+        "quote": "“Crazy Vibe!!!!!!!!!!!! ))))”"
+    },
+    {
+        "id": 36,
+        "quote": "“Place where it was organised , support from partners and cool atmosphere”"
+    },
+    {
+        "id": 37,
+        "quote": "“The atmosphere. Its just very different from any other Hackathon I've been to. Also, the whole organizing committee did awesomely. Loved the visit to Wolt's Office and also got to Slush because of you guys <3”"
+    },
+    {
+        "id": 38,
+        "quote": "“In spite of having so many ppl (which was great btw) you managed to keep the site well organised and prevented it from turning into huge chaos. Kudos to you!”"
+    },
+    {
+        "id": 39,
+        "quote": "“Everything :) Yep, really - I like everything you did last year! It was great organised event with great people! Thanks a lot!”"
+    },
+    {
+        "id": 40,
+        "quote": "“Everything :) Yep, really - I like everything you did last year! It was great organised event with great people! Thanks a lot!”"
+    },
+    {
+        "id": 41,
+        "quote": "“That everyone were so forthcomming and helpful.  All the ideas that were thrown around, helped to learn and make my own little projects.”"
+    },
+    {
+        "id": 42,
+        "quote": "“That everyone were so forthcomming and helpful.  All the ideas that were thrown around, helped to learn and make my own little projects.”"
+    },
+    {
+        "id": 43,
+        "quote": "“Atmosphere, tracks with real data to use.”"
+    },
+    {
+        "id": 44,
+        "quote": "“The venue - it was incredible. Very creative atmosphere!”"
+    },
+    {
+        "id": 45,
+        "quote": "“The friendly atmosphere and seeing people from worldwide.”"
+    },
+    {
+        "id": 46,
+        "quote": "“Diversity of the projects, amazing organization of meals, team stands and amount of space and technologies.”"
+    },
+    {
+        "id": 47,
+        "quote": "“I love that atmosphere. Many people, many ideas, many cool things”"
+    },
+    {
+        "id": 48,
+        "quote": "“I really like the atmosphere when developer around the world gather and do sth cool :)”"
+    },
+    {
+        "id": 49,
+        "quote": "“Atmosphere of hacking and doing something new, and learning new stuff, and chatting to people while standing on a line for pizzaburger.”"
+    },
+    {
+        "id": 50,
+        "quote": "“The community was awesome and prizes were very generous”"
     }
 ]
