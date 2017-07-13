@@ -50,6 +50,7 @@ function sendOne(templateName, options, data, callback){
     data.emailHeaderImage = EMAIL_HEADER_IMAGE;
     template(templateName, data, function(err, html, text){
       if (err) {
+        console.log('error')
         return callback(err);
       }
 
@@ -80,13 +81,11 @@ controller.sendAdmittanceEmail = function(user, callback) {
    to: user.email,
    subject: "[Junction Hackathon] - You have been admitted!"
  };
- console.log(user.nickname);
  var locals = {
-   title: 'Congratulations, ' + user.nickname + '!',
-   body: 'You have been admitted to Junction 2017!.',
+   nickname: user.nickname,
  };
 
- sendOne('email-basic', options, locals, function(err, info){
+ sendOne('email-admittance', options, locals, function(err, info){
    if (err){
      console.log(err);
    }
@@ -114,11 +113,9 @@ controller.sendConfirmationEmail = function(user, token, callback) {
  };
 
  var locals = {
-   title: 'Congratulations, ' + user.nickname + '!',
-   body: 'You have confirmed your presence at Junction 2017. See you there!',
+   nickname: user.nickname,
  };
-
- sendOne('email-basic', options, locals, function(err, info){
+ sendOne('email-confirmation', options, locals, function(err, info){
    if (err){
      console.log(err);
    }
@@ -138,6 +135,8 @@ controller.sendConfirmationEmail = function(user, token, callback) {
 * @param  {Function} callback [description]
 * @return {[type]}            [description]
 */
+
+// TODO: Change the email
 controller.sendDeclinedEmail = function(user, token, callback) {
 
  var options = {
@@ -146,8 +145,7 @@ controller.sendDeclinedEmail = function(user, token, callback) {
  };
 
  var locals = {
-   title: 'Sorry to see that you can\'t make it, ' + user.nickname + '.',
-   body: 'You have declined your invitation to Junction 2017. Hope to see you there next year!',
+   nickname: user.nickname,
  };
 
  sendOne('email-basic', options, locals, function(err, info){
@@ -218,12 +216,7 @@ controller.sendPasswordResetEmail = function(user, token, callback) {
   };
 
   var locals = {
-    title: 'Password Reset Request',
-    subtitle: '',
-    description: 'Somebody (hopefully you!) has requested that your password be reset. If ' +
-      'this was not you, feel free to disregard this email. This link will expire in one hour.',
     actionUrl: ROOT_URL + '/reset/' + token,
-    actionName: "Reset Password"
   };
 
   /**
@@ -232,7 +225,7 @@ controller.sendPasswordResetEmail = function(user, token, callback) {
    *   verifyUrl: the url that the user must visit to verify their account
    * }
    */
-  sendOne('email-link-action', options, locals, function(err, info){
+  sendOne('email-password-reset', options, locals, function(err, info){
     if (err){
       console.log(err);
     }
