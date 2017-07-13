@@ -213,7 +213,8 @@ var status = {
 };
 var reimbursement = {
    dateOfBirth: {
-     type: Date
+     type: String,
+     default: ''
    },
    addressLine1: {
      type: String,

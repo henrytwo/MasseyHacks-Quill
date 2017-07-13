@@ -14,6 +14,7 @@ angular.module('reg')
 
       // Set up the user
       $scope.user = currentUser.data;
+      $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
 
       _setupForm();
       checkCountryType();
@@ -57,7 +58,10 @@ angular.module('reg')
         //here we get the length for the iban field validation
 
         if(ibanCountries == undefined){
-          return 100; //this is just when the page loads - the user has to pick some country to this won't stay
+          if(country != undefined){
+            return 10;
+          }
+          return 100;
         }
         else{
           var result = ibanCountries.filter(function(obj) {
@@ -74,40 +78,6 @@ angular.module('reg')
       }
       function checkCountryType(){
 
-        /*var SEPA = [
-          "Netherlands",
-          "Belgium",
-          "Bulgaria",
-          "Estonia",
-          "Spain",
-          "Ireland",
-          "Great Britain",
-          "Italy",
-          "Austria",
-          "Greece",
-          "Croatia",
-          "Cypros",
-          "Latvia",
-          "Lithuania",
-          "Luxembourg",
-          "Malta",
-          "Portugal",
-          "Poland",
-          "France",
-          "Romania",
-          "Sweden",
-          "Germany",
-          "Slovakia",
-          "Slovenia",
-          "Finland",
-          "Denmark",
-          "Czech Republic",
-          "Hungary",
-          "Iceland",
-          "Liechtenstein",
-          "Norway",
-          "Switzerland",
-        ]*/
         $('#countryOfB').change(function() {
 
             //When the Country of Bank field gets changed,
@@ -120,8 +90,10 @@ angular.module('reg')
               return obj.country == $('#countryOfB').val();
             });
             //filteredCountry is an array of one so we take the first element and check the type
-            var countryType = filteredCountry[0].countryType;
-
+            var countryType = "NotDefined"
+            if(filteredCountry[0] != undefined){
+              countryType = filteredCountry[0].countryType;
+            }
 
             if(countryType == "SEPA" || countryType == "ibanAndBic"){
               $('.ibanField').attr('disabled', disabledToggler);
@@ -137,17 +109,13 @@ angular.module('reg')
               $('.zipCodeField').attr('disabled', disabledToggler);
               $('.brokerageInfoField').attr('disabled', disabledToggler);
             }
-            else if(countryType == "onlyIban"){
+            else if(countryType == "onlyIban" || countryType == "NotDefined"){
               $('.ibanField').attr('disabled', disabledToggler);
               $('.accountNumberField').attr('disabled', disabledToggler);
               $('.addressOfBankField').attr('disabled', disabledToggler);
               $('.zipCodeField').attr('disabled', disabledToggler);
               $('.brokerageInfoField').attr('disabled', disabledToggler);
             }
-            /*console.log(countryType);
-            var check_sepa = SEPA.includes($('#countryOfB').val());
-            $('.notSepa').attr('disabled', check_sepa);
-            $('.sepa').attr('disabled', !check_sepa);*/
 
             //here the form gets destroed and set up again so that it can be validated again
 
@@ -266,12 +234,12 @@ angular.module('reg')
                 }
               ]
             },
-            correspondentBank: {
-              identifier: 'correspondentBank',
+            brokerageInfo: {
+              identifier: 'brokerageInfo',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please enter Correspondent Bank.'
+                  prompt: 'Please enter brokerage information.'
                 }
               ]
             }

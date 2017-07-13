@@ -176,6 +176,10 @@ module.exports = function(router) {
   });
 
   router.put('/users/:id/reimbursement', isOwnerOrAdmin, function(req, res){
+    console.log("ROUTER REQ ##############");
+    console.log(req);
+    console.log("ROUTER REQ BODY ####################");
+    console.log(req.body);
     var reimbursement = req.body.reimbursement;
     var id = req.params.id;
 

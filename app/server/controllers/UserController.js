@@ -361,7 +361,7 @@ UserController.updateConfirmationById = function (id, confirmation, callback){
   });
 };
 
-UserController.updateReimbursementById = function (id, confirmation, callback){
+UserController.updateReimbursementById = function (id, reimbursement, callback){
 
   User.findById(id, function(err, user){
 
@@ -391,14 +391,14 @@ UserController.updateReimbursementById = function (id, confirmation, callback){
         }
       }, {
         new: true
-      });
-      /*function(err, user) {
+      },
+      function(err, user) {
         if (err || !user) {
           return callback(err);
         }
-        Mailer.sendConfirmationEmail(user);
+        //Mailer.sendConfirmationEmail(user); PUT TRAVEL REIMBURSEMENT MAIL HERE?
         return callback(err, user);
-      } something like this when emails are good?*/
+      });
   });
 };
 
