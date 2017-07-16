@@ -51,6 +51,7 @@
         background: $status-declined-color;
       }
     }
+
     .complete-button {
       background-color: $accent1;
       color: #FBFBFB;
@@ -62,8 +63,7 @@
   }
 
   .description {
-            color: #FBFBFB;
-
+    color: $primary;
     margin-bottom: 24px;
     .markdown {
       text-align: left;
