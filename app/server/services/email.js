@@ -129,7 +129,7 @@ controller.sendConfirmationEmail = function(user, token, callback) {
 };
 
 /**
-* Send a status update email for submission.
+* Send email if user declines invitation
 * @param  {[type]}   email    [description]
 * @param  {[type]}   token    [description]
 * @param  {Function} callback [description]
@@ -148,7 +148,7 @@ controller.sendDeclinedEmail = function(user, token, callback) {
    nickname: user.nickname,
  };
 
- sendOne('email-basic', options, locals, function(err, info){
+ sendOne('email-decline', options, locals, function(err, info){
    if (err){
      console.log(err);
    }
@@ -254,8 +254,7 @@ controller.sendPasswordChangedEmail = function(user, callback){
   };
 
   var locals = {
-    title: 'Password Updated',
-    body: 'Somebody (hopefully you!) has successfully changed your password.',
+    nickname: user.nickname,
   };
 
   /**
@@ -264,7 +263,7 @@ controller.sendPasswordChangedEmail = function(user, callback){
    *   verifyUrl: the url that the user must visit to verify their account
    * }
    */
-  sendOne('email-basic', options, locals, function(err, info){
+  sendOne('email-password-changed', options, locals, function(err, info){
     if (err){
       console.log(err);
     }
