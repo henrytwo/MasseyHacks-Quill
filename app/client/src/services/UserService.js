@@ -46,6 +46,14 @@ angular.module('reg')
         });
       },
 
+      updateReimbursement: function(id, reimbursement) {
+        console.log("updateTest");
+        console.log(reimbursement);
+        return $http.put(base + id + '/reimbursement', {
+          reimbursement: reimbursement
+        });
+      },
+
       declineAdmission: function(id){
         return $http.post(base + id + '/decline');
       },

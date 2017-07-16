@@ -45,7 +45,9 @@
     position: absolute;
     left: 35px;
     right: 35px;
-    bottom: 87px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    vertical-align: bottom;
 
     &:hover {
       background-color: $accent2;

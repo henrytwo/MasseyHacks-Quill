@@ -107,6 +107,13 @@
   display: table-cell;
   vertical-align: middle;
 }
+.col-reset{
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: table-cell;
+  vertical-align: middle;
+}
 @media only screen and (max-width: 790px) {
     /* For mobile phones: */
     .col-right{

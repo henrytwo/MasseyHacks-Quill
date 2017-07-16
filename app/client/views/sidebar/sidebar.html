@@ -11,12 +11,6 @@
     Dashboard
   </div>
 
-  <!--<div ui-sref-active="active"
-       ui-sref="app.reimbursement"
-       class="item">
-    Travel Reimbursement
-  </div>-->
-
   <div ng-show="currentUser.verified">
 
     <div
@@ -25,6 +19,13 @@
       ng-show="!currentUser.status.declined"
       class="item">
       Application
+    </div>
+
+    <div ui-sref-active="active"
+         ui-sref="app.reimbursement"
+         ng-show="currentUser.status.admitted && currentUser.profile.needsReimbursement && !currentUser.status.declined"
+         class="item">
+      Travel Reimbursement
     </div>
 
     <div
@@ -50,6 +51,7 @@
       ng-show="currentUser.admin">
       Admin
     </div>
+
 
   </div>
 
