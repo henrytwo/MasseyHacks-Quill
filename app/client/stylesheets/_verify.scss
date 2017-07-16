@@ -1,4 +1,18 @@
+
+
 .verify.page {
+  background: url('../assets/images/loginbg.png') no-repeat center center fixed;
+  .title {
+    color: #FBFBFB;
+    &.divided:after {
+    content: " ";
+    width: 200px;
+    display: block;
+    margin: 1em auto 2em;
+    border-bottom: 4px solid #FBFBFB;
+}
+  }
+
   padding-top: 4em;
   .segment {
     padding: 36px;
@@ -11,8 +25,8 @@
       margin-bottom: 36px;
     }
     .continue {
-      color: $secondary;
-      background-color: $accent1;
+      background-color: #232323;
+      color: #FBFBFB;
     }
   }
 }
