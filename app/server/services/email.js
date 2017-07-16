@@ -177,7 +177,8 @@ controller.sendVerificationEmail = function(user, token, callback) {
   };
 
   var locals = {
-    verifyUrl: ROOT_URL + '/verify/' + token
+    verifyUrl: ROOT_URL + '/verify/' + token,
+    nickname: user.nickname
   };
 
   console.log(locals.verifyUrl);
