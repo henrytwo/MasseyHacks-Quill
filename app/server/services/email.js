@@ -218,6 +218,7 @@ controller.sendPasswordResetEmail = function(user, token, callback) {
 
   var locals = {
     actionUrl: ROOT_URL + '/reset/' + token,
+    nickname: user.nickname
   };
 
   /**
