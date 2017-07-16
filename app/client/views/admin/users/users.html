@@ -95,7 +95,8 @@
             <th>Name</th>
             <th>E-mail address</th>
             <th>School</th>
-            <th>Grad</th>
+            <th>Team</th>
+            <th>Age</th>
             <th>V/S/A/C</th>
             <th>$</th>
             <th></th>
@@ -103,6 +104,13 @@
             <th>Country</th>
             <th>City</th>
             <th>Home Country</th>
+            <th>Travel</th>
+            <th>Acc.</th>
+            <th>Track pref.</th>
+            <th>Occ. status</th>
+            <th>Exp.</th>
+            <th>Secret</th>
+
           </tr>
         </thead>
         <tbody>
@@ -119,10 +127,8 @@
             </td>
             <td>{{user.email}}</td>
             <td>{{user.profile.school}}</td>
-            <td
-              class="collapsing">
-              {{user.profile.graduationYear}}
-            </td>
+            <td>{{user.teamCode}}</td>
+            <td>{{user.profile.age}}</td>
             <td
               class="collapsing">
 
@@ -226,6 +232,38 @@
             <td>{{user.profile.travelFromCountry}}</td>
             <td>{{user.profile.travelFromCity}}</td>
             <td>{{user.profile.homeCountry}}</td>
+
+            <td
+              class="collapsing">
+
+              <!-- Required travel reimportsement -->
+              <i
+                ng-if="user.profile.needsReimbursement"
+                class="green check circle icon">
+              </i>
+              <i
+                ng-if="!user.profile.needsReimbursement"
+                class="red remove circle icon">
+              </i>
+            </td>
+
+            <td
+              class="collapsing">
+
+              <!-- Applies for accomodation -->
+              <i
+                ng-if="user.profile.applyAccommodation"
+                class="green check circle icon">
+              </i>
+              <i
+                ng-if="!user.profile.applyAccommodation"
+                class="red remove circle icon">
+              </i>
+            </td>
+            <td>{{user.profile.mostInterestingTrack}}</td>
+            <td>{{user.profile.occupationalStatus[0]}}</td>
+            <td>{{user.profile.codingExperience[0]}}</td>
+            <td>{{user.profile.secret}}</td>
           </tr>
         </tbody>
       </table>

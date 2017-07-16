@@ -18,12 +18,12 @@ function calculateStats(){
         N: 0
       },
       schools: {},
-      year: {
-        '2016': 0,
-        '2017': 0,
-        '2018': 0,
-        '2019': 0,
-      }
+      // year: {
+      //   '2016': 0,
+      //   '2017': 0,
+      //   '2018': 0,
+      //   '2019': 0,
+      // }
     },
 
     teams: {},
@@ -115,7 +115,8 @@ function calculateStats(){
         newStats.declined += user.status.declined ? 1 : 0;
 
         // Count the number of people who need reimbursements
-        newStats.reimbursementTotal += user.confirmation.needsReimbursement ? 1 : 0;
+        // newStats.reimbursementTotal += user.confirmation.needsReimbursement ? 1 : 0;
+        newStats.reimbursementTotal += user.profile.needsReimbursement ? 1 : 0;
 
         // Count the number of people who still need to be reimbursed
         newStats.reimbursementMissing += user.confirmation.needsReimbursement &&
@@ -139,9 +140,9 @@ function calculateStats(){
         newStats.demo.schools[email].declined += user.status.declined ? 1 : 0;
 
         // Count graduation years
-        if (user.profile.graduationYear){
-          newStats.demo.year[user.profile.graduationYear] += 1;
-        }
+        // if (user.profile.graduationYear){
+        //   newStats.demo.year[user.profile.graduationYear] += 1;
+        // }
 
         // Grab the team name if there is one
         // if (user.teamCode && user.teamCode.length > 0){
