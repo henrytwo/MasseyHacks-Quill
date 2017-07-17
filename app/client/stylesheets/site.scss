@@ -9,7 +9,7 @@ $login-color: $accent1;
 $register-color: $accent2;
 
 $status-unverified-color: $accent3;
-$status-incomplete-color: $accent3;
+$status-incomplete-color: $accent2;
 $status-submitted-color: $accent3;
 $status-admitted-color: $primary;
 $status-confirmed-color: $secondary;
@@ -49,6 +49,7 @@ $brand-tertiary: $tertiary;
 @import 'verify';
 @import 'team';
 @import 'admin';
+@import 'reset';
 
 html,
 body {

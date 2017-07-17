@@ -24,7 +24,7 @@
 
       &.incomplete {
         background: $status-incomplete-color;
-        color: black;
+        color: #FBFBFB;
       }
 
       &.submitted {
@@ -51,6 +51,10 @@
         background: $status-declined-color;
       }
     }
+    .complete-button {
+      background-color: $accent1;
+      color: #FBFBFB;
+    }
   }
 
   .segment {
@@ -58,10 +62,17 @@
   }
 
   .description {
+            color: #FBFBFB;
+
     margin-bottom: 24px;
     .markdown {
       text-align: left;
       margin-bottom: 24px;
     }
   }
+}
+
+.resend {
+  background-color: #232323 !important;
+  color: #FBFBFB;
 }

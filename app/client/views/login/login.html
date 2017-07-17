@@ -1,9 +1,28 @@
 <div id="login">
+ <!--  <div class="logo-bar">
+    <div class="emblem">
+      <div class="logo-row" id="container">
+         <div>
+          <img src="assets/images/junction_symbol_white.png">
+         </div>
+        <div>
+          <p class="date">NOVEMBER 24 - 26</p>
+         </div>
+          
+      </div>
+    </div> 
+  </div> -->
   <script>fdIn()</script>
   <div class="row">
-    <div id="quote" class="col-left quotes">
-      <script>randomQuote()</script>
+    <div class="col-left">
+        <div class="quote-header">
+        <p>What a participant from last year liked:</p>
+      </div>
+      <div id="quote" class="col-left quotes">
+        <script>randomQuote()</script>
+      </div>
     </div>
+    
     <div class="col-right form-padding">
       <div class="ui segment form">
         <div class="logo">
@@ -111,6 +130,8 @@
 <!-- FORGOT FORM -->
 
         <div ng-show="loginState === 'forgot'">
+          <h4 class="forgot">FORGOTTEN PASSWORD</h4>
+          <p class="forgot">Forgot your password? No problem! Enter the email you registered with to receive a reset email.</p>
           <div class="ui forgot-password form">
             <form ng-submit="sendResetEmail()">
               <div class="field">

@@ -1,24 +1,28 @@
-<div class="verify page">
-  <div class="divided title">
-    USER VERIFICATION
-  </div>
-  <div class="ui segment">
-    <div ng-show="success">
-      <i class="green check circle icon"></i>
-      <p>
-        Awesome! Your email has been verified!
-      </p>
-      <br>
-      <div class="ui fluid continue button"
-           ui-sref="app.application">
-        Continue to Application
+<div id="verify">
+  <div class="verify page">
+    <div class="divided title">
+      USER VERIFICATION
+    </div>
+    <div class="ui segment">
+      <div ng-show="success">
+        <i class="green check circle icon"></i>
+        <p>
+          Awesome! Your email has been verified!
+        </p>
+        <br>
+        <div class="ui fluid continue button"
+             ui-sref="app.application">
+          Continue to Application
+        </div>
+      </div>
+      <div ng-show="!success">
+        <i class="red circle remove icon"></i>
+        <p>
+          This token is invalid.
+        </p>
       </div>
     </div>
-    <div ng-show="!success">
-      <i class="red circle remove icon"></i>
-      <p>
-        This token is invalid.
-      </p>
-    </div>
   </div>
+
+
 </div>
