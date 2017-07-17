@@ -148,6 +148,7 @@ controller.sendDeclinedEmail = function(user, token, callback) {
    nickname: user.nickname,
  };
 
+
  sendOne('email-decline', options, locals, function(err, info){
    if (err){
      console.log(err);
