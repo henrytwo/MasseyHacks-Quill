@@ -90,8 +90,8 @@ angular.module('reg')
             phone: {
               identifier: 'phone',
               rules: [{
-                  type: 'regExp[/^$|^[+][0-9]{6,20}$/]',//'/^+?[0-9]{1,14}$/],//'regExp[^\+?[1-9]\d{1,14}$]' // ^$|
-                  prompt: "Please give your phone number with country code in format: +NUMBER"
+                  type: 'regExp[/^$|^[+][0-9]{6,20}$/]',
+                  prompt: "Please give your phone number with country code in format: +NUMBER You can also leave phone number blank"
                   }
               ]
             }
@@ -110,9 +110,6 @@ angular.module('reg')
       }
 
       $scope.submitForm = function(){
-        // if ($('.ui.form').form('is valid')){
-        //   _updateUser();
-        // }
          $scope.fieldErrors = null; 
         $scope.error = null; 
         $('.ui.form').form('validate form'); 

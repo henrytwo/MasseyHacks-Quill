@@ -81,7 +81,13 @@
         </div>
 
         <div class="actions">
-          <div class="ui positive right labeled icon button">
+           <button
+                class="ui positive left labeled icon button"
+                ng-click="acceptUser($event, selectedUser, $index)">
+                Accept participant {{selectedUser.profile.name}}
+                <i class="checkmark icon"></i>
+              </button>
+            <div class="ui negative right labeled icon button">
             Close
             <i class="checkmark icon"></i>
           </div>

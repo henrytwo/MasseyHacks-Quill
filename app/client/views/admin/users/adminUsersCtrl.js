@@ -23,7 +23,10 @@ angular.module('reg')
         occupationalStatus: [],
         bestTools: [],
         previousJunction: []
-      }});
+      }, reimbursement: {
+            dateOfBirth: [],
+      }
+      });
 
       console.log($scope.selectedUser.sections);
 
@@ -127,7 +130,8 @@ angular.module('reg')
                 UserService
                   .admitUser(user._id)
                   .success(function(user){
-                    $scope.users[index] = user;
+                    if(index != "undefined")
+                      $scope.users[index] = user;
                     swal("Accepted", user.profile.name + ' has been admitted.', "success");
                   });
 
@@ -202,7 +206,6 @@ angular.module('reg')
       }
 
       function generateSections(user){
-        console.log(user);
         return [
           {
             name: 'Basic Info',
@@ -220,8 +223,14 @@ angular.module('reg')
                 name: 'Checked In',
                 value: formatTime(user.status.checkInTime) || 'N/A'
               },{
+                name: 'Name',
+                value: user.profile.name
+              },{
                 name: 'Email',
                 value: user.email
+              },{
+                name: 'ID',
+                value: user.id
               },{
                 name: 'Team',
                 value: user.teamCode || 'None'
@@ -231,12 +240,6 @@ angular.module('reg')
             name: 'Profile',
             fields: [
               {
-                name: 'Name',
-                value: user.profile.name
-              },{
-                name: 'Gender',
-                value: user.profile.gender
-              },{
                 name: 'Age',
                 value: user.profile.age
               },{
@@ -258,14 +261,8 @@ angular.module('reg')
                 name: 'Home Country',
                 value: user.profile.homeCountry
               },{
-                name: 'Description',
+                name: 'Team role',
                 value: user.profile.description
-              },{
-                name: 'Essay',
-                value: user.profile.essay
-              },{
-                name: 'Special Needs',
-                value: user.profile.specialNeeds || 'None'
               },{
                 name: 'Needs Travel Reimbursement',
                 value: user.profile.needsReimbursement,
@@ -290,17 +287,28 @@ angular.module('reg')
                 name: 'Hackathons visited',
                 value: user.profile.howManyHackathons
               },{
+                name: 'Motivation',
+                value: user.profile.essay
+              },
+            ]
+          },{
+            name: 'Additional',
+            fields: [
+              {
                 name: 'Portfolio',
                 value: user.profile.portfolio
+              },{
+                name: 'Interest in job opportunities',
+                value: user.profile.jobOpportunities
+              },{
+                name: 'Special Needs',
+                value: user.profile.specialNeeds || 'None'
               },{
                 name: 'Previous Junctions',
                 value: user.profile.previousJunction.join(', ')
               },{
                 name: 'Secret code',
                 value: user.profile.secret
-              },{
-                name: 'Interest in job opportunities',
-                value: user.profile.jobOpportunities
               },{
                 name: 'Free comment',
                 value: user.profile.freeComment
@@ -310,7 +318,7 @@ angular.module('reg')
               },{
                 name: 'Spaces or Tabs',
                 value: user.profile.spacesOrTabs
-              }
+              },
             ]
           },{
             name: 'Confirmation',
@@ -333,7 +341,48 @@ angular.module('reg')
                 value: user.confirmation.notes
               }
             ]
-          }
+          },{
+            name: 'Reimbursement',
+            fields: [
+              {
+                name: 'Date of birth',
+                value: formatTime(user.reimbursement.dateOfBirth)
+              },{
+                name: 'AddressLine 1',
+                value: user.reimbursement.addressLine1
+              },{
+                name: 'AddressLine 2',
+                value: user.reimbursement.addressLine2
+              },{
+                name: 'State/Province/Region',
+                value: user.reimbursement.stateProvinceRegion
+              },{
+                name: 'A country Of Bank',
+                value: user.reimbursement.countryOfBank
+              },{
+                name: 'Name Of the Bank',
+                value: user.reimbursement.nameOfBank
+              },{
+                name: 'Address Of the Bank',
+                value: user.reimbursement.addressOfBank
+              },{
+                name: 'Iban',
+                value: user.reimbursement.iban
+              },{
+                name: 'Account Number',
+                value: user.reimbursement.accountNumber
+              },{
+                name: 'swiftOrBicOrClearingCode',
+                value: user.reimbursement.swiftOrBicOrClearingCode
+              },{
+                name: 'Brokerage Info',
+                value: user.reimbursement.brokerageInfo
+              },{
+                name: 'Additional',
+                value: user.reimbursement.additional
+              },
+            ]
+          },
         ];
       }
 
