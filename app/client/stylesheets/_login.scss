@@ -3,20 +3,13 @@
   background-color: black;
   width: 100%;
   position: relative;
-}
+  display: table;
 
-#login:before{
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  background: url('../assets/images/loginbg.png') no-repeat center center fixed;
-  background-size: cover;
-  opacity: 0.37;
-}
+  .cont{
+    display: table-cell;
+    vertical-align: middle;
+  }
+
   .content {
     height: 100%;
 
@@ -160,6 +153,21 @@
     padding-bottom: 30px;
   }
 }
+
+#login:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: url('../assets/images/loginbg.png') no-repeat center center fixed;
+  background-size: cover;
+  opacity: 0.37;
+}
+
+
 @media only screen and (max-width: 790px) {
     /* For mobile phones: */
 
