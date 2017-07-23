@@ -1,47 +1,54 @@
 #login {
-  height: 100%;
-  width: 100%;
-  //background: url('../assets/images/loginbg.png') no-repeat center center fixed;
+  min-height: 100%;
   background-color: black;
+  width: 100%;
 
+  .cont {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+  }
+  .cont:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: url('../assets/images/loginbg.png') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.2;
+  }
+  .content {
+    height: 100%;
+
+    position: relative;
+    z-index: 2;
+  }
   .hidden {
     display: none
   }
 
-  .footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #232323;
-    height: 25px;
-    font-size: 14px;
-    color: $secondary;
-    padding-left: 5px;
-  }
-  .footer-text{
-    font-size: 14px;
-    color: $secondary;
-    padding-right: 20px;
-  }
-  .footer-link{
-    font-size: 14px;
-    color: $accent1;
-    padding-right: 20px;
-  }
-  a:hover {
-    color: #ef4637;
-  }
-  a:visited {
-    color: #5abecf;
-  }
 
-  .logo {
-    padding-top: 50px;
-    max-width: 350px;
-    margin: 1rem auto 1rem auto;
-    img {
-      width: 100%;
-      height: auto;
+  .header{
+    .logo {
+      padding-top: 50px;
+      max-width: 380px;
+      margin: auto;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .tip {
+      font-family: Montserrat;
+      color: lighten($primary, 20%);
+      text-align: center;
+      font-size: 22px;
+      margin: 10px 0 10px 0;
     }
   }
   .logo-bar {
@@ -69,9 +76,11 @@
       height: auto;
     }
   }
-
+  .bts {
+    margin: auto;
+  }
   .button {
-    color: white;
+    color: $secondary;
     &.login {
       background: $primary;
     }
@@ -80,14 +89,12 @@
     }
 
     &.register {
-      background: $register-color;
+      background: $accent1;
     }
     &.register:focus, &.register:hover{
-      background: darken($register-color, 20%);
+      background: darken($accent1, 20%);
     }
-
   }
-
   .forgot {
     text-align: center;
   }
@@ -101,16 +108,19 @@
   }
   .quote-header{
     text-align: center;
-    font-size: 30px;
+    font-size: 27px;
     font-family: Montserrat;
     color: $secondary;
     margin: auto;
+    margin-top: 30px;
   }
   .quotes{
+    height: 130px;
     max-width: 500px;
     text-align: center;
     font-size: 20px;
-    font-family: Montserrat;
+    font-family: Lato;
+    font-weight: 400;
     color: $secondary;
     margin: auto;
   }
@@ -120,8 +130,40 @@
 
     background-color: $accent1;
     margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
+  .footer {
+    z-index: 2;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #232323;
+    height: 25px;
+    font-size: 14px;
+    color: $secondary;
+    padding-left: 5px;
+  }
+  .footer-text{
+    font-size: 14px;
+    color: $secondary;
+    padding-right: 20px;
+  }
+  .footer-link{
+    font-size: 14px;
+    color: $accent1;
+    padding-right: 20px;
+  }
+  a:hover {
+    color: #ef4637;
+  }
+  a:visited {
+    color: #5abecf;
+  }
+  #quote{
+    padding-bottom: 30px;
+  }
 }
 @media only screen and (max-width: 790px) {
     /* For mobile phones: */

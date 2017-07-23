@@ -12,169 +12,190 @@
       </div>
     </div>
   </div> -->
-  <script>fdIn()</script>
-  <div class="logo">
-    <img onclick="randomQuote()" src="assets/images/logo_text.png">
-  </div>
+  <div class="cont">
+    <div class="content">
+      <script>fdIn()</script>
 
-  <div class="ui segment form">
-
-<!-- LOGIN FORM -->
-
-    <div ng-show="loginState === 'login'">
-      <div class="ui login-password form">
-        <div class="ui small negative message"
-            ng-show='error'>
-          {{error}}
+      <div class="header">
+        <div class="logo">
+          <img onclick="randomQuote()" src="assets/images/logo_text.png">
         </div>
-        <form ng-submit="login()">
-          <div class="field">
-            <label class="field-title"> EMAIL</label>
-            <input type="email"
-                   id='email'
-                   placeholder="hacker@hackjunction.com"
-                   ng-model="email">
-          </div>
-          <div class="field">
-            <label class="field-title"> PASSWORD</label>
-            <input type="password"
-                   id='password'
-                   placeholder="Password (at least 6 characters)"
-                   ng-model="password" required>
-          </div>
-          <div class="field">
-            <button id="login-password"
-                    type="submit"
-                    class="fluid ui login button">
-                    Login
-            </button>
-          </div>
-        </form>
+        <div class="tip">
+          <p>
+            Register to apply for Junction 2017
+          </p>
+        </div>
       </div>
 
-      <div class="ui form" ng-show="regIsOpen">
+
+
+      <div class="ui segment form">
+
+    <!-- LOGIN FORM -->
+
+        <div ng-show="loginState === 'login'">
+          <div class="ui login-password form">
+            <div class="ui small negative message"
+                ng-show='error'>
+              {{error}}
+            </div>
+            <form ng-submit="login()">
+              <div class="field">
+                <label class="field-title"> EMAIL</label>
+                <input type="email"
+                       id='email'
+                       placeholder="hacker@hackjunction.com"
+                       ng-model="email">
+              </div>
+              <div class="field">
+                <label class="field-title"> PASSWORD</label>
+                <input type="password"
+                       id='password'
+                       placeholder="Password (at least 6 characters)"
+                       ng-model="password" required>
+              </div>
+              <div class="field">
+                <button id="login-password"
+                        type="submit"
+                        class="fluid ui login button">
+                        Login
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="ui divider"/>
+
+          <div class="" ng-show="regIsOpen">
+            <div class="field">
+              <button id="register"
+                      type="submit"
+                      class="fluid ui register button"
+                      ng-click="setLoginState('register')">
+                      Register
+              </button>
+            </div>
+          </div>
+        </div>
+
+    <!-- REGISTER FORM -->
+
+        <div ng-show="loginState === 'register'">
+          <div class="ui login-password form">
+            <div class="ui small negative message"
+                ng-show='error'>
+              {{error}}
+            </div>
+            <form ng-submit="register()">
+              <div class="field">
+                <label class="field-title"> EMAIL</label>
+                <input type="email"
+                       id='email'
+                       placeholder="hacker@hackjunction.com"
+                       ng-model="email">
+              </div>
+              <div class="field">
+                <label class="field-title"> PASSWORD</label>
+                <input type="password"
+                       id='password'
+                       placeholder="Password (at least 6 characters)"
+                       ng-model="password" required>
+              </div>
+              <div class="field">
+                <label class="field-title"> REPEAT PASSWORD</label>
+                <input type="password"
+                       id='password_repeat'
+                       placeholder="Enter password again"
+                       ng-model="password_repeat" required>
+              </div>
+              <div class="field">
+                <label class="field-title"> WHAT SHOULD WE CALL YOU?</label>
+                <input type="text"
+                       id='nickname'
+                       placeholder="Hacker"
+                       ng-model="nickname" required>
+              </div>
+
+              <div class="field">
+                <button id="login-password"
+                        type="submit"
+                        class="fluid ui login button">
+                        Register
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+    <!-- FORGOT FORM -->
+
+        <div ng-show="loginState === 'forgot'">
+          <h4 class="forgot">FORGOTTEN PASSWORD</h4>
+          <p class="forgot">Forgot your password? No problem! Enter the email you registered with to receive a reset email.</p>
+          <div class="ui forgot-password form">
+            <form ng-submit="sendResetEmail()">
+              <div class="field">
+                <label> Email</label>
+                <input type="email"
+                       id='email'
+                       placeholder="hacker@hackjunction.com"
+                       ng-model="email">
+              </div>
+              <div class="field">
+                <button id="forgot-password"
+                        type="submit"
+                        class="fluid ui login button">
+                        Send Reset Email
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+    <!-- Divider -->
+
         <div class="ui divider"></div>
-        <div class="field">
-          <button id="register"
-                  type="submit"
-                  class="fluid ui register button"
-                  ng-click="setLoginState('register')">
-                  Register
-          </button>
-        </div>
+
+          <div ng-show="loginState === 'login'" class="forgot">
+            <a href="#" ng-click="setLoginState('forgot')">
+              Forgot Password?
+            </a>
+          </div>
+
+          <div ng-show="loginState === 'forgot'" class="forgot">
+            <a href="#" ng-click="setLoginState('login')">
+              {{regIsOpen ? 'Login or Register' : 'Login'}}
+            </a>
+          </div>
+
+          <div ng-show="loginState === 'register'" class="forgot">
+            <a href="#" ng-click="setLoginState('login')">
+              Login instead?
+            </a>
+          </div>
+      </div>
+
+      <div class="quote-header">
+        <p>QUOTE FROM LAST YEAR</p>
+      </div>
+
+      <div class="test"/>
+
+      <div class="quotes">
+        <script>randomQuote()</script>
+        <p id="quote">
+        </p>
       </div>
     </div>
 
-<!-- REGISTER FORM -->
 
-    <div ng-show="loginState === 'register'">
-      <div class="ui login-password form">
-        <div class="ui small negative message"
-            ng-show='error'>
-          {{error}}
-        </div>
-        <form ng-submit="register()">
-          <div class="field">
-            <label class="field-title"> EMAIL</label>
-            <input type="email"
-                   id='email'
-                   placeholder="hacker@hackjunction.com"
-                   ng-model="email">
-          </div>
-          <div class="field">
-            <label class="field-title"> PASSWORD</label>
-            <input type="password"
-                   id='password'
-                   placeholder="Password (at least 6 characters)"
-                   ng-model="password" required>
-          </div>
-          <div class="field">
-            <label class="field-title"> REPEAT PASSWORD</label>
-            <input type="password"
-                   id='password_repeat'
-                   placeholder="Enter password again"
-                   ng-model="password_repeat" required>
-          </div>
-          <div class="field">
-            <label class="field-title"> WHAT SHOULD WE CALL YOU?</label>
-            <input type="text"
-                   id='nickname'
-                   placeholder="Hacker"
-                   ng-model="nickname" required>
-          </div>
+    <footer class="footer">
+      <span class="footer-text">&#9400; Junction 2017</span>
+      <a href="https://www.hackjunction.com/policy" class="footer-link">Privacy Policy</a>
+      <a href="http://www.freeprivacypolicy.com/" class="footer-link">Code of Conduct</a>
+    </footer>
 
-          <div class="field">
-            <button id="login-password"
-                    type="submit"
-                    class="fluid ui login button">
-                    Register
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-<!-- FORGOT FORM -->
-
-    <div ng-show="loginState === 'forgot'">
-      <h4 class="forgot">FORGOTTEN PASSWORD</h4>
-      <p class="forgot">Forgot your password? No problem! Enter the email you registered with to receive a reset email.</p>
-      <div class="ui forgot-password form">
-        <form ng-submit="sendResetEmail()">
-          <div class="field">
-            <label> Email</label>
-            <input type="email"
-                   id='email'
-                   placeholder="hacker@hackjunction.com"
-                   ng-model="email">
-          </div>
-          <div class="field">
-            <button id="forgot-password"
-                    type="submit"
-                    class="fluid ui login button">
-                    Send Reset Email
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-<!-- Divider -->
-
-    <div class="ui divider"></div>
-
-      <div ng-show="loginState === 'login'" class="forgot">
-        <a href="#" ng-click="setLoginState('forgot')">
-          Forgot Password?
-        </a>
-      </div>
-
-      <div ng-show="loginState === 'forgot'" class="forgot">
-        <a href="#" ng-click="setLoginState('login')">
-          {{regIsOpen ? 'Login or Register' : 'Login'}}
-        </a>
-      </div>
-
-      <div ng-show="loginState === 'register'" class="forgot">
-        <a href="#" ng-click="setLoginState('login')">
-          Login instead?
-        </a>
-      </div>
   </div>
 
-  <footer class="footer">
-    <span class="footer-text">&#9400; Junction 2017</span>
-    <a href="https://www.hackjunction.com/policy" class="footer-link">Privacy Policy</a>
-    <a href="http://www.freeprivacypolicy.com/" class="footer-link">Code of Conduct</a>
-  </footer>
 
-  <div class="quote-header">
-    <p>QUOTE FROM LAST YEAR</p>
-  </div>
-
-  <div class="test"/>
-
-  <div id="quote" class="quotes">
-    <script>randomQuote()</script>
-  </div>
 </div>
