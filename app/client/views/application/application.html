@@ -607,7 +607,7 @@
         </div>
 
         <div class="field">
-          <label> Do you need travel reimbursements or free accommodation? </label>
+          <label> Do you need travel reimbursement or free accommodation? </label>
           <p style="margin-bottom: 10px;">
             For travel inside Finland, you can apply for reimbursement of 20€.
             Travelling from Nordics, Baltics or Russia, the reimbursement is 50€. Inside EU, 75€. Outside Europe, 150€.
@@ -616,7 +616,7 @@
         </div>
         <div class="ui checkbox">
           <input type="checkbox" id="needsReimbursement" ng-model="user.profile.needsReimbursement">
-          <label for="needsReimbursement">I need travel reimbursements</label>
+          <label for="needsReimbursement">I need travel reimbursement</label>
         </div>
         <br>
         <div class="ui checkbox">
@@ -629,8 +629,8 @@
 
 
         <div class="field">
-          <label>Which track are you most interested in?
-            This question isn’t binding in any case.
+          <label>Which track(s) are you most interested in hacking?
+            This question isn’t binding in any case, just to know a little more about your interests.
             You can find more info about each track on our website! *</label>
           <select
             class="ui fluid dropdown"
@@ -638,24 +638,29 @@
             id="mostInterestingTrack"
             ng-model="user.profile.mostInterestingTrack">
             <option value="">Choose a track</option>
-            <option value="Gaming">Gaming</option>
-            <option value="VR">VR</option>
-            <option value="IoT">IoT</option>
-            <option value="Healthtech">Healthtech</option>
+            <option value="Game Jam">Game Jam</option>
+            <option value="Virtual Reality">Virtual Reality</option>
+            <option value="Internet of Things">Internet of Things</option>
+            <option value="HealthTech">HealthTech</option>
+            <option value="FinTech">FinTech</option>
+            <option value="Artificial Intelligence">Artificial Intelligence</option>
+            <option value="Intelligent Buildings">Intelligent Buildingsh</option>
+            <option value="Future Mobility">Future Mobility</option>
           </select>
         </div>
 
         <div class="field">
-          <label> Team (max. 5 members) -
-            If you have a team already, please come up with a somewhat unique string to name it.
-            It is completely fine not to have a team at this point. Note that your team name is Case Sensitive!
+          <label> Team -
+            If you have formed a team already, please name it with a unique string. This way we'll know who your teammates are.
+            Remember that the team name is Case Sensitive!
+            Having a team is not compulsory at all. Note that to compete for prizes at Junction 2017, your team can be max. 5 members!
           </label>
           <input type="text"
                  name="teamCode"
-                 placeholder="Bigas Piratica"
+                 placeholder="Java Jedis"
                  ng-model="user.teamCode">
         </div>
-
+          
 
         <div class="field">
           <label> Link to your portfolio </label>
@@ -724,6 +729,8 @@
             <option value="Go">Go</option>
             <option value="R">R</option>
             <option value="Matlab">Matlab</option>
+            <option value="VBA">VBA</option>
+            <option value="Kotlin">Kotlin</option>
             <option value="Haskell">Haskell</option>
             <option value="Clojure">Clojure</option>
             <option value="Bash">Bash</option>
@@ -734,7 +741,7 @@
         </div>
 
         <div class="field">
-          <label>How many years of coding experience do you have?</label>
+          <label>How many years of experience do you have in programming?</label>
           <select
             class="ui fluid dropdown"
             name="codingExperience"
@@ -742,7 +749,7 @@
             ng-model="user.profile.codingExperience">
             <option value="">Coding experience</option>
             <option value="None">None</option>
-            <option value="1">< 1 Years</option>
+            <option value="1">< 1 Year</option>
             <option value="1-2">1-2 Years</option>
             <option value="3-5">3-5 Years</option>
             <option value="5+">5+ Years</option>
@@ -751,7 +758,7 @@
         </div>
 
         <div class="field">
-          <label>How many hackathons have you attended?</label>
+          <label>How many hackathons have you attended before?</label>
           <select
             class="ui fluid dropdown"
             name="howManyHackathons"
@@ -810,7 +817,7 @@
         </div>
 
         <div class="field">
-          <label> Secret code - If you are provided with a secret code, please remember to put it here. </label>
+          <label> Secret code - If you have been provided with a secret code, please remember to put it here. </label>
           <input type="text"
                  name="secret"
                  ng-model="user.profile.secret">
