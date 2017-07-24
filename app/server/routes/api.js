@@ -265,6 +265,30 @@ module.exports = function(router) {
   });
 
   /**
+   * [ADMIN]
+   *
+   * POST - Reject participant.
+   */
+  router.post('/users/:id/reject', isAdmin, function(req, res){
+    var confirmation = req.body.confirmation;
+    var id = req.params.id;
+
+    UserController.rejectById(id, defaultResponse(req, res));
+  });
+
+   /**
+   * [ADMIN]
+   *
+   * POST - Unreject participant.
+   */
+  router.post('/users/:id/unreject', isAdmin, function(req, res){
+    var confirmation = req.body.confirmation;
+    var id = req.params.id;
+
+    UserController.unRejectById(id, defaultResponse(req, res));
+  });
+
+  /**
    * Check in a user. ADMIN ONLY, DUH
    */
   router.post('/users/:id/checkin', isAdmin, function(req, res){

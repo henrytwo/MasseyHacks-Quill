@@ -87,6 +87,14 @@ angular.module('reg')
         return $http.post(base + id + '/admit');
       },
 
+      reject: function(id){
+        return $http.post(base + id + '/reject');
+      },
+
+      unReject: function(id){
+        return $http.post(base + id + '/unreject');
+      },
+      
       checkIn: function(id){
         return $http.post(base + id + '/checkin');
       },

@@ -81,12 +81,19 @@
         </div>
 
         <div class="actions">
-           <button
-                class="ui positive left labeled icon button"
-                ng-click="acceptUser($event, selectedUser, $index)">
-                Accept participant {{selectedUser.profile.name}}
-                <i class="checkmark icon"></i>
-              </button>
+            <button
+              class="ui negative button"
+              ng-click="toggleReject($event, selectedUser, $index)">
+              <i ng-if="!selectedUser.status.rejected">Reject
+              </i>
+              <i ng-if="selectedUser.status.rejected">Unreject
+              </i>
+            </button>  
+            <button
+              class="ui positive button"
+              ng-click="acceptUser($event, selectedUser, $index)">
+              Accept participant {{selectedUser.profile.name}}
+            </button>
             <div class="ui negative right labeled icon button">
             Close
             <i class="checkmark icon"></i>
@@ -103,7 +110,7 @@
             <th>School</th>
             <th>Team</th>
             <th>Age</th>
-            <th>V/S/A/C</th>
+            <th>V/S/A/C/R</th>
             <th>$</th>
             <th></th>
             <th></th>
@@ -185,6 +192,15 @@
                 ng-if="user.status.admitted && user.status.declined"
                 class="red remove circle icon">
               </i>
+              <!-- Rejected -->
+              <i
+                ng-if="!user.status.rejected"
+                class="circle thin icon">
+              </i>
+               <i
+                ng-if="user.status.rejected"
+                class="red remove circle icon">
+              </i>
 
             </td>
 
@@ -214,6 +230,16 @@
             <td
               class="right aligned collapsing">
 
+                <button
+                ng-click="toggleReject($event, user, $index)"
+                class="ui circular mini basic red icon button">
+                <i
+                  ng-if="!user.status.rejected"
+                  class="flag outline icon"></i>
+                <i
+                  ng-if="user.status.rejected"
+                  class="red flag icon"></i>
+              </button>
               <button
                 class="accept ui circular mini basic green icon button"
                 ng-click="acceptUser($event, user, $index)">

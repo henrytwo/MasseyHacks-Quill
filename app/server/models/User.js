@@ -195,6 +195,11 @@ var status = {
     required: true,
     default: false,
   },
+  rejected: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   checkedIn: {
     type: Boolean,
     required: true,
@@ -499,7 +504,6 @@ schema.virtual('status.name').get(function(){
   if (this.status.admitted) {
     return "admitted";
   }
-
   if (this.status.completedProfile){
     return "submitted";
   }
