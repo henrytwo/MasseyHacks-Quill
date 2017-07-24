@@ -47,7 +47,6 @@
     right: 35px;
     margin-top: 15px;
     margin-bottom: 15px;
-    vertical-align: bottom;
 
     &:hover {
       background-color: $accent2;
@@ -107,6 +106,8 @@
         // Hack to get the X lined up
         line-height: $sidebar-tab-size;
         text-align: center;
+        padding-top: 0;
+        padding-left: 0;
       }
     }
     // When the tab is closed.

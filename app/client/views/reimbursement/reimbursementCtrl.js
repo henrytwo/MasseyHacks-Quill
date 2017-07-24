@@ -120,13 +120,35 @@ angular.module('reg')
             //here the form gets destroed and set up again so that it can be validated again
 
             $('.ui.form').form('destroy');
-            _setupForm();
+
+            _setupForm(countryType);
         });
       }
 
-      function _setupForm(){
+      function _setupForm(countryType){
         // Semantic-UI form validation
         var val = getIBANLength();
+        var iban = {
+          identifier: 'iban',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter your IBAN.'
+            },
+            {
+              type: 'exactLength[' + val + ']',
+              prompt: 'Your IBAN has to be {ruleValue} long'
+            }
+          ]
+        };
+        if(countryType == "ibanOrOther"){
+          iban.rules = [
+            {
+              type: 'exactLength[' + val +']',
+              prompt: 'Your IBAN can be max. {ruleValue} long'
+            }
+          ]
+        }
         $('.ui.form').form({
           inline:true,
           fields: {
@@ -194,19 +216,7 @@ angular.module('reg')
                 }
               ]
             },
-            iban: {
-              identifier: 'iban',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your IBAN.'
-                },
-                {
-                  type: 'exactLength[' + val + ']',
-                  prompt: 'Your IBAN has to be {ruleValue} long'
-                }
-              ]
-            },
+            iban: iban,
             accountNumber: {
               identifier: 'accountNumber',
               rules: [

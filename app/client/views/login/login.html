@@ -12,27 +12,26 @@
       </div>
     </div>
   </div> -->
-  <script>fdIn()</script>
-  <div class="row">
-    <div class="col-left">
-        <div class="quote-header">
-        <p>What a participant from last year liked:</p>
-      </div>
-      <div id="quote" class="col-left quotes">
-        <script>randomQuote()</script>
-      </div>
-    </div>
+  <div class="cont">
+    <div class="content">
+      <script>fdIn()</script>
 
-    <div class="col-right form-padding">
-      <div class="ui segment form">
+      <div class="header">
         <div class="logo">
-          <img onclick="randomQuote()" src="assets/images/junction_logo_black.png">
+          <img onclick="randomQuote()" src="assets/images/logo_text.png">
         </div>
+        <div class="tip">
+          <p>
+            Register and apply for Junction 2017
+          </p>
+        </div>
+      </div>
 
-        <div class="ui divider"></div>
 
 
-<!-- LOGIN FORM -->
+      <div class="ui segment form">
+
+    <!-- LOGIN FORM -->
 
         <div ng-show="loginState === 'login'">
           <div class="ui login-password form">
@@ -65,8 +64,9 @@
             </form>
           </div>
 
-          <div class="ui form" ng-show="regIsOpen">
-            <div class="ui divider"></div>
+          <div class="ui divider"/>
+
+          <div class="" ng-show="regIsOpen">
             <div class="field">
               <button id="register"
                       type="submit"
@@ -78,7 +78,7 @@
           </div>
         </div>
 
-<!-- REGISTER FORM -->
+    <!-- REGISTER FORM -->
 
         <div ng-show="loginState === 'register'">
           <div class="ui login-password form">
@@ -127,7 +127,7 @@
           </div>
         </div>
 
-<!-- FORGOT FORM -->
+    <!-- FORGOT FORM -->
 
         <div ng-show="loginState === 'forgot'">
           <h4 class="forgot">FORGOTTEN PASSWORD</h4>
@@ -152,7 +152,7 @@
           </div>
         </div>
 
-<!-- Divider -->
+    <!-- Divider -->
 
         <div class="ui divider"></div>
 
@@ -174,12 +174,28 @@
             </a>
           </div>
       </div>
+
+      <div class="quote-header">
+        <p>QUOTE FROM LAST YEAR</p>
+      </div>
+
+      <div class="test"/>
+
+      <div class="quotes">
+        <script>randomQuote()</script>
+        <p id="quote">
+        </p>
+      </div>
     </div>
+
+
+    <footer class="footer">
+      <span class="footer-text">&#9400; Junction 2017</span>
+      <a href="https://www.hackjunction.com/policy" class="footer-link">Privacy Policy</a>
+      <a href="http://www.freeprivacypolicy.com/" class="footer-link">Code of Conduct</a>
+    </footer>
+
   </div>
 
-  <footer class="footer">
-    <span class="footer-text">&#9400; Junction 2017</span>
-    <a href="https://www.hackjunction.com/policy" class="footer-link">Privacy Policy</a>
-    <a href="http://www.freeprivacypolicy.com/" class="footer-link">Code of Conduct</a>
-</footer>
+
 </div>
