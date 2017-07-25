@@ -1,5 +1,6 @@
 var quotes;
 
+
 angular.module('reg')
   .controller('LoginCtrl', [
     '$scope',
@@ -15,6 +16,8 @@ angular.module('reg')
 
       // Start state for login
       $scope.loginState = 'login';
+
+      var quoteIndex = 0;
 
       function onSuccess() {
         $state.go('app.dashboard');
@@ -79,17 +82,16 @@ function fdIn() {
     $('#login').fadeIn(1000);
   });
 }
-
-var quoteIndex = 0;
 function randomQuote(){
   var keys = Object.keys(quotes)
   var randomKey = keys[Math.floor(Math.random() * keys.length)];
   var ranQuote = quotes[randomKey].quote;
-  quoteIndex = randomKey
+  quoteIndex = quotes[randomKey].id;
   document.getElementById("quote").innerHTML = ranQuote;
 }
 
 function switchQuote(direction){
+
   if(direction == "left"){
     if(quoteIndex == 0){
       quoteIndex = quotes.length - 1;
@@ -101,8 +103,8 @@ function switchQuote(direction){
     }
   }
   else {
-    if(quoteIndex == (quotes.length - 1)){
-      quoteIndex = 0;
+    if(quoteIndex >= (quotes.length - 1)){
+      quoteIndex = 1;
       document.getElementById("quote").innerHTML = quotes[quoteIndex].quote;
     }
     else {
