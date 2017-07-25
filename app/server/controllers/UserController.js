@@ -458,6 +458,68 @@ UserController.declineById = function (id, callback){
 };
 
 /**
+ * Reject an acceptance, given an id.
+ *
+ * @param  {String}   id            Id of the user
+ * @param  {Function} callback      Callback with args (err, user)
+ */
+UserController.rejectById = function (id, callback){
+
+  // You can only reject if you've been verified.
+  User.findOneAndUpdate({
+    '_id': id,
+    'verified': true,
+    'status.admitted': false,
+    'status.declined': false,
+    'status.rejected': false,
+  },
+    {
+      $set: {
+        'lastUpdated': Date.now(),
+        'status.rejected': true,
+      }
+    }, {
+      new: true
+    },
+    function(err, user) {
+      if (err || !user) {
+        return callback(err);
+      }
+      return callback(err, user);
+    });
+};
+
+/**
+ * Unreject an user, given an id.
+ *
+ * @param  {String}   id            Id of the user
+ * @param  {Function} callback      Callback with args (err, user)
+ */
+UserController.unRejectById = function (id, callback){
+
+  // You can only unreject if you've been verified and rejected
+  User.findOneAndUpdate({
+    '_id': id,
+    'verified': true,
+    'status.declined': false,
+    'status.rejected': true,
+  },
+    {
+      $set: {
+        'lastUpdated': Date.now(),
+        'status.rejected': false,
+      }
+    }, {
+      new: true
+    },
+    function(err, user) {
+      if (err || !user) {
+        return callback(err);
+      }
+      return callback(err, user);
+    });
+};
+/**
  * Verify a user's email based on an email verification token.
  * @param  {[type]}   token    token
  * @param  {Function} callback args(err, user)
@@ -705,8 +767,9 @@ UserController.admitUser = function(id, user, callback){
   Settings.getRegistrationTimes(function(err, times){
     User
       .findOneAndUpdate({
-        _id: id,
-        verified: true
+        '_id': id,
+        'verified': true,
+        'status.rejected': false,
       },{
         $set: {
           'status.admitted': true,

@@ -103,6 +103,41 @@ angular.module('reg')
         }
       };
 
+      $scope.toggleReject = function($event, user, index) {
+        $event.stopPropagation();
+        if (!user.status.rejected){
+          swal({
+            title: "Whoa, wait a minute!",
+            text: "You are about to reject " + user.profile.name + "!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, reject.",
+            closeOnConfirm: false
+            },
+            function(){
+              UserService
+                .reject(user._id)
+                .success(function(user){
+                  $scope.users[index] = user;
+                  if(user !== "")
+                    swal("Accepted", user.profile.name + ' has been rejected.', "success");
+                  else
+                    swal("Could not be rejected", 'User cannot be rejected if its not verified or it is admitted', "error");
+                });
+            }
+          );
+        } else {
+          UserService
+            .unReject(user._id)
+            .success(function(user){
+              if(index != "undefined")
+                $scope.users[index] = user;
+              swal("Accepted", user.profile.name + ' has been unrejected.', "success");
+            });
+        }
+      };
+
       $scope.acceptUser = function($event, user, index) {
         $event.stopPropagation();
 
@@ -204,7 +239,9 @@ angular.module('reg')
             
           });
       }
+      function findUser(user){
 
+      }
       function generateSections(user){
         return [
           {
@@ -219,6 +256,12 @@ angular.module('reg')
               },{
                 name: 'Confirm By',
                 value: formatTime(user.status.confirmBy) || 'N/A'
+              },{
+                name: 'Status',
+                value: user.status.name
+              },{
+                name: 'Rejected',
+                value: user.status.rejected
               },{
                 name: 'Checked In',
                 value: formatTime(user.status.checkInTime) || 'N/A'
