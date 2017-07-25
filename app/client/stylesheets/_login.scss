@@ -103,14 +103,29 @@
     margin-top: 30px;
   }
   .quotes{
+    img{
+      width: 64px;
+      height: 64px;
+    }
+    .arrowleft {
+      float:left;
+    }
+    .arrowright {
+      float:right;
+    }
     height: 130px;
-    max-width: 500px;
+    max-width: 750px;
     text-align: center;
     font-size: 20px;
     font-family: Lato;
     font-weight: 400;
     color: $secondary;
     margin: auto;
+    #quote{
+      padding-bottom: 30px;
+      max-width: 500px;
+      margin: auto;
+    }
   }
   .test {
     height: 3px;
@@ -149,9 +164,7 @@
   a:visited {
     color: #5abecf;
   }
-  #quote{
-    padding-bottom: 30px;
-  }
+
 }
 
 #login:before{
