@@ -79,9 +79,35 @@ function fdIn() {
     $('#login').fadeIn(1000);
   });
 }
+
+var quoteIndex = 0;
 function randomQuote(){
   var keys = Object.keys(quotes)
   var randomKey = keys[Math.floor(Math.random() * keys.length)];
   var ranQuote = quotes[randomKey].quote;
+  quoteIndex = randomKey
   document.getElementById("quote").innerHTML = ranQuote;
+}
+
+function switchQuote(direction){
+  if(direction == "left"){
+    if(quoteIndex == 0){
+      quoteIndex = quotes.length - 1;
+      document.getElementById("quote").innerHTML = quotes[quoteIndex].quote;
+    }
+    else {
+      quoteIndex = quoteIndex - 1;
+      document.getElementById("quote").innerHTML = quotes[quoteIndex].quote;
+    }
+  }
+  else {
+    if(quoteIndex == (quotes.length - 1)){
+      quoteIndex = 0;
+      document.getElementById("quote").innerHTML = quotes[quoteIndex].quote;
+    }
+    else {
+      quoteIndex = quoteIndex + 1;
+      document.getElementById("quote").innerHTML = quotes[quoteIndex].quote;
+    }
+  }
 }
