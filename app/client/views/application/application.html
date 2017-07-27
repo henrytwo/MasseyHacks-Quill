@@ -586,7 +586,7 @@
           <p style="margin-bottom: 10px;">
           Please fill the school you are enrolled to for the year 2017/2018.
           </p>
-          <input class="ui input"
+          <input class="ui fluid input"
                  name="school"
                  ng-model="user.profile.school">
         </div>
@@ -629,9 +629,11 @@
 
 
         <div class="field">
-          <label>Which track(s) are you most interested in hacking?
-            This question isn’t binding in any case, just to know a little more about your interests.
-            You can find more info about each track on our website! *</label>
+          <label>Which track(s) are you most interested in hacking?</label>
+            <p style="margin-bottom: 10px;">
+              This question isn’t binding in any case, just to know a little more about your interests.
+              You can find more info about each track on our website! *
+            </p>
           <select
             class="ui fluid dropdown"
             name="mostInterestingTrack"
@@ -653,17 +655,19 @@
         </div>
 
         <div class="field">
-          <label> Team -
-            If you have formed a team already, please name it with a unique string. This way we'll know who your teammates are.
+          <label>
+            If you have formed a team already, please name it with a unique string. </label>
+            <p style="margin-bottom: 10px;">
+            This way we'll know who your teammates are.
             Remember that the team name is Case Sensitive!
             Having a team is not compulsory at all. Note that to compete for prizes at Junction 2017, your team can be max. 5 members!
-          </label>
+          </p>
           <input type="text"
                  name="teamCode"
                  placeholder="Java Jedis"
                  ng-model="user.teamCode">
         </div>
-          
+
 
         <div class="field">
           <label> Link to your portfolio </label>
@@ -899,16 +903,16 @@
 
         <div class="ui checkbox">
             <input type="checkbox" id="conduct" ng-model="user.profile.conduct">
-            <label for="conduct"><h3>I agree with MLH Code of Conduct, which can be found
-              <a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">here</a>*</h3></label>
+            <label for="conduct"><h5>I agree with MLH Code of Conduct, which can be found
+              <a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">here</a>*</h5></label>
         </div>
 
         <br>
         <br>
         <div class="ui checkbox">
             <input type="checkbox" id="termsAndCond" ng-model="user.profile.termsAndCond">
-            <label for="termsAndCond"><h3>I agree with Junction Terms and Conditions, which can be found
-              <a href="https://tokyo.hackjunction.com/terms/" target="_blank">here</a>*</h3></label>
+            <label for="termsAndCond"><h5>I agree with Junction Terms and Conditions, which can be found
+              <a href="https://tokyo.hackjunction.com/terms/" target="_blank">here</a>*</h5></label>
         </div>
         <br>
         <br>
@@ -922,14 +926,14 @@
         </ul>
         </div>
 
-        <div class="field" ng-hide="regIsClosed">
+        <div class="field" style="margin-bottom:5px" ng-hide="regIsClosed">
           <button type="submit"
                   class="fluid ui teal button"
                   ng-click="submitForm()">
             Submit
           </button>
         </div>
-        <strong>By submitting your application to Junction, you agree to have your registration information shared with partners.</strong>
+        By submitting your application to Junction, you agree to have your registration information shared with partners.
 
         </fieldset>
       </div>
