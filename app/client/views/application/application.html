@@ -586,7 +586,7 @@
           <p style="margin-bottom: 10px;">
           Please fill the school you are enrolled to for the year 2017/2018.
           </p>
-          <input class="ui input"
+          <input class="ui fluid input"
                  name="school"
                  ng-model="user.profile.school">
         </div>
@@ -629,9 +629,11 @@
 
 
         <div class="field">
-          <label>Which track(s) are you most interested in hacking?
-            This question isn’t binding in any case, just to know a little more about your interests.
-            You can find more info about each track on our website! *</label>
+          <label>Which track(s) are you most interested in hacking?</label>
+            <p style="margin-bottom: 10px;">
+              This question isn’t binding in any case, just to know a little more about your interests.
+              You can find more info about each track on our website! *
+            </p>
           <select
             class="ui fluid dropdown"
             name="mostInterestingTrack"
@@ -653,11 +655,13 @@
         </div>
 
         <div class="field">
-          <label> Team -
-            If you have formed a team already, please name it with a unique string. This way we'll know who your teammates are.
+          <label>
+            If you have formed a team already, please name it with a unique string. </label>
+            <p style="margin-bottom: 10px;">
+            This way we'll know who your teammates are.
             Remember that the team name is Case Sensitive!
             Having a team is not compulsory at all. Note that to compete for prizes at Junction 2017, your team can be max. 5 members!
-          </label>
+          </p>
           <input type="text"
                  name="teamCode"
                  placeholder="Java Jedis"
