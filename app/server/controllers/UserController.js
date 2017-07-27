@@ -62,8 +62,8 @@ function generateID(i){
     var l = 1000000;
     //100^3 and this v number don't share any common determinators, so the modulo will produce same results only every million participants
     var num = i * 85766121 % l; //7^6 * 3^6
-    return programmingLanguages[Math.floor(num / 10000) % 100] +
-            programmingLanguages[Math.floor(num / 100) % 100] +
+    return programmingLanguages[Math.floor(num / 10000) % 100] + "-" +
+            programmingLanguages[Math.floor(num / 100) % 100] + "-" +
             programmingLanguages[num % 100];
 }
 
