@@ -6,8 +6,9 @@ var Stats = require('../services/stats');
 
 var validator = require('validator');
 var moment = require('moment');
+var shuffleSeed = require('shuffle-seed');
 
-var programmingLanguages = require('../assets/programming_languages.json');
+var programmingLanguages = shuffleSeed.shuffle(require('../assets/programming_languages.json'), process.env.JWT_SECRET);
 
 var UserController = {};
 
