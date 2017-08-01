@@ -16,12 +16,24 @@ angular.module('reg')
       $scope.user = currentUser.data;
       $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
 
-      _setupForm();
-      checkCountryType();
+      //var ibanCountries;
+      $.getJSON('../assets/iban.json')
+        .done(function(data){
+            $scope.ibanCountries = data;
+            checkCountryType();
+            _setupForm();
+        })
+        .fail(function(data){
+            console.log( "Error loading ibans.json" );
+        });
 
-      var ibanCountries;
-      $.getJSON('../assets/iban.json').done(function(data){
-            ibanCountries = data;
+      $('#countryOfB').change(function() {
+
+          //When the Country of Bank field gets changed,
+          //look through what is the type of the country
+          //and set the state of disabled attribute based on that
+
+          checkCountryType();
       });
 
 
@@ -31,8 +43,6 @@ angular.module('reg')
 
 
       function _updateUser(e){
-
-        console.log($scope.user.reimbursement)
         // Update user profile
         UserService
           .updateReimbursement(Session.getUserId(), $scope.user.reimbursement)
@@ -52,19 +62,18 @@ angular.module('reg')
       }
 
       function getIBANLength(){
-        console.log($scope.user.reimbursement)
         var country = $('#countryOfB').val();
 
         //here we get the length for the iban field validation
 
-        if(ibanCountries == undefined){
+        if($scope.ibanCountries == undefined){
           if(country != undefined){
             return 10;
           }
           return 100;
         }
         else{
-          var result = ibanCountries.filter(function(obj) {
+          var result = $scope.ibanCountries.filter(function(obj) {
             return obj.country == country;
           });
 
@@ -78,51 +87,46 @@ angular.module('reg')
       }
       function checkCountryType(){
 
-        $('#countryOfB').change(function() {
+        var disabledToggler = false;
 
-            //When the Country of Bank field gets changed,
-            //look through what is the type of the country
-            //and set the state of disabled attribute based on that
-
-            var disabledToggler = false;
-
-            var filteredCountry = ibanCountries.filter(function(obj) {
-              return obj.country == $('#countryOfB').val();
-            });
-            //filteredCountry is an array of one so we take the first element and check the type
-            var countryType = "NotDefined"
-            if(filteredCountry[0] != undefined){
-              countryType = filteredCountry[0].countryType;
-            }
-
-            if(countryType == "SEPA" || countryType == "ibanAndBic"){
-              $('.ibanField').attr('disabled', disabledToggler);
-              $('.accountNumberField').attr('disabled', !disabledToggler);
-              $('.addressOfBankField').attr('disabled', !disabledToggler);
-              $('.zipCodeField').attr('disabled', !disabledToggler);
-              $('.brokerageInfoField').attr('disabled', !disabledToggler);
-            }
-            else if(countryType == "ibanOrOther"){
-              $('.ibanField').attr('disabled', disabledToggler);
-              $('.accountNumberField').attr('disabled', disabledToggler);
-              $('.addressOfBankField').attr('disabled', disabledToggler);
-              $('.zipCodeField').attr('disabled', disabledToggler);
-              $('.brokerageInfoField').attr('disabled', disabledToggler);
-            }
-            else if(countryType == "onlyIban" || countryType == "NotDefined"){
-              $('.ibanField').attr('disabled', disabledToggler);
-              $('.accountNumberField').attr('disabled', disabledToggler);
-              $('.addressOfBankField').attr('disabled', disabledToggler);
-              $('.zipCodeField').attr('disabled', disabledToggler);
-              $('.brokerageInfoField').attr('disabled', disabledToggler);
-            }
-
-            //here the form gets destroed and set up again so that it can be validated again
-
-            $('.ui.form').form('destroy');
-
-            _setupForm(countryType);
+        var filteredCountry = $scope.ibanCountries.filter(function(obj) {
+          return obj.country == $('#countryOfB').val();
         });
+        //filteredCountry is an array of one so we take the first element and check the type
+        var countryType = "NotDefined"
+        if(filteredCountry[0] != undefined){
+          countryType = filteredCountry[0].countryType;
+        }
+
+        console.log(countryType);
+
+        if(countryType == "SEPA" || countryType == "ibanAndBic"){
+          $('.ibanField').attr('disabled', disabledToggler);
+          $('.accountNumberField').attr('disabled', !disabledToggler);
+          $('.addressOfBankField').attr('disabled', !disabledToggler);
+          $('.zipCodeField').attr('disabled', !disabledToggler);
+          $('.brokerageInfoField').attr('disabled', !disabledToggler);
+        }
+        else if(countryType == "ibanOrOther"){
+          $('.ibanField').attr('disabled', disabledToggler);
+          $('.accountNumberField').attr('disabled', disabledToggler);
+          $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.brokerageInfoField').attr('disabled', disabledToggler);
+        }
+        else if(countryType == "onlyIban" || countryType == "NotDefined"){
+          $('.ibanField').attr('disabled', disabledToggler);
+          $('.accountNumberField').attr('disabled', disabledToggler);
+          $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.brokerageInfoField').attr('disabled', disabledToggler);
+        }
+
+        //here the form gets destroed and set up again so that it can be validated again
+
+        $('.ui.form').form('destroy');
+
+        _setupForm(countryType);
       }
 
       function _setupForm(countryType){
@@ -250,6 +254,15 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please enter brokerage information.'
+                }
+              ]
+            },
+            correctInfo: {
+              identifier: 'correctInfo',
+              rules: [
+                {
+                  type: 'checked',
+                  prompt: "Please indicate that you've double checked your information!"
                 }
               ]
             }
