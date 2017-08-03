@@ -8,10 +8,11 @@ angular.module('reg')
     'settings',
     'Session',
     'UserService',
-    function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService){
+    'angularFileUpload',
+    function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService, FileUploader){
 
       $scope.isDisabled = false;
-
+      var uploader = $scope.uploader = new FileUploader();
       // Set up the user
       $scope.user = currentUser.data;
       $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
