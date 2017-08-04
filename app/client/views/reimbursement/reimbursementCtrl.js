@@ -8,11 +8,24 @@ angular.module('reg')
     'settings',
     'Session',
     'UserService',
-    'angularFileUpload',
-    function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService, FileUploader){
+    function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService){
 
       $scope.isDisabled = false;
-      var uploader = $scope.uploader = new FileUploader();
+
+      $scope.filesChanged = function(element) {
+        $scope.files = element.files;
+        $scope.$apply();
+      }
+      $scope.upload = function() {
+        $http.post('/upload', $scope.files,
+        {
+          transformRequest:angular.identity,
+          headers:{'Content-Type':undefined}
+        })
+        .success(function(data) {
+          console.log(data);
+        })
+      }
       // Set up the user
       $scope.user = currentUser.data;
       $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);

@@ -110,7 +110,10 @@ module.exports = function(router) {
   /**
    *  API!
    */
-
+   router.post('/upload', function(req, res) {
+     console.log(req);
+     console.log(res);
+   });
   // ---------------------------------------------
   // Users
   // ---------------------------------------------
