@@ -1,4 +1,19 @@
 angular.module('reg')
+  .directive('fileInput', ['$parse', function($parse){
+    return {
+      restrict: 'A',
+      link:function(scope,elm,attrs){
+        elm.bind('change',function(){
+          $parse(attrs.fileInput)
+          .assign(scope,elm[0].files)
+          scope.$apply()
+        })
+      }
+    }
+  }]);
+
+
+angular.module('reg')
   .controller('ReimbursementCtrl', [
     '$scope',
     '$rootScope',
@@ -12,12 +27,13 @@ angular.module('reg')
 
       $scope.isDisabled = false;
 
-      $scope.filesChanged = function(element) {
-        $scope.files = element.files;
-        $scope.$apply();
-      }
+
       $scope.upload = function() {
-        $http.post('/upload', $scope.files,
+        var fd = new FormData()
+        angular.forEach($scope.files,function(file){
+          fd.append('file',file)
+        })
+        $http.post('/api/upload', fd,
         {
           transformRequest:angular.identity,
           headers:{'Content-Type':undefined}

@@ -389,14 +389,13 @@
                  ng-model="user.reimbursement.brokerageInfo">
         </div>
 
-        <div class="field">
-          <input type="file"
-            onChange="angular.element(this).scope().filesChanged"
-            ng-model="files"
-            multiple />
-          <button class="ui button teal" ng-click="upload()">Upload</button>
-          <li ng-repeat="file in files">{{file.name}}</li>
-        </div>
+        <input
+           type="file"
+           file-input="files"
+           multiple />
+         <li ng-repeat="file in files">{{file.name}}</li>
+         <button class="ui button teal" ng-click="upload()">Upload</button>
+
 
         <div class="field">
           <label>Additional information</label>

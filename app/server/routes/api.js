@@ -2,6 +2,15 @@ var UserController = require('../controllers/UserController');
 var SettingsController = require('../controllers/SettingsController');
 
 var request = require('request');
+var multer = require('multer');
+var path = require('path');
+var storage = multer.diskStorage({
+  destination: 'upload/',
+   filename: function (req, file, cb, user) {
+     cb(null, file.originalname)
+   }
+})
+var upload = multer({ storage: storage })
 
 module.exports = function(router) {
 
@@ -110,9 +119,12 @@ module.exports = function(router) {
   /**
    *  API!
    */
-   router.post('/upload', function(req, res) {
-     console.log(req);
-     console.log(res);
+
+   /**
+   * FILE UPLOAD
+   */
+   router.post('/upload', upload.any('file'), function(req, res) {
+     res.sendStatus(200);
    });
   // ---------------------------------------------
   // Users
@@ -159,6 +171,7 @@ module.exports = function(router) {
    *
    * PUT - Update a specific user's profile.
    */
+
   router.put('/users/:id/profile', isOwnerOrAdmin, function(req, res){
     var profile = req.body.profile;
     var id = req.params.id;
