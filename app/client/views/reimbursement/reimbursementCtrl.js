@@ -27,6 +27,10 @@ angular.module('reg')
 
       $scope.isDisabled = false;
 
+      $scope.isSEPA = false;
+      $scope.isIBANOrBIC = false;
+      $scope.isOther = false;
+
 
       $scope.upload = function() {
         var fd = new FormData()
@@ -131,25 +135,12 @@ angular.module('reg')
         console.log(countryType);
 
         if(countryType == "SEPA" || countryType == "ibanAndBic"){
-          $('.ibanField').attr('disabled', disabledToggler);
-          $('.accountNumberField').attr('disabled', !disabledToggler);
-          $('.addressOfBankField').attr('disabled', !disabledToggler);
-          $('.zipCodeField').attr('disabled', !disabledToggler);
-          $('.brokerageInfoField').attr('disabled', !disabledToggler);
+          $scope.isSEPA = true;
+          $scope.isOther = false;
         }
-        else if(countryType == "ibanOrOther"){
-          $('.ibanField').attr('disabled', disabledToggler);
-          $('.accountNumberField').attr('disabled', disabledToggler);
-          $('.addressOfBankField').attr('disabled', disabledToggler);
-          $('.zipCodeField').attr('disabled', disabledToggler);
-          $('.brokerageInfoField').attr('disabled', disabledToggler);
-        }
-        else if(countryType == "onlyIban" || countryType == "NotDefined"){
-          $('.ibanField').attr('disabled', disabledToggler);
-          $('.accountNumberField').attr('disabled', disabledToggler);
-          $('.addressOfBankField').attr('disabled', disabledToggler);
-          $('.zipCodeField').attr('disabled', disabledToggler);
-          $('.brokerageInfoField').attr('disabled', disabledToggler);
+        else if(countryType == "ibanOrOther" || countryType == "onlyIban" || countryType == "NotDefined"){
+          $scope.isSEPA = false;
+          $scope.isOther = true;
         }
 
         //here the form gets destroed and set up again so that it can be validated again
@@ -162,6 +153,7 @@ angular.module('reg')
       function _setupForm(countryType){
         // Semantic-UI form validation
         var val = getIBANLength();
+
         var iban = {
           identifier: 'iban',
           rules: [
@@ -171,18 +163,21 @@ angular.module('reg')
             },
             {
               type: 'exactLength[' + val + ']',
-              prompt: 'Your IBAN has to be {ruleValue} long'
+              prompt: 'Your IBAN has to be {ruleValue} characters long'
             }
           ]
         };
-        if(countryType == "ibanOrOther"){
+
+        if(countryType == "ibanOrOther" || countryType == "onlyIban" || countryType == "NotDefined"){
+
           iban.rules = [
             {
-              type: 'exactLength[' + val +']',
-              prompt: 'Your IBAN can be max. {ruleValue} long'
+              type: 'maxLength[' + val +']',
+              prompt: 'Your IBAN can be max. {ruleValue} characters long'
             }
           ]
         }
+
         $('.ui.form').form({
           inline:true,
           fields: {
@@ -241,12 +236,21 @@ angular.module('reg')
                 }
               ]
             },
-            swiftOrBicOrClearingCode: {
-              identifier: 'swiftOrBicOrClearingCode',
+            swiftOrBic: {
+              identifier: 'swiftOrBicField',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please enter the SWIFT, BIC or Clearing code.'
+                  prompt: 'Please enter the SWIFT or BIC'
+                }
+              ]
+            },
+            clearingCode: {
+              identifier: 'clearingCode',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter the clearing code.'
                 }
               ]
             },
@@ -266,6 +270,15 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please enter the address of your bank.'
+                }
+              ]
+            },
+            cityOfBank: {
+              identifier: 'cityOfBank',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter the city of your bank.'
                 }
               ]
             },

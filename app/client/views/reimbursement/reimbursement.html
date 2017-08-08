@@ -26,7 +26,6 @@
         <div class="field">
           <label> Full Name </label>
           <input type="text"
-
                  name="fullName"
                  disabled="true"
                  placeholder="{{user.profile.name}}">
@@ -328,73 +327,90 @@
           </select>
         </div>
 
-        <div class="field">
+        <div class="field" ng-if="isSEPA || isOther">
           <label>Name of the bank</label>
           <input type="text"
                  name="nameOfBank"
                  ng-model="user.reimbursement.nameOfBank">
         </div>
 
-        <div class="field">
-          <label>SWIFT / BIC / Clearing code</label>
+        <div class="field" ng-if="isSEPA || isOther">
+          <label>SWIFT / BIC</label>
           <input type="text"
-                 name="swiftOrBicOrClearingCode"
-                 ng-model="user.reimbursement.swiftOrBicOrClearingCode">
+                 name="swiftOrBicField"
+                 ng-model="user.reimbursement.swiftOrBic">
         </div>
 
-        <div class="field">
+        <div class="field" ng-if="isOther">
+          <label>Clearing code</label>
+          <input type="text"
+                 name="clearingCode"
+                 ng-model="user.reimbursement.clearingCode">
+        </div>
+
+        <div class="field" ng-if="isSEPA || isOther">
           <label>IBAN</label>
           <input type="text"
                  name="iban"
                  class="ibanField"
-                 disabled="true"
                  ng-model="user.reimbursement.iban">
         </div>
 
-        <div class="field">
+        <div class="field" ng-if="isOther">
           <label>Account number</label>
           <input type="text"
                  name="accountNumber"
                  class="accountNumberField"
-                 disabled="true"
                  ng-model="user.reimbursement.accountNumber">
         </div>
 
-        <div class="field">
+        <div class="field" ng-if="isOther">
+          <label>City of the bank</label>
+          <input type="text"
+                 name="cityOfBank"
+                 class="cityOfBankField"
+                 ng-model="user.reimbursement.cityOfBank">
+        </div>
+
+        <div class="field" ng-if="isOther">
           <label>Address of the bank</label>
           <input type="text"
                  name="addressOfBank"
                  class="addressOfBankField"
-                 disabled="true"
                  ng-model="user.reimbursement.addressOfBank">
         </div>
 
-        <div class="field">
+        <div class="field" ng-if="isOther">
           <label>ZIP Code</label>
           <input type="text"
                  name="zipCode"
                  class="zipCodeField"
-                 disabled="true"
                  ng-model="user.reimbursement.zipCode">
         </div>
 
 
 
-        <div class="field">
+        <div class="field" ng-if="isOther">
           <label>Brokerage information</label>
           <input type="text"
                  name="brokerageInfo"
                  class="brokerageInfoField"
-                 disabled="true"
                  ng-model="user.reimbursement.brokerageInfo">
         </div>
 
-        <input
-           type="file"
-           file-input="files"
-           multiple />
-         <li ng-repeat="file in files">{{file.name}}</li>
-         <button class="ui button teal" ng-click="upload()">Upload</button>
+        <div class="small title">
+          RECEIPTS
+        </div>
+
+        <div class="field" ng-if="isSEPA || isOther">
+          <input
+             type="file"
+             file-input="files"
+             multiple />
+           <li ng-repeat="file in files">{{file.name}}</li>
+           <button class="ui button teal" ng-click="upload()">Upload</button>
+        </div>
+
 
 
         <div class="field">
