@@ -205,6 +205,5 @@ angular.module('reg')
         $scope.fieldErrors = null;
         $scope.error = null;
         $('.ui.form').form('validate form');
-      }
-    };
+      };
 }]);
