@@ -16,6 +16,8 @@ angular.module('reg')
       // Set up the user
       $scope.user = currentUser.data;
       $scope.schools = Settings.data.schools;
+      console.log($scope.schools);
+      console.log('Lol');
 
       // Populate the school dropdown
       _setupForm();

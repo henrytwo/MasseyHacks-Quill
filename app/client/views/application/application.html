@@ -9,6 +9,11 @@
     $('.ui.dropdown')
       .dropdown();
 
+    $('.ui.school.search.dropdown')
+      .dropdown({
+        allowAdditions: true
+      });
+
     // Max selections for occupationalStatus
     $('.ui.normal.dropdown')
       .dropdown({
@@ -582,13 +587,13 @@
           <label> Which school are you from? </label>
           <p style="margin-bottom: 10px;">
           Please fill the school you are enrolled to for the year 2017/2018.
+          Choose from the list if your school is listed or type it in if not.
           </p>
-          <select class="ui fluid search selection dropdown"
+          <select class="ui fluid school search selection dropdown"
                  name="school"
                  ng-model="user.profile.school"
                  ng-options="item for item in schools">
                  <option value="">Select School</option>
-                 <option value="Other">Other</option>
           </select>
         </div>
 
