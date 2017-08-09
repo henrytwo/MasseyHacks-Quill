@@ -16,31 +16,11 @@ angular.module('reg')
       // Set up the user
       $scope.user = currentUser.data;
       $scope.schools = Settings.data.schools;
-      console.log($scope.schools);
-      console.log('Lol');
 
       // Populate the school dropdown
       _setupForm();
 
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
-
-      // Set selected multiselect items
-      $("#spacesOrTabs").dropdown('set selected', $scope.user.profile.spacesOrTabs);
-      $("#operatingSystem").dropdown('set selected', $scope.user.profile.operatingSystem);
-      $("#jobOpportunities").dropdown('set selected', $scope.user.profile.jobOpportunities);
-      $("#description").dropdown('set selected', $scope.user.profile.description);
-      $("#howManyHackathons").dropdown('set selected', $scope.user.profile.howManyHackathons);
-      $("#codingExperience").dropdown('set selected', $scope.user.profile.codingExperience);
-      $("#mostInterestingTrack").dropdown('set selected', $scope.user.profile.mostInterestingTrack);
-      $("#gender").dropdown('set selected', $scope.user.profile.gender);
-      $("#homeCountry").dropdown('set selected', $scope.user.profile.homeCountry);
-      $("#travelFromCountry").dropdown('set selected', $scope.user.profile.travelFromCountry);
-      $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
-      //$("#occupationalStatus").dropdown({maxSelections: "2"});
-
-      $("#bestTools").dropdown('set selected', $scope.user.profile.bestTools);
-      $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
-
 
       function _updateUser(e){
         // Update user profile
@@ -77,6 +57,8 @@ angular.module('reg')
       }
 
       function _updateSchools(e) {
+        console.log('School to add');
+        console.log($scope.user.profile.school);
         if ($.inArray($scope.user.profile.school, $scope.schools) == -1) {
           SettingsService.addSchool($scope.user.profile.school)
           .success(function(user){
@@ -199,9 +181,37 @@ angular.module('reg')
             $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
           }
         });
+
+        // Set selected multiselect items
+        $("#spacesOrTabs").dropdown('set selected', $scope.user.profile.spacesOrTabs);
+        $("#operatingSystem").dropdown('set selected', $scope.user.profile.operatingSystem);
+        $("#jobOpportunities").dropdown('set selected', $scope.user.profile.jobOpportunities);
+        $("#description").dropdown('set selected', $scope.user.profile.description);
+        $("#howManyHackathons").dropdown('set selected', $scope.user.profile.howManyHackathons);
+        $("#codingExperience").dropdown('set selected', $scope.user.profile.codingExperience);
+        $("#mostInterestingTrack").dropdown('set selected', $scope.user.profile.mostInterestingTrack);
+        $("#gender").dropdown('set selected', $scope.user.profile.gender);
+        $("#homeCountry").dropdown('set selected', $scope.user.profile.homeCountry);
+        $("#travelFromCountry").dropdown('set selected', $scope.user.profile.travelFromCountry);
+        $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
+        //$("#occupationalStatus").dropdown({maxSelections: "2"});
+
+        $("#bestTools").dropdown('set selected', $scope.user.profile.bestTools);
+        $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
+        $('.ui.dropdown').dropdown('refresh');
+
+        setTimeout(function () {
+          $("#school").dropdown('set selected', $scope.user.profile.school);
+        }, 1);
       }
 
       $scope.submitForm = function(){
+        if ($scope.user.profile.school === null) {
+          var schoolValue = $('#school').dropdown('get value');
+          schoolValue = schoolValue[0];
+          schoolValue = schoolValue.replace("string:", "");
+          $scope.user.profile.school = schoolValue;
+        }
         $scope.fieldErrors = null;
         $scope.error = null;
         $('.ui.form').form('validate form');
