@@ -57,8 +57,6 @@ angular.module('reg')
       }
 
       function _updateSchools(e) {
-        console.log('School to add');
-        console.log($scope.user.profile.school);
         if ($.inArray($scope.user.profile.school, $scope.schools) == -1) {
           SettingsService.addSchool($scope.user.profile.school)
           .success(function(user){
