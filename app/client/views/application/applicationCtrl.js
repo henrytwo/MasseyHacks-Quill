@@ -10,12 +10,17 @@ angular.module('reg')
     'UserService',
     'SettingsService',
     function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService, SettingsService){
-
       $scope.isDisabled = false;
 
       // Set up the user
       $scope.user = currentUser.data;
       $scope.schools = Settings.data.schools;
+      if ($scope.user.profile.school == null) {
+          $scope.schoolChecked = false;
+      } else {
+        $scope.schoolChecked = true;
+      }
+      var originalTeamCode = $scope.user.teamCode;
 
       // Populate the school dropdown
       _setupForm();
@@ -43,16 +48,17 @@ angular.module('reg')
 
       function _updateTeam(e) {
         // Update user teamCode
-        if ($scope.user.teamCode === currentUser.data.teamCode || !$scope.user.teamCode) {
+        if ($scope.user.teamCode === originalTeamCode || !$scope.user.teamCode) {
           return;
         }
+
         UserService
           .joinOrCreateTeam($scope.user.teamCode)
           .success(function(user){
-            console.log('Successfully updated teamCode')
+            return;
           })
           .error(function(res){
-            console.log("Failed to update teamCode");
+            return;
           });
       }
 
@@ -60,7 +66,7 @@ angular.module('reg')
         if ($.inArray($scope.user.profile.school, $scope.schools) == -1) {
           SettingsService.addSchool($scope.user.profile.school)
           .success(function(user){
-            console.log('Successfully added new school')
+            return;
           })
           .error(function(res){
             console.log("Failed to add new school");
@@ -169,9 +175,9 @@ angular.module('reg')
             }
           },
           onSuccess: function(event, fields){
-            _updateUser();
             _updateTeam();
             _updateSchools();
+            _updateUser();
 
           },
           onFailure: function(formErrors, fields){
