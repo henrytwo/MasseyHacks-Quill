@@ -3,10 +3,9 @@ var SettingsController = require('../controllers/SettingsController');
 
 var request = require('request');
 var multer = require('multer');
-var uploadPath = process.env.UPLOAD_PATH;
 
 var storage = multer.diskStorage({
-  destination: uploadPath,
+  destination: 'upload/',
    filename: function (req, file, cb, user) {
      cb(null, file.originalname)
    }
