@@ -327,28 +327,21 @@
           </select>
         </div>
 
-        <div class="field" ng-if="isSEPA || isOther">
+        <div class="field" ng-show="isSEPA || isOther">
           <label>Name of the bank</label>
           <input type="text"
                  name="nameOfBank"
                  ng-model="user.reimbursement.nameOfBank">
         </div>
 
-        <div class="field" ng-if="isSEPA || isOther">
+        <div class="field" ng-show="isSEPA || isOther">
           <label>SWIFT / BIC</label>
           <input type="text"
                  name="swiftOrBicField"
                  ng-model="user.reimbursement.swiftOrBic">
         </div>
 
-        <div class="field" ng-if="isOther">
-          <label>Clearing code</label>
-          <input type="text"
-                 name="clearingCode"
-                 ng-model="user.reimbursement.clearingCode">
-        </div>
-
-        <div class="field" ng-if="isSEPA || isOther">
+        <div class="field" ng-show="isSEPA || isOther">
           <label>IBAN</label>
           <input type="text"
                  name="iban"
@@ -356,7 +349,14 @@
                  ng-model="user.reimbursement.iban">
         </div>
 
-        <div class="field" ng-if="isOther">
+        <div class="field" ng-show="isOther">
+          <label>Clearing code</label>
+          <input type="text"
+                 name="clearingCodeField"
+                 ng-model="user.reimbursement.clearingCode">
+        </div>
+
+        <div class="field" ng-show="isOther">
           <label>Account number</label>
           <input type="text"
                  name="accountNumber"
@@ -364,7 +364,7 @@
                  ng-model="user.reimbursement.accountNumber">
         </div>
 
-        <div class="field" ng-if="isOther">
+        <div class="field" ng-show="isOther">
           <label>City of the bank</label>
           <input type="text"
                  name="cityOfBank"
@@ -372,7 +372,7 @@
                  ng-model="user.reimbursement.cityOfBank">
         </div>
 
-        <div class="field" ng-if="isOther">
+        <div class="field" ng-show="isOther">
           <label>Address of the bank</label>
           <input type="text"
                  name="addressOfBank"
@@ -380,7 +380,7 @@
                  ng-model="user.reimbursement.addressOfBank">
         </div>
 
-        <div class="field" ng-if="isOther">
+        <div class="field" ng-show="isOther">
           <label>ZIP Code</label>
           <input type="text"
                  name="zipCode"
@@ -390,7 +390,7 @@
 
 
 
-        <div class="field" ng-if="isOther">
+        <div class="field" ng-show="isOther">
           <label>Brokerage information</label>
           <input type="text"
                  name="brokerageInfo"
@@ -402,7 +402,7 @@
           RECEIPTS
         </div>
 
-        <div class="field" ng-if="isSEPA || isOther">
+        <div class="field" ng-show="isSEPA || isOther">
           <input
              type="file"
              file-input="files"

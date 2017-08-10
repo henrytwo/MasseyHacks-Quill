@@ -32,6 +32,7 @@ angular.module('reg')
       $scope.isOther = false;
 
 
+
       $scope.upload = function() {
         var fd = new FormData()
         angular.forEach($scope.files,function(file){
@@ -133,12 +134,28 @@ angular.module('reg')
         }
 
         console.log(countryType);
+        console.log($scope.user.reimbursement)
 
         if(countryType == "SEPA" || countryType == "ibanAndBic"){
+          $('.ibanField').attr('disabled', disabledToggler);
+          $('.accountNumberField').attr('disabled', !disabledToggler);
+          $('.addressOfBankField').attr('disabled', !disabledToggler);
+          $('.clearingCodeField').attr('disabled', !disabledToggler);
+          $('.cityOfBankField').attr('disabled', !disabledToggler);
+          $('.zipCodeField').attr('disabled', !disabledToggler);
+          $('.brokerageInfoField').attr('disabled', !disabledToggler);
+
           $scope.isSEPA = true;
           $scope.isOther = false;
         }
         else if(countryType == "ibanOrOther" || countryType == "onlyIban" || countryType == "NotDefined"){
+          $('.ibanField').attr('disabled', disabledToggler);
+          $('.accountNumberField').attr('disabled', disabledToggler);
+          $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.cityOfBankField').attr('disabled', disabledToggler);
+          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.brokerageInfoField').attr('disabled', disabledToggler);
+
           $scope.isSEPA = false;
           $scope.isOther = true;
         }
