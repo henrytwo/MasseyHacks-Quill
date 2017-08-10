@@ -5,7 +5,7 @@ var request = require('request');
 var multer = require('multer');
 
 var storage = multer.diskStorage({
-  destination: 'upload/',
+  destination: 'uploads/',
    filename: function (req, file, cb, user) {
      cb(null, file.originalname)
    }
