@@ -119,9 +119,19 @@ angular.module('reg')
               UserService
                 .reject(user._id)
                 .success(function(user){
-                  $scope.users[index] = user;
-                  if(user !== "")
+                  if(user !== ""){//User cannot be found if user is accepted
+                    if(index == null){ //we don't have index because toggleReject has been called in pop-up
+                      for(var i = 0; i < $scope.users.length; i++){
+                        if($scope.users[i]._id === user._id){
+                          $scope.users[i] = user;
+                          selectUser(user);
+                          }
+                        }
+                      }
+                      else
+                        $scope.users[index] = user;
                     swal("Accepted", user.profile.name + ' has been rejected.', "success");
+                    }
                   else
                     swal("Could not be rejected", 'User cannot be rejected if its not verified or it is admitted', "error");
                 });
@@ -131,8 +141,16 @@ angular.module('reg')
           UserService
             .unReject(user._id)
             .success(function(user){
-              if(index != "undefined")
-                $scope.users[index] = user;
+              if(index == null){ //we don't have index because toggleReject has been called in pop-up
+                for(var i = 0; i < $scope.users.length; i++){
+                  if($scope.users[i]._id === user._id){
+                    $scope.users[i] = user;
+                    selectUser(user);
+                    }
+                  }
+                }
+                else
+                 $scope.users[index] = user;
               swal("Accepted", user.profile.name + ' has been unrejected.', "success");
             });
         }
@@ -165,9 +183,21 @@ angular.module('reg')
                 UserService
                   .admitUser(user._id)
                   .success(function(user){
-                    if(index != "undefined")
-                      $scope.users[index] = user;
-                    swal("Accepted", user.profile.name + ' has been admitted.', "success");
+                    if(user != ""){// User cannot be found if user is rejected
+                      if(index == null){ //we don't have index because acceptUser has been called in pop-up
+                        for(var i = 0; i < $scope.users.length; i++){
+                          if($scope.users[i]._id === user._id){
+                            $scope.users[i] = user;
+                            selectUser(user);
+                            }
+                          }
+                        }
+                        else
+                          $scope.users[index] = user;
+                          swal("Accepted", user.profile.name + ' has been admitted.', "success");
+                    }
+                    else
+                      swal("Could not be accepted", 'User cannot be accepted if the user is rejected. Please remove rejection', "error");
                   });
 
               });

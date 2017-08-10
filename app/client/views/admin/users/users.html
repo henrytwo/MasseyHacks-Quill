@@ -105,12 +105,13 @@
         class="ui celled selectable compact users table">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>E-mail address</th>
             <th>School</th>
             <th>Team</th>
             <th>Age</th>
-            <th>V/S/A/C/R</th>
+            <th>V/S/A/C</th>
             <th>$</th>
             <th></th>
             <th></th>
@@ -133,10 +134,11 @@
             ng-class="rowClass(user)">
             <td>
               <strong>
+              {{user.id}}
+              &nbsp;
+            </strong>
+            <td>
                 {{user.profile.name}}
-                &nbsp;
-
-              </strong>
             </td>
             <td>{{user.email}}</td>
             <td>{{user.profile.school}}</td>
@@ -171,10 +173,13 @@
                 class="green check circle icon">
               </i>
               <i
-                ng-if="!user.status.admitted"
+                ng-if="!user.status.rejected"
                 class="thin circle icon">
               </i>
-
+              <i
+                ng-if="user.status.rejected"
+                class="red remove circle icon">
+              </i>
               <!-- Confirmed -->
               <i
                 ng-if="!user.status.admitted"
@@ -192,16 +197,6 @@
                 ng-if="user.status.admitted && user.status.declined"
                 class="red remove circle icon">
               </i>
-              <!-- Rejected -->
-              <i
-                ng-if="!user.status.rejected"
-                class="circle thin icon">
-              </i>
-               <i
-                ng-if="user.status.rejected"
-                class="red remove circle icon">
-              </i>
-
             </td>
 
             <td
