@@ -583,7 +583,14 @@
 
         </div>
 
-        <div class="field">
+        <div class="ui checkbox">
+          <input type="checkbox"
+                  id="hasSchool"
+                  ng-model="schoolChecked">
+          <label for="hasSchool">I am currently enrolled in a school / university</label>
+        </div>
+        <p style="margin-bottom: 10px;">
+        <div class="field" id="schoolField" ng-show="schoolChecked">
           <label> Which school are you from? </label>
           <p style="margin-bottom: 10px;">
           Please fill the school you are enrolled to for the year 2017/2018.
