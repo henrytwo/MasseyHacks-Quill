@@ -198,7 +198,7 @@ angular.module('reg')
         $("#homeCountry").dropdown('set selected', $scope.user.profile.homeCountry);
         $("#travelFromCountry").dropdown('set selected', $scope.user.profile.travelFromCountry);
         $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
-        //$("#occupationalStatus").dropdown({maxSelections: "2"});
+        $("#degree").dropdown('set selected', $scope.user.profile.degree);
 
         $("#bestTools").dropdown('set selected', $scope.user.profile.bestTools);
         $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);

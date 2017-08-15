@@ -48,6 +48,20 @@ var profile = {
     max: 150,
   },
 
+  graduationYear: {
+    type: Number,
+  },
+
+  major: {
+    type: String,
+    max: 100
+  },
+
+  degree: {
+    type: String,
+    max: 100,
+  },
+
   description: {
     type: String,
     min: 0,
