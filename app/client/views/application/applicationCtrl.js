@@ -210,10 +210,13 @@ angular.module('reg')
       }
 
       $scope.submitForm = function(){
-        if ($scope.user.profile.school === null) {
+        if ($scope.user.profile.school === null && $scope.schoolChecked) {
           var schoolValue = $('#school').dropdown('get value');
           schoolValue = schoolValue.replace("string:", "");
           $scope.user.profile.school = schoolValue;
+        }
+        if (!$scope.schoolChecked) {
+          $scope.user.profile.school = null;
         }
         $scope.fieldErrors = null;
         $scope.error = null;

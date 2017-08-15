@@ -241,6 +241,10 @@ var reimbursement = {
      type: String,
      max: 60
    },
+   cityOfBank: {
+     type: String,
+     max: 30
+   },
    addressOfBank: {
      type: String,
      default: '',
@@ -261,10 +265,15 @@ var reimbursement = {
      default: '',
      max: 30
    },
-   swiftOrBicOrClearingCode: {
+   swiftOrBic: {
      type: String,
      default: '',
      max: 11
+   },
+   clearingCode: {
+     type: String,
+     default: '',
+     max: 30
    },
    brokerageInfo: {
      type: String,

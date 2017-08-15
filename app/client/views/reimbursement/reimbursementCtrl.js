@@ -1,4 +1,19 @@
 angular.module('reg')
+  .directive('fileInput', ['$parse', function($parse){
+    return {
+      restrict: 'A',
+      link:function(scope,elm,attrs){
+        elm.bind('change',function(){
+          $parse(attrs.fileInput)
+          .assign(scope,elm[0].files)
+          scope.$apply()
+        })
+      }
+    }
+  }]);
+
+
+angular.module('reg')
   .controller('ReimbursementCtrl', [
     '$scope',
     '$rootScope',
@@ -12,16 +27,48 @@ angular.module('reg')
 
       $scope.isDisabled = false;
 
+      $scope.isSEPA = false;
+      $scope.isIBANOrBIC = false;
+      $scope.isOther = false;
+
+
+
+      $scope.upload = function() {
+        var fd = new FormData()
+        angular.forEach($scope.files,function(file){
+          fd.append('file',file)
+        })
+        $http.post('/api/upload', fd,
+        {
+          transformRequest:angular.identity,
+          headers:{'Content-Type':undefined}
+        })
+        .success(function(data) {
+          console.log(data);
+        })
+      }
       // Set up the user
       $scope.user = currentUser.data;
       $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
 
-      _setupForm();
-      checkCountryType();
+      //var ibanCountries;
+      $.getJSON('../assets/iban.json')
+        .done(function(data){
+            $scope.ibanCountries = data;
+            checkCountryType();
+            _setupForm();
+        })
+        .fail(function(data){
+            console.log( "Error loading ibans.json" );
+        });
 
-      var ibanCountries;
-      $.getJSON('../assets/iban.json').done(function(data){
-            ibanCountries = data;
+      $('#countryOfB').change(function() {
+
+          //When the Country of Bank field gets changed,
+          //look through what is the type of the country
+          //and set the state of disabled attribute based on that
+
+          checkCountryType();
       });
 
 
@@ -31,8 +78,6 @@ angular.module('reg')
 
 
       function _updateUser(e){
-
-        console.log($scope.user.reimbursement)
         // Update user profile
         UserService
           .updateReimbursement(Session.getUserId(), $scope.user.reimbursement)
@@ -52,19 +97,18 @@ angular.module('reg')
       }
 
       function getIBANLength(){
-        console.log($scope.user.reimbursement)
         var country = $('#countryOfB').val();
 
         //here we get the length for the iban field validation
 
-        if(ibanCountries == undefined){
+        if($scope.ibanCountries == undefined){
           if(country != undefined){
             return 10;
           }
           return 100;
         }
         else{
-          var result = ibanCountries.filter(function(obj) {
+          var result = $scope.ibanCountries.filter(function(obj) {
             return obj.country == country;
           });
 
@@ -78,56 +122,56 @@ angular.module('reg')
       }
       function checkCountryType(){
 
-        $('#countryOfB').change(function() {
+        var disabledToggler = false;
 
-            //When the Country of Bank field gets changed,
-            //look through what is the type of the country
-            //and set the state of disabled attribute based on that
-
-            var disabledToggler = false;
-
-            var filteredCountry = ibanCountries.filter(function(obj) {
-              return obj.country == $('#countryOfB').val();
-            });
-            //filteredCountry is an array of one so we take the first element and check the type
-            var countryType = "NotDefined"
-            if(filteredCountry[0] != undefined){
-              countryType = filteredCountry[0].countryType;
-            }
-
-            if(countryType == "SEPA" || countryType == "ibanAndBic"){
-              $('.ibanField').attr('disabled', disabledToggler);
-              $('.accountNumberField').attr('disabled', !disabledToggler);
-              $('.addressOfBankField').attr('disabled', !disabledToggler);
-              $('.zipCodeField').attr('disabled', !disabledToggler);
-              $('.brokerageInfoField').attr('disabled', !disabledToggler);
-            }
-            else if(countryType == "ibanOrOther"){
-              $('.ibanField').attr('disabled', disabledToggler);
-              $('.accountNumberField').attr('disabled', disabledToggler);
-              $('.addressOfBankField').attr('disabled', disabledToggler);
-              $('.zipCodeField').attr('disabled', disabledToggler);
-              $('.brokerageInfoField').attr('disabled', disabledToggler);
-            }
-            else if(countryType == "onlyIban" || countryType == "NotDefined"){
-              $('.ibanField').attr('disabled', disabledToggler);
-              $('.accountNumberField').attr('disabled', disabledToggler);
-              $('.addressOfBankField').attr('disabled', disabledToggler);
-              $('.zipCodeField').attr('disabled', disabledToggler);
-              $('.brokerageInfoField').attr('disabled', disabledToggler);
-            }
-
-            //here the form gets destroed and set up again so that it can be validated again
-
-            $('.ui.form').form('destroy');
-
-            _setupForm(countryType);
+        var filteredCountry = $scope.ibanCountries.filter(function(obj) {
+          return obj.country == $('#countryOfB').val();
         });
+        //filteredCountry is an array of one so we take the first element and check the type
+        var countryType = "NotDefined"
+        if(filteredCountry[0] != undefined){
+          countryType = filteredCountry[0].countryType;
+        }
+
+        console.log(countryType);
+        console.log($scope.user.reimbursement)
+
+        if(countryType == "SEPA" || countryType == "ibanAndBic"){
+          $('.ibanField').attr('disabled', disabledToggler);
+          $('.accountNumberField').attr('disabled', !disabledToggler);
+          $('.addressOfBankField').attr('disabled', !disabledToggler);
+          $('.clearingCodeField').attr('disabled', !disabledToggler);
+          $('.cityOfBankField').attr('disabled', !disabledToggler);
+          $('.zipCodeField').attr('disabled', !disabledToggler);
+          $('.brokerageInfoField').attr('disabled', !disabledToggler);
+
+          $scope.isSEPA = true;
+          $scope.isOther = false;
+        }
+        else if(countryType == "ibanOrOther" || countryType == "onlyIban" || countryType == "NotDefined"){
+          $('.ibanField').attr('disabled', disabledToggler);
+          $('.accountNumberField').attr('disabled', disabledToggler);
+          $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.clearingCodeField').attr('disabled', disabledToggler);
+          $('.cityOfBankField').attr('disabled', disabledToggler);
+          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.brokerageInfoField').attr('disabled', disabledToggler);
+
+          $scope.isSEPA = false;
+          $scope.isOther = true;
+        }
+
+        //here the form gets destroed and set up again so that it can be validated again
+
+        $('.ui.form').form('destroy');
+
+        _setupForm(countryType);
       }
 
       function _setupForm(countryType){
         // Semantic-UI form validation
         var val = getIBANLength();
+
         var iban = {
           identifier: 'iban',
           rules: [
@@ -137,18 +181,21 @@ angular.module('reg')
             },
             {
               type: 'exactLength[' + val + ']',
-              prompt: 'Your IBAN has to be {ruleValue} long'
+              prompt: 'Your IBAN has to be {ruleValue} characters long'
             }
           ]
         };
-        if(countryType == "ibanOrOther"){
+
+        if(countryType == "ibanOrOther" || countryType == "onlyIban" || countryType == "NotDefined"){
+
           iban.rules = [
             {
-              type: 'exactLength[' + val +']',
-              prompt: 'Your IBAN can be max. {ruleValue} long'
+              type: 'maxLength[' + val +']',
+              prompt: 'Your IBAN can be max. {ruleValue} characters long'
             }
           ]
         }
+
         $('.ui.form').form({
           inline:true,
           fields: {
@@ -207,12 +254,21 @@ angular.module('reg')
                 }
               ]
             },
-            swiftOrBicOrClearingCode: {
-              identifier: 'swiftOrBicOrClearingCode',
+            swiftOrBic: {
+              identifier: 'swiftOrBicField',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please enter the SWIFT, BIC or Clearing code.'
+                  prompt: 'Please enter the SWIFT or BIC'
+                }
+              ]
+            },
+            clearingCodeField: {
+              identifier: 'clearingCode',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter the clearing code.'
                 }
               ]
             },
@@ -235,6 +291,15 @@ angular.module('reg')
                 }
               ]
             },
+            cityOfBank: {
+              identifier: 'cityOfBank',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter the city of your bank.'
+                }
+              ]
+            },
             zipCode: {
               identifier: 'zipCode',
               rules: [
@@ -250,6 +315,15 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please enter brokerage information.'
+                }
+              ]
+            },
+            correctInfo: {
+              identifier: 'correctInfo',
+              rules: [
+                {
+                  type: 'checked',
+                  prompt: "Please indicate that you've double checked your information!"
                 }
               ]
             }
