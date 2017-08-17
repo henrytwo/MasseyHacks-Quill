@@ -583,59 +583,62 @@
 
         </div>
 
-        <div class="ui checkbox">
-          <input type="checkbox"
-                  id="hasSchool"
-                  ng-model="schoolChecked">
-          <label for="hasSchool">I am currently enrolled in a school / university</label>
+        <div class="field">
+          <label> School Information </label>
+          <div class="ui checkbox">
+            <input type="checkbox"
+                    id="hasSchool"
+                    ng-model="schoolChecked">
+            <label for="hasSchool">I am currently enrolled in a school / university</label>
+          </div>
         </div>
-        <p style="margin-bottom: 10px;">
-        <div class="field" id="schoolField" ng-show="schoolChecked">
-          <label> Which school are you from? </label>
-          <p style="margin-bottom: 10px;">
-          Please fill the school you are enrolled to for the year 2017/2018.
-          Choose from the list if your school is listed or type it in if not.
-          </p>
-          <select class="ui fluid school search selection dropdown"
-                 name="school"
-                 id="school"
-                 ng-model="user.profile.school"
-                 ng-options="item for item in schools">
-                 <option value="">Select School</option>
-          </select>
-        </div>
+        <div style="margin-left: 20px; margin-top: 10px; margin-bottom: 20px">
+          <div class="field" id="schoolField" ng-show="schoolChecked">
+            <label> Which school are you from? </label>
+            <p style="margin-bottom: 10px;">
+            Please fill the school you are enrolled to for the year 2017/2018.
+            Choose from the list if your school is listed or type it in if not.
+            </p>
+            <select class="ui fluid school search selection dropdown"
+                   name="school"
+                   id="school"
+                   ng-model="user.profile.school"
+                   ng-options="item for item in schools">
+                   <option value="">Select School</option>
+            </select>
+          </div>
 
-        <div class="field" ng-show="schoolChecked">
-          <label> Expected Graduation Year </label>
-          <input type="number"
-                 min="2017"
-                 name="graduationYear"
-                 ng-model="user.profile.graduationYear">
-        </div>
+          <div class="field" ng-show="schoolChecked">
+            <label> Expected Graduation Year </label>
+            <input type="number"
+                   min="2017"
+                   name="graduationYear"
+                   ng-model="user.profile.graduationYear">
+          </div>
 
-        <div class="field" ng-show="schoolChecked">
-          <label>What degree are you currently studying?</label>
-          <select
-            class="ui fluid dropdown"
-            id="degree"
-            name="degree"
-            ng-model="user.profile.degree">
-            <option value="">Degree</option>
-            <option value="Associate degree">Associate degree</option>
-            <option value="Bachelors degree">Bachelor's degree</option>
-            <option value="Masters degree">Master's degree</option>
-            <option value="Doctorate degree">Doctorate degree</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
+          <div class="field" ng-show="schoolChecked">
+            <label>What degree are you currently studying?</label>
+            <select
+              class="ui fluid dropdown"
+              id="degree"
+              name="degree"
+              ng-model="user.profile.degree">
+              <option value="">Degree</option>
+              <option value="Associate degree">Associate degree</option>
+              <option value="Bachelors degree">Bachelor's degree</option>
+              <option value="Masters degree">Master's degree</option>
+              <option value="Doctorate degree">Doctorate degree</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
 
-        <div class="field" ng-show="schoolChecked">
-          <label> What is your major? </label>
-          <input type="text"
-                 name="major"
-                 ng-model="user.profile.major">
+          <div class="field" ng-show="schoolChecked">
+            <label> What is your major? </label>
+            <input type="text"
+                   name="major"
+                   ng-model="user.profile.major">
+          </div>
         </div>
-
         <div class="field">
           <label>What gender do you identify as? *</label>
           <select
