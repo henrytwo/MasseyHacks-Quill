@@ -97,14 +97,18 @@
 
           <div
             ng-show="user.profile.needsReimbursement">
-
           <div class="divided title">Travel</div>
           <div class="field">
+            <span ng-show="classAmount !=='Rejected'">
             <p>
               As a reminder, the maximum reimbursement are as follows:
             </p>
-              <p>You will be granted €XXX for travelling to Junction 2017!</p>
+              <p>You will be granted <strong>{{classAmount}}€</strong> for travelling to Junction 2017!</p>
               <p>To receive this reimbursement, please go the Travel Reimbursement tab and fill in the necessary information. The reimbursement will be granted after the event.</p>
+            </span>
+            <span ng-show="classAmount =='Rejected'">
+              <p>We have run out of travel reimbursements. Due to this you will not be granted any travel reimbursements.</p>
+            </span>
           </div>
           </div>
 
