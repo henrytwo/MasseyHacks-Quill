@@ -220,6 +220,9 @@ angular.module('reg')
         }
         if (!$scope.schoolChecked) {
           $scope.user.profile.school = null;
+          $scope.user.profile.graduationYear = null;
+          $scope.user.profile.degree = null;
+          $scope.user.profile.major = null;
         }
         $scope.fieldErrors = null;
         $scope.error = null;
