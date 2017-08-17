@@ -128,6 +128,51 @@ angular.module('reg')
                 }
               ]
             },
+            jobOpportunities: {
+              identifier: 'jobOpportunities',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select if you are interested in job opportunities.'
+                }
+              ]
+            },
+            codingExperience: {
+              identifier: 'codingExperience',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your coding experience.'
+                }
+              ]
+            },
+            bestTools: {
+              identifier: 'bestTools',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your best tools.'
+                }
+              ]
+            },
+            howManyHackathons: {
+              identifier: 'howManyHackathons',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select how many hackathons you have attended.'
+                }
+              ]
+            },
+            description: {
+              identifier: 'description',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your role in a hackathon team.'
+                }
+              ]
+            },
             mostInterestingTrack: {
               identifier: 'mostInterestingTrack',
               rules: [
@@ -143,6 +188,10 @@ angular.module('reg')
                 {
                   type: 'maxCount[2]',
                   prompt: 'Please select at most 2.'
+                },
+                {
+                type: 'empty',
+                prompt: 'Please select your occupational status.'
                 }
               ]
             },
