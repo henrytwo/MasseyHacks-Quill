@@ -107,7 +107,7 @@ angular.module('reg')
                   prompt: 'Please enter your age.'
                 },
                 {
-                  type: 'integer[13..120]',
+                  type: 'integer[13..100]',
                   prompt: 'You must be at least 13 to attend.'
                 }
               ]
@@ -139,6 +139,51 @@ angular.module('reg')
                 }
               ]
             },
+            jobOpportunities: {
+              identifier: 'jobOpportunities',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select if you are interested in job opportunities.'
+                }
+              ]
+            },
+            codingExperience: {
+              identifier: 'codingExperience',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your coding experience.'
+                }
+              ]
+            },
+            bestTools: {
+              identifier: 'bestTools',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your best tools.'
+                }
+              ]
+            },
+            howManyHackathons: {
+              identifier: 'howManyHackathons',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select how many hackathons you have attended.'
+                }
+              ]
+            },
+            description: {
+              identifier: 'description',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your role in a hackathon team.'
+                }
+              ]
+            },
             mostInterestingTrack: {
               identifier: 'mostInterestingTrack',
               rules: [
@@ -154,6 +199,10 @@ angular.module('reg')
                 {
                   type: 'maxCount[2]',
                   prompt: 'Please select at most 2.'
+                },
+                {
+                type: 'empty',
+                prompt: 'Please select your occupational status.'
                 }
               ]
             },
@@ -231,6 +280,9 @@ angular.module('reg')
         }
         if (!$scope.schoolChecked) {
           $scope.user.profile.school = null;
+          $scope.user.profile.graduationYear = null;
+          $scope.user.profile.degree = null;
+          $scope.user.profile.major = null;
         }
         $scope.fieldErrors = null;
         $scope.error = null;
