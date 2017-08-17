@@ -20,6 +20,11 @@ angular.module('reg')
 
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
 
+      var reimbClasses;
+      $.getJSON('../assets/reimbClasses.json').done(function(data){
+              reimbClasses = data;
+        });
+
       // Set selected multiselect items
       $("#spacesOrTabs").dropdown('set selected', $scope.user.profile.spacesOrTabs);
       $("#operatingSystem").dropdown('set selected', $scope.user.profile.operatingSystem);
@@ -85,6 +90,12 @@ angular.module('reg')
           .error(function(res){
             sweetAlert("Uh oh!", "Something went wrong.", "error");
           });
+      }
+      $scope.getReimbursementClass = function(homeCountry) {
+        // User checks needs reimbursement
+        if($scope.user.profile.needsReimbursement) {
+          $scope.user.profile.AppliedreimbursementClass = reimbClasses[homeCountry].Class;
+          }
       }
 
       function _setupForm(){

@@ -134,4 +134,14 @@ angular.module('reg')
           });
       };
 
+      $scope.updateReimbClasses = function() {
+        var reimbursementClass = $scope.settings.reimbursementClass;
+        SettingsService
+          .updateReimbClasses(reimbursementClass)
+          .success(function(data){
+            swal("Looks good!", "Travel reimbursement classes Updated", "success");
+            updateSettings(data);
+          });
+      };
+
     }]);

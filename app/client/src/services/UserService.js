@@ -83,8 +83,11 @@ angular.module('reg')
         return $http.get(base + 'stats');
       },
 
-      admitUser: function(id){
-        return $http.post(base + id + '/admit');
+      admitUser: function(id, reimbClass){
+        console.log("USERSERVICE: " + reimbClass);
+        return $http.post(base + id + '/admit', {
+          reimbClass: reimbClass
+        });
       },
 
       reject: function(id){
@@ -94,7 +97,7 @@ angular.module('reg')
       unReject: function(id){
         return $http.post(base + id + '/unreject');
       },
-      
+
       checkIn: function(id){
         return $http.post(base + id + '/checkin');
       },

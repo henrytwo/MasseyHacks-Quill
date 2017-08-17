@@ -1,10 +1,11 @@
 var _ = require('underscore');
 var async = require('async');
 var User = require('../models/User');
+var Settings = require('../models/Settings')
 
 // In memory stats.
 var stats = {};
-function calculateStats(){
+function calculateStats(settings){
   console.log('Calculating stats...');
   var newStats = {
     lastUpdated: 0,
@@ -71,7 +72,23 @@ function calculateStats(){
 
     wantsHardware: 0,
 
-    checkedIn: 0
+    checkedIn: 0,
+
+    RfinlandTotal: 0,
+    RbalticsTotal: 0,
+    RnordicTotal:  0,
+    ReuropeTotal:  0,
+    RoutsideTotal: 0,
+
+    AfinlandTotal: 0,
+    AbalticsTotal: 0,
+    AnordicTotal:  0,
+    AeuropeTotal:  0,
+    AoutsideTotal: 0,
+    Aspecial:      0,
+    ArejectedTotal:0,
+
+    TotalAmountofReimbursementsAccepted: 0
   };
 
   User
@@ -118,6 +135,41 @@ function calculateStats(){
         // newStats.reimbursementTotal += user.confirmation.needsReimbursement ? 1 : 0;
         newStats.reimbursementTotal += user.profile.needsReimbursement ? 1 : 0;
 
+        // Count the number of requested travel reimbursement clasess
+        newStats.RfinlandTotal += user.profile.AppliedreimbursementClass == "Finland" ? 1 : 0;
+        newStats.RbalticsTotal += user.profile.AppliedreimbursementClass == "Baltics" ? 1 : 0;
+        newStats.RnordicTotal += user.profile.AppliedreimbursementClass == "Nordic" ? 1 : 0;
+        newStats.ReuropeTotal += user.profile.AppliedreimbursementClass == "Europe" ? 1 : 0;
+        newStats.RoutsideTotal += user.profile.AppliedreimbursementClass == "Outside Europe" ? 1 : 0;
+
+        var regex = /\d/g;
+        if (user.profile.AcceptedreimbursementClass == "Finland") {
+          newStats.AfinlandTotal += 1;
+          newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Finland;
+        } 
+        else if (user.profile.AcceptedreimbursementClass == "Baltics") {
+          newStats.AbalticsTotal += 1;
+          newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Baltics;
+        } 
+        else if (user.profile.AcceptedreimbursementClass == "Nordic") {
+          newStats.AnordicTotal += 1;
+          newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Nordic;
+        }
+        else if (user.profile.AcceptedreimbursementClass == "Europe") {
+          newStats.AeuropeTotal += 1;
+          newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Europe;
+        }
+        else if (user.profile.AcceptedreimbursementClass == "Outside Europe") {
+          newStats.AoutsideTotal += 1;
+          newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Outside;
+        }
+        else if (regex.test(user.profile.AcceptedreimbursementClass)) {
+          newStats.Aspecial += 1;
+          newStats.TotalAmountofReimbursementsAccepted += parseInt(user.profile.AcceptedreimbursementClass);
+        }
+        else if (user.profile.AcceptedreimbursementClass == "Rejected") {
+          newStats.ArejectedTotal += 1;
+        }    
         // Count the number of people who still need to be reimbursed
         newStats.reimbursementMissing += user.confirmation.needsReimbursement &&
           !user.status.reimbursementGiven ? 1 : 0;
@@ -229,8 +281,22 @@ function calculateStats(){
 }
 
 // Calculate once every five minutes.
-calculateStats();
-setInterval(calculateStats, 300000);
+Settings
+    .getPublicSettings(function(err, settings){
+       if (err || !settings){
+        throw err;
+      }
+      calculateStats(settings);
+    });
+ setInterval(function() {
+  Settings
+    .getPublicSettings(function(err, settings){
+       if (err || !settings){
+        throw err;
+      }
+      calculateStats(settings);
+    });
+  }, 300000);
 
 var Stats = {};
 

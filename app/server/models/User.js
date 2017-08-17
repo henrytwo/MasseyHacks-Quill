@@ -70,6 +70,14 @@ var profile = {
   needsReimbursement: Boolean,
   applyAccommodation: Boolean,
 
+  AppliedreimbursementClass: {
+    type: String,
+    enum: ['Finland', 'Baltics', 'Nordic', 'Europe', 'Outside Europe']
+  },
+   AcceptedreimbursementClass: {
+    type: String,
+  },
+
   mostInterestingTrack: {
     type: String,
     max: 120,

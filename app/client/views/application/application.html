@@ -321,7 +321,9 @@
                  name="travelFromCity"
                  ng-model="user.profile.travelFromCity">
         </div>
-
+          <p type="text" id="capitalArea" ng-if="user.profile.travelFromCountry=='Finland'">
+            If you are coming from <strong>Helsinki region</strong>, you won't be granted for travel reimbursements</p>
+        <br>
         <div class="field">
           <label> What is your home country? *</label>
           <select class="ui fluid search selection dropdown"
@@ -612,8 +614,11 @@
 
         </div>
         <div class="ui checkbox">
-          <input type="checkbox" id="needsReimbursement" ng-model="user.profile.needsReimbursement">
+          <input type="checkbox" id="needsReimbursement" ng-click="getReimbursementClass(user.profile.travelFromCountry)" ng-model="user.profile.needsReimbursement">
           <label for="needsReimbursement">I apply for travel reimbursement</label>
+          <p ng-show="user.profile.needsReimbursement">
+            Your applied travel reimbursement class is:  <strong>{{user.profile.AppliedreimbursementClass}}</strong>
+          </p>
         </div>
         <br>
         <div class="ui checkbox">
