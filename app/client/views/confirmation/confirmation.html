@@ -37,9 +37,6 @@
 
           <div class="field">
             <label> T-shirt size </label>
-            <p>
-              Let's get you some FREE swag!
-            </p>
             <select
               name="shirt"
               ng-model="user.confirmation.shirtSize"
@@ -91,7 +88,7 @@
             <div class="divided title">Accommodation</div>
 
             <p>
-              Accommodation information goes here
+              If you are coming from outside Helsinki region we can offer you free accommodation. To sign up for the free accommodation, please enter the relevant information here.
             </p>
           </div>
 
@@ -100,20 +97,18 @@
 
           <div
             ng-show="user.profile.needsReimbursement">
-
           <div class="divided title">Travel</div>
           <div class="field">
+            <span ng-show="classAmount !=='Rejected'">
             <p>
-              As a reminder, our reimbursement policy is as follows:
+              As a reminder, the maximum reimbursement are as follows:
             </p>
-            <ul>
-              <li> Up to $100 from within Massachusetts </li>
-              <li> Up to $200 from anywhere else in North America </li>
-              <li> Up to $500 from outside North America </li>
-            </ul>
-            <p>
-              We’ll also be sending buses free of charge to Princeton, NJ; New York, NY; New Haven, CT; and Providence, RI. Again, we only reimburse the minimum-cost travel path. Head back to the dashboard to read our full travel policy.
-            </p>
+              <p>You will be granted <strong>{{classAmount}}€</strong> for travelling to Junction 2017!</p>
+              <p>To receive this reimbursement, please go the Travel Reimbursement tab and fill in the necessary information. The reimbursement will be granted after the event.</p>
+            </span>
+            <span ng-show="classAmount =='Rejected'">
+              <p>We have run out of travel reimbursements. Due to this you will not be granted any travel reimbursements.</p>
+            </span>
           </div>
           </div>
 

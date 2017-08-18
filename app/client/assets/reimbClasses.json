@@ -1,0 +1,737 @@
+{
+   "Afganistan": {
+      "Class": "Outside Europe"
+   },
+   "Albania": {
+      "Class": "Europe"
+   },
+   "Algeria": {
+      "Class": "Outside Europe"
+   },
+   "American Samoa": {
+      "Class": "Outside Europe"
+   },
+   "Andorra": {
+      "Class": "Europe"
+   },
+   "Angola": {
+      "Class": "Outside Europe"
+   },
+   "Anguilla": {
+      "Class": "Outside Europe"
+   },
+   "Antigua &amp; Barbuda": {
+      "Class": "Outside Europe"
+   },
+   "Argentina": {
+      "Class": "Outside Europe"
+   },
+   "Armenia": {
+      "Class": "Europe"
+   },
+   "Aruba": {
+      "Class": "Outside Europe"
+   },
+   "Australia": {
+      "Class": "Outside Europe"
+   },
+   "Austria": {
+      "Class": "Europe"
+   },
+   "Azerbaijan": {
+      "Class": "Europe"
+   },
+   "Bahamas": {
+      "Class": "Outside Europe"
+   },
+   "Bahrain": {
+      "Class": "Outside Europe"
+   },
+   "Bangladesh": {
+      "Class": "Outside Europe"
+   },
+   "Barbados": {
+      "Class": "Outside Europe"
+   },
+   "Belarus": {
+      "Class": "Europe"
+   },
+   "Belgium": {
+      "Class": "Europe"
+   },
+   "Belize": {
+      "Class": "Outside Europe"
+   },
+   "Benin": {
+      "Class": "Outside Europe"
+   },
+   "Bermuda": {
+      "Class": "Outside Europe"
+   },
+   "Bhutan": {
+      "Class": "Outside Europe"
+   },
+   "Bolivia": {
+      "Class": "Outside Europe"
+   },
+   "Bonaire": {
+      "Class": "Outside Europe"
+   },
+   "Bosnia &amp; Herzegovina": {
+      "Class": "Europe"
+   },
+   "Botswana": {
+      "Class": "Outside Europe"
+   },
+   "Brazil": {
+      "Class": "Outside Europe"
+   },
+   "British Indian Ocean Ter": {
+      "Class": "Outside Europe"
+   },
+   "Brunei": {
+      "Class": "Outside Europe"
+   },
+   "Bulgaria": {
+      "Class": "Europe"
+   },
+   "Burkina Faso": {
+      "Class": "Outside Europe"
+   },
+   "Burundi": {
+      "Class": "Outside Europe"
+   },
+   "Cambodia": {
+      "Class": "Outside Europe"
+   },
+   "Cameroon": {
+      "Class": "Outside Europe"
+   },
+   "Canada": {
+      "Class": "Outside Europe"
+   },
+   "Canary Islands": {
+      "Class": "Europe"
+   },
+   "Cape Verde": {
+      "Class": "Outside Europe"
+   },
+   "Cayman Islands": {
+      "Class": "Outside Europe"
+   },
+   "Central African Republic": {
+      "Class": "Outside Europe"
+   },
+   "Chad": {
+      "Class": "Outside Europe"
+   },
+   "Channel Islands": {
+      "Class": "Outside Europe"
+   },
+   "Chile": {
+      "Class": "Outside Europe"
+   },
+   "China": {
+      "Class": "Outside Europe"
+   },
+   "Christmas Island": {
+      "Class": "Outside Europe"
+   },
+   "Cocos Island": {
+      "Class": "Outside Europe"
+   },
+   "Colombia": {
+      "Class": "Outside Europe"
+   },
+   "Comoros": {
+      "Class": "Outside Europe"
+   },
+   "Congo": {
+      "Class": "Outside Europe"
+   },
+   "Cook Islands": {
+      "Class": "Outside Europe"
+   },
+   "Costa Rica": {
+      "Class": "Outside Europe"
+   },
+   "Cote DIvoire": {
+      "Class": "Outside Europe"
+   },
+   "Croatia": {
+      "Class": "Europe"
+   },
+   "Cuba": {
+      "Class": "Outside Europe"
+   },
+   "Curaco": {
+      "Class": "Outside Europe"
+   },
+   "Cyprus": {
+      "Class": "Europe"
+   },
+   "Czech Republic": {
+      "Class": "Europe"
+   },
+   "Denmark": {
+      "Class": "Nord"
+   },
+   "DjibOutside Europei": {
+      "Class": "Outside Europe"
+   },
+   "Dominica": {
+      "Class": "Outside Europe"
+   },
+   "Dominican Republic": {
+      "Class": "Outside Europe"
+   },
+   "East Timor": {
+      "Class": "Outside Europe"
+   },
+   "Ecuador": {
+      "Class": "Outside Europe"
+   },
+   "Egypt": {
+      "Class": "Outside Europe"
+   },
+   "El Salvador": {
+      "Class": "Outside Europe"
+   },
+   "Equatorial Guinea": {
+      "Class": "Outside Europe"
+   },
+   "Eritrea": {
+      "Class": "Outside Europe"
+   },
+   "Estonia": {
+      "Class": "Baltics"
+   },
+   "Ethiopia": {
+      "Class": "Outside Europe"
+   },
+   "Falkland Islands": {
+      "Class": "Outside Europe"
+   },
+   "Faroe Islands": {
+      "Class": "Europe"
+   },
+   "Fiji": {
+      "Class": "Outside Europe"
+   },
+   "Finland": {
+      "Class": "Finland"
+   },
+   "France": {
+      "Class": "Europe"
+   },
+   "French Guiana": {
+      "Class": "Outside Europe"
+   },
+   "French Polynesia": {
+      "Class": "Outside Europe"
+   },
+   "French SOutside Europehern Ter": {
+      "Class": "Outside Europe"
+   },
+   "Gabon": {
+      "Class": "Outside Europe"
+   },
+   "Gambia": {
+      "Class": "Outside Europe"
+   },
+   "Georgia": {
+      "Class": "Europe"
+   },
+   "Germany": {
+      "Class": "Europe"
+   },
+   "Ghana": {
+      "Class": "Outside Europe"
+   },
+   "Gibraltar": {
+      "Class": "Europe"
+   },
+   "Greece": {
+      "Class": "Europe"
+   },
+   "Greenland": {
+      "Class": "Outside Europe"
+   },
+   "Grenada": {
+      "Class": "Outside Europe"
+   },
+   "Guadeloupe": {
+      "Class": "Outside Europe"
+   },
+   "Guam": {
+      "Class": "Outside Europe"
+   },
+   "Guatemala": {
+      "Class": "Outside Europe"
+   },
+   "Guinea": {
+      "Class": "Outside Europe"
+   },
+   "Guyana": {
+      "Class": "Outside Europe"
+   },
+   "Haiti": {
+      "Class": "Outside Europe"
+   },
+   "Hawaii": {
+      "Class": "Outside Europe"
+   },
+   "Honduras": {
+      "Class": "Outside Europe"
+   },
+   "Hong Kong": {
+      "Class": "Outside Europe"
+   },
+   "Hungary": {
+      "Class": "Europe"
+   },
+   "Iceland": {
+      "Class": "Nord"
+   },
+   "India": {
+      "Class": "Outside Europe"
+   },
+   "Indonesia": {
+      "Class": "Outside Europe"
+   },
+   "Iran": {
+      "Class": "Outside Europe"
+   },
+   "Iraq": {
+      "Class": "Outside Europe"
+   },
+   "Ireland": {
+      "Class": "Europe"
+   },
+   "Isle of Man": {
+      "Class": "Outside Europe"
+   },
+   "Israel": {
+      "Class": "Outside Europe"
+   },
+   "Italy": {
+      "Class": "Europe"
+   },
+   "Jamaica": {
+      "Class": "Outside Europe"
+   },
+   "Japan": {
+      "Class": "Outside Europe"
+   },
+   "Jordan": {
+      "Class": "Outside Europe"
+   },
+   "Kazakhstan": {
+      "Class": "Outside Europe"
+   },
+   "Kenya": {
+      "Class": "Outside Europe"
+   },
+   "Kiribati": {
+      "Class": "Outside Europe"
+   },
+   "Korea North": {
+      "Class": "Outside Europe"
+   },
+   "Korea SOutside Europeh": {
+      "Class": "Outside Europe"
+   },
+   "Kuwait": {
+      "Class": "Outside Europe"
+   },
+   "Kyrgyzstan": {
+      "Class": "Outside Europe"
+   },
+   "Laos": {
+      "Class": "Outside Europe"
+   },
+   "Latvia": {
+      "Class": "Baltics"
+   },
+   "Lebanon": {
+      "Class": "Outside Europe"
+   },
+   "Lesotho": {
+      "Class": "Outside Europe"
+   },
+   "Liberia": {
+      "Class": "Outside Europe"
+   },
+   "Libya": {
+      "Class": "Outside Europe"
+   },
+   "Liechtenstein": {
+      "Class": "Europe"
+   },
+   "Lithuania": {
+      "Class": "Baltics"
+   },
+   "Luxembourg": {
+      "Class": "Europe"
+   },
+   "Macau": {
+      "Class": "Outside Europe"
+   },
+   "Macedonia": {
+      "Class": "Europe"
+   },
+   "Madagascar": {
+      "Class": "Outside Europe"
+   },
+   "Malawi": {
+      "Class": "Outside Europe"
+   },
+   "Malaysia": {
+      "Class": "Outside Europe"
+   },
+   "Maldives": {
+      "Class": "Outside Europe"
+   },
+   "Mali": {
+      "Class": "Outside Europe"
+   },
+   "Malta": {
+      "Class": "Europe"
+   },
+   "Marshall Islands": {
+      "Class": "Outside Europe"
+   },
+   "Martinique": {
+      "Class": "Outside Europe"
+   },
+   "Mauritania": {
+      "Class": "Outside Europe"
+   },
+   "Mauritius": {
+      "Class": "Outside Europe"
+   },
+   "Mayotte": {
+      "Class": "Outside Europe"
+   },
+   "Mexico": {
+      "Class": "Outside Europe"
+   },
+   "Midway Islands": {
+      "Class": "Outside Europe"
+   },
+   "Moldova": {
+      "Class": "Europe"
+   },
+   "Monaco": {
+      "Class": "Europe"
+   },
+   "Mongolia": {
+      "Class": "Outside Europe"
+   },
+   "Montenegro": {
+      "Class": "Europe"
+   },
+   "Montserrat": {
+      "Class": "Outside Europe"
+   },
+   "Morocco": {
+      "Class": "Outside Europe"
+   },
+   "Mozambique": {
+      "Class": "Outside Europe"
+   },
+   "Myanmar": {
+      "Class": "Outside Europe"
+   },
+   "Nambia": {
+      "Class": "Outside Europe"
+   },
+   "Nauru": {
+      "Class": "Outside Europe"
+   },
+   "Nepal": {
+      "Class": "Outside Europe"
+   },
+   "Netherland Antilles": {
+      "Class": "Outside Europe"
+   },
+   "Netherlands": {
+      "Class": "Europe"
+   },
+   "Nevis": {
+      "Class": "Outside Europe"
+   },
+   "New Caledonia": {
+      "Class": "Outside Europe"
+   },
+   "New Zealand": {
+      "Class": "Outside Europe"
+   },
+   "Nicaragua": {
+      "Class": "Outside Europe"
+   },
+   "Niger": {
+      "Class": "Outside Europe"
+   },
+   "Nigeria": {
+      "Class": "Outside Europe"
+   },
+   "Niue": {
+      "Class": "Outside Europe"
+   },
+   "Norfolk Island": {
+      "Class": "Outside Europe"
+   },
+   "Norway": {
+      "Class": "Nord"
+   },
+   "Oman": {
+      "Class": "Outside Europe"
+   },
+   "Pakistan": {
+      "Class": "Outside Europe"
+   },
+   "Palau Island": {
+      "Class": "Outside Europe"
+   },
+   "Palestine": {
+      "Class": "Outside Europe"
+   },
+   "Panama": {
+      "Class": "Outside Europe"
+   },
+   "Papua New Guinea": {
+      "Class": "Outside Europe"
+   },
+   "Paraguay": {
+      "Class": "Outside Europe"
+   },
+   "Peru": {
+      "Class": "Outside Europe"
+   },
+   "Phillipines": {
+      "Class": "Outside Europe"
+   },
+   "Pitcairn Island": {
+      "Class": "Outside Europe"
+   },
+   "Poland": {
+      "Class": "Europe"
+   },
+   "Portugal": {
+      "Class": "Europe"
+   },
+   "Puerto Rico": {
+      "Class": "Outside Europe"
+   },
+   "Qatar": {
+      "Class": "Outside Europe"
+   },
+   "Reunion": {
+      "Class": "Outside Europe"
+   },
+   "Romania": {
+      "Class": "Europe"
+   },
+   "Russia": {
+      "Class": "Baltics"
+   },
+   "Rwanda": {
+      "Class": "Outside Europe"
+   },
+   "Saipan": {
+      "Class": "Outside Europe"
+   },
+   "Samoa": {
+      "Class": "Outside Europe"
+   },
+   "Samoa American": {
+      "Class": "Outside Europe"
+   },
+   "San Marino": {
+      "Class": "Europe"
+   },
+   "Sao Tome &amp; Principe": {
+      "Class": "Outside Europe"
+   },
+   "Saudi Arabia": {
+      "Class": "Outside Europe"
+   },
+   "Senegal": {
+      "Class": "Outside Europe"
+   },
+   "Serbia": {
+      "Class": "Europe"
+   },
+   "Seychelles": {
+      "Class": "Outside Europe"
+   },
+   "Sierra Leone": {
+      "Class": "Outside Europe"
+   },
+   "Singapore": {
+      "Class": "Outside Europe"
+   },
+   "Slovakia": {
+      "Class": "Europe"
+   },
+   "Slovenia": {
+      "Class": "Europe"
+   },
+   "Solomon Islands": {
+      "Class": "Outside Europe"
+   },
+   "Somalia": {
+      "Class": "Outside Europe"
+   },
+   "SOutside Europeh Africa": {
+      "Class": "Outside Europe"
+   },
+   "Spain": {
+      "Class": "Europe"
+   },
+   "Sri Lanka": {
+      "Class": "Outside Europe"
+   },
+   "St Barthelemy": {
+      "Class": "Outside Europe"
+   },
+   "St Eustatius": {
+      "Class": "Outside Europe"
+   },
+   "St Helena": {
+      "Class": "Outside Europe"
+   },
+   "St Kitts-Nevis": {
+      "Class": "Outside Europe"
+   },
+   "St Lucia": {
+      "Class": "Outside Europe"
+   },
+   "St Maarten": {
+      "Class": "Outside Europe"
+   },
+   "St Pierre &amp; Miquelon": {
+      "Class": "Outside Europe"
+   },
+   "St Vincent &amp; Grenadines": {
+      "Class": "Outside Europe"
+   },
+   "Sudan": {
+      "Class": "Outside Europe"
+   },
+   "Suriname": {
+      "Class": "Outside Europe"
+   },
+   "Swaziland": {
+      "Class": "Outside Europe"
+   },
+   "Sweden": {
+      "Class": "Nord"
+   },
+   "Switzerland": {
+      "Class": "Europe"
+   },
+   "Syria": {
+      "Class": "Outside Europe"
+   },
+   "Tahiti": {
+      "Class": "Outside Europe"
+   },
+   "Taiwan": {
+      "Class": "Outside Europe"
+   },
+   "Tajikistan": {
+      "Class": "Outside Europe"
+   },
+   "Tanzania": {
+      "Class": "Outside Europe"
+   },
+   "Thailand": {
+      "Class": "Outside Europe"
+   },
+   "Togo": {
+      "Class": "Outside Europe"
+   },
+   "Tokelau": {
+      "Class": "Outside Europe"
+   },
+   "Tonga": {
+      "Class": "Outside Europe"
+   },
+   "Trinidad &amp; Tobago": {
+      "Class": "Outside Europe"
+   },
+   "Tunisia": {
+      "Class": "Outside Europe"
+   },
+   "Turkey": {
+      "Class": "Europe"
+   },
+   "Turkmenistan": {
+      "Class": "Outside Europe"
+   },
+   "Turks &amp; Caicos Is": {
+      "Class": "Outside Europe"
+   },
+   "Tuvalu": {
+      "Class": "Outside Europe"
+   },
+   "Uganda": {
+      "Class": "Outside Europe"
+   },
+   "Ukraine": {
+      "Class": "Europe"
+   },
+   "United Arab Erimates": {
+      "Class": "Outside Europe"
+   },
+   "United Kingdom": {
+      "Class": "Europe"
+   },
+   "United States of America": {
+      "Class": "Europe"
+   },
+   "Uruaguay": {
+      "Class": "Outside Europe"
+   },
+   "Uzbekistan": {
+      "Class": "Outside Europe"
+   },
+   "Vanuatu": {
+      "Class": "Outside Europe"
+   },
+   "Vatican City State": {
+      "Class": "Europe"
+   },
+   "Venezuela": {
+      "Class": "Outside Europe"
+   },
+   "Vietnam": {
+      "Class": "Outside Europe"
+   },
+   "Virgin Islands (Brit)": {
+      "Class": "Outside Europe"
+   },
+   "Virgin Islands (USA)": {
+      "Class": "Outside Europe"
+   },
+   "Wake Island": {
+      "Class": "Outside Europe"
+   },
+   "Wallis &amp; Futana Is": {
+      "Class": "Outside Europe"
+   },
+   "Yemen": {
+      "Class": "Outside Europe"
+   },
+   "Zaire": {
+      "Class": "Outside Europe"
+   },
+   "Zambia": {
+      "Class": "Outside Europe"
+   },
+   "Zimbabwe": {
+      "Class": "Outside Europe"
+   }
+}

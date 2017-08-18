@@ -34,6 +34,25 @@ SettingsController.updateWhitelistedEmails = function(emails, callback){
 };
 
 /**
+ * Add new school to list.
+ * @param  {[type]}   school   [school to be added]
+ * @param  {Function} callback args(err, settings)
+ */
+
+SettingsController.addSchool = function(school, callback){
+  if (school === undefined || school === null) {
+    callback();
+    return;
+  }
+  Settings
+    .findOneAndUpdate({},{
+      $push: { schools: school }
+    }, {new: true}, callback);
+};
+
+
+
+/**
  * Get the list of whitelisted emails.
  * Whitelist emails are by default not included in settings.
  * @param  {Function} callback args(err, emails)
@@ -70,6 +89,21 @@ SettingsController.updateRegistrationTimes = function(open, close, callback){
     .findOneAndUpdate({},{
       $set: updatedTimes
     }, {new: true}, callback);
+};
+
+/**
+ * Update reimbursement class amounts.
+ * @param  {Object}   reimbursementClass
+ */
+SettingsController.updateReimbClasses = function(reimbClasses, callback){
+  Settings
+    .findOneAndUpdate({},{
+      $set: {
+        reimbursementClass: reimbClasses
+      }
+    }, {new: true})
+    .select('reimbursementClass')
+    .exec(callback);
 };
 
 /**

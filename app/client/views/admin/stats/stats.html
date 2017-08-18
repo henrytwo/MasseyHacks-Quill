@@ -118,20 +118,39 @@
           <i class="green money icon"></i>
           <div class="content">
             <strong>
-              Total Reimbursements:
-            </strong>{{stats.reimbursementTotal}}
+              Requested travel reimbursement classes:
+            </strong>
+                Finland: <strong>{{stats.RfinlandTotal}}</strong>
+                Baltics: <strong>{{stats.RbalticsTotal}}</strong>
+                Nordic: <strong>{{stats.RnordicTotal}}</strong>
+                Europe: <strong>{{stats.ReuropeTotal}}</strong>
+                Outside Europe: <strong>{{stats.RoutsideTotal}}</strong>
           </div>
         </div>
-
+        
         <div class="item">
-          <i class="frown icon"></i>
+          <i class="green money icon"></i>
           <div class="content">
             <strong>
-              Still Need Reimbursement:
-            </strong>{{stats.reimbursementMissing}}
+              Accepted travel reimbursement classes:
+            </strong>
+              Finland: <strong>{{stats.AfinlandTotal}}</strong>
+              Baltics: <strong>{{stats.AbalticsTotal}}</strong>
+              Nordic: <strong>{{stats.AnordicTotal}}</strong>
+              Europe: <strong>{{stats.AeuropeTotal}}</strong>
+              Outside Europe: <strong>{{stats.AoutsideTotal}}</strong>
+              Special: <strong>{{stats.Aspecial}}</strong>
+              Rejected:<strong>{{stats.ArejectedTotal}}</strong>
           </div>
         </div>
-
+        <div class="item">
+          <i class="green money icon"></i>
+          <div class="content">
+            <strong>
+              Total amount of reimbursements given: {{stats.TotalAmountofReimbursementsAccepted}} €
+            </strong>
+          </div>
+        </div>
         <div class="ui divider"></div>
 
         <div class="item">

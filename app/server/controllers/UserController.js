@@ -765,22 +765,28 @@ UserController.resetPassword = function(token, password, callback){
  * [ADMIN ONLY]
  *
  * Admit a user.
- * @param  {String}   userId   User id of the admit
- * @param  {String}   user     User doing the admitting
+ * @param  {String}   userId      User id of the admit
+ * @param  {String}   user        User doing the admitting
+ * @param  (String)   reimbClass  Users accepted reimbursement class/amount
  * @param  {Function} callback args(err, user)
  */
-UserController.admitUser = function(id, user, callback){
+UserController.admitUser = function(id, user, reimbClass, callback){
+  // ReimbClass was not set
+  if(reimbClass == null) {
+    reimbClass = "None";
+  }
   Settings.getRegistrationTimes(function(err, times){
     User
       .findOneAndUpdate({
         '_id': id,
         'verified': true,
-        'status.rejected': false,
+        'status.rejected': false
       },{
         $set: {
           'status.admitted': true,
           'status.admittedBy': user.email,
-          'status.confirmBy': times.timeConfirm
+          'status.confirmBy': times.timeConfirm,
+          'profile.AcceptedreimbursementClass': reimbClass
         }
       }, {
         new: true

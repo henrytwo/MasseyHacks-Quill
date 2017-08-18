@@ -9,6 +9,29 @@ var validator = require('validator');
  *
  * @type {mongoose}
  */
+var reimbursementClass = {
+  Finland: {
+    type: Number,
+    default: 20
+  },
+  Baltics: {
+    type: Number,
+    default: 50
+  },
+  Nordic: {
+    type: Number,
+    default: 50
+  },
+  Europe: {
+    type: Number,
+    default: 75
+  },
+  Outside: {
+    type: Number,
+    default: 150
+  },
+};
+
 var schema = new mongoose.Schema({
   status: String,
   timeOpen: {
@@ -39,8 +62,10 @@ var schema = new mongoose.Schema({
   },
   schools: {
     type: [String],
-    default: ['Aalto University', 'Turku University']
-  }
+    default: ['Aalto-Yliopisto']
+  },
+  reimbursementClass: reimbursementClass,
+    
 });
 
 /**

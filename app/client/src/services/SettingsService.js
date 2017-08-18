@@ -38,11 +38,22 @@ angular.module('reg')
           text: text
         });
       },
+      addSchool: function(text){
+        console.log("school to add:", text);
+        return $http.put(base + 'addschool', {
+          school: text
+        });
+      },
       updateConfirmationText: function(text){
         return $http.put(base + 'confirmation', {
           text: text
         });
-      }
+      },
+      updateReimbClasses: function(reimbClasses){
+        return $http.put(base + 'reimbClasses', {
+          reimbClasses: reimbClasses
+        });
+      }      
     };
 
   }

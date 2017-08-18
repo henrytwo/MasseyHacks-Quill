@@ -105,6 +105,7 @@ angular.module('reg')
 
       $scope.toggleReject = function($event, user, index) {
         $event.stopPropagation();
+        
         if (!user.status.rejected){
           swal({
             title: "Whoa, wait a minute!",
@@ -159,6 +160,20 @@ angular.module('reg')
       $scope.acceptUser = function($event, user, index) {
         $event.stopPropagation();
 
+        if (user.Class == null && user.profile.needsReimbursement){
+          swal("Could not be accepted", 'Please select travel reimbursement class', "error");
+          return;
+        }
+        else if(user.profile.needsReimbursement && user.Class === "Special" && user.SpecialClass != parseInt(user.SpecialClass,10)) {
+          swal("Could not be accepted", 'Special class input needs to be integer', "error");
+          return;
+        }
+        var Class;
+        if (user.Class === 'Special')
+          Class = user.SpecialClass;
+        else
+          Class = user.Class;
+
         swal({
           title: "Whoa, wait a minute!",
           text: "You are about to accept " + user.profile.name + "!",
@@ -181,7 +196,7 @@ angular.module('reg')
               }, function(){
 
                 UserService
-                  .admitUser(user._id)
+                  .admitUser(user._id, Class)
                   .success(function(user){
                     if(user != ""){// User cannot be found if user is rejected
                       if(index == null){ //we don't have index because acceptUser has been called in pop-up
@@ -307,6 +322,12 @@ angular.module('reg')
               },{
                 name: 'Team',
                 value: user.teamCode || 'None'
+              },{
+                name: 'Requested travel reimbursement class',
+                value: user.profile.needsReimbursement && user.profile.AppliedreimbursementClass || 'None'
+              },{
+                name: 'Accepted travel reimbursement',
+                value: user.profile.AcceptedreimbursementClass || 'None'
               }
             ]
           },{

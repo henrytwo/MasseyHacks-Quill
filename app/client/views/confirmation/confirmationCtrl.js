@@ -6,7 +6,8 @@ angular.module('reg')
     'currentUser',
     'Utils',
     'UserService',
-    function($scope, $rootScope, $state, currentUser, Utils, UserService){
+    'SettingsService',
+    function($scope, $rootScope, $state, currentUser, Utils, UserService, SettingsService){
 
       // Set up the user
       var user = currentUser.data;
@@ -18,6 +19,13 @@ angular.module('reg')
 
       $scope.formatTime = Utils.formatTime;
 
+      $scope.classAmount;
+
+      SettingsService
+        .getPublicSettings()
+        .success(function(settings){
+          getClassAmount(settings);
+        });
       _setupForm();
 
 
@@ -107,6 +115,31 @@ angular.module('reg')
           
         }
         });
+      }
+
+      function getClassAmount(settings) {
+        switch($scope.user.profile.AcceptedreimbursementClass){
+          case("Finland"):
+            $scope.classAmount = settings.reimbursementClass.Finland;
+            break;
+          case("Baltics"):
+            $scope.classAmount = settings.reimbursementClass.Baltics;
+            break;
+          case("Nordic"):
+            $scope.classAmount = settings.reimbursementClass.Nordic;
+            break;
+          case("Europe"):
+            $scope.classAmount = settings.reimbursementClass.Europe;
+            break;
+          case("Outside Europe"):
+            $scope.classAmount = settings.reimbursementClass.Outside;
+            break;
+          case("Rejected"):
+            $scope.classAmount = "Rejected";
+            break;
+          default:
+            $scope.classAmount = $scope.user.profile.AcceptedreimbursementClass;
+        }
       }
 
       $scope.submitForm = function(){

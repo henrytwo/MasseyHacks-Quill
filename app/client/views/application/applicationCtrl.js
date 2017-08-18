@@ -8,67 +8,31 @@ angular.module('reg')
     'settings',
     'Session',
     'UserService',
-    function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService){
-
+    'SettingsService',
+    function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService, SettingsService){
       $scope.isDisabled = false;
 
       // Set up the user
       $scope.user = currentUser.data;
+      $scope.schools = Settings.data.schools;
+      if ($scope.user.profile.school == null) {
+          $scope.schoolChecked = false;
+      } else {
+        $scope.schoolChecked = true;
+      }
+      var originalTeamCode = $scope.user.teamCode;
+
       // Populate the school dropdown
-      populateSchools();
       _setupForm();
 
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
 
-      // Set selected multiselect items
-      $("#spacesOrTabs").dropdown('set selected', $scope.user.profile.spacesOrTabs);
-      $("#operatingSystem").dropdown('set selected', $scope.user.profile.operatingSystem);
-      $("#jobOpportunities").dropdown('set selected', $scope.user.profile.jobOpportunities);
-      $("#description").dropdown('set selected', $scope.user.profile.description);
-      $("#howManyHackathons").dropdown('set selected', $scope.user.profile.howManyHackathons);
-      $("#codingExperience").dropdown('set selected', $scope.user.profile.codingExperience);
-      $("#mostInterestingTrack").dropdown('set selected', $scope.user.profile.mostInterestingTrack);
-      $("#gender").dropdown('set selected', $scope.user.profile.gender);
-      $("#homeCountry").dropdown('set selected', $scope.user.profile.homeCountry);
-      $("#travelFromCountry").dropdown('set selected', $scope.user.profile.travelFromCountry);
-      $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
-      //$("#occupationalStatus").dropdown({maxSelections: "2"});
-
-      $("#bestTools").dropdown('set selected', $scope.user.profile.bestTools);
-      $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
-
-      /**
-       * TODO: JANK WARNING
-       */
-      function populateSchools(){
-
-        $http
-          .get('/assets/schools.json')
-          .then(function(res){
-            var schools = res.data;
-            var email = $scope.user.email.split('@')[1];
-
-            if (schools[email]){
-              $scope.user.profile.school = schools[email].school;
-              $scope.autoFilledSchool = true;
-            }
-          });
-      }
+      var reimbClasses;
+      $.getJSON('../assets/reimbClasses.json').done(function(data){
+              reimbClasses = data;
+        });
 
       function _updateUser(e){
-        // Update user teamCode
-        if ($scope.user.teamCode) {
-          UserService
-            .joinOrCreateTeam($scope.user.teamCode)
-            .success(function(user){
-              console.log('Successfully updated teamCode')
-            })
-            .error(function(res){
-              console.log("Failed to update teamCode");
-            });
-          }
-
-
         // Update user profile
         UserService
           .updateProfile(Session.getUserId(), $scope.user.profile)
@@ -85,6 +49,40 @@ angular.module('reg')
           .error(function(res){
             sweetAlert("Uh oh!", "Something went wrong.", "error");
           });
+      }
+      $scope.getReimbursementClass = function(homeCountry) {
+        // User needs reimbursement
+        if($scope.user.profile.needsReimbursement) {
+          $scope.user.profile.AppliedreimbursementClass = reimbClasses[homeCountry].Class;
+          }
+      }
+
+      function _updateTeam(e) {
+        // Update user teamCode
+        if ($scope.user.teamCode === originalTeamCode || !$scope.user.teamCode) {
+          return;
+        }
+
+        UserService
+          .joinOrCreateTeam($scope.user.teamCode)
+          .success(function(user){
+            return;
+          })
+          .error(function(res){
+            return;
+          });
+      }
+
+      function _updateSchools(e) {
+        if ($.inArray($scope.user.profile.school, $scope.schools) == -1) {
+          SettingsService.addSchool($scope.user.profile.school)
+          .success(function(user){
+            return;
+          })
+          .error(function(res){
+            console.log("Failed to add new school");
+          });
+        }
       }
 
       function _setupForm(){
@@ -109,7 +107,7 @@ angular.module('reg')
                   prompt: 'Please enter your age.'
                 },
                 {
-                  type: 'integer[13..120]',
+                  type: 'integer[13..100]',
                   prompt: 'You must be at least 13 to attend.'
                 }
               ]
@@ -141,6 +139,51 @@ angular.module('reg')
                 }
               ]
             },
+            jobOpportunities: {
+              identifier: 'jobOpportunities',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select if you are interested in job opportunities.'
+                }
+              ]
+            },
+            codingExperience: {
+              identifier: 'codingExperience',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your coding experience.'
+                }
+              ]
+            },
+            bestTools: {
+              identifier: 'bestTools',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your best tools.'
+                }
+              ]
+            },
+            howManyHackathons: {
+              identifier: 'howManyHackathons',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select how many hackathons you have attended.'
+                }
+              ]
+            },
+            description: {
+              identifier: 'description',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your role in a hackathon team.'
+                }
+              ]
+            },
             mostInterestingTrack: {
               identifier: 'mostInterestingTrack',
               rules: [
@@ -156,6 +199,10 @@ angular.module('reg')
                 {
                   type: 'maxCount[2]',
                   prompt: 'Please select at most 2.'
+                },
+                {
+                type: 'empty',
+                prompt: 'Please select your occupational status.'
                 }
               ]
             },
@@ -188,19 +235,57 @@ angular.module('reg')
             }
           },
           onSuccess: function(event, fields){
+            _updateTeam();
+            _updateSchools();
             _updateUser();
+
           },
           onFailure: function(formErrors, fields){
             $scope.fieldErrors = formErrors;
             $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
           }
         });
+
+        // Set selected multiselect items
+        $("#spacesOrTabs").dropdown('set selected', $scope.user.profile.spacesOrTabs);
+        $("#operatingSystem").dropdown('set selected', $scope.user.profile.operatingSystem);
+        $("#jobOpportunities").dropdown('set selected', $scope.user.profile.jobOpportunities);
+        $("#description").dropdown('set selected', $scope.user.profile.description);
+        $("#howManyHackathons").dropdown('set selected', $scope.user.profile.howManyHackathons);
+        $("#codingExperience").dropdown('set selected', $scope.user.profile.codingExperience);
+        $("#mostInterestingTrack").dropdown('set selected', $scope.user.profile.mostInterestingTrack);
+        $("#gender").dropdown('set selected', $scope.user.profile.gender);
+        $("#homeCountry").dropdown('set selected', $scope.user.profile.homeCountry);
+        $("#travelFromCountry").dropdown('set selected', $scope.user.profile.travelFromCountry);
+        $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
+        $("#degree").dropdown('set selected', $scope.user.profile.degree);
+
+        $("#bestTools").dropdown('set selected', $scope.user.profile.bestTools);
+        $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
+        $('.ui.dropdown').dropdown('refresh');
+
+        setTimeout(function () {
+          $("#school").dropdown('set selected', $scope.user.profile.school);
+        }, 1);
       }
 
       $scope.submitForm = function(){
+        if ($scope.user.profile.school === null && $scope.schoolChecked) {
+          var schoolValue = $('#school').dropdown('get value');
+          if (typeof schoolValue === 'object') {
+            schoolValue = schoolValue[0]
+          }
+          schoolValue = schoolValue.replace("string:", "");
+          $scope.user.profile.school = schoolValue;
+        }
+        if (!$scope.schoolChecked) {
+          $scope.user.profile.school = null;
+          $scope.user.profile.graduationYear = null;
+          $scope.user.profile.degree = null;
+          $scope.user.profile.major = null;
+        }
         $scope.fieldErrors = null;
         $scope.error = null;
         $('.ui.form').form('validate form');
       };
-
-    }]);
+}]);
