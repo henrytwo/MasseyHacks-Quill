@@ -96,8 +96,12 @@ angular.module('reg')
                   prompt: 'Please enter your age.'
                 },
                 {
-                  type: 'integer[13..100]',
+                  type: 'integer[13..1000]',
                   prompt: 'You must be at least 13 to attend.'
+                },
+                {
+                  type: 'integer[0..99]',
+                  prompt: 'You must be under 100 years old to attend.'
                 }
               ]
             },
