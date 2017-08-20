@@ -508,5 +508,10 @@
       "country": "Wallis and Futuna",
       "countryType": "ibanOrOther",
       "ibanLength": 27
+  },
+  {
+    "country": "United States of America",
+    "countryType": "US",
+    "ibanLength": 30
   }
 ]

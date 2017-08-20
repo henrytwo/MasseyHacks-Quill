@@ -28,7 +28,9 @@ angular.module('reg')
       $scope.isDisabled = false;
 
       $scope.isSEPA = false;
-      $scope.isIBANOrBIC = false;
+      $scope.isUS = false;
+      $scope.isRUS = false;
+      $scope.isINDIA = false;
       $scope.isOther = false;
 
 
@@ -59,7 +61,7 @@ angular.module('reg')
             _setupForm();
         })
         .fail(function(data){
-            console.log( "Error loading ibans.json" );
+            console.log( "Error loading iban.json" );
         });
 
       $('#countryOfB').change(function() {
@@ -146,9 +148,10 @@ angular.module('reg')
           $('.brokerageInfoField').attr('disabled', !disabledToggler);
 
           $scope.isSEPA = true;
+          $scope.isUS = false;
           $scope.isOther = false;
         }
-        else if(countryType == "ibanOrOther" || countryType == "onlyIban" || countryType == "NotDefined"){
+        else if(countryType == "onlyIban" || countryType == "NotDefined"){
           $('.ibanField').attr('disabled', disabledToggler);
           $('.accountNumberField').attr('disabled', disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
@@ -158,7 +161,22 @@ angular.module('reg')
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
           $scope.isSEPA = false;
+          $scope.isUS = false;
           $scope.isOther = true;
+        }
+        else if(countryType == "US"){
+          $('.ibanField').attr('disabled', !disabledToggler);
+          $('.accountNumberField').attr('disabled', disabledToggler);
+          $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.clearingCodeField').attr('disabled', !disabledToggler);
+          $('.clearingCodeUSA').attr('disabled', !disabledToggler);
+          $('.cityOfBankField').attr('disabled', disabledToggler);
+          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.brokerageInfoField').attr('disabled', disabledToggler);
+
+          $scope.isSEPA = false;
+          $scope.isUS = true;
+          $scope.isOther = false;
         }
 
         //here the form gets destroed and set up again so that it can be validated again

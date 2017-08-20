@@ -70,7 +70,7 @@
         <div class="divided title">Bank Information</div>
 
         <div class="field">
-          <p>If your bank is located in a SEPA-country (EU and ETA countries), the fields that aren't required will be disabled</p>
+          <p>Based on your country of your bank, you will be given the fields to fill. If you don't have information for some of the fields provided (for example, IBAN or BIC), you can leave it empty.</p>
           <label>Country of your bank</label>
           <select class="ui fluid search selection dropdown"
                  name="countryOfBank"
@@ -327,14 +327,14 @@
           </select>
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther">
+        <div class="field" ng-show="isSEPA || isOther || isUS">
           <label>Name of the bank</label>
           <input type="text"
                  name="nameOfBank"
                  ng-model="user.reimbursement.nameOfBank">
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther">
+        <div class="field" ng-show="isSEPA || isOther || isUS">
           <label>SWIFT / BIC</label>
           <input type="text"
                  name="swiftOrBicField"
@@ -342,11 +342,43 @@
         </div>
 
         <div class="field" ng-show="isSEPA || isOther">
-          <label>IBAN</label>
+          <label>IBAN   (Leave out spaces!)</label>
           <input type="text"
                  name="iban"
                  class="ibanField"
                  ng-model="user.reimbursement.iban">
+        </div>
+
+        <div class="field" ng-show="isUS">
+          <label>BBAN</label>
+          <input type="text"
+                 name="bban"
+                 class="bbanField"
+                 ng-model="user.reimbursement.bban">
+        </div>
+
+        <div class="field" ng-show="isUS">
+          <label>Clearing-code (Fedwire, ABA or Routing number)</label>
+          <input type="text"
+                 name="ccUSA"
+                 class="ccUSA"
+                 ng-model="user.reimbursement.ccUSA">
+        </div>
+
+        <div class="field" ng-show="isINDIA">
+          <label>IFSC</label>
+          <input type="text"
+                 name="bban"
+                 class="ifscField"
+                 ng-model="user.reimbursement.ifsc">
+        </div>
+
+        <div class="field" ng-show="isINDIA">
+          <label>Receipt Purpose Code</label>
+          <input type="text"
+                 name="rpc"
+                 class="rpcField"
+                 ng-model="user.reimbursement.receiptPurposeCode">
         </div>
 
         <div class="field" ng-show="isOther">
@@ -365,7 +397,7 @@
                  ng-model="user.reimbursement.accountNumber">
         </div>
 
-        <div class="field" ng-show="isOther">
+        <div class="field" ng-show="isOther || isUS">
           <label>City of the bank</label>
           <input type="text"
                  name="cityOfBank"
@@ -373,7 +405,7 @@
                  ng-model="user.reimbursement.cityOfBank">
         </div>
 
-        <div class="field" ng-show="isOther">
+        <div class="field" ng-show="isOther || isUS">
           <label>Address of the bank</label>
           <input type="text"
                  name="addressOfBank"
@@ -381,7 +413,7 @@
                  ng-model="user.reimbursement.addressOfBank">
         </div>
 
-        <div class="field" ng-show="isOther">
+        <div class="field" ng-show="isOther || isUS">
           <label>ZIP Code</label>
           <input type="text"
                  name="zipCode"
@@ -391,7 +423,7 @@
 
 
 
-        <div class="field" ng-show="isOther">
+        <div class="field" ng-show="isOther || isUS">
           <label>Brokerage information</label>
           <input type="text"
                  name="brokerageInfo"
@@ -399,7 +431,7 @@
                  ng-model="user.reimbursement.brokerageInfo">
         </div>
 
-        <div class="small title">
+        <div class="small title receipt">
           RECEIPTS
         </div>
 
@@ -408,7 +440,6 @@
              type="file"
              file-input="files"
              multiple />
-           <li ng-repeat="file in files">{{file.name}}</li>
            <button class="ui button teal" ng-click="upload()">Upload</button>
         </div>
 

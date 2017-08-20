@@ -282,6 +282,26 @@ var reimbursement = {
      default: '',
      max: 32
    },
+   bban: {
+     type: String,
+     default: '',
+     max: 32
+   },
+   ccUSA: {
+     type: String,
+     default: '',
+     max: 9
+   },
+   ifsc: {
+     type: String,
+     default: '',
+     max: 11
+   },
+   receiptPurposeCode: {
+     type: String,
+     default: '',
+     max: 5
+   },
    accountNumber: {
      type: String,
      default: '',
