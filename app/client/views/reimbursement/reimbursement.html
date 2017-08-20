@@ -327,17 +327,18 @@
           </select>
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther || isUS">
+        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA">
           <label>Name of the bank</label>
           <input type="text"
                  name="nameOfBank"
                  ng-model="user.reimbursement.nameOfBank">
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther || isUS">
+        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA">
           <label>SWIFT / BIC</label>
           <input type="text"
                  name="swiftOrBicField"
+                 class="swiftOrBicField"
                  ng-model="user.reimbursement.swiftOrBic">
         </div>
 
@@ -349,7 +350,7 @@
                  ng-model="user.reimbursement.iban">
         </div>
 
-        <div class="field" ng-show="isUS">
+        <div class="field" ng-show="isUS || isINDIA">
           <label>BBAN</label>
           <input type="text"
                  name="bban"
@@ -368,7 +369,7 @@
         <div class="field" ng-show="isINDIA">
           <label>IFSC</label>
           <input type="text"
-                 name="bban"
+                 name="ifscField"
                  class="ifscField"
                  ng-model="user.reimbursement.ifsc">
         </div>
@@ -376,7 +377,7 @@
         <div class="field" ng-show="isINDIA">
           <label>Receipt Purpose Code</label>
           <input type="text"
-                 name="rpc"
+                 name="rpcField"
                  class="rpcField"
                  ng-model="user.reimbursement.receiptPurposeCode">
         </div>
@@ -389,7 +390,7 @@
                  ng-model="user.reimbursement.clearingCode">
         </div>
 
-        <div class="field" ng-show="isOther">
+        <div class="field" ng-show="isOther || isUS">
           <label>Account number</label>
           <input type="text"
                  name="accountNumber"
@@ -397,7 +398,7 @@
                  ng-model="user.reimbursement.accountNumber">
         </div>
 
-        <div class="field" ng-show="isOther || isUS">
+        <div class="field" ng-show="isOther || isUS || isINDIA">
           <label>City of the bank</label>
           <input type="text"
                  name="cityOfBank"
@@ -405,7 +406,7 @@
                  ng-model="user.reimbursement.cityOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS">
+        <div class="field" ng-show="isOther || isUS || isINDIA">
           <label>Address of the bank</label>
           <input type="text"
                  name="addressOfBank"
@@ -413,7 +414,7 @@
                  ng-model="user.reimbursement.addressOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS">
+        <div class="field" ng-show="isOther || isUS || isINDIA">
           <label>ZIP Code</label>
           <input type="text"
                  name="zipCode"
@@ -423,7 +424,7 @@
 
 
 
-        <div class="field" ng-show="isOther || isUS">
+        <div class="field" ng-show="isOther || isUS || isINDIA">
           <label>Brokerage information</label>
           <input type="text"
                  name="brokerageInfo"
@@ -438,12 +439,9 @@
         <div class="field">
           <input
              type="file"
-             file-input="files"
-             multiple />
-           <button class="ui button teal" ng-click="upload()">Upload</button>
+             name="fileUpload"
+             file-input="files"/>
         </div>
-
-
 
         <div class="field">
           <label>Additional information</label>

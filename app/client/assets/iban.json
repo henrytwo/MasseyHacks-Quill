@@ -513,5 +513,15 @@
     "country": "United States of America",
     "countryType": "US",
     "ibanLength": 30
+  },
+  {
+    "country": "India",
+    "countryType": "IND",
+    "ibanLength": 30
+  },
+  {
+    "country": "Russia",
+    "countryType": "RUS",
+    "ibanLength": 30
   }
 ]
