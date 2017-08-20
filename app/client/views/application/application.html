@@ -796,10 +796,78 @@
             <option value="Other">Other</option>
             <option value="PowerPoint">PowerPoint</option>
             <option value="Excel">Excel</option>
-            <option value="None of the above">None of the above</option>          </select>
+            <option value="None of the above">None of the above</option>
+          </select>
         </div>
 
-        
+        <div class="field">
+          <label>Programming languages etc </label>
+          <div class="field">
+            <h6 class="ui block header">
+              Expert level
+            </h6>
+            <select
+                   multiple="multiple"
+                   class="ui toptools dropdown"
+                   name="topLevelTools"
+                   id="topLevelTools"
+                   ng-init="identifier1='.ui.toptools.dropdown'"
+                   ng-model="user.profile.topLevelTools"
+                   ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier1"
+                   ng-change="programmingLanguagesChanged()">
+            </select>
+          </div>
+
+          <div class="field">
+            <h6 class="ui block header">
+              Great Skills
+            </h6>
+            <select
+                   multiple="multiple"
+                   class="ui greattools dropdown"
+                   name="greatLevelTools"
+                   id="greatLevelTools"
+                   ng-init="identifier2='.ui.greattools.dropdown'"
+                   ng-model="user.profile.greatLevelTools"
+                   ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier2"
+                   ng-change="programmingLanguagesChanged()">
+            </select>
+          </div>
+
+          <div class="field">
+            <h6 class="ui block header">
+              Good skills
+            </h6>
+            <select
+                   multiple="multiple"
+                   class="ui goodtools dropdown"
+                   name="goodLevelTools"
+                   id="goodLevelTools"
+                   ng-init="identifier3='.ui.goodtools.dropdown'"
+                   ng-model="user.profile.goodLevelTools"
+                   ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier3"
+                   ng-change="programmingLanguagesChanged()">
+            </select>
+          </div>
+
+          <div class="field">
+            <h6 class="ui block header">
+              Beginner skills
+            </h6>
+            <select
+                   multiple="multiple"
+                   class="ui beginnerTools dropdown"
+                   name="beginnerLevelTools"
+                   id="beginnerLevelTools"
+                   ng-init="identifier4='.ui.beginnerTools.dropdown'"
+                   ng-model="user.profile.beginnerLevelTools"
+                   ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier4"
+                   ng-change="programmingLanguagesChanged()">
+            </select>
+          </div>
+
+
+        </div>
         <div class="field">
           <label>How many years of experience do you have in programming? * </label>
           <select

@@ -22,8 +22,31 @@ angular.module('reg')
       }
       var originalTeamCode = $scope.user.teamCode;
 
+      var languages = ['Assembly', 'Java', 'C', 'C#', 'Swift'];
+      $scope.programmingLanguages = languages;
       // Populate the school dropdown
       _setupForm();
+
+      function programmingLanguagesChanged() {
+        var selectedTop = $(".ui.toptools.dropdown").dropdown('get value');
+        selectedTop = [].concat.apply([], selectedTop);
+        selectedTop = stripLanguageSubstrings(selectedTop);
+
+        $(".ui.toptools.dropdown").dropdown('refresh');
+        $(".ui.greattools.dropdown").dropdown('refresh');
+        $(".ui.goodtools.dropdown").dropdown('refresh');
+        $(".ui.beginnerTools.dropdown").dropdown('refresh');
+
+        setTimeout(function() {
+
+
+          $(".ui.toptools.dropdown").dropdown('refresh');
+          $(".ui.greattools.dropdown").dropdown('refresh');
+          $(".ui.goodtools.dropdown").dropdown('refresh');
+          $(".ui.beginnerTools.dropdown").dropdown('refresh');
+
+         }, 100);
+      }
 
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
 
@@ -281,4 +304,40 @@ angular.module('reg')
         $scope.error = null;
         $('.ui.form').form('validate form');
       };
-}]);
+}])
+.filter('exclude', function () {
+  return function (items, languages, dropdownIdentifier) {
+
+    var selectedLanguages = [];
+    selectedLanguages.push($(".ui.toptools.dropdown").dropdown('get value'));
+    selectedLanguages.push($(".ui.greattools.dropdown").dropdown('get value'));
+    selectedLanguages.push($(".ui.goodtools.dropdown").dropdown('get value'));
+    selectedLanguages.push($(".ui.beginnerTools.dropdown").dropdown('get value'));
+    selectedLanguages = [].concat.apply([], selectedLanguages);
+    console.log(dropdownIdentifier);
+    // Strip the unnecessary 'string:' substring
+    selectedLanguages = stripLanguageSubstrings(selectedLanguages);
+    var callerLanguages = $(dropdownIdentifier).dropdown('get value');
+    console.log(callerLanguages);
+    callerLanguages = [].concat.apply([], callerLanguages);
+    callerLanguages = stripLanguageSubstrings(callerLanguages);
+
+    // Finally, remove the selected languages from dropdown options
+    var remaining = languages.filter( function( el ) {
+      return !selectedLanguages.includes( el ) || callerLanguages.includes(el);
+    } );
+    return remaining;
+  };
+});
+
+function findSelectedValues() {
+  return selectedLanguages;
+}
+
+function stripLanguageSubstrings(langs) {
+  langs.forEach(function(part, index, theArray) {
+    theArray[index] = theArray[index].replace("string:", "");
+  });
+
+  return langs;
+}
