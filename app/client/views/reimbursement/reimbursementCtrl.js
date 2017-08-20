@@ -69,8 +69,9 @@ angular.module('reg')
           //When the Country of Bank field gets changed,
           //look through what is the type of the country
           //and set the state of disabled attribute based on that
-
-          checkCountryType();
+          if($('#countryOfB').val() != ''){
+            checkCountryType();
+          }
       });
 
 
@@ -333,14 +334,14 @@ angular.module('reg')
               ]
             },
             bban: {
-              identifier: bbanField,
+              identifier: 'bban',
               rules: [
                 {
                   type: 'empty',
                   prompt: 'Please enter your BBAN.'
                 }
               ]
-            }
+            },
             addressOfBank: {
               identifier: 'addressOfBank',
               rules: [
