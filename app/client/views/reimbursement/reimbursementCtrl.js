@@ -331,8 +331,8 @@ angular.module('reg')
               identifier: 'brokerageInfo',
               rules: [
                 {
-                  type: 'empty',
-                  prompt: 'Please enter brokerage information.'
+                  type: 'maxLength[50]',
+                  prompt: 'This field can only be 50 characters long.'
                 }
               ]
             },
