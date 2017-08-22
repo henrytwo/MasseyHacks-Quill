@@ -5,21 +5,37 @@
     </p>
   </div>
 
-  <div class="info segment">
-    <div class="small title">General information</div>
-    <ul>
-      <li>Travel reimbursement is processed and sent by check after the event</li>
-      <li>To expedite the reimbursement process and ensure that you receive your reimbursement as quickly as possible, make sure that your mailing address is accurate and you upload your receipts</li>
-      <li></li>
-      <li></li>
-    </ul>
+  <div class="ui stackable page grid">
+    <div class="column">
+      <div class="small title">General information</div>
+      <ol>
+        <li class="tip">The information we receive will be directly run into our payment system, and thus, we’ll relieve our responsibility for examining individuals’ erroneous travel reimbursement filings.</li>
+        <li class="tip">Brokerage fees are paid by the participant. We’ll refrain from any liability or costs that will come from the wire transfer and to the brokers' slots.</li>
+        <li class="tip">Everything is paid in euros.</li>
+        <li class="tip">You should use your own account. If you are unable to use your own, please contact us.</li>
+        <li class="tip">The money will be transferred as a wire transfer (from Junction Oy)</li>
+        <li class="tip">If you are in doubt, turn to your bank and if they do not know, then turn to us. In this case, type in the "Additional Information" field.</li>
+        <li class="tip">The recipient's name, the amount paid and the item (order confirmation and ticket, in some cases the same) should be found in the single PDF file. In this file, it is essential to find the total sum participant paid for the trip to Helsinki. A picture of a ticket or other ticket showing the travel dates, the price of the ticket that you paid and the name. The amount due for the travel allowance is cannot be higher than the ticket price.</li>
+        <li class="tip">Deadline for submission of application xx.xx and for travel receipt xx.xx. Subsequent notifications are not quoted.</li>
+        <li class="tip">It may take some time to receive the travel reimbursement, as be begin the process during after all the participants have registered in the event.</li>
+        <li class="tip">Decisions on compensation are made during the event.</li>
+      </ol>
+      <div class="ui checkbox">
+        <input type="checkbox"
+               name="generalCheck"
+               class="generalCheck"
+               ng-model="generalCheck">
+        <label for="generalCheck">I've read through these tips before proceeding.</label>
+      </div>
+    </div>
   </div>
 
 
   <div class="ui stackable page grid">
     <div class="column">
       <div class="ui form"
-            ng-class="{'loading': loading}">
+           ng-class="{'loading': loading}"
+           ng-show="generalCheck">
 
         <div class="divided title">Required Information</div>
 
@@ -42,21 +58,24 @@
           <label> Address Line 1 - Street address </label>
           <input type="text"
                  name="addressLine1"
-                 ng-model="user.reimbursement.addressLine1">
+                 ng-model="user.reimbursement.addressLine1"
+                 placeholder="Hackerstreet">
         </div>
 
         <div class="field">
           <label> Address Line 2 - Apartment, suite, building.. </label>
           <input type="text"
                  name="addressLine1"
-                 ng-model="user.reimbursement.addressLine2">
+                 ng-model="user.reimbursement.addressLine2"
+                 placeholder="13 A 37">
         </div>
 
         <div class="field">
           <label> State / Province / Region </label>
           <input type="text"
                  name="stateProvinceRegion"
-                 ng-model="user.reimbursement.stateProvinceRegion">
+                 ng-model="user.reimbursement.stateProvinceRegion"
+                 placeholder="Southern Hackland">
         </div>
 
         <div class="field">
@@ -327,30 +346,33 @@
           </select>
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA">
+        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS">
           <label>Name of the bank</label>
           <input type="text"
                  name="nameOfBank"
-                 ng-model="user.reimbursement.nameOfBank">
+                 ng-model="user.reimbursement.nameOfBank"
+                 placeholder="Central Bank of Hacktown">
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA">
+        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS">
           <label>SWIFT / BIC</label>
           <input type="text"
-                 name="swiftOrBicField"
+                 name="swiftOrBic"
                  class="swiftOrBicField"
-                 ng-model="user.reimbursement.swiftOrBic">
+                 ng-model="user.reimbursement.swiftOrBic"
+                 placeholder="HACKIN17">
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther">
+        <div class="field" ng-show="isSEPA">
           <label>IBAN   (Leave out spaces!)</label>
           <input type="text"
                  name="iban"
                  class="ibanField"
-                 ng-model="user.reimbursement.iban">
+                 ng-model="user.reimbursement.iban"
+                 placeholder="HT000028112017">
         </div>
 
-        <div class="field" ng-show="isUS || isINDIA">
+        <div class="field" ng-show="isUS || isINDIA || isRUS">
           <label>BBAN</label>
           <input type="text"
                  name="bban"
@@ -362,24 +384,27 @@
           <label>Clearing-code (Fedwire, ABA or Routing number)</label>
           <input type="text"
                  name="ccUSA"
-                 class="ccUSA"
-                 ng-model="user.reimbursement.ccUSA">
+                 class="ccUSAField"
+                 ng-model="user.reimbursement.ccUSA"
+                 placeholder="USABA123456789">
         </div>
 
         <div class="field" ng-show="isINDIA">
           <label>IFSC</label>
           <input type="text"
-                 name="ifscField"
+                 name="ifsc"
                  class="ifscField"
-                 ng-model="user.reimbursement.ifsc">
+                 ng-model="user.reimbursement.ifsc"
+                 placeholder="IN12345678923">
         </div>
 
         <div class="field" ng-show="isINDIA">
           <label>Receipt Purpose Code</label>
           <input type="text"
-                 name="rpcField"
+                 name="rpc"
                  class="rpcField"
-                 ng-model="user.reimbursement.receiptPurposeCode">
+                 ng-model="user.reimbursement.receiptPurposeCode"
+                 placeholder="P0001">
         </div>
 
         <div class="field" ng-show="isOther">
@@ -390,15 +415,15 @@
                  ng-model="user.reimbursement.clearingCode">
         </div>
 
-        <div class="field" ng-show="isOther || isUS">
-          <label>Account number</label>
+        <div class="field" ng-show="isOther">
+          <label class="accountNumberLabel">Account number</label>
           <input type="text"
                  name="accountNumber"
                  class="accountNumberField"
                  ng-model="user.reimbursement.accountNumber">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isINDIA">
+        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
           <label>City of the bank</label>
           <input type="text"
                  name="cityOfBank"
@@ -406,7 +431,7 @@
                  ng-model="user.reimbursement.cityOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isINDIA">
+        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
           <label>Address of the bank</label>
           <input type="text"
                  name="addressOfBank"
@@ -414,7 +439,7 @@
                  ng-model="user.reimbursement.addressOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isINDIA">
+        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
           <label>ZIP Code</label>
           <input type="text"
                  name="zipCode"
@@ -424,15 +449,14 @@
 
 
 
-        <div class="field" ng-show="isOther || isUS || isINDIA">
+        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
           <label>Brokerage information</label>
-          <input type="text"
-                 name="brokerageInfo"
-                 class="brokerageInfoField"
-                 ng-model="user.reimbursement.brokerageInfo">
+          <textarea name="brokerageInfo"
+                    class="brokerageInfoField"
+                    ng-model="user.reimbursement.brokerageInfo">
         </div>
 
-        <div class="small title receipt">
+        <div class="divided title receipt">
           RECEIPTS
         </div>
 

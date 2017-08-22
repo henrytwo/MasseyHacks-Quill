@@ -259,6 +259,10 @@ var reimbursement = {
      type: String,
      max: 30
    },
+   countryType: {
+     type: String,
+     max: 30
+   },
    nameOfBank: {
      type: String,
      max: 60
@@ -320,7 +324,7 @@ var reimbursement = {
    brokerageInfo: {
      type: String,
      default: '',
-     max: 50
+     max: 200
 
    },
    additional: {

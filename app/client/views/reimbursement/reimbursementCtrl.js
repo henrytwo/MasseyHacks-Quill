@@ -121,8 +121,8 @@ angular.module('reg')
 
           return 25;
         }
-
       }
+
       function checkCountryType(){
 
         var disabledToggler = false;
@@ -139,7 +139,8 @@ angular.module('reg')
         console.log(countryType);
         console.log($scope.user.reimbursement)
 
-        if(countryType == "SEPA" || countryType == "ibanAndBic"){
+        if(countryType == "SEPA" || countryType == "ibanAndBic" || countryType == "onlyIban"){
+          //disable the fields that are not needed before they are hidden with ng-show
           $('.ibanField').attr('disabled', disabledToggler);
           $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', !disabledToggler);
@@ -152,13 +153,17 @@ angular.module('reg')
           $('.zipCodeField').attr('disabled', !disabledToggler);
           $('.brokerageInfoField').attr('disabled', !disabledToggler);
 
+          $('.accountNumberLabel').innerHTML = 'Account number'
+
           $scope.isSEPA = true;
           $scope.isUS = false;
           $scope.isINDIA = false;
+          $scope.isRUS = false;
           $scope.isOther = false;
         }
-        else if(countryType == "onlyIban" || countryType == "NotDefined"){
-          $('.ibanField').attr('disabled', disabledToggler);
+
+        else if(countryType == "ibanOrBic" || countryType == "NotDefined"){
+          $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', !disabledToggler);
@@ -170,14 +175,17 @@ angular.module('reg')
           $('.zipCodeField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
+          $('.accountNumberLabel').innerHTML = 'IBAN / BBAN / Account number'
+
           $scope.isSEPA = false;
           $scope.isUS = false;
           $scope.isINDIA = false;
+          $scope.isRUS = false;
           $scope.isOther = true;
         }
         else if(countryType == "US"){
           $('.ibanField').attr('disabled', !disabledToggler);
-          $('.accountNumberField').attr('disabled', disabledToggler);
+          $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
@@ -191,6 +199,7 @@ angular.module('reg')
           $scope.isSEPA = false;
           $scope.isUS = true;
           $scope.isINDIA = false;
+          $scope.isRUS = false;
           $scope.isOther = false;
         }
         else if(countryType == "IND"){
@@ -206,9 +215,33 @@ angular.module('reg')
           $('.zipCodeField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
+          $('.accountNumberLabel').innerHTML = 'Account number'
+
           $scope.isSEPA = false;
           $scope.isUS = false;
           $scope.isINDIA = true;
+          $scope.isRUS = false;
+          $scope.isOther = false;
+        }
+        else if(countryType == "RUS"){
+          $('.ibanField').attr('disabled', !disabledToggler);
+          $('.accountNumberField').attr('disabled', !disabledToggler);
+          $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.clearingCodeField').attr('disabled', !disabledToggler);
+          $('.bbanField').attr('disabled', disabledToggler);
+          $('.ccUSA').attr('disabled', !disabledToggler);
+          $('.ifscField').attr('disabled', !disabledToggler);
+          $('.rcpField').attr('disabled', !disabledToggler);
+          $('.cityOfBankField').attr('disabled', disabledToggler);
+          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.brokerageInfoField').attr('disabled', disabledToggler);
+
+          $('.accountNumberLabel').innerHTML = 'Account number'
+
+          $scope.isSEPA = false;
+          $scope.isUS = false;
+          $scope.isINDIA = false;
+          $scope.isRUS = true;
           $scope.isOther = false;
         }
 
@@ -237,7 +270,19 @@ angular.module('reg')
           ]
         };
 
+        var swiftOrBic = {
+          identifier: 'swiftOrBic',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter your SWIFT or BIC.'
+            }
+          ]
+        };
+
         if(countryType == "ibanOrOther" || countryType == "onlyIban" || countryType == "NotDefined"){
+
+          swiftOrBic.rules = [];
 
           iban.rules = [
             {
@@ -306,7 +351,7 @@ angular.module('reg')
               ]
             },
             swiftOrBic: {
-              identifier: 'swiftOrBicField',
+              identifier: 'swiftOrBic',
               rules: [
                 {
                   type: 'empty',
@@ -314,7 +359,7 @@ angular.module('reg')
                 }
               ]
             },
-            clearingCodeField: {
+            clearingCode: {
               identifier: 'clearingCode',
               rules: [
                 {
