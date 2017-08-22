@@ -123,7 +123,7 @@ module.exports = function(router) {
    /**
    * FILE UPLOAD
    */
-   router.post('/upload', upload.any('file'), function(req, res) {
+   router.post('/upload', upload.single('file'), function(req, res) {
      res.sendStatus(200);
    });
   // ---------------------------------------------

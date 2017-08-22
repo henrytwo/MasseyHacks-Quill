@@ -259,6 +259,10 @@ var reimbursement = {
      type: String,
      max: 30
    },
+   countryType: {
+     type: String,
+     max: 30
+   },
    nameOfBank: {
      type: String,
      max: 60
@@ -282,6 +286,26 @@ var reimbursement = {
      default: '',
      max: 32
    },
+   bban: {
+     type: String,
+     default: '',
+     max: 32
+   },
+   ccUSA: {
+     type: String,
+     default: '',
+     max: 9
+   },
+   ifsc: {
+     type: String,
+     default: '',
+     max: 11
+   },
+   receiptPurposeCode: {
+     type: String,
+     default: '',
+     max: 5
+   },
    accountNumber: {
      type: String,
      default: '',
@@ -300,7 +324,7 @@ var reimbursement = {
    brokerageInfo: {
      type: String,
      default: '',
-     max: 50
+     max: 200
 
    },
    additional: {
