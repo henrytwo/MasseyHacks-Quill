@@ -102,20 +102,20 @@
           <p>
             {{ DASHBOARD.SUBMITTED }}
           </p>
-          <div class="ui teal button"
+          <div class="ui sea-serpent button"
                ui-sref="app.application">
             Edit your application
           </div>
 
           <div
-            class="ui teal button"
+            class="ui sea-serpent button"
             ng-show="!user.teamCode"
             ui-sref="app.team">
             Create or join a team
           </div>
 
           <div
-            class="ui teal button"
+            class="ui sea-serpent button"
             ng-show="user.teamCode"
             ui-sref="app.team">
             View your Team
@@ -179,7 +179,7 @@
             </h4>
           </div>
 
-          <div class="ui teal button"
+          <div class="ui sea-serpent button"
                ui-sref="app.confirmation">
             Confirm your spot
           </div>
@@ -226,7 +226,7 @@
             ng-bind-html="confirmationText">
           </div>
 
-          <div class="ui teal button"
+          <div class="ui sea-serpent button"
                ui-sref="app.confirmation">
             {{pastConfirmation ? 'View' : 'Edit'}} your confirmation information
           </div>

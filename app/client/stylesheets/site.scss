@@ -164,6 +164,16 @@ a.tooltips {
 
 }
 
+.sea-serpent {
+  background-color: #5ABECF !important;
+  color: #FBFBFB !important;
+}
+
+.vermilion {
+  background-color: #EF4637 !important;
+  color: #FBFBFB !important;
+}
+
 .tooltip:after{
     content:'A';
     font-weight: bold;
@@ -174,7 +184,7 @@ a.tooltips span {
   text-weight: normal !important;
   text-transform: none;
   position: fixed;
-  
+
   font-weight: normal;
   line-height: 1.1em;
 
@@ -211,9 +221,9 @@ a:hover.tooltips span {
   -webkit-transition: all 1.0s ease; /* Safari and Chrome */
   -o-transition: all 1.0s ease; /* Opera */
   -ms-transition: all 1.0s ease; /* Explorer 10 */
-  
 
-  
+
+
   top:5%;
   width: 80%;
   opacity:0.98;
