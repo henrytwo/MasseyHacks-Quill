@@ -388,6 +388,14 @@ angular.module('reg')
               {
                 name: 'Portfolio',
                 value: user.profile.portfolio
+              },
+              {
+                name: 'Linkedin',
+                value: user.profile.linkedin
+              },
+              {
+                name: 'Github',
+                value: user.profile.github
               },{
                 name: 'Interest in job opportunities',
                 value: user.profile.jobOpportunities

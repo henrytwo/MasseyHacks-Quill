@@ -94,6 +94,16 @@ var profile = {
     min: 5,
     max: 240,
   },
+  linkedin: {
+    type: String,
+    min: 5,
+    max: 240,
+  },
+  github: {
+    type: String,
+    min: 5,
+    max: 240,
+  },
 
   // Multiple choice
   occupationalStatus: {

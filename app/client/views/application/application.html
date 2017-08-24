@@ -722,15 +722,6 @@
 
 
         <div class="field">
-          <label> Link to your portfolio </label>
-          <input type="text"
-                 name="portfolio"
-                 placeholder="https://github.com/foobar"
-                 ng-model="user.profile.portfolio">
-        </div>
-
-
-        <div class="field">
           <label>Which of the following choices describes your occupational status the best? You can select max. 2 options. * </label>
           <select multiple="multiple"
             class="ui multiple normal selection dropdown"
@@ -923,6 +914,33 @@
           <input type="text"
                  name="secret"
                  ng-model="user.profile.secret">
+        </div>
+
+        <br><br>
+        <div class="divided title">Links about you</div>
+        <p>Put some links here if you want.</p>
+        <div class="field">
+          <label> Link to your portfolio </label>
+          <input type="text"
+                 name="github"
+                 placeholder="https://mycoolportfoliowebsite.hacker"
+                 ng-model="user.profile.portfolio">
+        </div>
+
+        <div class="field">
+          <label> Link to your GitHub profile </label>
+          <input type="text"
+                 name="github"
+                 placeholder="https://github.com/junction-hacker"
+                 ng-model="user.profile.github">
+        </div>
+
+        <div class="field">
+          <label> Link to your LinkedIn profile </label>
+          <input type="text"
+                 name="github"
+                 placeholder="https://linkedin.com/junction-hacker"
+                 ng-model="user.profile.linkedin">
         </div>
 
         <br><br>
