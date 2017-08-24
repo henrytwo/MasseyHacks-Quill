@@ -244,7 +244,7 @@ angular.module('reg')
             }
            }
            output += "\n";
-           
+
           for (var rows = 0; rows < data.length; rows++){
             row = generateSections(data[rows]);
             for (var i = 0; i < row.length; i++){
@@ -258,7 +258,7 @@ angular.module('reg')
             }
             output += "\n";
           }
-          
+
           var element = document.createElement('a');
           element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
           element.setAttribute('download', "base.csv");
@@ -266,7 +266,7 @@ angular.module('reg')
           document.body.appendChild(element);
           element.click();
           document.body.removeChild(element);
-            
+
           });
       }
       function findUser(user){
@@ -325,6 +325,15 @@ angular.module('reg')
                 name: 'School',
                 value: user.profile.school
               },{
+                name: 'Graduation Year',
+                value: user.profile.graduationYear
+              },{
+                name: 'Major',
+                value: user.profile.major
+              },{
+                name: 'Degree',
+                value: user.profile.degree
+              },{
                 name: 'Travels from Country',
                 value: user.profile.travelFromCountry
               },{
@@ -351,8 +360,17 @@ angular.module('reg')
                 name: 'Occupational status',
                 value: user.profile.occupationalStatus.join(', ')
               },{
-                name: 'Best tools',
-                value: user.profile.bestTools.join(', ')
+                name: 'Top level tools',
+                value: user.profile.topLevelTools.join(', ')
+              },{
+                name: 'Great level tools',
+                value: user.profile.greatLevelTools.join(', ')
+              },{
+                name: 'Good level tools',
+                value: user.profile.goodLevelTools.join(', ')
+              },{
+                name: 'Beginner level tools',
+                value: user.profile.beginnerLevelTools.join(', ')
               },{
                 name: 'Coding experience',
                 value: user.profile.codingExperience
