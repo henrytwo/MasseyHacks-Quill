@@ -101,8 +101,17 @@ var profile = {
     max: 150
   },
 
-  // Multiple choice
-  bestTools: {
+  // Tools
+  topLevelTools: {
+    type: [String]
+  },
+  greatLevelTools: {
+    type: [String]
+  },
+  goodLevelTools: {
+    type: [String]
+  },
+  beginnerLevelTools: {
     type: [String]
   },
 

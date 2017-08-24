@@ -761,109 +761,83 @@
         </div>
 
         <div class="field">
-          <label>Which programming, scripting and markup languages
-            and game engines are you most comfortable with? * </label>
-          <select multiple="multiple"
-            class="ui dropdown"
-            name="bestTools"
-            id="bestTools"
-            ng-model="user.profile.bestTools">
-            <option value="">Choose your best tools</option>
-            <option value="Assembly">Assembly</option>
-            <option value="Java">Java</option>
-            <option value="C">C</option>
-            <option value="C++">C++</option>
-            <option value="C#">C#</option>
-            <option value="Objective-C">Objective-C</option>
-            <option value="PHP">PHP</option>
-            <option value="Python">Python</option>
-            <option value="Ruby">Ruby</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="SQL">SQL</option>
-            <option value="Perl">Perl</option>
-            <option value="HTML">HTML</option>
-            <option value="CSS">CSS</option>
-            <option value="Swift">Swift</option>
-            <option value="Scala">Scala</option>
-            <option value="Go">Go</option>
-            <option value="R">R</option>
-            <option value="Matlab">Matlab</option>
-            <option value="VBA">VBA</option>
-            <option value="Kotlin">Kotlin</option>
-            <option value="Haskell">Haskell</option>
-            <option value="Clojure">Clojure</option>
-            <option value="Bash">Bash</option>
-            <option value="Other">Other</option>
-            <option value="PowerPoint">PowerPoint</option>
-            <option value="Excel">Excel</option>
-            <option value="None of the above">None of the above</option>
-          </select>
-        </div>
-
-        <div class="field">
           <label>Programming languages etc </label>
-          <div class="field">
-            <h6 class="ui block header">
-              Expert level
-            </h6>
-            <select
-                   multiple="multiple"
-                   class="ui toptools dropdown"
-                   name="topLevelTools"
-                   id="topLevelTools"
-                   ng-init="identifier1='.ui.toptools.dropdown'"
-                   ng-model="user.profile.topLevelTools"
-                   ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier1"
-                   ng-change="programmingLanguagesChanged()">
-            </select>
+          <div class="fields">
+            <div class="ten wide field">
+              <select
+                     multiple="multiple"
+                     class="ui toptools dropdown"
+                     name="topLevelTools"
+                     id="topLevelTools"
+                     ng-init="identifier1='.ui.toptools.dropdown'"
+                     ng-model="user.profile.topLevelTools"
+                     ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier1">
+              </select>
+            </div>
+            <div class="six wide field">
+              <h5 class="ui block teal header">
+                Expert skills
+              </h5>
+            </div>
           </div>
 
           <div class="field">
-            <h6 class="ui block header">
-              Great Skills
-            </h6>
-            <select
-                   multiple="multiple"
-                   class="ui greattools dropdown"
-                   name="greatLevelTools"
-                   id="greatLevelTools"
-                   ng-init="identifier2='.ui.greattools.dropdown'"
-                   ng-model="user.profile.greatLevelTools"
-                   ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier2"
-                   ng-change="programmingLanguagesChanged()">
-            </select>
+            <div class="fields">
+              <div class="ten wide field">
+                <select
+                       multiple="multiple"
+                       class="ui greattools dropdown"
+                       name="greatLevelTools"
+                       id="greatLevelTools"
+                       ng-init="identifier2='.ui.greattools.dropdown'"
+                       ng-model="user.profile.greatLevelTools"
+                       ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier2">
+                </select>
+              </div>
+              <div class="six wide field">
+                <h5 class="ui block teal header" style="margin-top:1px">
+                  Great Skills
+                </h5>
+              </div>
+            </div>
           </div>
 
-          <div class="field">
-            <h6 class="ui block header">
-              Good skills
-            </h6>
-            <select
-                   multiple="multiple"
-                   class="ui goodtools dropdown"
-                   name="goodLevelTools"
-                   id="goodLevelTools"
-                   ng-init="identifier3='.ui.goodtools.dropdown'"
-                   ng-model="user.profile.goodLevelTools"
-                   ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier3"
-                   ng-change="programmingLanguagesChanged()">
-            </select>
+          <div class="fields">
+            <div class="ten wide field">
+              <select
+                     multiple="multiple"
+                     class="ui goodtools dropdown"
+                     name="goodLevelTools"
+                     id="goodLevelTools"
+                     ng-init="identifier3='.ui.goodtools.dropdown'"
+                     ng-model="user.profile.goodLevelTools"
+                     ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier3">
+              </select>
+            </div>
+            <div class="six wide field">
+              <h5 class="ui block teal header">
+                Good skills
+              </h5>
+            </div>
           </div>
 
-          <div class="field">
-            <h6 class="ui block header">
-              Beginner skills
-            </h6>
-            <select
-                   multiple="multiple"
-                   class="ui beginnerTools dropdown"
-                   name="beginnerLevelTools"
-                   id="beginnerLevelTools"
-                   ng-init="identifier4='.ui.beginnerTools.dropdown'"
-                   ng-model="user.profile.beginnerLevelTools"
-                   ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier4"
-                   ng-change="programmingLanguagesChanged()">
-            </select>
+          <div class="fields">
+            <div class="ten wide field">
+              <select
+                     multiple="multiple"
+                     class="ui beginnerTools dropdown"
+                     name="beginnerLevelTools"
+                     id="beginnerLevelTools"
+                     ng-init="identifier4='.ui.beginnerTools.dropdown'"
+                     ng-model="user.profile.beginnerLevelTools"
+                     ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier4">
+              </select>
+            </div>
+            <div class="six wide field">
+              <h5 class="ui block teal header">
+                Beginner skills
+              </h5>
+            </div>
           </div>
 
 

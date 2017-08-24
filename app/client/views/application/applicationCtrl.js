@@ -22,31 +22,14 @@ angular.module('reg')
       }
       var originalTeamCode = $scope.user.teamCode;
 
-      var languages = ['Assembly', 'Java', 'C', 'C#', 'Swift'];
+      var languages = ['Assembly', 'Java', 'C', 'C#', 'C++', 'Objective-C',
+                      'PHP', 'Python', 'Ruby', 'JavaScript', 'SQL', 'Perl',
+                      'HTML', 'CSS', 'Swift', 'Scala', 'Go', 'R', 'Matlab',
+                      'VBA', 'Kotlin', 'Haskell', 'Clojure', 'Bash', 'Other',
+                      'PowerPoint', 'Excel', 'None of the above'];
       $scope.programmingLanguages = languages;
       // Populate the school dropdown
       _setupForm();
-
-      function programmingLanguagesChanged() {
-        var selectedTop = $(".ui.toptools.dropdown").dropdown('get value');
-        selectedTop = [].concat.apply([], selectedTop);
-        selectedTop = stripLanguageSubstrings(selectedTop);
-
-        $(".ui.toptools.dropdown").dropdown('refresh');
-        $(".ui.greattools.dropdown").dropdown('refresh');
-        $(".ui.goodtools.dropdown").dropdown('refresh');
-        $(".ui.beginnerTools.dropdown").dropdown('refresh');
-
-        setTimeout(function() {
-
-
-          $(".ui.toptools.dropdown").dropdown('refresh');
-          $(".ui.greattools.dropdown").dropdown('refresh');
-          $(".ui.goodtools.dropdown").dropdown('refresh');
-          $(".ui.beginnerTools.dropdown").dropdown('refresh');
-
-         }, 100);
-      }
 
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
 
@@ -276,12 +259,16 @@ angular.module('reg')
         $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
         $("#degree").dropdown('set selected', $scope.user.profile.degree);
 
-        $("#bestTools").dropdown('set selected', $scope.user.profile.bestTools);
         $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
         $('.ui.dropdown').dropdown('refresh');
 
         setTimeout(function () {
           $("#school").dropdown('set selected', $scope.user.profile.school);
+          $(".ui.toptools.dropdown").dropdown('set selected', $scope.user.profile.topLevelTools);
+          $("#greatLevelTools").dropdown('set selected', $scope.user.profile.greatLevelTools);
+          $("#goodLevelTools").dropdown('set selected', $scope.user.profile.goodLevelTools);
+          $("#beginnerLevelTools").dropdown('set selected', $scope.user.profile.beginnerLevelTools);
+
         }, 1);
       }
 
@@ -314,11 +301,9 @@ angular.module('reg')
     selectedLanguages.push($(".ui.goodtools.dropdown").dropdown('get value'));
     selectedLanguages.push($(".ui.beginnerTools.dropdown").dropdown('get value'));
     selectedLanguages = [].concat.apply([], selectedLanguages);
-    console.log(dropdownIdentifier);
     // Strip the unnecessary 'string:' substring
     selectedLanguages = stripLanguageSubstrings(selectedLanguages);
     var callerLanguages = $(dropdownIdentifier).dropdown('get value');
-    console.log(callerLanguages);
     callerLanguages = [].concat.apply([], callerLanguages);
     callerLanguages = stripLanguageSubstrings(callerLanguages);
 
