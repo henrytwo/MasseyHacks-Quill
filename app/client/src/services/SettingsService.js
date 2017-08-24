@@ -48,7 +48,12 @@ angular.module('reg')
         return $http.put(base + 'confirmation', {
           text: text
         });
-      }
+      },
+      updateReimbClasses: function(reimbClasses){
+        return $http.put(base + 'reimbClasses', {
+          reimbClasses: reimbClasses
+        });
+      }      
     };
 
   }

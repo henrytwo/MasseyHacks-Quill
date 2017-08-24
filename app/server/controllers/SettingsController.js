@@ -92,6 +92,21 @@ SettingsController.updateRegistrationTimes = function(open, close, callback){
 };
 
 /**
+ * Update reimbursement class amounts.
+ * @param  {Object}   reimbursementClass
+ */
+SettingsController.updateReimbClasses = function(reimbClasses, callback){
+  Settings
+    .findOneAndUpdate({},{
+      $set: {
+        reimbursementClass: reimbClasses
+      }
+    }, {new: true})
+    .select('reimbursementClass')
+    .exec(callback);
+};
+
+/**
  * Get the open and close time for registration.
  * @param  {Function} callback args(err, times : {timeOpen, timeClose})
  */

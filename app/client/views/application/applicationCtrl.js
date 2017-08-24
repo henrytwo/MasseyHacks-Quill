@@ -33,6 +33,11 @@ angular.module('reg')
 
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
 
+      var reimbClasses;
+      $.getJSON('../assets/reimbClasses.json').done(function(data){
+              reimbClasses = data;
+        });
+
       function _updateUser(e){
         // Update user profile
         UserService
@@ -50,6 +55,12 @@ angular.module('reg')
           .error(function(res){
             sweetAlert("Uh oh!", "Something went wrong.", "error");
           });
+      }
+      $scope.getReimbursementClass = function(homeCountry) {
+        // User needs reimbursement
+        if($scope.user.profile.needsReimbursement) {
+          $scope.user.profile.AppliedreimbursementClass = reimbClasses[homeCountry].Class;
+          }
       }
 
       function _updateTeam(e) {

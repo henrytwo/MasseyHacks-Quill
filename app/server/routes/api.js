@@ -123,7 +123,7 @@ module.exports = function(router) {
    /**
    * FILE UPLOAD
    */
-   router.post('/upload', upload.any('file'), function(req, res) {
+   router.post('/upload', upload.single('file'), function(req, res) {
      res.sendStatus(200);
    });
   // ---------------------------------------------
@@ -276,8 +276,9 @@ module.exports = function(router) {
   router.post('/users/:id/admit', isAdmin, function(req, res){
     // Accept the hacker. Admin only
     var id = req.params.id;
+    var reimbClass = req.body.reimbClass;
     var user = req.user;
-    UserController.admitUser(id, user, defaultResponse(req, res));
+    UserController.admitUser(id, user, reimbClass, defaultResponse(req, res));
   });
 
   /**
@@ -427,4 +428,16 @@ module.exports = function(router) {
     SettingsController.updateWhitelistedEmails(emails, defaultResponse(req, res));
   });
 
+  /**
+   * [ADMIN ONLY]
+   * {
+   *   reimbClasses: Object
+   * }
+   * res: Settings
+   *
+   */
+  router.put('/settings/reimbClasses', isAdmin, function(req, res){
+    var reimbClasses = req.body.reimbClasses;
+    SettingsController.updateReimbClasses(reimbClasses, defaultResponse(req, res));
+  });
 };

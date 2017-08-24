@@ -14,7 +14,9 @@ angular.module('reg')
       var Settings = settings.data;
       var user = currentUser.data;
       $scope.user = user;
-
+      $scope.classAmount;
+      getClassAmount();
+      
       $scope.DASHBOARD = DASHBOARD;
 
       for (var msg in $scope.DASHBOARD) {
@@ -64,6 +66,31 @@ angular.module('reg')
       };
 
       $scope.showWaitlist = !regIsOpen && user.status.completedProfile && !user.status.admitted;
+
+      function getClassAmount() {
+        switch($scope.user.profile.AcceptedreimbursementClass){
+          case("Finland"):
+            $scope.classAmount = Settings.reimbursementClass.Finland;
+            break;
+          case("Baltics"):
+            $scope.classAmount = Settings.reimbursementClass.Baltics;
+            break;
+          case("Nordic"):
+            $scope.classAmount = Settings.reimbursementClass.Nordic;
+            break;
+          case("Europe"):
+            $scope.classAmount = Settings.reimbursementClass.Europe;
+            break;
+          case("Outside Europe"):
+            $scope.classAmount = Settings.reimbursementClass.Outside;
+            break;
+          case("Rejected"):
+            $scope.classAmount = "Rejected";
+            break;
+          default:
+            $scope.classAmount = $scope.user.profile.AcceptedreimbursementClass;
+        }
+      }
 
       $scope.resendEmail = function(){
         AuthService

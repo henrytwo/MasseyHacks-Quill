@@ -1,6 +1,10 @@
 <div class="page">
   <div class="divided title">
     Application
+
+      <a class="tooltips" href="#">?
+        <span>Apply for Junction 2017 by filling this form! All participants will be chosen based on their programming skills and motivation to come to Junction.</span>
+      </a>
   </div>
 
   <script>
@@ -157,7 +161,6 @@
            <option value="Germany">Germany</option>
            <option value="Ghana">Ghana</option>
            <option value="Gibraltar">Gibraltar</option>
-           <option value="Great Britain">Great Britain</option>
            <option value="Greece">Greece</option>
            <option value="Greenland">Greenland</option>
            <option value="Grenada">Grenada</option>
@@ -328,7 +331,9 @@
                  name="travelFromCity"
                  ng-model="user.profile.travelFromCity">
         </div>
-
+          <p type="text" id="capitalArea" ng-if="user.profile.travelFromCountry=='Finland'">
+            Participants coming from <strong>Greater Helsinki region</strong>, will not be granted travel reimbursements.</p>
+        <br>
         <div class="field">
           <label> What is your home country? *</label>
           <select class="ui fluid search selection dropdown"
@@ -598,8 +603,8 @@
           <div class="field" id="schoolField" ng-show="schoolChecked">
             <label> Which school are you from? </label>
             <p style="margin-bottom: 10px;">
-            Please fill the school you are enrolled to for the year 2017/2018.
-            Choose from the list if your school is listed or type it in if not.
+            Please type in the school / university you are enrolled at for the year <strong>2017/2018</strong>.
+            Choose from the list of schools or type it in.
             </p>
             <select class="ui fluid school search selection dropdown"
                    name="school"
@@ -611,7 +616,7 @@
           </div>
 
           <div class="field" ng-show="schoolChecked">
-            <label> Expected Graduation Year </label>
+            <label> Expected year of graduation </label>
             <input type="number"
                    min="2017"
                    placeholder="2018"
@@ -620,7 +625,7 @@
           </div>
 
           <div class="field" ng-show="schoolChecked">
-            <label>What degree are you currently studying?</label>
+            <label> What is the degree you are currently studying? </label>
             <select
               class="ui fluid dropdown"
               id="degree"
@@ -636,7 +641,7 @@
           </div>
 
           <div class="field" ng-show="schoolChecked">
-            <label> What is your major? </label>
+            <label> What is the major you are studyinh¨g? </label>
             <input type="text"
                    name="major"
                    ng-model="user.profile.major"
@@ -661,19 +666,32 @@
         <div class="field">
           <label> Do you need travel reimbursement or free accommodation? </label>
           <p style="margin-bottom: 10px;">
-            For travel inside Finland, you can apply for reimbursement of 20€.
-            Travelling from Nordics, Baltics or Russia, the reimbursement is 50€. Other Europe, 75€. Outside Europe, 150€.
+            Applicants travelling from outside of Greater Helsinki region can apply for travel reimbursement and free accommodation during the event.
+            <br>
+            Depending on where you come from the reimbursement can be up to:
+            <ul>
+              <li>Finland (Outside of Greater Helsinki region): 20€</li>
+              <li>Baltics & Nordics & Russia: 50€</li>
+              <li>Rest of Europe: 75€</li>
+              <li>Rest of the World: 150€</li>
+            </ul>
           </p>
 
         </div>
         <div class="ui checkbox">
-          <input type="checkbox" id="needsReimbursement" ng-model="user.profile.needsReimbursement">
-          <label for="needsReimbursement">I apply for travel reimbursement</label>
+          <input type="checkbox" id="needsReimbursement" ng-click="getReimbursementClass(user.profile.travelFromCountry)" ng-model="user.profile.needsReimbursement">
+          <label for="needsReimbursement"><strong>I apply for travel reimbursement</strong></label>
+          <p ng-show="user.profile.needsReimbursement">
+            Your applied travel reimbursement class is:  <strong>{{user.profile.AppliedreimbursementClass}}</strong>
+          </p>
         </div>
         <br>
+        <p style="margin: 10px 0px 10px 0px;">
+          We will have accommodation available in multiple schools for a few hundred participants. A sleeping bag and/or mattress is recommended for sleeping in the accommodation places.
+        </p>
         <div class="ui checkbox">
           <input type="checkbox" id="applyAccommodation" ng-model="user.profile.applyAccommodation">
-          <label for="applyAccommodation">I apply for free accommodation</label>
+          <label for="applyAccommodation"><strong>I apply for free accommodation</strong></label>
         </div>
         <br>
         <br>
@@ -681,7 +699,7 @@
 
 
         <div class="field">
-          <label>Which track(s) are you most interested in hacking? * </label>
+          <label>Which track are you most interested in hacking at Junction 2017? * </label>
             <p style="margin-bottom: 10px;">
               This question isn’t binding in any case, just to know a little more about your interests.
               You can find more info about each track on our website!
@@ -693,7 +711,6 @@
             ng-model="user.profile.mostInterestingTrack">
             <option value="">Choose a track</option>
             <option value="Game Jam">Game Jam</option>
-            <option value="Virtual Reality">Virtual Reality</option>
             <option value="Internet of Things">Internet of Things</option>
             <option value="HealthTech">HealthTech</option>
             <option value="FinTech">FinTech</option>
@@ -702,17 +719,19 @@
             <option value="Multimodal Mobility">Multimodal Mobility</option>
             <option value="Logistics">Logistics</option>
             <option value="Cybersecurity">Cybersecurity</option>
-            <option value="EdTech">EdTech</option>
+            <option value="Entertainment">EdTech</option>
           </select>
         </div>
 
         <div class="field">
           <label>
-            If you have formed a team already, please name it with a unique string. </label>
+            If you have already formed a team for Junction 2017, please name it with a unique string. </label>
             <p style="margin-bottom: 10px;">
             This way we'll know who your teammates are.
             Remember that the team name is Case Sensitive!
-            Having a team is not compulsory at all. Note that to compete for prizes at Junction 2017, your team can be max. 5 members!
+            Having a team is not compulsory at all for attending.
+            <br>
+            Note that to compete for prizes at Junction 2017, your team can be max. 5 members!
           </p>
           <input type="text"
                  name="teamCode"
@@ -720,15 +739,17 @@
                  ng-model="user.teamCode">
         </div>
 
-
         <div class="field">
-          <label>Which of the following choices describes your occupational status the best? You can select max. 2 options. * </label>
+          <label>Which of the following describes your occupational status the best? * </label>
+          <p style="margin-bottom: 10px";>
+            You can select max. 2 options.
+          </p>
           <select multiple="multiple"
             class="ui multiple normal selection dropdown"
             name="occupationalStatus"
             id="occupationalStatus"
             ng-model="user.profile.occupationalStatus">
-            <option value="">Choose all that apply</option>
+            <option value="">Choose up to 2 that apply</option>
             <option value="Student">Student</option>
             <option value="Full-Stack Web Developer">Full-Stack Web Developer</option>
             <option value="Backend Web Developer">Backend Web Developer</option>
@@ -894,19 +915,19 @@
           <label>
               Why do you want to come to Junction 2017 and why should we choose you?
           </label>
+          <p style="margin-bottom: 10px";>
+            Tell us a bit about your motivation for coming to Junction 2017.
+          </p>
           <textarea ng-model="user.profile.essay">
           </textarea>
         </div>
-        <div class="field">
-          <label>Have you been to Junction in previous years?</label>
-          <select multiple="" class="ui dropdown"
-            name="previousJunction"
-            id="previousJunction"
-            ng-model="user.profile.previousJunction">
-            <option value="">Junction experience</option>
-            <option value="2015">2015</option>
-            <option value="2016">2016</option>
-          </select>
+
+         <div class="field">
+          <label> Link to your portfolio </label>
+          <input type="text"
+                 name="portfolio"
+                 placeholder="https://github.com/foobar"
+                 ng-model="user.profile.portfolio">
         </div>
 
         <div class="field">
@@ -958,6 +979,18 @@
             <option value="Up for discussions">I am up for discussions if someone is interested</option>
             <option value="Not interested">I am not looking for new job opportunities</option>
             <option value="Prefer not answer">I would prefer not to answer </option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Have you been to Junction in previous years?</label>
+          <select multiple="" class="ui dropdown"
+            name="previousJunction"
+            id="previousJunction"
+            ng-model="user.profile.previousJunction">
+            <option value="">Junction experience</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
           </select>
         </div>
 
@@ -1016,7 +1049,7 @@
         <div class="ui checkbox">
             <input type="checkbox" id="termsAndCond" ng-model="user.profile.termsAndCond">
             <label for="termsAndCond"><h5>I agree with Junction Terms and Conditions, which can be found
-              <a href="https://tokyo.hackjunction.com/terms/" target="_blank">here</a>*</h5></label>
+              <a href="https://hackjunction.com/terms/" target="_blank">here</a>*</h5></label>
 
         </div>
         <br>

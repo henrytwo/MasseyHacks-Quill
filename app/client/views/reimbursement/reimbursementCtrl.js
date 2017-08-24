@@ -28,7 +28,9 @@ angular.module('reg')
       $scope.isDisabled = false;
 
       $scope.isSEPA = false;
-      $scope.isIBANOrBIC = false;
+      $scope.isUS = false;
+      $scope.isRUS = false;
+      $scope.isINDIA = false;
       $scope.isOther = false;
 
 
@@ -59,7 +61,7 @@ angular.module('reg')
             _setupForm();
         })
         .fail(function(data){
-            console.log( "Error loading ibans.json" );
+            console.log( "Error loading iban.json" );
         });
 
       $('#countryOfB').change(function() {
@@ -67,8 +69,9 @@ angular.module('reg')
           //When the Country of Bank field gets changed,
           //look through what is the type of the country
           //and set the state of disabled attribute based on that
-
-          checkCountryType();
+          if($('#countryOfB').val() != ''){
+            checkCountryType();
+          }
       });
 
 
@@ -118,8 +121,8 @@ angular.module('reg')
 
           return 25;
         }
-
       }
+
       function checkCountryType(){
 
         var disabledToggler = false;
@@ -136,29 +139,108 @@ angular.module('reg')
         console.log(countryType);
         console.log($scope.user.reimbursement)
 
-        if(countryType == "SEPA" || countryType == "ibanAndBic"){
+        if(countryType == "SEPA" || countryType == "ibanAndBic" || countryType == "onlyIban"){
+          //disable the fields that are not needed before they are hidden with ng-show
           $('.ibanField').attr('disabled', disabledToggler);
           $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', !disabledToggler);
+          $('.bbanField').attr('disabled', !disabledToggler);
+          $('.ccUSA').attr('disabled', !disabledToggler);
+          $('.ifscField').attr('disabled', !disabledToggler);
+          $('.rcpField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', !disabledToggler);
-          $('.zipCodeField').attr('disabled', !disabledToggler);
+          $('.zipCodeBankField').attr('disabled', !disabledToggler);
           $('.brokerageInfoField').attr('disabled', !disabledToggler);
 
           $scope.isSEPA = true;
+          $scope.isUS = false;
+          $scope.isINDIA = false;
+          $scope.isRUS = false;
           $scope.isOther = false;
         }
-        else if(countryType == "ibanOrOther" || countryType == "onlyIban" || countryType == "NotDefined"){
-          $('.ibanField').attr('disabled', disabledToggler);
+
+        else if(countryType == "ibanOrOther" || countryType == "NotDefined"){
+          $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.bbanField').attr('disabled', !disabledToggler);
+          $('.ccUSA').attr('disabled', !disabledToggler);
+          $('.ifscField').attr('disabled', !disabledToggler);
+          $('.rcpField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
-          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.zipCodeBankField').attr('disabled', disabledToggler);
+          $('.brokerageInfoField').attr('disabled', disabledToggler);
+
+          $('.accountNumberLabel').html('IBAN / BBAN / Account number');
+
+          $scope.isSEPA = false;
+          $scope.isUS = false;
+          $scope.isINDIA = false;
+          $scope.isRUS = false;
+          $scope.isOther = true;
+        }
+        else if(countryType == "US"){
+          $('.ibanField').attr('disabled', !disabledToggler);
+          $('.accountNumberField').attr('disabled', !disabledToggler);
+          $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.clearingCodeField').attr('disabled', !disabledToggler);
+          $('.bbanField').attr('disabled', disabledToggler);
+          $('.ccUSA').attr('disabled', disabledToggler);
+          $('.ifscField').attr('disabled', !disabledToggler);
+          $('.rcpField').attr('disabled', !disabledToggler);
+          $('.cityOfBankField').attr('disabled', disabledToggler);
+          $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
           $scope.isSEPA = false;
-          $scope.isOther = true;
+          $scope.isUS = true;
+          $scope.isINDIA = false;
+          $scope.isRUS = false;
+          $scope.isOther = false;
+        }
+        else if(countryType == "IND"){
+          $('.ibanField').attr('disabled', !disabledToggler);
+          $('.accountNumberField').attr('disabled', !disabledToggler);
+          $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.clearingCodeField').attr('disabled', !disabledToggler);
+          $('.bbanField').attr('disabled', disabledToggler);
+          $('.ccUSA').attr('disabled', !disabledToggler);
+          $('.ifscField').attr('disabled', disabledToggler);
+          $('.rcpField').attr('disabled', disabledToggler);
+          $('.cityOfBankField').attr('disabled', disabledToggler);
+          $('.zipCodeBankField').attr('disabled', disabledToggler);
+          $('.brokerageInfoField').attr('disabled', disabledToggler);
+
+          $('.accountNumberLabel').innerHTML = 'Account number'
+
+          $scope.isSEPA = false;
+          $scope.isUS = false;
+          $scope.isINDIA = true;
+          $scope.isRUS = false;
+          $scope.isOther = false;
+        }
+        else if(countryType == "RUS"){
+          $('.ibanField').attr('disabled', !disabledToggler);
+          $('.accountNumberField').attr('disabled', !disabledToggler);
+          $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.clearingCodeField').attr('disabled', !disabledToggler);
+          $('.bbanField').attr('disabled', disabledToggler);
+          $('.ccUSA').attr('disabled', !disabledToggler);
+          $('.ifscField').attr('disabled', !disabledToggler);
+          $('.rcpField').attr('disabled', !disabledToggler);
+          $('.cityOfBankField').attr('disabled', disabledToggler);
+          $('.BankField').attr('disabled', disabledToggler);
+          $('.brokerageInfoField').attr('disabled', disabledToggler);
+
+          $('.accountNumberLabel').innerHTML = 'Account number'
+
+          $scope.isSEPA = false;
+          $scope.isUS = false;
+          $scope.isINDIA = false;
+          $scope.isRUS = true;
+          $scope.isOther = false;
         }
 
         //here the form gets destroed and set up again so that it can be validated again
@@ -186,7 +268,19 @@ angular.module('reg')
           ]
         };
 
+        var swiftOrBic = {
+          identifier: 'swiftOrBic',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter your SWIFT or BIC.'
+            }
+          ]
+        };
+
         if(countryType == "ibanOrOther" || countryType == "onlyIban" || countryType == "NotDefined"){
+
+          swiftOrBic.rules = [];
 
           iban.rules = [
             {
@@ -255,7 +349,7 @@ angular.module('reg')
               ]
             },
             swiftOrBic: {
-              identifier: 'swiftOrBicField',
+              identifier: 'swiftOrBic',
               rules: [
                 {
                   type: 'empty',
@@ -263,7 +357,7 @@ angular.module('reg')
                 }
               ]
             },
-            clearingCodeField: {
+            clearingCode: {
               identifier: 'clearingCode',
               rules: [
                 {
@@ -279,6 +373,15 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please enter your Account number.'
+                }
+              ]
+            },
+            bban: {
+              identifier: 'bban',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your BBAN.'
                 }
               ]
             },
@@ -305,7 +408,16 @@ angular.module('reg')
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please enter ZIP Code.'
+                  prompt: 'Please enter your ZIP Code.'
+                }
+              ]
+            },
+            zipCodeBank: {
+              identifier: 'zipCodeBank',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter ZIP Code of your bank.'
                 }
               ]
             },
@@ -313,8 +425,43 @@ angular.module('reg')
               identifier: 'brokerageInfo',
               rules: [
                 {
+                  type: 'maxLength[50]',
+                  prompt: 'This field can only be 50 characters long.'
+                }
+              ]
+            },
+            cityOfBank: {
+              identifier: 'fileUpload',
+              rules: [
+                {
                   type: 'empty',
-                  prompt: 'Please enter brokerage information.'
+                  prompt: 'Please select a file to upload'
+                }
+              ]
+            },
+            ifsc: {
+              identifier: 'ifscField',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter the IFSC.'
+                },
+                {
+                  type: 'exactLength[11]',
+                  prompt: 'IFSC must be 11 characters long.'
+                }
+              ]
+            },
+            receiptPurposeCode: {
+              identifier: 'rcpField',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter the Receipt purpose code.'
+                },
+                {
+                  type: 'exactLength[5]',
+                  prompt: 'Receipt purpose code must be 5 characters long.'
                 }
               ]
             },

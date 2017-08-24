@@ -181,3 +181,57 @@
     </div>
   </div>
 </div>
+
+<div
+  ng-class="{'loading': loading}"
+  class="ui orange segment">
+  <div class="ui header">
+    Travel reimbursement classes
+  </div>
+  <div class="ui stackable two column grid">
+    <div class="column">
+      <div class="ui form">
+
+        <div class="field">
+          <label>
+            Finland
+          </label>
+          <input ng-model="settings.reimbursementClass.Finland">
+        </div>
+        <div class="field">
+          <label>
+            Baltics
+          </label>
+          <input ng-model="settings.reimbursementClass.Baltics">
+        </div>
+        <div class="field">
+          <label>
+            Nordic
+          </label>
+          <input ng-model="settings.reimbursementClass.Nordic">
+        </div>
+        <div class="field">
+          <label>
+            Europe
+          </label>
+          <input ng-model="settings.reimbursementClass.Europe">
+        </div>
+        <div class="field">
+          <label>
+            Outside Europe
+          </label>
+          <input ng-model="settings.reimbursementClass.Outside">
+        </div>
+
+        <div class="field">
+          <div
+            class="ui green button"
+            ng-click="updateReimbClasses()">
+            Update
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

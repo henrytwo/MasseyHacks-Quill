@@ -1,25 +1,42 @@
 <div class="page">
   <div class="divided title">
-    <p>
-      Travel Reimbursement
-    </p>
+    Travel Reimbursement
+      <a class="tooltips" href="#">?
+        <span>Fill all the necessary information to receive travel reimbursement after the hackathon.</span>
+      </a>
   </div>
 
-  <div class="info segment">
-    <div class="small title">General information</div>
-    <ul>
-      <li>Travel reimbursement is processed and sent by check after the event</li>
-      <li>To expedite the reimbursement process and ensure that you receive your reimbursement as quickly as possible, make sure that your mailing address is accurate and you upload your receipts</li>
-      <li></li>
-      <li></li>
-    </ul>
+  <div class="ui stackable page grid">
+    <div class="column">
+      <div class="small title">General information</div>
+      <ol>
+        <li class="tip">The information we receive will be directly run into our payment system, and thus, we’ll relieve our responsibility for examining individuals’ erroneous travel reimbursement filings.</li>
+        <li class="tip">Brokerage fees are paid by the <b>participant</b>. We’ll refrain from any liability or costs that will come from the wire transfer and to the brokers' slots.</li>
+        <li class="tip">Everything is paid in <b>euros</b>.</li>
+        <li class="tip">You should use your <b>own account</b>. If you are unable to use your own, please contact us.</li>
+        <li class="tip">The money will be transferred as a wire transfer (from Junction Oy)</li>
+        <li class="tip">If you are in <b>doubt</b>, turn to your bank and if they do not know, then turn to us. In this case, type in the "Additional Information" field.</li>
+        <li class="tip">The recipient's name, the amount paid and the item (order confirmation and ticket, in some cases the same) should be found in the single PDF file. In this file, it is essential to find the total sum participant paid for the trip to Helsinki. A picture of a ticket or other ticket showing the travel dates, the price of the ticket that you paid and the name. The amount due for the travel allowance is cannot be higher than the ticket price.</li>
+        <li class="tip"><b>Deadline</b> for submission of application xx.xx and for travel receipt xx.xx. Subsequent notifications are not quoted.</li>
+        <li class="tip">It may take some time to receive the travel reimbursement, as be begin the process during after all the participants have registered in the event.</li>
+        <li class="tip">Decisions on compensation are made during the event.</li>
+      </ol>
+      <div class="ui checkbox">
+        <input type="checkbox"
+               name="generalCheck"
+               class="generalCheck"
+               ng-model="generalCheck">
+        <label for="generalCheck"><b>I've read through these tips before proceeding.</b></label>
+      </div>
+    </div>
   </div>
 
 
   <div class="ui stackable page grid">
     <div class="column">
       <div class="ui form"
-            ng-class="{'loading': loading}">
+           ng-class="{'loading': loading}"
+           ng-show="generalCheck">
 
         <div class="divided title">Required Information</div>
 
@@ -42,21 +59,32 @@
           <label> Address Line 1 - Street address </label>
           <input type="text"
                  name="addressLine1"
-                 ng-model="user.reimbursement.addressLine1">
+                 ng-model="user.reimbursement.addressLine1"
+                 placeholder="Hackerstreet">
         </div>
 
         <div class="field">
           <label> Address Line 2 - Apartment, suite, building.. </label>
           <input type="text"
                  name="addressLine1"
-                 ng-model="user.reimbursement.addressLine2">
+                 ng-model="user.reimbursement.addressLine2"
+                 placeholder="13 A 37">
+        </div>
+
+        <div class="field">
+          <label>ZIP Code</label>
+          <input type="text"
+                 name="zipCode"
+                 class="zipCodeField"
+                 ng-model="user.reimbursement.zipCode">
         </div>
 
         <div class="field">
           <label> State / Province / Region </label>
           <input type="text"
                  name="stateProvinceRegion"
-                 ng-model="user.reimbursement.stateProvinceRegion">
+                 ng-model="user.reimbursement.stateProvinceRegion"
+                 placeholder="Southern Hackland">
         </div>
 
         <div class="field">
@@ -70,7 +98,7 @@
         <div class="divided title">Bank Information</div>
 
         <div class="field">
-          <p>If your bank is located in a SEPA-country (EU and ETA countries), the fields that aren't required will be disabled</p>
+          <p>Based on your country of your bank, you will be given the fields to fill. If you don't have information for some of the fields provided (for example, IBAN or BIC), you can leave it empty.</p>
           <label>Country of your bank</label>
           <select class="ui fluid search selection dropdown"
                  name="countryOfBank"
@@ -327,26 +355,65 @@
           </select>
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther">
+        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS">
           <label>Name of the bank</label>
           <input type="text"
                  name="nameOfBank"
-                 ng-model="user.reimbursement.nameOfBank">
+                 ng-model="user.reimbursement.nameOfBank"
+                 placeholder="Central Bank of Hacktown">
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther">
+        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS">
           <label>SWIFT / BIC</label>
           <input type="text"
-                 name="swiftOrBicField"
-                 ng-model="user.reimbursement.swiftOrBic">
+                 name="swiftOrBic"
+                 class="swiftOrBicField"
+                 ng-model="user.reimbursement.swiftOrBic"
+                 placeholder="HACKIN17">
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther">
-          <label>IBAN</label>
+        <div class="field" ng-show="isSEPA">
+          <label>IBAN   (Leave out spaces!)</label>
           <input type="text"
                  name="iban"
                  class="ibanField"
-                 ng-model="user.reimbursement.iban">
+                 ng-model="user.reimbursement.iban"
+                 placeholder="HT000028112017">
+        </div>
+
+        <div class="field" ng-show="isUS || isINDIA || isRUS">
+          <label>BBAN</label>
+          <input type="text"
+                 name="bban"
+                 class="bbanField"
+                 ng-model="user.reimbursement.bban">
+        </div>
+
+        <div class="field" ng-show="isUS">
+          <label>Clearing-code (Fedwire, ABA or Routing number)</label>
+          <input type="text"
+                 name="ccUSA"
+                 class="ccUSAField"
+                 ng-model="user.reimbursement.ccUSA"
+                 placeholder="USABA123456789">
+        </div>
+
+        <div class="field" ng-show="isINDIA">
+          <label>IFSC</label>
+          <input type="text"
+                 name="ifsc"
+                 class="ifscField"
+                 ng-model="user.reimbursement.ifsc"
+                 placeholder="IN12345678923">
+        </div>
+
+        <div class="field" ng-show="isINDIA">
+          <label>Receipt Purpose Code</label>
+          <input type="text"
+                 name="rpc"
+                 class="rpcField"
+                 ng-model="user.reimbursement.receiptPurposeCode"
+                 placeholder="P0001">
         </div>
 
         <div class="field" ng-show="isOther">
@@ -358,14 +425,14 @@
         </div>
 
         <div class="field" ng-show="isOther">
-          <label>Account number</label>
+          <label class="accountNumberLabel">Account number</label>
           <input type="text"
                  name="accountNumber"
                  class="accountNumberField"
                  ng-model="user.reimbursement.accountNumber">
         </div>
 
-        <div class="field" ng-show="isOther">
+        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
           <label>City of the bank</label>
           <input type="text"
                  name="cityOfBank"
@@ -373,7 +440,7 @@
                  ng-model="user.reimbursement.cityOfBank">
         </div>
 
-        <div class="field" ng-show="isOther">
+        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
           <label>Address of the bank</label>
           <input type="text"
                  name="addressOfBank"
@@ -381,43 +448,38 @@
                  ng-model="user.reimbursement.addressOfBank">
         </div>
 
-        <div class="field" ng-show="isOther">
-          <label>ZIP Code</label>
+        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
+          <label>ZIP code of the bank</label>
           <input type="text"
-                 name="zipCode"
-                 class="zipCodeField"
-                 ng-model="user.reimbursement.zipCode">
+                 name="zipCodeBank"
+                 class="zipCodeBankField"
+                 ng-model="user.reimbursement.zipCodeOfBank">
         </div>
 
 
 
-        <div class="field" ng-show="isOther">
+        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
           <label>Brokerage information</label>
-          <input type="text"
-                 name="brokerageInfo"
-                 class="brokerageInfoField"
-                 ng-model="user.reimbursement.brokerageInfo">
+          <textarea name="brokerageInfo"
+                    class="brokerageInfoField"
+                    ng-model="user.reimbursement.brokerageInfo"/>
         </div>
 
-        <div class="small title">
+        <div class="divided title receipt">
           RECEIPTS
         </div>
 
         <div class="field">
           <input
              type="file"
-             file-input="files"
-             multiple />
-           <li ng-repeat="file in files">{{file.name}}</li>
-           <button class="ui button teal" ng-click="upload()">Upload</button>
+             name="fileUpload"
+             file-input="files"/>
+             <button class="ui button teal" ng-click="upload()">Upload</button>
         </div>
-
-
 
         <div class="field">
           <label>Additional information</label>
-          <textarea ng-model="user.reimbursement.additional">
-          </textarea>
+          <textarea ng-model="user.reimbursement.additional"/>
         </div>
 
         <div class="field">
