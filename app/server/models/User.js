@@ -19,10 +19,6 @@ var profile = {
     max: 65,
   },
 
-  specialNeeds: {
-    type: String,
-    max: 500,
-  },
 
   travelFromCountry: {
     type: String,
@@ -174,6 +170,10 @@ var profile = {
 // Only after confirmed
 var confirmation = {
   dietaryRestrictions: [String],
+  specialNeeds: {
+    type: String,
+    max: 500,
+  },
   shirtSize: {
     type: String,
     enum: {

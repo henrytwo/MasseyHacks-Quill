@@ -401,7 +401,7 @@ angular.module('reg')
                 value: user.profile.jobOpportunities
               },{
                 name: 'Special Needs',
-                value: user.profile.specialNeeds || 'None'
+                value: user.confirmation.specialNeeds || 'None'
               },{
                 name: 'Previous Junctions',
                 value: user.profile.previousJunction.join(', ')
