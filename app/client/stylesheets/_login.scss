@@ -33,7 +33,7 @@
     }
     .tip {
       font-family: Montserrat;
-      color: lighten($primary, 20%);
+      color: $secondary;
       text-align: center;
       font-size: 22px;
       margin: 10px 0 10px 0;
@@ -85,6 +85,9 @@
   }
   .forgot {
     text-align: center;
+  }
+  .question {
+    margin-bottom: 10px;
   }
   .field-title{
     color: $primary;

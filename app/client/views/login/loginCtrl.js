@@ -15,7 +15,7 @@ angular.module('reg')
       $scope.regIsOpen = Utils.isRegOpen(Settings);
 
       // Start state for login
-      $scope.loginState = 'login';
+      $scope.loginState = 'register';
 
       var quoteIndex = 0;
 

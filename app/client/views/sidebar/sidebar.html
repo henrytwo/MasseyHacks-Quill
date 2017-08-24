@@ -21,13 +21,6 @@
       Application
     </div>
 
-    <div ui-sref-active="active"
-         ui-sref="app.reimbursement"
-         ng-show="currentUser.status.admitted && currentUser.profile.needsReimbursement && !currentUser.status.declined"
-         class="item">
-      Travel Reimbursement
-    </div>
-
     <div
       ui-sref-active="active"
       ui-sref="app.confirmation"
@@ -36,6 +29,13 @@
       Confirmation
     </div>
 
+    <div ui-sref-active="active"
+         ui-sref="app.reimbursement"
+         ng-show="currentUser.status.admitted && currentUser.profile.needsReimbursement && !currentUser.status.declined"
+         class="item">
+      Travel Reimbursement
+    </div>
+    
     <div
       ui-sref-active="active"
       ui-sref="app.team"
