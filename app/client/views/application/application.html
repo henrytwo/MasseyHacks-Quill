@@ -589,6 +589,20 @@
            </select>
 
         </div>
+        <div class="field">
+          <label>What gender do you identify as? *</label>
+          <select
+            class="ui fluid dropdown"
+            id="gender"
+            name="gender"
+            ng-model="user.profile.gender">
+            <option value="">Gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="O">Other</option>
+            <option value="N">I prefer not to answer</option>
+          </select>
+        </div>
 
         <div class="field">
           <label> School Information </label>
@@ -648,23 +662,12 @@
                    placeholder="e.g. Computer Science, Industrial Design etc.">
           </div>
         </div>
-        <div class="field">
-          <label>What gender do you identify as? *</label>
-          <select
-            class="ui fluid dropdown"
-            id="gender"
-            name="gender"
-            ng-model="user.profile.gender">
-            <option value="">Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-            <option value="O">Other</option>
-            <option value="N">I prefer not to answer</option>
-          </select>
-        </div>
 
+        <br>
+        <br>
+        <div class="divided title">Travel & Accommodation</div>
         <div class="field">
-          <label> Do you need travel reimbursement or free accommodation? </label>
+          <label> Do you need travel reimbursement? </label>
           <p style="margin-bottom: 10px;">
             Applicants travelling from outside of Greater Helsinki region can apply for travel reimbursement and free accommodation during the event.
             <br>
@@ -681,14 +684,17 @@
         <div class="ui checkbox">
           <input type="checkbox" id="needsReimbursement" ng-click="getReimbursementClass(user.profile.travelFromCountry)" ng-model="user.profile.needsReimbursement">
           <label for="needsReimbursement"><strong>I apply for travel reimbursement</strong></label>
-          <p ng-show="user.profile.needsReimbursement">
+          <p ng-show="user.profile.needsReimbursement" style="margin-bottom:20px; margin-top:10px">
             Your applied travel reimbursement class is:  <strong>{{user.profile.AppliedreimbursementClass}}</strong>
           </p>
         </div>
         <br>
-        <p style="margin: 10px 0px 10px 0px;">
-          We will have accommodation available in multiple schools for a few hundred participants. A sleeping bag and/or mattress is recommended for sleeping in the accommodation places.
-        </p>
+        <div class="field">
+          <label> Do apply for free accommodation? </label>
+          <p style="margin: 5px 0px 10px 0px;">
+            We will have accommodation available in multiple schools for a few hundred participants. A sleeping bag and/or mattress is recommended for sleeping in the accommodation places.
+          </p>
+        </div>
         <div class="ui checkbox">
           <input type="checkbox" id="applyAccommodation" ng-model="user.profile.applyAccommodation">
           <label for="applyAccommodation"><strong>I apply for free accommodation</strong></label>
