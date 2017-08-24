@@ -150,10 +150,8 @@ angular.module('reg')
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', !disabledToggler);
-          $('.zipCodeField').attr('disabled', !disabledToggler);
+          $('.zipCodeBankField').attr('disabled', !disabledToggler);
           $('.brokerageInfoField').attr('disabled', !disabledToggler);
-
-          $('.accountNumberLabel').innerHTML = 'Account number'
 
           $scope.isSEPA = true;
           $scope.isUS = false;
@@ -162,7 +160,7 @@ angular.module('reg')
           $scope.isOther = false;
         }
 
-        else if(countryType == "ibanOrBic" || countryType == "NotDefined"){
+        else if(countryType == "ibanOrOther" || countryType == "NotDefined"){
           $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
@@ -172,10 +170,10 @@ angular.module('reg')
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
-          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
-          $('.accountNumberLabel').innerHTML = 'IBAN / BBAN / Account number'
+          $('.accountNumberLabel').html('IBAN / BBAN / Account number');
 
           $scope.isSEPA = false;
           $scope.isUS = false;
@@ -193,7 +191,7 @@ angular.module('reg')
           $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
-          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
           $scope.isSEPA = false;
@@ -204,7 +202,7 @@ angular.module('reg')
         }
         else if(countryType == "IND"){
           $('.ibanField').attr('disabled', !disabledToggler);
-          $('.accountNumberField').attr('disabled', disabledToggler);
+          $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
@@ -212,7 +210,7 @@ angular.module('reg')
           $('.ifscField').attr('disabled', disabledToggler);
           $('.rcpField').attr('disabled', disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
-          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
           $('.accountNumberLabel').innerHTML = 'Account number'
@@ -233,7 +231,7 @@ angular.module('reg')
           $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
-          $('.zipCodeField').attr('disabled', disabledToggler);
+          $('.BankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
           $('.accountNumberLabel').innerHTML = 'Account number'
@@ -410,7 +408,16 @@ angular.module('reg')
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please enter ZIP Code.'
+                  prompt: 'Please enter your ZIP Code.'
+                }
+              ]
+            },
+            zipCodeBank: {
+              identifier: 'zipCodeBank',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter ZIP Code of your bank.'
                 }
               ]
             },

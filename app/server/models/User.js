@@ -281,6 +281,11 @@ var reimbursement = {
      default: '',
      max: 10
    },
+   zipCodeOfBank: {
+     type: String,
+     default: '',
+     max: 10
+   },
    iban: {
      type: String,
      default: '',

@@ -11,13 +11,13 @@
       <div class="small title">General information</div>
       <ol>
         <li class="tip">The information we receive will be directly run into our payment system, and thus, we’ll relieve our responsibility for examining individuals’ erroneous travel reimbursement filings.</li>
-        <li class="tip">Brokerage fees are paid by the participant. We’ll refrain from any liability or costs that will come from the wire transfer and to the brokers' slots.</li>
-        <li class="tip">Everything is paid in euros.</li>
-        <li class="tip">You should use your own account. If you are unable to use your own, please contact us.</li>
+        <li class="tip">Brokerage fees are paid by the <b>participant</b>. We’ll refrain from any liability or costs that will come from the wire transfer and to the brokers' slots.</li>
+        <li class="tip">Everything is paid in <b>euros</b>.</li>
+        <li class="tip">You should use your <b>own account</b>. If you are unable to use your own, please contact us.</li>
         <li class="tip">The money will be transferred as a wire transfer (from Junction Oy)</li>
-        <li class="tip">If you are in doubt, turn to your bank and if they do not know, then turn to us. In this case, type in the "Additional Information" field.</li>
+        <li class="tip">If you are in <b>doubt</b>, turn to your bank and if they do not know, then turn to us. In this case, type in the "Additional Information" field.</li>
         <li class="tip">The recipient's name, the amount paid and the item (order confirmation and ticket, in some cases the same) should be found in the single PDF file. In this file, it is essential to find the total sum participant paid for the trip to Helsinki. A picture of a ticket or other ticket showing the travel dates, the price of the ticket that you paid and the name. The amount due for the travel allowance is cannot be higher than the ticket price.</li>
-        <li class="tip">Deadline for submission of application xx.xx and for travel receipt xx.xx. Subsequent notifications are not quoted.</li>
+        <li class="tip"><b>Deadline</b> for submission of application xx.xx and for travel receipt xx.xx. Subsequent notifications are not quoted.</li>
         <li class="tip">It may take some time to receive the travel reimbursement, as be begin the process during after all the participants have registered in the event.</li>
         <li class="tip">Decisions on compensation are made during the event.</li>
       </ol>
@@ -26,7 +26,7 @@
                name="generalCheck"
                class="generalCheck"
                ng-model="generalCheck">
-        <label for="generalCheck">I've read through these tips before proceeding.</label>
+        <label for="generalCheck"><b>I've read through these tips before proceeding.</b></label>
       </div>
     </div>
   </div>
@@ -69,6 +69,14 @@
                  name="addressLine1"
                  ng-model="user.reimbursement.addressLine2"
                  placeholder="13 A 37">
+        </div>
+
+        <div class="field">
+          <label>ZIP Code</label>
+          <input type="text"
+                 name="zipCode"
+                 class="zipCodeField"
+                 ng-model="user.reimbursement.zipCode">
         </div>
 
         <div class="field">
@@ -441,11 +449,11 @@
         </div>
 
         <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
-          <label>ZIP Code</label>
+          <label>ZIP code of the bank</label>
           <input type="text"
-                 name="zipCode"
-                 class="zipCodeField"
-                 ng-model="user.reimbursement.zipCode">
+                 name="zipCodeBank"
+                 class="zipCodeBankField"
+                 ng-model="user.reimbursement.zipCodeOfBank">
         </div>
 
 
@@ -454,7 +462,7 @@
           <label>Brokerage information</label>
           <textarea name="brokerageInfo"
                     class="brokerageInfoField"
-                    ng-model="user.reimbursement.brokerageInfo">
+                    ng-model="user.reimbursement.brokerageInfo"/>
         </div>
 
         <div class="divided title receipt">
@@ -471,8 +479,7 @@
 
         <div class="field">
           <label>Additional information</label>
-          <textarea ng-model="user.reimbursement.additional">
-          </textarea>
+          <textarea ng-model="user.reimbursement.additional"/>
         </div>
 
         <div class="field">
