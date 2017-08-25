@@ -84,7 +84,7 @@ angular.module('reg')
       function _setupForm(){
         // Semantic-UI form validation
         $('.ui.form').form({
-          inline:true, 
+          inline:true,
           fields: {
             shirt: {
               identifier: 'shirt',
@@ -104,15 +104,13 @@ angular.module('reg')
               ]
             }
             },
-            onSuccess: function(event, fields){ 
-            _updateUser(); 
-            console.log("on success"); 
-            console.log(fields); 
-          }, 
-          onFailure: function(formErrors, fields){ 
-            $scope.fieldErrors = formErrors; 
-            $scope.error = 'There were errors in your application. Please check that you filled all required fields.'; 
-          
+            onSuccess: function(event, fields){
+            _updateUser();
+          },
+          onFailure: function(formErrors, fields){
+            $scope.fieldErrors = formErrors;
+            $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
+
         }
         });
       }
@@ -143,9 +141,9 @@ angular.module('reg')
       }
 
       $scope.submitForm = function(){
-         $scope.fieldErrors = null; 
-        $scope.error = null; 
-        $('.ui.form').form('validate form'); 
+         $scope.fieldErrors = null;
+        $scope.error = null;
+        $('.ui.form').form('validate form');
       };
 
     }]);
