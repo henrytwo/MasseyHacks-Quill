@@ -256,6 +256,7 @@ controller.sendPasswordChangedEmail = function(user, callback){
 
   var locals = {
     nickname: user.nickname,
+    dashUrl: ROOT_URL
   };
 
   /**
