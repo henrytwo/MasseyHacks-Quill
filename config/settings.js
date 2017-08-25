@@ -18,7 +18,7 @@ fs.readFile('./config/schools.txt', 'utf8', function(err, data) {
 
   Settings
   .findOneAndUpdate({},{
-    $push: { schools: {$each: schoolsList} }
+    $addToSet: { schools: {$each: schoolsList} }
   }, {new: true}, function(err) {
     console.log(err);
   });

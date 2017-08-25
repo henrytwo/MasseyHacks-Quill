@@ -137,7 +137,6 @@ module.exports = function(router) {
        }
        var results = [];
        var i = 0;
-       console.log(schools.length);
        while (i < schools.length) {
          var school = schools[i];
          if (school.toLowerCase().search(query.toLowerCase()) !== -1) {

@@ -85,7 +85,6 @@ schema.statics.getWhitelistedEmails = function(callback){
 schema.statics.getSchools = function(callback){
   this
     .findOne({})
-    .select('schools')
     .exec(function(err, settings){
       return callback(err, settings.schools);
     });
