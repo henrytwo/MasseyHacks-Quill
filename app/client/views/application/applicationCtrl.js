@@ -14,7 +14,7 @@ angular.module('reg')
 
       // Set up the user
       $scope.user = currentUser.data;
-      $scope.schools = Settings.data.schools;
+
       if ($scope.user.profile.school == null) {
           $scope.schoolChecked = false;
       } else {
@@ -80,7 +80,8 @@ angular.module('reg')
       }
 
       function _updateSchools(e) {
-        if ($.inArray($scope.user.profile.school, $scope.schools) == -1) {
+        if (Settings.data.schools.indexOf($scope.user.profile.school) === -1) {
+          console.log('Adding new school');
           SettingsService.addSchool($scope.user.profile.school)
           .success(function(user){
             return;
@@ -274,7 +275,7 @@ angular.module('reg')
         $('.ui.dropdown').dropdown('refresh');
 
         setTimeout(function () {
-          $("#school").dropdown('set selected', $scope.user.profile.school);
+          $(".ui.search.dropdown").dropdown('set selected', $scope.user.profile.school);
           $(".ui.toptools.dropdown").dropdown('set selected', $scope.user.profile.topLevelTools);
           $("#greatLevelTools").dropdown('set selected', $scope.user.profile.greatLevelTools);
           $("#goodLevelTools").dropdown('set selected', $scope.user.profile.goodLevelTools);
@@ -284,14 +285,8 @@ angular.module('reg')
       }
 
       $scope.submitForm = function(){
-        if ($scope.user.profile.school === null && $scope.schoolChecked) {
-          var schoolValue = $('#school').dropdown('get value');
-          if (typeof schoolValue === 'object') {
-            schoolValue = schoolValue[0]
-          }
-          schoolValue = schoolValue.replace("string:", "");
-          $scope.user.profile.school = schoolValue;
-        }
+        console.log($scope.user.profile.school);
+
         if (!$scope.schoolChecked) {
           $scope.user.profile.school = null;
           $scope.user.profile.graduationYear = null;

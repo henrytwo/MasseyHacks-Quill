@@ -16,7 +16,15 @@
     $('.ui.school.search.dropdown')
       .dropdown({
         allowAdditions: true,
-        fullTextSearch:true
+        fullTextSearch: true,
+        minCharacters: 3,
+        apiSettings: {
+          url: '/api/search/school/{query}'
+        },
+        fields: {
+          name  : 'name', // displayed dropdown
+          value : 'id'         // actual dropdown value
+        }
       });
 
     // Max selections for occupationalStatus
@@ -620,11 +628,10 @@
             Please type in the school / university you are enrolled at for the year <strong>2017/2018</strong>.
             Choose from the list of schools or type it in.
             </p>
-            <select class="ui fluid school search selection dropdown"
+            <select class="ui fluid school search dropdown"
                    name="school"
                    id="school"
-                   ng-model="user.profile.school"
-                   ng-options="item for item in schools">
+                   ng-model="user.profile.school">
                    <option value="">Select School</option>
             </select>
           </div>

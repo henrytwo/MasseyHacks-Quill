@@ -4,6 +4,7 @@ var SettingsController = require('../controllers/SettingsController');
 var request = require('request');
 var multer = require('multer');
 
+
 var storage = multer.diskStorage({
   destination: 'uploads/',
    filename: function (req, file, cb, user) {
@@ -126,6 +127,46 @@ module.exports = function(router) {
    router.post('/upload', upload.single('file'), function(req, res) {
      res.sendStatus(200);
    });
+
+   // School search
+   router.get('/search/school/:query', function(req, res) {
+     var query = req.params.query;
+     SettingsController.getSchools(function(err, schools) {
+       if (err) {
+         res.sendStatus(500);
+       }
+       var results = [];
+       var i = 0;
+       console.log(schools.length);
+       while (i < schools.length) {
+         var school = schools[i];
+         if (school.toLowerCase().search(query.toLowerCase()) !== -1) {
+           results.push({
+             "name": school,
+             "id": school
+           });
+         }
+         if (results.length > 10) {
+           break;
+         }
+         i++;
+       }
+       if (results.length === 0) {
+         results.push({
+           "name": query,
+           "id": query
+         });
+       }
+
+       var data = {
+         "results": results
+       };
+
+       return res.json(data);
+     });
+   });
+
+
   // ---------------------------------------------
   // Users
   // ---------------------------------------------
