@@ -124,6 +124,46 @@ angular.module('reg')
                 }
               ]
             },
+            school: {
+              identifier: 'school',
+              depends: 'hasSchool',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your school.'
+                }
+              ]
+            },
+            graduationYear: {
+              identifier: 'graduationYear',
+              depends: 'hasSchool',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your graduationYear.'
+                }
+              ]
+            },
+            degree: {
+              identifier: 'degree',
+              depends: 'hasSchool',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your degree.'
+                }
+              ]
+            },
+            major: {
+              identifier: 'major',
+              depends: 'hasSchool',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your major.'
+                }
+              ]
+            },
             travelFromCountry: {
               identifier: 'travelFromCountry',
               rules: [
