@@ -65,7 +65,7 @@ var schema = new mongoose.Schema({
     default: ['Aalto-Yliopisto']
   },
   reimbursementClass: reimbursementClass,
-    
+
 });
 
 /**
@@ -79,6 +79,14 @@ schema.statics.getWhitelistedEmails = function(callback){
     .select('whitelistedEmails')
     .exec(function(err, settings){
       return callback(err, settings.whitelistedEmails);
+    });
+};
+
+schema.statics.getSchools = function(callback){
+  this
+    .findOne({})
+    .exec(function(err, settings){
+      return callback(err, settings.schools);
     });
 };
 

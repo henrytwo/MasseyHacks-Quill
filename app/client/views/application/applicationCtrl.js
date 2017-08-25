@@ -14,7 +14,7 @@ angular.module('reg')
 
       // Set up the user
       $scope.user = currentUser.data;
-      $scope.schools = Settings.data.schools;
+
       if ($scope.user.profile.school == null) {
           $scope.schoolChecked = false;
       } else {
@@ -22,6 +22,12 @@ angular.module('reg')
       }
       var originalTeamCode = $scope.user.teamCode;
 
+      var languages = ['Assembly', 'Java', 'C', 'C#', 'C++', 'Objective-C',
+                      'PHP', 'Python', 'Ruby', 'JavaScript', 'SQL', 'Perl',
+                      'HTML', 'CSS', 'Swift', 'Scala', 'Go', 'R', 'Matlab',
+                      'VBA', 'Kotlin', 'Haskell', 'Clojure', 'Bash', 'Other',
+                      'PowerPoint', 'Excel', 'None of the above'];
+      $scope.programmingLanguages = languages;
       // Populate the school dropdown
       _setupForm();
 
@@ -74,7 +80,8 @@ angular.module('reg')
       }
 
       function _updateSchools(e) {
-        if ($.inArray($scope.user.profile.school, $scope.schools) == -1) {
+        if (Settings.data.schools.indexOf($scope.user.profile.school) === -1) {
+          console.log('Adding new school');
           SettingsService.addSchool($scope.user.profile.school)
           .success(function(user){
             return;
@@ -107,8 +114,12 @@ angular.module('reg')
                   prompt: 'Please enter your age.'
                 },
                 {
-                  type: 'integer[13..100]',
+                  type: 'integer[13..1000]',
                   prompt: 'You must be at least 13 to attend.'
+                },
+                {
+                  type: 'integer[0..99]',
+                  prompt: 'You must be under 100 years old to attend.'
                 }
               ]
             },
@@ -260,24 +271,22 @@ angular.module('reg')
         $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
         $("#degree").dropdown('set selected', $scope.user.profile.degree);
 
-        $("#bestTools").dropdown('set selected', $scope.user.profile.bestTools);
         $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
         $('.ui.dropdown').dropdown('refresh');
 
         setTimeout(function () {
-          $("#school").dropdown('set selected', $scope.user.profile.school);
+          $(".ui.search.dropdown").dropdown('set selected', $scope.user.profile.school);
+          $(".ui.toptools.dropdown").dropdown('set selected', $scope.user.profile.topLevelTools);
+          $("#greatLevelTools").dropdown('set selected', $scope.user.profile.greatLevelTools);
+          $("#goodLevelTools").dropdown('set selected', $scope.user.profile.goodLevelTools);
+          $("#beginnerLevelTools").dropdown('set selected', $scope.user.profile.beginnerLevelTools);
+
         }, 1);
       }
 
       $scope.submitForm = function(){
-        if ($scope.user.profile.school === null && $scope.schoolChecked) {
-          var schoolValue = $('#school').dropdown('get value');
-          if (typeof schoolValue === 'object') {
-            schoolValue = schoolValue[0]
-          }
-          schoolValue = schoolValue.replace("string:", "");
-          $scope.user.profile.school = schoolValue;
-        }
+        console.log($scope.user.profile.school);
+
         if (!$scope.schoolChecked) {
           $scope.user.profile.school = null;
           $scope.user.profile.graduationYear = null;
@@ -288,4 +297,38 @@ angular.module('reg')
         $scope.error = null;
         $('.ui.form').form('validate form');
       };
-}]);
+}])
+.filter('exclude', function () {
+  return function (items, languages, dropdownIdentifier) {
+
+    var selectedLanguages = [];
+    selectedLanguages.push($(".ui.toptools.dropdown").dropdown('get value'));
+    selectedLanguages.push($(".ui.greattools.dropdown").dropdown('get value'));
+    selectedLanguages.push($(".ui.goodtools.dropdown").dropdown('get value'));
+    selectedLanguages.push($(".ui.beginnerTools.dropdown").dropdown('get value'));
+    selectedLanguages = [].concat.apply([], selectedLanguages);
+    // Strip the unnecessary 'string:' substring
+    selectedLanguages = stripLanguageSubstrings(selectedLanguages);
+    var callerLanguages = $(dropdownIdentifier).dropdown('get value');
+    callerLanguages = [].concat.apply([], callerLanguages);
+    callerLanguages = stripLanguageSubstrings(callerLanguages);
+
+    // Finally, remove the selected languages from dropdown options
+    var remaining = languages.filter( function( el ) {
+      return !selectedLanguages.includes( el ) || callerLanguages.includes(el);
+    } );
+    return remaining;
+  };
+});
+
+function findSelectedValues() {
+  return selectedLanguages;
+}
+
+function stripLanguageSubstrings(langs) {
+  langs.forEach(function(part, index, theArray) {
+    theArray[index] = theArray[index].replace("string:", "");
+  });
+
+  return langs;
+}

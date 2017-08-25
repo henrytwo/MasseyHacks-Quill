@@ -53,7 +53,7 @@ angular.module('reg')
         return $http.put(base + 'reimbClasses', {
           reimbClasses: reimbClasses
         });
-      }      
+      }
     };
 
   }

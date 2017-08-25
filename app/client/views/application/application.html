@@ -16,7 +16,15 @@
     $('.ui.school.search.dropdown')
       .dropdown({
         allowAdditions: true,
-        fullTextSearch:true
+        fullTextSearch: true,
+        minCharacters: 3,
+        apiSettings: {
+          url: '/api/search/school/{query}'
+        },
+        fields: {
+          name  : 'name', // displayed dropdown
+          value : 'id'         // actual dropdown value
+        }
       });
 
     // Max selections for occupationalStatus
@@ -61,7 +69,7 @@
         </div>
 
         <div class="field">
-          <label> Age (you must be at least 13 to attend) *</label>
+          <label> Age * </label>
           <input type="number"
                  min="13"
                  max="99"
@@ -589,6 +597,20 @@
            </select>
 
         </div>
+        <div class="field">
+          <label>What gender do you identify as? *</label>
+          <select
+            class="ui fluid dropdown"
+            id="gender"
+            name="gender"
+            ng-model="user.profile.gender">
+            <option value="">Gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="O">Other</option>
+            <option value="N">I prefer not to answer</option>
+          </select>
+        </div>
 
         <div class="field">
           <label> School Information </label>
@@ -606,11 +628,10 @@
             Please type in the school / university you are enrolled at for the year <strong>2017/2018</strong>.
             Choose from the list of schools or type it in.
             </p>
-            <select class="ui fluid school search selection dropdown"
+            <select class="ui fluid school search dropdown"
                    name="school"
                    id="school"
-                   ng-model="user.profile.school"
-                   ng-options="item for item in schools">
+                   ng-model="user.profile.school">
                    <option value="">Select School</option>
             </select>
           </div>
@@ -641,30 +662,19 @@
           </div>
 
           <div class="field" ng-show="schoolChecked">
-            <label> What is the major you are studyinh¨g? </label>
+            <label> What is the major you are studying? </label>
             <input type="text"
                    name="major"
                    ng-model="user.profile.major"
                    placeholder="e.g. Computer Science, Industrial Design etc.">
           </div>
         </div>
-        <div class="field">
-          <label>What gender do you identify as? *</label>
-          <select
-            class="ui fluid dropdown"
-            id="gender"
-            name="gender"
-            ng-model="user.profile.gender">
-            <option value="">Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-            <option value="O">Other</option>
-            <option value="N">I prefer not to answer</option>
-          </select>
-        </div>
 
+        <br>
+        <br>
+        <div class="divided title">Travel & Accommodation</div>
         <div class="field">
-          <label> Do you need travel reimbursement or free accommodation? </label>
+          <label> Do you need travel reimbursement? </label>
           <p style="margin-bottom: 10px;">
             Applicants travelling from outside of Greater Helsinki region can apply for travel reimbursement and free accommodation during the event.
             <br>
@@ -681,14 +691,17 @@
         <div class="ui checkbox">
           <input type="checkbox" id="needsReimbursement" ng-click="getReimbursementClass(user.profile.travelFromCountry)" ng-model="user.profile.needsReimbursement">
           <label for="needsReimbursement"><strong>I apply for travel reimbursement</strong></label>
-          <p ng-show="user.profile.needsReimbursement">
+          <p ng-show="user.profile.needsReimbursement" style="margin-bottom:20px; margin-top:10px">
             Your applied travel reimbursement class is:  <strong>{{user.profile.AppliedreimbursementClass}}</strong>
           </p>
         </div>
         <br>
-        <p style="margin: 10px 0px 10px 0px;">
-          We will have accommodation available in multiple schools for a few hundred participants. A sleeping bag and/or mattress is recommended for sleeping in the accommodation places.
-        </p>
+        <div class="field">
+          <label> Do apply for free accommodation? </label>
+          <p style="margin: 5px 0px 10px 0px;">
+            We will have accommodation available in multiple schools for a few hundred participants. A sleeping bag and/or mattress is recommended for sleeping in the accommodation places.
+          </p>
+        </div>
         <div class="ui checkbox">
           <input type="checkbox" id="applyAccommodation" ng-model="user.profile.applyAccommodation">
           <label for="applyAccommodation"><strong>I apply for free accommodation</strong></label>
@@ -773,44 +786,87 @@
         </div>
 
         <div class="field">
-          <label>Which programming, scripting and markup languages
-            and game engines are you most comfortable with? * </label>
-          <select multiple="multiple"
-            class="ui dropdown"
-            name="bestTools"
-            id="bestTools"
-            ng-model="user.profile.bestTools">
-            <option value="">Choose your best tools</option>
-            <option value="Assembly">Assembly</option>
-            <option value="Java">Java</option>
-            <option value="C">C</option>
-            <option value="C++">C++</option>
-            <option value="C#">C#</option>
-            <option value="Objective-C">Objective-C</option>
-            <option value="PHP">PHP</option>
-            <option value="Python">Python</option>
-            <option value="Ruby">Ruby</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="SQL">SQL</option>
-            <option value="Perl">Perl</option>
-            <option value="HTML">HTML</option>
-            <option value="CSS">CSS</option>
-            <option value="Swift">Swift</option>
-            <option value="Scala">Scala</option>
-            <option value="Go">Go</option>
-            <option value="R">R</option>
-            <option value="Matlab">Matlab</option>
-            <option value="VBA">VBA</option>
-            <option value="Kotlin">Kotlin</option>
-            <option value="Haskell">Haskell</option>
-            <option value="Clojure">Clojure</option>
-            <option value="Bash">Bash</option>
-            <option value="Other">Other</option>
-            <option value="PowerPoint">PowerPoint</option>
-            <option value="Excel">Excel</option>
-            <option value="None of the above">None of the above</option>          </select>
-        </div>
+          <label>Programming languages etc </label>
+          <div class="fields">
+            <div class="ten wide field">
+              <select
+                     multiple="multiple"
+                     class="ui toptools dropdown"
+                     name="topLevelTools"
+                     id="topLevelTools"
+                     ng-init="identifier1='.ui.toptools.dropdown'"
+                     ng-model="user.profile.topLevelTools"
+                     ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier1">
+              </select>
+            </div>
+            <div class="six wide field">
+              <h5 class="ui block teal header">
+                Expert skills
+              </h5>
+            </div>
+          </div>
 
+          <div class="field">
+            <div class="fields">
+              <div class="ten wide field">
+                <select
+                       multiple="multiple"
+                       class="ui greattools dropdown"
+                       name="greatLevelTools"
+                       id="greatLevelTools"
+                       ng-init="identifier2='.ui.greattools.dropdown'"
+                       ng-model="user.profile.greatLevelTools"
+                       ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier2">
+                </select>
+              </div>
+              <div class="six wide field">
+                <h5 class="ui block teal header" style="margin-top:1px">
+                  Great Skills
+                </h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="fields">
+            <div class="ten wide field">
+              <select
+                     multiple="multiple"
+                     class="ui goodtools dropdown"
+                     name="goodLevelTools"
+                     id="goodLevelTools"
+                     ng-init="identifier3='.ui.goodtools.dropdown'"
+                     ng-model="user.profile.goodLevelTools"
+                     ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier3">
+              </select>
+            </div>
+            <div class="six wide field">
+              <h5 class="ui block teal header">
+                Good skills
+              </h5>
+            </div>
+          </div>
+
+          <div class="fields">
+            <div class="ten wide field">
+              <select
+                     multiple="multiple"
+                     class="ui beginnerTools dropdown"
+                     name="beginnerLevelTools"
+                     id="beginnerLevelTools"
+                     ng-init="identifier4='.ui.beginnerTools.dropdown'"
+                     ng-model="user.profile.beginnerLevelTools"
+                     ng-options="item for item in programmingLanguages | exclude:programmingLanguages:identifier4">
+              </select>
+            </div>
+            <div class="six wide field">
+              <h5 class="ui block teal header">
+                Beginner skills
+              </h5>
+            </div>
+          </div>
+
+
+        </div>
         <div class="field">
           <label>How many years of experience do you have in programming? * </label>
           <select
@@ -820,7 +876,7 @@
             ng-model="user.profile.codingExperience">
             <option value="">Coding experience</option>
             <option value="None">None</option>
-            <option value="1">< 1 Year</option>
+            <option value="1">1 Year</option>
             <option value="1-2">1-2 Years</option>
             <option value="3-5">3-5 Years</option>
             <option value="5+">5+ Years</option>
@@ -895,13 +951,34 @@
         </div>
 
         <br><br>
-        <div class="divided title">Final questions</div>
+        <div class="divided title">Links about you</div>
+        <p>Put some links here if you want.</p>
         <div class="field">
-          <label> Do you have any special needs or disabilities you want us to know about? </label>
+          <label> Link to your portfolio </label>
           <input type="text"
-                 name="specialNeeds"
-                 ng-model="user.profile.specialNeeds">
+                 name="github"
+                 placeholder="https://mycoolportfoliowebsite.hacker"
+                 ng-model="user.profile.portfolio">
         </div>
+
+        <div class="field">
+          <label> Link to your GitHub profile </label>
+          <input type="text"
+                 name="github"
+                 placeholder="https://github.com/junction-hacker"
+                 ng-model="user.profile.github">
+        </div>
+
+        <div class="field">
+          <label> Link to your LinkedIn profile </label>
+          <input type="text"
+                 name="github"
+                 placeholder="https://linkedin.com/junction-hacker"
+                 ng-model="user.profile.linkedin">
+        </div>
+
+        <br><br>
+        <div class="divided title">Final questions</div>
 
         <div class="field">
           <label> Are you interested in job opportunities? * </label>

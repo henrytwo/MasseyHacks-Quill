@@ -19,10 +19,6 @@ var profile = {
     max: 65,
   },
 
-  specialNeeds: {
-    type: String,
-    max: 500,
-  },
 
   travelFromCountry: {
     type: String,
@@ -102,6 +98,16 @@ var profile = {
     min: 5,
     max: 240,
   },
+  linkedin: {
+    type: String,
+    min: 5,
+    max: 240,
+  },
+  github: {
+    type: String,
+    min: 5,
+    max: 240,
+  },
 
   // Multiple choice
   occupationalStatus: {
@@ -109,8 +115,17 @@ var profile = {
     max: 150
   },
 
-  // Multiple choice
-  bestTools: {
+  // Tools
+  topLevelTools: {
+    type: [String]
+  },
+  greatLevelTools: {
+    type: [String]
+  },
+  goodLevelTools: {
+    type: [String]
+  },
+  beginnerLevelTools: {
     type: [String]
   },
 
@@ -163,6 +178,10 @@ var profile = {
 // Only after confirmed
 var confirmation = {
   dietaryRestrictions: [String],
+  specialNeeds: {
+    type: String,
+    max: 500,
+  },
   shirtSize: {
     type: String,
     enum: {

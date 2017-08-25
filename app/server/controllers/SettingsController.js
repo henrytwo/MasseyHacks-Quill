@@ -50,6 +50,10 @@ SettingsController.addSchool = function(school, callback){
     }, {new: true}, callback);
 };
 
+SettingsController.getSchools = function(callback){
+  Settings.getSchools(callback);
+};
+
 
 
 /**
