@@ -81,8 +81,18 @@ controller.sendAdmittanceEmail = function(user, callback) {
    to: user.email,
    subject: "[Junction Hackathon] - You have been admitted!"
  };
+ var travelText;
+ if (user.profile.AcceptedreimbursementClass === 'Rejected') {
+   travelText = 'Unfortunately we have run out of travel reimbursements, so will not be able to grant you reimbursements this time.'
+ } else {
+   travelText = 'For travelling from ' + user.travelFromCountry + \
+   ' you will be granted X &euro'
+ }
+
  var locals = {
    nickname: user.nickname,
+   dashUrl: ROOT_URL,
+   travelText: travelText
  };
 
  sendOne('email-admittance', options, locals, function(err, info){
@@ -127,6 +137,7 @@ controller.sendConfirmationEmail = function(user, token, callback) {
  var locals = {
    nickname: user.nickname,
    userId: user.id,
+   dashUrl: ROOT_URL
    travelText: travelText,
    accommodationText: accommodationText
  };
