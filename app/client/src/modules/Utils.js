@@ -19,6 +19,24 @@ angular.module('reg')
           return moment(date).format('dddd, MMMM Do YYYY, h:mm a') +
             " " + date.toTimeString().split(' ')[2];
 
+        },
+        getAcceptedreimbAmount: function(user, settings){
+          switch(user.profile.AcceptedreimbursementClass){
+            case("Finland"):
+              return settings.reimbursementClass.Finland;
+            case("Baltics"):
+              return settings.reimbursementClass.Baltics;
+            case("Nordic"):
+              return settings.reimbursementClass.Nordic;
+            case("Europe"):
+              return settings.reimbursementClass.Europe;
+            case("Outside Europe"):
+              return settings.reimbursementClass.Outside;
+            case("Rejected"):
+              return "0";
+            default:
+              return user.profile.AcceptedreimbursementClass;
+          }
         }
       };
     }]);

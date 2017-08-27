@@ -23,8 +23,8 @@ angular.module('reg')
 
       SettingsService
         .getPublicSettings()
-        .success(function(settings){
-          getClassAmount(settings);
+        .success(function(Settings){
+          $scope.classAmount = Utils.getAcceptedreimbAmount(user, Settings);
         });
       _setupForm();
 
@@ -115,31 +115,6 @@ angular.module('reg')
           
         }
         });
-      }
-
-      function getClassAmount(settings) {
-        switch($scope.user.profile.AcceptedreimbursementClass){
-          case("Finland"):
-            $scope.classAmount = settings.reimbursementClass.Finland;
-            break;
-          case("Baltics"):
-            $scope.classAmount = settings.reimbursementClass.Baltics;
-            break;
-          case("Nordic"):
-            $scope.classAmount = settings.reimbursementClass.Nordic;
-            break;
-          case("Europe"):
-            $scope.classAmount = settings.reimbursementClass.Europe;
-            break;
-          case("Outside Europe"):
-            $scope.classAmount = settings.reimbursementClass.Outside;
-            break;
-          case("Rejected"):
-            $scope.classAmount = "Rejected";
-            break;
-          default:
-            $scope.classAmount = $scope.user.profile.AcceptedreimbursementClass;
-        }
       }
 
       $scope.submitForm = function(){
