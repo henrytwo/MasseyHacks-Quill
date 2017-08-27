@@ -16,7 +16,7 @@
         <li class="tip">You should use your <b>own account</b>. If you are unable to use your own, please contact us.</li>
         <li class="tip">The money will be transferred as a wire transfer (from Junction Oy)</li>
         <li class="tip">If you are in doubt, turn to your bank and if they do not know, then turn to us. In this case, type in the "<b>Additional Information</b>" field.</li>
-        <li class="tip">The recipient's name, the amount paid and the item (order confirmation and ticket, in some cases the same) should be found in the single PDF file. In this file, it is essential to find the total sum participant paid for the trip to Helsinki. A picture of a ticket or other ticket showing the travel dates, the price of the ticket that you paid and the name. The amount due for the travel allowance is cannot be higher than the ticket price.</li>
+        <li class="tip">The recipient's name, the amount paid and the item (order confirmation and ticket, in some cases the same) should be found in the <b>single PDF file</b>. In this file, it is essential to find the total sum participant paid for the trip to Helsinki. A picture of a ticket or other ticket showing the travel dates, the price of the ticket that you paid and the name. The amount due for the travel allowance is cannot be higher than the ticket price.</li>
         <li class="tip"><b>Deadline</b> for submission of application xx.xx and for travel receipt xx.xx. Subsequent notifications are not quoted.</li>
         <li class="tip">It may take some time to receive the travel reimbursement, as be begin the process during after all the participants have registered in the event.</li>
         <li class="tip">Decisions on compensation are made during the event.</li>
@@ -470,10 +470,12 @@
         </div>
 
         <div class="field">
+          <label>Choose a PDF-file to upload (Max. 2MB)</label>
           <input
              type="file"
              name="fileUpload"
-             file-input="files"/>
+             file-input="files"
+             accept="application/pdf"/>
              <button class="ui button sea-serpent" ng-click="upload()">Upload</button>
         </div>
 

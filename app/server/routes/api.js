@@ -6,11 +6,22 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
   destination: 'uploads/',
-   filename: function (req, file, cb, user) {
-     cb(null, file.originalname)
-   }
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
 })
-var upload = multer({ storage: storage })
+var upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+    if (file.mimetype !== 'application/pdf') {
+      req.fileValidationError = 'File not pdf';
+      return cb(null, false);
+    }
+    cb(null, true);
+  },
+  limits: { fileSize: 2000000 }
+
+ }).single('file');
 
 module.exports = function(router) {
 
@@ -123,8 +134,37 @@ module.exports = function(router) {
    /**
    * FILE UPLOAD
    */
-   router.post('/upload', upload.single('file'), function(req, res) {
-     res.sendStatus(200);
+   router.post('/upload', function(req, res) {
+     /*var token = getToken(req);
+     var User;
+
+     console.log(token)
+
+     UserController.getByToken(token, function(err, user){
+
+       if (err) {
+         return res.sendStatus(500);
+       }
+
+       if (user){
+         User = user;
+       }
+
+     });*/
+     upload(req, res, function(err) {
+       console.log(storage)
+       if(req.fileValidationError){
+         res.sendStatus(400, "The file format is not pdf.");
+       }
+       if(err){
+         if(err.code === 'LIMIT_FILE_SIZE'){
+           res.sendStatus(413);
+         }
+         res.sendStatus(400);
+       }
+
+       res.sendStatus(200);
+     });
    });
   // ---------------------------------------------
   // Users
@@ -192,10 +232,6 @@ module.exports = function(router) {
   });
 
   router.put('/users/:id/reimbursement', isOwnerOrAdmin, function(req, res){
-    console.log("ROUTER REQ ##############");
-    console.log(req);
-    console.log("ROUTER REQ BODY ####################");
-    console.log(req.body);
     var reimbursement = req.body.reimbursement;
     var id = req.params.id;
 

@@ -39,15 +39,21 @@ angular.module('reg')
         var fd = new FormData()
         angular.forEach($scope.files,function(file){
           fd.append('file',file)
-        })
-        $http.post('/api/upload', fd,
-        {
-          transformRequest:angular.identity,
-          headers:{'Content-Type':undefined}
-        })
-        .success(function(data) {
-          console.log(data);
-        })
+        });
+        if($scope.files){
+          $http.post('/api/upload', fd,
+          {
+            transformRequest:angular.identity,
+            headers:{'Content-Type':undefined}
+          })
+          .success(function(data) {
+            console.log(data);
+            swal("Success!", "Your file has been uploaded to our servers.")
+          })
+          .error(function() {
+            swal("Error!", "Your file is not in the right format or is too large.")
+          });
+        }
       }
       // Set up the user
       $scope.user = currentUser.data;
