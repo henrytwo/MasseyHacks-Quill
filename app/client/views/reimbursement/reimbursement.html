@@ -355,7 +355,7 @@
           </select>
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS || isAUS">
           <label>Name of the bank</label>
           <input type="text"
                  name="nameOfBank"
@@ -363,7 +363,7 @@
                  placeholder="Central Bank of Hacktown">
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isSEPA || isOther || isINDIA || isRUS">
           <label>SWIFT / BIC</label>
           <input type="text"
                  name="swiftOrBic"
@@ -381,7 +381,7 @@
                  placeholder="HT000028112017">
         </div>
 
-        <div class="field" ng-show="isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isUS || isINDIA || isRUS || isAUS">
           <label>BBAN</label>
           <input type="text"
                  name="bban"
@@ -416,8 +416,8 @@
                  placeholder="P0001">
         </div>
 
-        <div class="field" ng-show="isOther">
-          <label>Clearing code</label>
+        <div class="field" ng-show="isOther  || isAUS">
+          <label class="ccLabel">Clearing code</label>
           <input type="text"
                  name="clearingCode"
                  class="clearingCodeField"
@@ -425,14 +425,14 @@
         </div>
 
         <div class="field" ng-show="isOther">
-          <label class="accountNumberLabel">Account number</label>
+          <label class="accountNumberLabel">IBAN / BBAN / Account number</label>
           <input type="text"
                  name="accountNumber"
                  class="accountNumberField"
                  ng-model="user.reimbursement.accountNumber">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isOther || isUS || isRUS">
           <label>City of the bank</label>
           <input type="text"
                  name="cityOfBank"
@@ -440,7 +440,7 @@
                  ng-model="user.reimbursement.cityOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isOther || isUS || isRUS">
           <label>Address of the bank</label>
           <input type="text"
                  name="addressOfBank"
@@ -448,7 +448,7 @@
                  ng-model="user.reimbursement.addressOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isOther || isUS || isRUS">
           <label>ZIP code of the bank</label>
           <input type="text"
                  name="zipCodeBank"
@@ -456,9 +456,7 @@
                  ng-model="user.reimbursement.zipCodeOfBank">
         </div>
 
-
-
-        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isOther || isUS || isRUS">
           <label>Brokerage information</label>
           <textarea name="brokerageInfo"
                     class="brokerageInfoField"

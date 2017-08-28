@@ -31,9 +31,8 @@ angular.module('reg')
       $scope.isUS = false;
       $scope.isRUS = false;
       $scope.isINDIA = false;
+      $scope.isAUS = false;
       $scope.isOther = false;
-
-
 
       $scope.upload = function() {
         var fd = new FormData()
@@ -110,7 +109,7 @@ angular.module('reg')
 
         //here we get the length for the iban field validation
 
-        if($scope.ibanCountries == undefined){
+        if($scope.ibanCountries === undefined){
           if(country != undefined){
             return 10;
           }
@@ -118,7 +117,7 @@ angular.module('reg')
         }
         else{
           var result = $scope.ibanCountries.filter(function(obj) {
-            return obj.country == country;
+            return obj.country === country;
           });
 
           if(result.length > 0){
@@ -134,7 +133,7 @@ angular.module('reg')
         var disabledToggler = false;
 
         var filteredCountry = $scope.ibanCountries.filter(function(obj) {
-          return obj.country == $('#countryOfB').val();
+          return obj.country === $('#countryOfB').val();
         });
         //filteredCountry is an array of one so we take the first element and check the type
         var countryType = "NotDefined"
@@ -145,7 +144,7 @@ angular.module('reg')
         console.log(countryType);
         console.log($scope.user.reimbursement)
 
-        if(countryType == "SEPA" || countryType == "ibanAndBic" || countryType == "onlyIban"){
+        if(countryType === "SEPA" || countryType === "ibanAndBic" || countryType === "onlyIban"){
           //disable the fields that are not needed before they are hidden with ng-show
           $('.ibanField').attr('disabled', disabledToggler);
           $('.accountNumberField').attr('disabled', !disabledToggler);
@@ -159,14 +158,19 @@ angular.module('reg')
           $('.zipCodeBankField').attr('disabled', !disabledToggler);
           $('.brokerageInfoField').attr('disabled', !disabledToggler);
 
+          //some of the countries need more specific label for the fields, and here we set them back to general or make them more specific
+          $('.ccLabel').html('Clearing code')
+
+          //setting the filter elements true or false to show the right fields for the different country types
           $scope.isSEPA = true;
           $scope.isUS = false;
           $scope.isINDIA = false;
           $scope.isRUS = false;
           $scope.isOther = false;
+          $scope.isAUS = false;
         }
 
-        else if(countryType == "ibanOrOther" || countryType == "NotDefined"){
+        else if(countryType === "ibanOrOther" || countryType === "NotDefined"){
           $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
@@ -179,15 +183,16 @@ angular.module('reg')
           $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
-          $('.accountNumberLabel').html('IBAN / BBAN / Account number');
+          $('.ccLabel').html('Clearing code')
 
           $scope.isSEPA = false;
           $scope.isUS = false;
           $scope.isINDIA = false;
           $scope.isRUS = false;
           $scope.isOther = true;
+          $scope.isAUS = false;
         }
-        else if(countryType == "US"){
+        else if(countryType === "US"){
           $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
@@ -200,34 +205,38 @@ angular.module('reg')
           $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
+          $('.ccLabel').html('Clearing code')
+
           $scope.isSEPA = false;
           $scope.isUS = true;
           $scope.isINDIA = false;
           $scope.isRUS = false;
           $scope.isOther = false;
+          $scope.isAUS = false;
         }
-        else if(countryType == "IND"){
+        else if(countryType === "IND"){
           $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', !disabledToggler);
-          $('.addressOfBankField').attr('disabled', disabledToggler);
+          $('.addressOfBankField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
           $('.ccUSA').attr('disabled', !disabledToggler);
           $('.ifscField').attr('disabled', disabledToggler);
           $('.rcpField').attr('disabled', disabledToggler);
-          $('.cityOfBankField').attr('disabled', disabledToggler);
-          $('.zipCodeBankField').attr('disabled', disabledToggler);
-          $('.brokerageInfoField').attr('disabled', disabledToggler);
+          $('.cityOfBankField').attr('disabled', !disabledToggler);
+          $('.zipCodeBankField').attr('disabled', !disabledToggler);
+          $('.brokerageInfoField').attr('disabled', !disabledToggler);
 
-          $('.accountNumberLabel').innerHTML = 'Account number'
+          $('.ccLabel').html('Clearing code')
 
           $scope.isSEPA = false;
           $scope.isUS = false;
           $scope.isINDIA = true;
           $scope.isRUS = false;
           $scope.isOther = false;
+          $scope.isAUS = false;
         }
-        else if(countryType == "RUS"){
+        else if(countryType === "RUS"){
           $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
@@ -237,16 +246,39 @@ angular.module('reg')
           $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
-          $('.BankField').attr('disabled', disabledToggler);
+          $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
-          $('.accountNumberLabel').innerHTML = 'Account number'
+          $('.ccLabel').html('Clearing code')
 
           $scope.isSEPA = false;
           $scope.isUS = false;
           $scope.isINDIA = false;
           $scope.isRUS = true;
           $scope.isOther = false;
+          $scope.isAUS = false;
+        }
+        else if(countryType === "AUS"){
+          $('.ibanField').attr('disabled', !disabledToggler);
+          $('.accountNumberField').attr('disabled', !disabledToggler);
+          $('.addressOfBankField').attr('disabled', !disabledToggler);
+          $('.clearingCodeField').attr('disabled', disabledToggler);
+          $('.bbanField').attr('disabled', disabledToggler);
+          $('.ccUSA').attr('disabled', !disabledToggler);
+          $('.ifscField').attr('disabled', !disabledToggler);
+          $('.rcpField').attr('disabled', !disabledToggler);
+          $('.cityOfBankField').attr('disabled', !disabledToggler);
+          $('.zipCodeBankField').attr('disabled', !disabledToggler);
+          $('.brokerageInfoField').attr('disabled', !disabledToggler);
+
+          $('.ccLabel').html('Clearing code (BSB - Bank/State/Branch)')
+
+          $scope.isSEPA = false;
+          $scope.isUS = false;
+          $scope.isINDIA = false;
+          $scope.isRUS = false;
+          $scope.isOther = false;
+          $scope.isAUS = true;
         }
 
         //here the form gets destroed and set up again so that it can be validated again
@@ -284,7 +316,7 @@ angular.module('reg')
           ]
         };
 
-        if(countryType == "ibanOrOther" || countryType == "onlyIban" || countryType == "NotDefined"){
+        if(countryType === "ibanOrOther" || countryType === "onlyIban" || countryType === "NotDefined" || countryType === "AUS" || countryType === "IND"){
 
           swiftOrBic.rules = [];
 

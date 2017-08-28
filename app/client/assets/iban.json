@@ -523,5 +523,10 @@
     "country": "Russia",
     "countryType": "RUS",
     "ibanLength": 30
+  },
+  {
+    "country": "Australia",
+    "countryType": "AUS",
+    "ibanLength": 30
   }
 ]
