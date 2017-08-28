@@ -159,7 +159,9 @@ angular.module('reg')
           $('.brokerageInfoField').attr('disabled', !disabledToggler);
 
           //some of the countries need more specific label for the fields, and here we set them back to general or make them more specific
-          $('.ccLabel').html('Clearing code')
+          $('.bbanLabel').html('BBAN (Basic bank account number)')
+          $('.swiftBicLabel').html('SWIFT / BIC');
+          $('.ccLabel').html('Clearing code');
 
           //setting the filter elements true or false to show the right fields for the different country types
           $scope.isSEPA = true;
@@ -183,7 +185,9 @@ angular.module('reg')
           $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
-          $('.ccLabel').html('Clearing code')
+          $('.bbanLabel').html('BBAN (Basic bank account number)')
+          $('.swiftBicLabel').html('SWIFT / BIC');
+          $('.ccLabel').html('Clearing code');
 
           $scope.isSEPA = false;
           $scope.isUS = false;
@@ -205,6 +209,8 @@ angular.module('reg')
           $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
+          $('.bbanLabel').html('BBAN (Basic bank account number)')
+          $('.swiftBicLabel').html('SWIFT / BIC');
           $('.ccLabel').html('Clearing code')
 
           $scope.isSEPA = false;
@@ -227,6 +233,8 @@ angular.module('reg')
           $('.zipCodeBankField').attr('disabled', !disabledToggler);
           $('.brokerageInfoField').attr('disabled', !disabledToggler);
 
+          $('.bbanLabel').html('BBAN (Basic bank account number)')
+          $('.swiftBicLabel').html('SWIFT / BIC');
           $('.ccLabel').html('Clearing code')
 
           $scope.isSEPA = false;
@@ -249,6 +257,8 @@ angular.module('reg')
           $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
+          $('.bbanLabel').html('BBAN (Basic bank account number - Must be <b>EURO</b> account)')
+          $('.swiftBicLabel').html('BIC (BIK if you have it)');
           $('.ccLabel').html('Clearing code')
 
           $scope.isSEPA = false;
@@ -271,6 +281,8 @@ angular.module('reg')
           $('.zipCodeBankField').attr('disabled', !disabledToggler);
           $('.brokerageInfoField').attr('disabled', !disabledToggler);
 
+          $('.bbanLabel').html('BBAN (Basic bank account number)')
+          $('.swiftBicLabel').html('SWIFT / BIC');
           $('.ccLabel').html('Clearing code (BSB - Bank/State/Branch)')
 
           $scope.isSEPA = false;

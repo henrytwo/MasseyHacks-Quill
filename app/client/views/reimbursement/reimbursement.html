@@ -98,7 +98,7 @@
         <div class="divided title">Bank Information</div>
 
         <div class="field">
-          <p>Based on your country of your bank, you will be given the fields to fill. If you don't have information for some of the fields provided (for example, IBAN or BIC), you can leave it empty.</p>
+          <p>Based on your country of your bank, you will be given the fields to fill. If you don't have information for some of the fields provided (for example, IBAN or BIC), you can leave it empty. Also, <b>leave out the spaces</b> on the codes that have it!</p>
           <label>Country of your bank</label>
           <select class="ui fluid search selection dropdown"
                  name="countryOfBank"
@@ -364,7 +364,7 @@
         </div>
 
         <div class="field" ng-show="isSEPA || isOther || isINDIA || isRUS">
-          <label>SWIFT / BIC</label>
+          <label class="swiftBicLabel">SWIFT / BIC</label>
           <input type="text"
                  name="swiftOrBic"
                  class="swiftOrBicField"
@@ -373,7 +373,7 @@
         </div>
 
         <div class="field" ng-show="isSEPA">
-          <label>IBAN   (Leave out spaces!)</label>
+          <label>IBAN (International bank account number)</label>
           <input type="text"
                  name="iban"
                  class="ibanField"
@@ -382,7 +382,7 @@
         </div>
 
         <div class="field" ng-show="isUS || isINDIA || isRUS || isAUS">
-          <label>BBAN</label>
+          <label class="bbanLabel">BBAN (Basic bank account number)</label>
           <input type="text"
                  name="bban"
                  class="bbanField"
@@ -399,7 +399,7 @@
         </div>
 
         <div class="field" ng-show="isINDIA">
-          <label>IFSC</label>
+          <label>IFSC (Indian Financial System Code)</label>
           <input type="text"
                  name="ifsc"
                  class="ifscField"
@@ -469,6 +469,7 @@
 
         <div class="field">
           <label>Choose a PDF-file to upload (Max. 2MB)</label>
+          <p>Please name the file this way: <b>firstname_lastname_receipt.pdf</b></p>
           <input
              type="file"
              name="fileUpload"
