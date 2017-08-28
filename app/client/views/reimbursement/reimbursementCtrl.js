@@ -259,7 +259,7 @@ angular.module('reg')
 
           $('.bbanLabel').html('BBAN (Basic bank account number - Must be <b>EURO</b> account)')
           $('.swiftBicLabel').html('BIC (BIK if you have it)');
-          $('.ccLabel').html('Clearing code')
+          $('.ccLabel').html('Clearing code');
 
           $scope.isSEPA = false;
           $scope.isUS = false;
@@ -492,7 +492,7 @@ angular.module('reg')
             },
             addressOfBank: addressOfBank,
             cityOfBank: cityOfBank,
-            zipCodeBank: zipCodeOfBank,
+            zipCodeBank: zipCodeBank,
             brokerageInfo: brokerageInfo,
             fileUpload: {
               identifier: 'fileUpload',

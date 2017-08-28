@@ -258,7 +258,7 @@ var reimbursement = {
    city : {
      type: String,
      max: 30
-   }
+   },
    countryOfBank: {
      type: String,
      max: 30
