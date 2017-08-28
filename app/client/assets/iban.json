@@ -528,5 +528,10 @@
     "country": "Australia",
     "countryType": "AUS",
     "ibanLength": 30
+  },
+  {
+    "country": "Other",
+    "countryType": "NotDefined",
+    "ibanLength": 35
   }
 ]
