@@ -98,7 +98,7 @@
         <div class="divided title">Bank Information</div>
 
         <div class="field">
-          <p>Based on your country of your bank, you will be given the fields to fill. If you don't have information for some of the fields provided (for example, IBAN or BIC), you can leave it empty.</p>
+          <p>Based on your country of your bank, you will be given the fields to fill. If you don't have information for some of the fields provided (for example, IBAN or BIC), you can leave it empty. Also, <b>leave out the spaces</b> on the codes that have it!</p>
           <label>Country of your bank</label>
           <select class="ui fluid search selection dropdown"
                  name="countryOfBank"
@@ -355,7 +355,7 @@
           </select>
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS || isAUS">
           <label>Name of the bank</label>
           <input type="text"
                  name="nameOfBank"
@@ -363,8 +363,8 @@
                  placeholder="Central Bank of Hacktown">
         </div>
 
-        <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS">
-          <label>SWIFT / BIC</label>
+        <div class="field" ng-show="isSEPA || isOther || isINDIA || isRUS">
+          <label class="swiftBicLabel">SWIFT / BIC</label>
           <input type="text"
                  name="swiftOrBic"
                  class="swiftOrBicField"
@@ -373,7 +373,7 @@
         </div>
 
         <div class="field" ng-show="isSEPA">
-          <label>IBAN   (Leave out spaces!)</label>
+          <label>IBAN (International bank account number)</label>
           <input type="text"
                  name="iban"
                  class="ibanField"
@@ -381,8 +381,8 @@
                  placeholder="HT000028112017">
         </div>
 
-        <div class="field" ng-show="isUS || isINDIA || isRUS">
-          <label>BBAN</label>
+        <div class="field" ng-show="isUS || isINDIA || isRUS || isAUS">
+          <label class="bbanLabel">BBAN (Basic bank account number)</label>
           <input type="text"
                  name="bban"
                  class="bbanField"
@@ -399,7 +399,7 @@
         </div>
 
         <div class="field" ng-show="isINDIA">
-          <label>IFSC</label>
+          <label>IFSC (Indian Financial System Code)</label>
           <input type="text"
                  name="ifsc"
                  class="ifscField"
@@ -416,8 +416,8 @@
                  placeholder="P0001">
         </div>
 
-        <div class="field" ng-show="isOther">
-          <label>Clearing code</label>
+        <div class="field" ng-show="isOther  || isAUS">
+          <label class="ccLabel">Clearing code</label>
           <input type="text"
                  name="clearingCode"
                  class="clearingCodeField"
@@ -425,14 +425,14 @@
         </div>
 
         <div class="field" ng-show="isOther">
-          <label class="accountNumberLabel">Account number</label>
+          <label class="accountNumberLabel">IBAN / BBAN / Account number</label>
           <input type="text"
                  name="accountNumber"
                  class="accountNumberField"
                  ng-model="user.reimbursement.accountNumber">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isOther || isUS || isRUS">
           <label>City of the bank</label>
           <input type="text"
                  name="cityOfBank"
@@ -440,7 +440,7 @@
                  ng-model="user.reimbursement.cityOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isOther || isUS || isRUS">
           <label>Address of the bank</label>
           <input type="text"
                  name="addressOfBank"
@@ -448,7 +448,7 @@
                  ng-model="user.reimbursement.addressOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isOther || isUS || isRUS">
           <label>ZIP code of the bank</label>
           <input type="text"
                  name="zipCodeBank"
@@ -456,9 +456,7 @@
                  ng-model="user.reimbursement.zipCodeOfBank">
         </div>
 
-
-
-        <div class="field" ng-show="isOther || isUS || isINDIA || isRUS">
+        <div class="field" ng-show="isOther || isUS || isRUS">
           <label>Brokerage information</label>
           <textarea name="brokerageInfo"
                     class="brokerageInfoField"
@@ -471,6 +469,7 @@
 
         <div class="field">
           <label>Choose a PDF-file to upload (Max. 2MB)</label>
+          <p>Please name the file this way: <b>firstname_lastname_receipt.pdf</b></p>
           <input
              type="file"
              name="fileUpload"

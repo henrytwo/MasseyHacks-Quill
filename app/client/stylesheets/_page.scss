@@ -9,6 +9,7 @@
     color: $page-header-color;
     letter-spacing: 8px;
     font-weight: 700;
+    line-height: 1em;
     &.divided:after {
         content: " ";
         width: 200px;
