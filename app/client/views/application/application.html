@@ -768,7 +768,10 @@
         </div>
 
         <div class="field">
-          <label>Programming languages etc </label>
+          <label>Programming languages</label>
+          <p style="margin-bottom: 10px";>
+            Sort the programming languages you know according to the skill level. If a language or framework is missing, feel free to tell us in the Free Comment at the end!
+          </p>
           <div class="fields">
             <div class="ten wide field">
               <select
@@ -884,6 +887,9 @@
 
         <div class="field">
           <label>Which of the followings describes your role in a hackathon team the best? * </label>
+          <p style="margin-bottom: 10px";>
+            Give us an idea of what you would be doing at hackathon.
+          </p>
           <select
             class="ui fluid dropdown"
             name="description"
@@ -918,7 +924,10 @@
         </div>
 
         <div class="field">
-          <label> Secret code - If you have been provided with a secret code, please remember to put it here. </label>
+          <label> Secret code </label>
+          <p style="margin-bottom: 10px";>
+            If you have been provided with a secret code, please remember to put it here.
+          </p>
           <input type="text"
                  name="secret"
                  ng-model="user.profile.secret">
@@ -926,7 +935,7 @@
 
         <br><br>
         <div class="divided title">Links about you</div>
-        <p>Put some links here if you want.</p>
+        <p>Show us what we can find about you on the web! These fields are not mandatory, just a chance to get to know you better :).</p>
         <div class="field">
           <label> Link to your portfolio </label>
           <input type="text"
@@ -966,7 +975,7 @@
           </p>
           <input type="text"
                  name="teamCode"
-                 placeholder="Java Jedis"
+                 placeholder="cAsE SENsiTiVE"
                  ng-model="user.teamCode">
         </div>
 
@@ -998,7 +1007,7 @@
         </div>
 
         <div class="field">
-          <label>Which one of the followings  would you bring to Junction 2017 as your laptop’s operating system?</label>
+          <label> Which laptop operating system would you be bringing to Junction 2017?</label>
           <select
             class="ui fluid dropdown"
             name="operatingSystem"
@@ -1038,8 +1047,9 @@
 
         <div class="field">
           <label>
-              Free comment - If there’s anything else you would like to say, this is the place to do it.
+              Free comment
           </label>
+          <p>If there’s anything else you would like to say, this is the place to do it.</p>
           <textarea ng-model="user.profile.freeComment">
           </textarea>
         </div>
