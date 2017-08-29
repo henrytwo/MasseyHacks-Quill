@@ -723,33 +723,19 @@
             id="mostInterestingTrack"
             ng-model="user.profile.mostInterestingTrack">
             <option value="">Choose a track</option>
-            <option value="Game Jam">Game Jam</option>
-            <option value="Internet of Things">Internet of Things</option>
             <option value="HealthTech">HealthTech</option>
-            <option value="FinTech">FinTech</option>
-            <option value="Artificial Intelligence">Artificial Intelligence</option>
-            <option value="Intelligent Buildings">Intelligent Buildings</option>
-            <option value="Multimodal Mobility">Multimodal Mobility</option>
             <option value="Logistics">Logistics</option>
-            <option value="Cybersecurity">Cybersecurity</option>
-            <option value="Entertainment">EdTech</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Multimodal Mobility">Multimodal Mobility</option>
+            <option value="Intelligent Buildings">Intelligent Buildings</option>
+            <option value="Game Jam">Game Jam</option>
+            <option value="FinTech">FinTech</option>
+            <option value="Internet of Things">Internet of Things</option>
+            <option value="Built Environment">Built Environment</option>
+            <option value="Artificial Intelligence">Artificial Intelligence</option>
+            <option value="Data Driven Analytics">Data Driven Analytics</option>
+            <option value="Customer Experience">Customer Experience</option>
           </select>
-        </div>
-
-        <div class="field">
-          <label>
-            If you have already formed a team for Junction 2017, please name it with a unique string. </label>
-            <p style="margin-bottom: 10px;">
-            This way we'll know who your teammates are.
-            Remember that the team name is Case Sensitive!
-            Having a team is not compulsory at all for attending.
-            <br>
-            Note that to compete for prizes at Junction 2017, your team can be max. 5 members!
-          </p>
-          <input type="text"
-                 name="teamCode"
-                 placeholder="Java Jedis"
-                 ng-model="user.teamCode">
         </div>
 
         <div class="field">
@@ -935,14 +921,6 @@
           </textarea>
         </div>
 
-         <div class="field">
-          <label> Link to your portfolio </label>
-          <input type="text"
-                 name="portfolio"
-                 placeholder="https://github.com/foobar"
-                 ng-model="user.profile.portfolio">
-        </div>
-
         <div class="field">
           <label> Secret code - If you have been provided with a secret code, please remember to put it here. </label>
           <input type="text"
@@ -979,6 +957,22 @@
 
         <br><br>
         <div class="divided title">Final questions</div>
+        
+        <div class="field">
+          <label>
+            If you have already formed a team for Junction 2017, please name it with a unique string. </label>
+            <p style="margin-bottom: 10px;">
+            This way we'll know who your teammates are.
+            Remember that the team name is Case Sensitive!
+            Having a team is not compulsory at all for attending.
+            <br>
+            Note that to compete for prizes at Junction 2017, your team can be max. 5 members!
+          </p>
+          <input type="text"
+                 name="teamCode"
+                 placeholder="Java Jedis"
+                 ng-model="user.teamCode">
+        </div>
 
         <div class="field">
           <label> Are you interested in job opportunities? * </label>
