@@ -79,6 +79,10 @@ angular.module('reg')
           }
       });
 
+      $('.icon')
+      .popup({
+        on: 'hover'
+      });
 
       /**
        * TODO: JANK WARNING
