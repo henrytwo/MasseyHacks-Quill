@@ -319,11 +319,6 @@ var reimbursement = {
      default: '',
      max: 32
    },
-   ccUSA: {
-     type: String,
-     default: '',
-     max: 9
-   },
    ifsc: {
      type: String,
      default: '',

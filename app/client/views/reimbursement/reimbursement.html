@@ -1,9 +1,7 @@
 <div class="page">
   <div class="divided title">
     Travel Reimbursement
-      <a class="tooltips" href="#">?
-        <span>Fill all the necessary information to receive travel reimbursement after the hackathon.</span>
-      </a>
+    <i class="help circle icon link" data-content="Fill all the necessary information to receive travel reimbursement after the hackathon." data-variation="inverted" data-position="right center"></i>
   </div>
 
   <div class="ui stackable page grid">
@@ -12,14 +10,15 @@
       <ol>
         <li class="tip">The information we receive will be directly run into our payment system, and thus, we’ll relieve our responsibility for examining individuals’ erroneous travel reimbursement filings.</li>
         <li class="tip">Brokerage fees are paid by the <b>participant</b>. We’ll refrain from any liability or costs that will come from the wire transfer and to the brokers' slots.</li>
-        <li class="tip">Everything is paid in <b>euros (€)</b>.</li>
+        <li class="tip">Everything is paid in <b>euros (€)</b> which means that in some countries e.g. in Russia, you must have a euro account.</li>
         <li class="tip">You should use your <b>own account</b>. If you are unable to use your own, please contact us.</li>
         <li class="tip">The money will be transferred as a wire transfer (from Junction Oy)</li>
         <li class="tip">If you are in doubt, turn to your bank and if they do not know, then turn to us. In this case, type in the "<b>Additional Information</b>" field.</li>
         <li class="tip">The recipient's name, the amount paid and the item (order confirmation and ticket, in some cases the same) should be found in the <b>single PDF file</b>. In this file, it is essential to find the total sum participant paid for the trip to Helsinki. A picture of a ticket or other ticket showing the travel dates, the price of the ticket that you paid and the name. The amount due for the travel allowance is cannot be higher than the ticket price.</li>
-        <li class="tip"><b>Deadline</b> for submission of application and for travel receipt is <b>03.12.2017</b>. Subsequent notifications are not quoted.</li>
+        <li class="tip"><b>Deadline</b> for submission of application and for travel receipt is <b>23:59 03.12.2017</b>. Subsequent notifications are not quoted.</li>
         <li class="tip">It may take some time to receive the travel reimbursement, as be begin the process during after all the participants have registered in the event.</li>
-        <li class="tip">Decisions on compensation are made during the event.</li>
+        <li class="tip">The address/country you type here should be the address where you’re <b>living and would be paying taxes</b>.</li>
+        <li class="tip">Failure to follow these instructions will lead to <b>rejection</b> of your travel reimbursement</li>
       </ol>
       <div class="ui checkbox">
         <input type="checkbox"
@@ -56,7 +55,10 @@
         </div>
 
         <div class="field">
-          <label> Address Line 1 - Street address </label>
+          <label>
+            <span>Address Line 1</span>
+            <i class="help circle icon link" data-content="Please type your street address in this field e.g. “Hacker Boulevard”." data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="addressLine1"
                  ng-model="user.reimbursement.addressLine1"
@@ -64,7 +66,10 @@
         </div>
 
         <div class="field">
-          <label> Address Line 2 - Apartment, suite, building.. </label>
+          <label>
+            <span>Address Line 2</span>
+            <i class="help circle icon link" data-content="Please type here your building number and apartment/suite e.g. “67X 32”." data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="addressLine1"
                  ng-model="user.reimbursement.addressLine2"
@@ -80,7 +85,10 @@
         </div>
 
         <div class="field">
-          <label>ZIP Code</label>
+          <label>
+            <span>ZIP code</span>
+            <i class="help circle icon link" data-content="Please type here your area’s ZIP/Postal code e.g. “10001”" data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="zipCode"
                  class="zipCodeField"
@@ -361,7 +369,10 @@
         </div>
 
         <div class="field" ng-show="isSEPA || isOther || isUS || isINDIA || isRUS || isAUS">
-          <label>Name of the bank</label>
+          <label>
+            <span>Name of the bank</span>
+            <i class="help circle icon link" data-content="Please type here your bank’s full name, google the full name if you’re not sure what it is." data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="nameOfBank"
                  ng-model="user.reimbursement.nameOfBank"
@@ -369,7 +380,10 @@
         </div>
 
         <div class="field" ng-show="isSEPA || isOther || isINDIA || isRUS">
-          <label class="swiftBicLabel">SWIFT / BIC</label>
+          <label>
+            <span class="swiftBicLabel">SWIFT / BIC</span>
+            <i class="help circle icon link" data-content="Please type here your bank’s SWIFT/BIC (Bank/Business Identifier Code). Each bank has its own unique identifier code varying from 8 to 11 characters. As multinational banks have different SWIFT/BIC codes in different areas and countries, remember to pay attention that you choose the correct one e.g. Nordea’s SWIFT/BIC is NDEAFIHH in Finland and NDEADKKK in Denmark." data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="swiftOrBic"
                  class="swiftOrBicField"
@@ -378,8 +392,9 @@
         </div>
 
         <div class="field" ng-show="isSEPA">
-          <label>IBAN (International bank account number)
-            <i class="help circle icon link" data-content="Hello. This is an inverted popup" data-variation="inverted" data-position="right center"></i>
+          <label>
+            <span>IBAN</span>
+            <i class="help circle icon link" data-content="Please type here your bank account series in IBAN form. IBAN is the standardized International Bank Account Number which consist of country code and a number series of different standardized length in IBAN-countries. Note that the form only accepts exact number of characters in a specific IBAN-country e.g. 18 characters in Finland and 27 characters in Italy." data-variation="inverted" data-position="right center"></i>
           </label>
           <input type="text"
                  name="iban"
@@ -389,20 +404,14 @@
         </div>
 
         <div class="field" ng-show="isUS || isINDIA || isRUS || isAUS">
-          <label class="bbanLabel">BBAN (Basic bank account number)</label>
+          <label>
+            <span>BBAN</span>
+            <i class="help circle icon link" data-content="Please type here your Basic Bank Account Number which is composed of 10 to 30 characters e.g. 3704 0044 0532 0130 00. Every country has it’s specific BBAN format and length depending on its own standards." data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="bban"
                  class="bbanField"
                  ng-model="user.reimbursement.bban">
-        </div>
-
-        <div class="field" ng-show="isUS">
-          <label>Clearing-code (Fedwire, ABA or Routing number)</label>
-          <input type="text"
-                 name="ccUSA"
-                 class="ccUSAField"
-                 ng-model="user.reimbursement.ccUSA"
-                 placeholder="USABA123456789">
         </div>
 
         <div class="field" ng-show="isINDIA">
@@ -423,8 +432,11 @@
                  placeholder="P0001">
         </div>
 
-        <div class="field" ng-show="isOther  || isAUS">
-          <label class="ccLabel">Clearing code</label>
+        <div class="field" ng-show="isOther  || isAUS || isUS">
+          <label>
+            <span class="ccLabel">Clearing code</span>
+            <i class="help circle icon link" data-content="Please type here your clearing code/NCC/Fedwire/ABA/Routing Number/IFSC which is commonly used in non-SEPA countries e.g. in US, Australia and India. The clearing codes vary across different countries so we kindly ask you to check your bank’s clearing code yourself or contact your bank in case of confusion." data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="clearingCode"
                  class="clearingCodeField"
@@ -439,32 +451,44 @@
                  ng-model="user.reimbursement.accountNumber">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isRUS">
-          <label>City of the bank</label>
+        <div class="field" ng-show="isOther || isUS || isRUS || isAUS || isINDIA">
+          <label>
+            <span>City of the bank</span>
+            <i class="help circle icon link" data-content="Please type here your bank’s city location e.g. Moscow for the Sberbank." data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="cityOfBank"
                  class="cityOfBankField"
                  ng-model="user.reimbursement.cityOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isRUS">
-          <label>Address of the bank</label>
+        <div class="field" ng-show="isOther || isUS || isRUS || isAUS || isINDIA">
+          <label>
+            <span>Address of the bank</span>
+            <i class="help circle icon link" data-content="Please type here the address of your bank e.g. 19 Vavilova Street." data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="addressOfBank"
                  class="addressOfBankField"
                  ng-model="user.reimbursement.addressOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isRUS">
-          <label>ZIP code of the bank</label>
+        <div class="field" ng-show="isOther || isUS || isRUS || isAUS || isINDIA">
+          <label>
+            <span>ZIP code of the bank</span>
+            <i class="help circle icon link" data-content="Please type here the ZIP/Postal code of your bank. Check ZIP Code tooltip for further info." data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="zipCodeBank"
                  class="zipCodeBankField"
                  ng-model="user.reimbursement.zipCodeOfBank">
         </div>
 
-        <div class="field" ng-show="isOther || isUS || isRUS">
-          <label>Brokerage information</label>
+        <div class="field" ng-show="isOther || isUS || isRUS || isAUS || isINDIA">
+          <label>
+            <span>Brokerage information</span>
+            <i class="help circle icon link" data-content="Please type here here your brokerage’s name, full address, city and country. Further info for these in other tooltips." data-variation="inverted" data-position="right center"></i>
+          </label>
           <textarea name="brokerageInfo"
                     class="brokerageInfoField"
                     ng-model="user.reimbursement.brokerageInfo"/>

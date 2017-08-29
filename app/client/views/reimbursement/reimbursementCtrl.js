@@ -154,7 +154,6 @@ angular.module('reg')
           $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', !disabledToggler);
           $('.bbanField').attr('disabled', !disabledToggler);
-          $('.ccUSA').attr('disabled', !disabledToggler);
           $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
@@ -181,7 +180,6 @@ angular.module('reg')
           $('.accountNumberField').attr('disabled', disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', !disabledToggler);
-          $('.ccUSA').attr('disabled', !disabledToggler);
           $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
@@ -204,9 +202,8 @@ angular.module('reg')
           $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
-          $('.clearingCodeField').attr('disabled', !disabledToggler);
+          $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ccUSA').attr('disabled', disabledToggler);
           $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
@@ -230,7 +227,6 @@ angular.module('reg')
           $('.addressOfBankField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ccUSA').attr('disabled', !disabledToggler);
           $('.ifscField').attr('disabled', disabledToggler);
           $('.rcpField').attr('disabled', disabledToggler);
           $('.cityOfBankField').attr('disabled', !disabledToggler);
@@ -254,7 +250,6 @@ angular.module('reg')
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ccUSA').attr('disabled', !disabledToggler);
           $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
@@ -278,7 +273,6 @@ angular.module('reg')
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ccUSA').attr('disabled', !disabledToggler);
           $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
@@ -328,6 +322,16 @@ angular.module('reg')
             {
               type: 'empty',
               prompt: 'Please enter your SWIFT or BIC.'
+            }
+          ]
+        };
+
+        var clearingCode = {
+          identifier: 'clearingCode',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter the clearing code.'
             }
           ]
         };
@@ -388,6 +392,19 @@ angular.module('reg')
           cityOfBank.rules = [];
           zipCodeBank.rules = [];
           brokerageInfo.rules = [];
+        }
+
+        if(countryType === "US"){
+          clearingCode.rules = [
+            {
+              type: 'empty',
+              prompt: 'Please enter the clearing code.'
+            },
+            {
+              type: 'exactLength[9]',
+              prompt: 'Your clearing code must be 9 characters long.'
+            }
+          ]
         }
 
         $('.ui.form').form({
@@ -466,15 +483,7 @@ angular.module('reg')
               ]
             },
             swiftOrBic: swiftOrBic,
-            clearingCode: {
-              identifier: 'clearingCode',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter the clearing code.'
-                }
-              ]
-            },
+            clearingCode: clearingCode,
             iban: iban,
             accountNumber: {
               identifier: 'accountNumber',
