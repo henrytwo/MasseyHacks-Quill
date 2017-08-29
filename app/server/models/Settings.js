@@ -61,8 +61,7 @@ var schema = new mongoose.Schema({
     type: String
   },
   schools: {
-    type: [String],
-    default: ['Aalto-Yliopisto']
+    type: [String]
   },
   reimbursementClass: reimbursementClass,
 
