@@ -79,6 +79,10 @@ angular.module('reg')
           }
       });
 
+      $('.icon')
+      .popup({
+        on: 'hover'
+      });
 
       /**
        * TODO: JANK WARNING
@@ -259,7 +263,7 @@ angular.module('reg')
 
           $('.bbanLabel').html('BBAN (Basic bank account number - Must be <b>EURO</b> account)')
           $('.swiftBicLabel').html('BIC (BIK if you have it)');
-          $('.ccLabel').html('Clearing code')
+          $('.ccLabel').html('Clearing code');
 
           $scope.isSEPA = false;
           $scope.isUS = false;
@@ -271,15 +275,15 @@ angular.module('reg')
         else if(countryType === "AUS"){
           $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', !disabledToggler);
-          $('.addressOfBankField').attr('disabled', !disabledToggler);
+          $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
           $('.ccUSA').attr('disabled', !disabledToggler);
           $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
-          $('.cityOfBankField').attr('disabled', !disabledToggler);
-          $('.zipCodeBankField').attr('disabled', !disabledToggler);
-          $('.brokerageInfoField').attr('disabled', !disabledToggler);
+          $('.cityOfBankField').attr('disabled', disabledToggler);
+          $('.zipCodeBankField').attr('disabled', disabledToggler);
+          $('.brokerageInfoField').attr('disabled', disabledToggler);
 
           $('.bbanLabel').html('BBAN (Basic bank account number)')
           $('.swiftBicLabel').html('SWIFT / BIC');
@@ -328,6 +332,45 @@ angular.module('reg')
           ]
         };
 
+        var addressOfBank = {
+          identifier: 'addressOfBank',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter the address of your bank.'
+            }
+          ]
+        };
+        var cityOfBank =  {
+          identifier: 'cityOfBank',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter the city of your bank.'
+            }
+          ]
+        };
+
+        var zipCodeBank = {
+          identifier: 'zipCodeBank',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter ZIP Code of your bank.'
+            }
+          ]
+        };
+
+        var brokerageInfo = {
+          identifier: 'brokerageInfo',
+          rules: [
+            {
+              type: 'maxLength[50]',
+              prompt: 'This field can only be 50 characters long.'
+            }
+          ]
+        };
+
         if(countryType === "ibanOrOther" || countryType === "onlyIban" || countryType === "NotDefined" || countryType === "AUS" || countryType === "IND"){
 
           swiftOrBic.rules = [];
@@ -338,6 +381,13 @@ angular.module('reg')
               prompt: 'Your IBAN can be max. {ruleValue} characters long'
             }
           ]
+        }
+
+        if(countryType === "RUS"){
+          addressOfBank.rules = [];
+          cityOfBank.rules = [];
+          zipCodeBank.rules = [];
+          brokerageInfo.rules = [];
         }
 
         $('.ui.form').form({
@@ -379,7 +429,24 @@ angular.module('reg')
                 }
               ]
             },
-
+            city: {
+              identifier: 'city',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter the city you live in.'
+                }
+              ]
+            },
+            zipCode: {
+              identifier: 'zipCode',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your ZIP Code.'
+                }
+              ]
+            },
             countryOfBank: {
               identifier: 'countryOfBank',
               rules: [
@@ -398,15 +465,7 @@ angular.module('reg')
                 }
               ]
             },
-            swiftOrBic: {
-              identifier: 'swiftOrBic',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter the SWIFT or BIC'
-                }
-              ]
-            },
+            swiftOrBic: swiftOrBic,
             clearingCode: {
               identifier: 'clearingCode',
               rules: [
@@ -435,52 +494,11 @@ angular.module('reg')
                 }
               ]
             },
-            addressOfBank: {
-              identifier: 'addressOfBank',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter the address of your bank.'
-                }
-              ]
-            },
-            cityOfBank: {
-              identifier: 'cityOfBank',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter the city of your bank.'
-                }
-              ]
-            },
-            zipCode: {
-              identifier: 'zipCode',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your ZIP Code.'
-                }
-              ]
-            },
-            zipCodeBank: {
-              identifier: 'zipCodeBank',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter ZIP Code of your bank.'
-                }
-              ]
-            },
-            brokerageInfo: {
-              identifier: 'brokerageInfo',
-              rules: [
-                {
-                  type: 'maxLength[50]',
-                  prompt: 'This field can only be 50 characters long.'
-                }
-              ]
-            },
-            cityOfBank: {
+            addressOfBank: addressOfBank,
+            cityOfBank: cityOfBank,
+            zipCodeBank: zipCodeBank,
+            brokerageInfo: brokerageInfo,
+            fileUpload: {
               identifier: 'fileUpload',
               rules: [
                 {

@@ -17,7 +17,7 @@
         <li class="tip">The money will be transferred as a wire transfer (from Junction Oy)</li>
         <li class="tip">If you are in doubt, turn to your bank and if they do not know, then turn to us. In this case, type in the "<b>Additional Information</b>" field.</li>
         <li class="tip">The recipient's name, the amount paid and the item (order confirmation and ticket, in some cases the same) should be found in the <b>single PDF file</b>. In this file, it is essential to find the total sum participant paid for the trip to Helsinki. A picture of a ticket or other ticket showing the travel dates, the price of the ticket that you paid and the name. The amount due for the travel allowance is cannot be higher than the ticket price.</li>
-        <li class="tip"><b>Deadline</b> for submission of application xx.xx and for travel receipt xx.xx. Subsequent notifications are not quoted.</li>
+        <li class="tip"><b>Deadline</b> for submission of application and for travel receipt is <b>03.12.2017</b>. Subsequent notifications are not quoted.</li>
         <li class="tip">It may take some time to receive the travel reimbursement, as be begin the process during after all the participants have registered in the event.</li>
         <li class="tip">Decisions on compensation are made during the event.</li>
       </ol>
@@ -26,7 +26,7 @@
                name="generalCheck"
                class="generalCheck"
                ng-model="generalCheck">
-        <label for="generalCheck"><b>I've read through these tips before proceeding.</b></label>
+        <label for="generalCheck"><b>I´ve read through the general and accept the guidelines.</b></label>
       </div>
     </div>
   </div>
@@ -69,6 +69,14 @@
                  name="addressLine1"
                  ng-model="user.reimbursement.addressLine2"
                  placeholder="13 A 37">
+        </div>
+
+        <div class="field">
+          <label> City </label>
+          <input type="text"
+                 name="city"
+                 ng-model="user.reimbursement.city"
+                 placeholder="Hack">
         </div>
 
         <div class="field">
@@ -149,7 +157,6 @@
            <option value="Chad">Chad</option>
            <option value="Channel Islands">Channel Islands</option>
            <option value="Chile">Chile</option>
-           <option value="China">China</option>
            <option value="Christmas Island">Christmas Island</option>
            <option value="Cocos Island">Cocos Island</option>
            <option value="Colombia">Colombia</option>
@@ -206,7 +213,6 @@
            <option value="Iceland">Iceland</option>
            <option value="India">India</option>
            <option value="Indonesia">Indonesia</option>
-           <option value="Iran">Iran</option>
            <option value="Iraq">Iraq</option>
            <option value="Ireland">Ireland</option>
            <option value="Isle of Man">Isle of Man</option>
@@ -244,7 +250,6 @@
            <option value="Mauritania">Mauritania</option>
            <option value="Mauritius">Mauritius</option>
            <option value="Mayotte">Mayotte</option>
-           <option value="Mexico">Mexico</option>
            <option value="Midway Islands">Midway Islands</option>
            <option value="Moldova">Moldova</option>
            <option value="Monaco">Monaco</option>
@@ -318,7 +323,6 @@
            <option value="Swaziland">Swaziland</option>
            <option value="Sweden">Sweden</option>
            <option value="Switzerland">Switzerland</option>
-           <option value="Syria">Syria</option>
            <option value="Tahiti">Tahiti</option>
            <option value="Taiwan">Taiwan</option>
            <option value="Tajikistan">Tajikistan</option>
@@ -352,6 +356,7 @@
            <option value="Zaire">Zaire</option>
            <option value="Zambia">Zambia</option>
            <option value="Zimbabwe">Zimbabwe</option>
+           <option value="Other">Other</option>
           </select>
         </div>
 
@@ -373,7 +378,9 @@
         </div>
 
         <div class="field" ng-show="isSEPA">
-          <label>IBAN (International bank account number)</label>
+          <label>IBAN (International bank account number)
+            <i class="help circle icon link" data-content="Hello. This is an inverted popup" data-variation="inverted" data-position="right center"></i>
+          </label>
           <input type="text"
                  name="iban"
                  class="ibanField"

@@ -264,15 +264,19 @@ var reimbursement = {
    },
    addressLine1: {
      type: String,
-     max: 20
+     max: 30
    },
    addressLine2: {
      type: String,
-     max: 20
+     max: 30
    },
    stateProvinceRegion: {
      type: String,
      max: 20
+   },
+   city : {
+     type: String,
+     max: 30
    },
    countryOfBank: {
      type: String,
