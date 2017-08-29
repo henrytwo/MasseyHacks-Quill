@@ -4,9 +4,13 @@ var fs = require('fs');
 Settings
   .findOne({})
   .exec(function(err, settings){
+    if (err) {
+      throw err;
+    }
     if (!settings){
       var settings = new Settings();
       settings.save();
+      console.log('Created new settings!');
     }
   });
 

@@ -147,11 +147,11 @@ function calculateStats(settings){
           if (user.profile.AcceptedreimbursementClass == "Finland") {
             newStats.AfinlandTotal += 1;
             newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Finland;
-          } 
+          }
           else if (user.profile.AcceptedreimbursementClass == "Baltics") {
             newStats.AbalticsTotal += 1;
             newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Baltics;
-          } 
+          }
           else if (user.profile.AcceptedreimbursementClass == "Nordic") {
             newStats.AnordicTotal += 1;
             newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Nordic;
@@ -171,7 +171,7 @@ function calculateStats(settings){
           else if (user.profile.AcceptedreimbursementClass == "Rejected") {
             newStats.ArejectedTotal += 1;
           }
-        }    
+        }
         // Count the number of people who still need to be reimbursed
         newStats.reimbursementMissing += user.confirmation.needsReimbursement &&
           !user.status.reimbursementGiven ? 1 : 0;
@@ -282,23 +282,16 @@ function calculateStats(settings){
 
 }
 
-// Calculate once every five minutes.
-Settings
-    .getPublicSettings(function(err, settings){
-       if (err || !settings){
-        throw err;
-      }
-      calculateStats(settings);
-    });
- setInterval(function() {
+setInterval(function() {
   Settings
     .getPublicSettings(function(err, settings){
        if (err || !settings){
         throw err;
       }
       calculateStats(settings);
-    });
-  }, 300000);
+  });
+}, 300000);
+
 
 var Stats = {};
 
