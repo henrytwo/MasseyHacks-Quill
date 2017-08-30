@@ -1,6 +1,7 @@
 var path = require('path');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
+var Settings = require('../models/Settings');
 
 var templatesDir = path.join(__dirname, '../templates');
 var emailTemplates = require('email-templates');
@@ -32,8 +33,37 @@ var options = {
 var transporter = nodemailer.createTransport(smtpTransport(options));
 
 var controller = {};
+var settings;
+
+Settings
+  .getPublicSettings(function(err, publicSettings){
+     if (err || !publicSettings){
+      throw err;
+    }
+    settings = publicSettings;
+});
 
 controller.transporter = transporter;
+
+function getAcceptedreimbAmount(user) {
+    switch(user.profile.AcceptedreimbursementClass){
+      case("Finland"):
+        return settings.reimbursementClass.Finland;
+      case("Baltics"):
+        return settings.reimbursementClass.Baltics;
+      case("Nordic"):
+        return settings.reimbursementClass.Nordic;
+      case("Europe"):
+        return settings.reimbursementClass.Europe;
+      case("Outside Europe"):
+        return settings.reimbursementClass.Outside;
+      case("Rejected"):
+        return "0";
+      default:
+        return user.profile.AcceptedreimbursementClass;
+    }
+}
+
 
 function sendOne(templateName, options, data, callback){
 
@@ -85,9 +115,9 @@ controller.sendAdmittanceEmail = function(user, callback) {
  if (user.profile.AcceptedreimbursementClass === 'Rejected') {
    travelText = 'Unfortunately we have run out of travel reimbursements, so will not be able to grant you reimbursements this time.'
  } else {
-   travelText = 'For travelling from ' + user.profile.travelFromCountry + ' you will be granted X €'
+   travelText = 'For travelling from ' + user.profile.travelFromCountry + ' you will be granted ' + getAcceptedreimbAmount(user) +' €'
  }
-
+console.log(travelText);
  var locals = {
    nickname: user.nickname,
    dashUrl: ROOT_URL,
@@ -123,8 +153,10 @@ controller.sendConfirmationEmail = function(user, token, callback) {
  var travelText;
  if (user.profile.needsReimbursement && user.profile.AcceptedreimbursementClass !== 'Rejected') {
    travelText = 'A reminder about your travel reimbursement: ' +
-    '<br>For travelling from ' + user.profile.travelFromCountry + ', you will be <br> granted X eur';
+    '<br>For travelling from ' + user.profile.travelFromCountry + ', you will be <br> granted ' + getAcceptedreimbAmount(user) + ' €';
  }
+
+ console.log(travelText);
  var accommodationText;
  if (user.profile.applyAccommodation) {
    accommodationText = 'The free accommodation provided by Junction will be' +
