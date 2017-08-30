@@ -27,6 +27,12 @@ angular.module('reg')
         }
       }
 
+      //icon tooltip popup
+      $('.icon')
+      .popup({
+        on: 'hover'
+      });
+
       // Is registration open?
       var regIsOpen = $scope.regIsOpen = Utils.isRegOpen(Settings);
 
