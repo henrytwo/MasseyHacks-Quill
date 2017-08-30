@@ -120,12 +120,12 @@ controller.sendConfirmationEmail = function(user, token, callback) {
    to: user.email,
    subject: "[Junction Hackathon] - You are confirmed!"
  };
- var travelText = '';
+ var travelText;
  if (user.needsReimbursement) {
    travelText = 'A reminder about your travel reimbursement: ' +
     '<br>For travelling from ' + user.travelFromCountry + ', you will be <br> granted X eur';
  }
- var accommodationText = '';
+ var accommodationText;
  if (user.applyAccommodation) {
    accommodationText = 'The free accommodation provided by Junction will be' +
    '<br>held at schools near the event venue. Be sure to bring necessary stuff' +
@@ -135,7 +135,7 @@ controller.sendConfirmationEmail = function(user, token, callback) {
  var locals = {
    nickname: user.nickname,
    userId: user.id,
-   dashUrl: ROOT_URL
+   dashUrl: ROOT_URL,
    travelText: travelText,
    accommodationText: accommodationText
  };
