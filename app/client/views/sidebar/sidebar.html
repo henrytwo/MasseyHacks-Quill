@@ -31,11 +31,11 @@
 
     <div ui-sref-active="active"
          ui-sref="app.reimbursement"
-         ng-show="currentUser.status.admitted && currentUser.profile.needsReimbursement && !currentUser.status.declined"
+         ng-show="currentUser.status.admitted && currentUser.profile.needsReimbursement && !currentUser.status.declined && !(currentUser.profile.AcceptedreimbursementClass=='Rejected')"
          class="item">
       Travel Reimbursement
     </div>
-    
+
     <div
       ui-sref-active="active"
       ui-sref="app.team"
