@@ -21,27 +21,38 @@ American River College, California
 American University, Washington, D.C.
 Amherst College
 Amity University
+Ammattiopisto Tavastia
+Amrita Vishwa Vidyapeetham
 Amrita School of Engineering
+Amsterdam University of Applied Sciences
 Ancaster High School
 Anchor Bay High School
 Andover Central High School
 Anna University
+Arcada University of Applied Sciences
 Arcadia High School, California
 Arizona State University
 Aston University
+Astrakhan State University
 Atlanta Metropolitan State College
 Atlantic Cape Community College
 Austin Community College District
+Autonomous University of Barcelona
 Aviation Career & Technical Education High School
 Avon High School
 BMIIT, Uka Tarsadia University, Bardoli, Surat
 Babaria Institute of Technology
 Babson College
+Banha University
+Bar-Ilan University
+Barcelona School of Informatics
 Baruch College
 Baton Rouge Community College
+Bauman Moscow State Technical University
 Bayside High School
 Bayview Secondary School
 Beihang University
+Belarusian State University
 Bellevue College, Washington
 Benedictine College
 Benha University
@@ -172,6 +183,7 @@ DePauw University
 DeSales University
 Deerfield High School
 Del Norte High School
+Delft University of Technology
 Delhi Technological University
 Denison University
 Des Moines Area Community College
@@ -179,6 +191,7 @@ Dharmsinh Desai University
 Diablo Valley College
 Dougherty Valley High School
 Dr. B. R. Ambedkar National Institute of Technology Jalandhar
+Dortmund University of Applied Sciences and Arts
 Drake University
 Drew University
 Drexel University
@@ -204,6 +217,7 @@ Edina High School
 Edinburgh Napier University
 Edison High School
 Edward R. Murrow High School
+Eindhoven University of Technology
 El Camino College
 El Centro College
 Elizabeth High School
@@ -211,7 +225,9 @@ Embry-Riddle Aeronautical University
 Emory University
 Erasmus Hogeschool Brussel
 Ernest Manning High School
+ETH Zurich
 Fachhochschule Dortmund
+Faculdade de Engenharia da Universidade do Porto
 Fahaheel Al-Watanieh Indian Private School
 Fairfield University
 Fairleigh Dickinson University
@@ -270,6 +286,8 @@ Guelph Collegiate Vocational Institute
 Gujarat Technological University
 Gujarat University
 Guru Gobind Singh Indraprastha University
+Haaga-Helia University of Applied Sciences
+HAMK Häme University of Applied Sciences
 Hampshire College
 Hampton University
 Harper College
@@ -280,6 +298,7 @@ Haverford College
 Hazleton Area High School
 Head-Royce School
 Health Careers High School
+Helsinki Metropolia University of Applied Sciences
 Helwan University
 Henry M. Gunn High School
 Herguan University
@@ -332,6 +351,7 @@ Indiana University–Purdue University Indianapolis
 Indira Gandhi Delhi Technical University for Women
 Indira Gandhi National Open University
 Indraprastha Institute of Information Technology
+Innopolis University
 Institute of Engineering and Rural Technology Allahabad
 Instituto Politécnico Nacional
 Instituto Tecnologico Superior de San Martin Texmelucan
@@ -346,6 +366,7 @@ Iowa State University
 Iowa Western Community College
 Istanbul University
 Ithaca College
+ITMO University
 Jacobs University Bremen
 Jagiellonian University
 Jaipur National University
@@ -353,6 +374,7 @@ Jalpaiguri Government Engineering College
 James Gillespie's High School
 James Madison High School
 James Madison University
+JAMK University of Applied Sciences
 Jaypee Institute Of Information Technology
 John A. Ferguson Senior High School
 John Abbott College
@@ -363,8 +385,10 @@ Johns Hopkins University
 Johnson & Wales University
 Johnson C. Smith University
 K.S. School of Business Management
+Kajaani University of Applied Sciences
 Kansas State University
 Kantipur Engineering College
+Kaunas University of Technology
 Kean University
 Keele University
 Kennesaw State University
@@ -372,13 +396,18 @@ Kennett High School
 Kent State University
 King's College London
 Kraków University of Economics
+KTH Royal Institute of Technology 
 L D College Of Engineering Library
 La Roche College
 Lafayette College
+Lahti University of Applied Sciences
 Lake Braddock Secondary School
 Lakeside High School
 Lampeter-Strasburg High School
 Lancaster University
+Lapland University of Applied Sciences
+Lappeenranta University of Technology
+Laurea University of Applied Sciences
 Laval University
 Lawrence Technological University
 Lawrence University
@@ -390,6 +419,7 @@ Lexington High School
 Lick Wilmerding High School
 Lincoln University
 Lindenwood University
+Linköping University
 Linn-Mar High School
 Lisgar Collegiate Institute
 Little Flowers Public Sr Secondary School
@@ -416,7 +446,6 @@ Maggie L. Walker Governor's School
 Maharaja Agrasen Institute of Technology
 Maharaja Sayajirao University of Baroda
 Maharaja Surajmal Institute Of Technology
-Maharaja Surajmal Institute of Technology
 Malvern Preparatory School
 Manalapan High School
 Manchester Metropolitan University
@@ -462,6 +491,7 @@ Middlesex County College
 Middlesex University
 Middletown High School South
 Midwood
+Mikkeli University of Applied Sciences
 Miles College
 Millburn High School
 Millburn Middle School
@@ -491,6 +521,7 @@ Moraine Valley Community College
 Morgan State University
 Morris County School of Technology
 Moscow Institute of Physics and Technology
+Moscow Technological University
 Moscrop Secondary School
 Motilal Nehru National Institute of Technology
 Motilal Nehru National Institute of Technology Allahabad
@@ -509,6 +540,7 @@ National Institute of Technology, Srinagar
 National Institute of Technology, Tiruchirappalli
 National Institute of Technology, Warangal
 National Research University Higher School Of Economics
+National Research Nuclear University MEPhI
 Netaji Subhas Institute Of Technology
 Netaji Subhash Engineering College
 New Albany High School
@@ -547,6 +579,7 @@ Northwest Missouri State University
 Northwest Vista College
 Northwestern Oklahoma State University
 Northwestern University
+Norwegian University of Science and Technology
 Nottingham Trent University
 Novi High School
 Oakland Community College
@@ -560,6 +593,7 @@ Onondaga Community College
 Opolska University of Technology
 Oregon State University
 Otterbein University
+Oulu University of Applied Sciences
 Oxford Academy High School
 Palo Alto High School
 Palomar College
@@ -581,6 +615,8 @@ Plano East Senior High School
 Plovdiv Medical University
 Pokhara University
 Polsko-Japońska Akademia Technik Komputerowych
+Polytechnic University of Milan
+Polytechnic University of Catalonia
 Poolesville High School
 Poornima College of Engineering
 Pope John Paul II High School
@@ -617,6 +653,7 @@ Richland College
 Richmond Hill High School
 Rider University
 Ridgewood High School
+Riga Technical University
 River Dell High School
 Robert Gordon University
 Rochester Institute of Technology
@@ -624,6 +661,7 @@ Rock Ridge High School
 Roosevelt High School
 Rosa Parks Middle School
 Rose-Hulman Institute of Technology
+Rovaniemi University of Applied Sciences
 Rowan College at Gloucester County
 Rowan University
 Roxbury High School
@@ -639,6 +677,7 @@ Sahrdaya College of Engineering and Technology
 Saint Joseph High School
 Saint Joseph's College of Maine
 Saint Paul College
+Saint Petersburg Academic University
 Saint Peter's Preparatory School
 Saint Peter's University
 San Diego State University
@@ -683,12 +722,14 @@ Singapore University of Technology and Design
 Sir Padampat Singhania University
 Sitarambhai Naranji Patel Institute of Technology & Research Centre
 Skidmore College
+Skolkovo Institute of Science and Technology
 Slippery Rock University of Pennsylvania
 Smith College
 South Brunswick High School
 South Carolina State University
 South Dakota School of Mines and Technology
 South Lakes High School
+South Ural State University
 Southeastern Louisiana University
 Southern Connecticut State University
 Southern Illinois University Carbondale
@@ -731,7 +772,10 @@ Swarthmore College
 Symbiosis International University
 Syracuse University
 Tadeusz Kościuszko University of Technology
+Tallinn University of Technology
+Tampere University of Technology
 Technische Universitaet München
+Technical University of Denmark
 Techno India College of Technology
 Techno India University
 Tecnológico de Estudio Superiores de Ixtapaluca
@@ -941,6 +985,7 @@ Tshwane University of Technology
 Tufts University
 Tulane University
 Tunis El Manar University
+Turku University of Applied Sciences
 Turner Fenton Secondary School
 UNAM FES Aragón
 Ulster University
@@ -988,8 +1033,23 @@ University at Oswego, SUNY
 University at Plattsburgh, SUNY
 University of Białystok
 University of Cincinnati Clermont College
-University of Udaipur
+University of Amsterdam
+University of Bath
+University of Birmingham
+University of Eastern Finland
+University of Edinburgh
+University of Helsinki
+University of Jyväskylä
+University of Latvia
+University of Oulu
+University of Sussex
+University of Tampere
+University of Tartu
 University of the People
+University of Vaasa
+University of Warsaw
+University of Waterloo
+University of Udaipur
 Université du Québec à Montréal
 Upper Canada College
 Upper Iowa University
@@ -1011,9 +1071,11 @@ Veer Narmad South Gujarat University
 Veer Surendra Sai University of Technology, Burla
 Vel Tech Multi Tech Dr.Rangarajan Dr.Sakunthala Engineering College
 Vellore Institute of Technology
+Ventspils University College
 Veterans Memorial Early College High School
 Victoria Park Collegiate Institute
 Vidyakunj International School
+Vidzeme University of Applied Sciences
 Villanova University
 Vincennes University
 Vincent Massey Secondary School
@@ -1075,6 +1137,7 @@ Yale-NUS College
 York College of Pennsylvania
 York University
 Youngstown State University
+Yıldız Technical University
 Zespół Szkół Nr.2 im. Jana Pawła II w Miechowie
 Zespół Szkół nr 1 im. Jana Pawła II w Przysusze
 Zespół Szkół Łączności, Monte Cassino 31
@@ -1083,3 +1146,4 @@ Zespół Szkół im. Jana Pawła II w Niepołomicach
 École Centrale Paris
 École Polytechnique de Montréal
 École de technologie supérieure
+Åbo Akademi University
