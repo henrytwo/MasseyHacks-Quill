@@ -34,6 +34,29 @@ angular.module('reg')
       $scope.isAUS = false;
       $scope.isOther = false;
 
+      $('input[type=radio][name=accountOwner]').change(function() {
+        if($(this).val() == 'user'){
+          $('.ACNAME').attr('disabled', true);
+          $('.ACBD').attr('disabled', true);
+          $('.ACAL1').attr('disabled', true);
+          $('.ACAL2').attr('disabled', true);
+          $('.ACCITY').attr('disabled', true);
+          $('.ACZIP').attr('disabled', true);
+          $('.ACREG').attr('disabled', true);
+          $('.ACCOUNTRY').attr('disabled', true);
+        }
+        else{
+          $('.ACNAME').attr('disabled', false);
+          $('.ACBD').attr('disabled', false);
+          $('.ACAL1').attr('disabled', false);
+          $('.ACAL2').attr('disabled', false);
+          $('.ACCITY').attr('disabled', false);
+          $('.ACZIP').attr('disabled', false);
+          $('.ACREG').attr('disabled', false);
+          $('.ACCOUNTRY').attr('disabled', false);
+        }
+      });
+
       $scope.upload = function() {
         var fd = new FormData()
         angular.forEach($scope.files,function(file){
@@ -473,6 +496,82 @@ angular.module('reg')
                 }
               ]
             },
+
+            //account owner informtion validation
+
+            accountOwnerName: {
+              identifier: 'ACNAME',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's full name."
+                }
+              ]
+            },
+            accountOwnerBirthdate: {
+              identifier: 'ACBD',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's birthdate."
+                }
+              ]
+            },
+            accountOwnerA1: {
+              identifier: 'ACAL1',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's address line 1."
+                }
+              ]
+            },
+            accountOwnerA2: {
+              identifier: 'ACAL2',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's address line 2."
+                }
+              ]
+            },
+            accountOwnerCity: {
+              identifier: 'ACCITY',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's city."
+                }
+              ]
+            },
+            accountOwnerZIP: {
+              identifier: 'ACZIP',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's zip code."
+                }
+              ]
+            },
+            accountOwnerRegion: {
+              identifier: 'ACREG',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's state/province/region."
+                }
+              ]
+            },
+            accountOwnerName: {
+              identifier: 'ACCOUNTRY',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's country."
+                }
+              ]
+            },
+            //account validation
             nameOfBank: {
               identifier: 'nameOfBank',
               rules: [
