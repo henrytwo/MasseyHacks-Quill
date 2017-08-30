@@ -22,11 +22,12 @@ angular.module('reg')
       }
       var originalTeamCode = $scope.user.teamCode;
 
-      var languages = ['Assembly', 'Java', 'C', 'C#', 'C++', 'Objective-C',
-                      'PHP', 'Python', 'Ruby', 'JavaScript', 'SQL', 'Perl',
-                      'HTML', 'CSS', 'Swift', 'Scala', 'Go', 'R', 'Matlab',
-                      'VBA', 'Kotlin', 'Haskell', 'Clojure', 'Bash', 'Other',
-                      'PowerPoint', 'Excel', 'None of the above'];
+      var languages = ['AngularJS', 'Assembly', 'Bash', 'C', 'C#', 'C++', 'Clojure', 
+                       'CoffeeScript', 'CSS', 'Excel', 'Go', 'Groovy', 'Haskell', 'HTML', 
+                       'Java', 'JavaScript', 'Kotlin', 'Lua', 'Matlab', 'Node.js', 
+                       'Objective-C', 'Perl', 'PHP', 'PowerPoint', 'Python', 'R', 'React', 
+                       'Ruby', 'Scala', 'SQL', 'Swift', 'TypeScript', 'VBA', 'VB.NET', 
+                       'Visual Basic 6', '.NET Core', 'Other', 'None of the above'];
       $scope.programmingLanguages = languages;
       // Populate the school dropdown
       _setupForm();
