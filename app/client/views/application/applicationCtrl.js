@@ -26,8 +26,7 @@ angular.module('reg')
                       'PHP', 'Python', 'Ruby', 'JavaScript', 'SQL', 'Perl',
                       'HTML', 'CSS', 'Swift', 'Scala', 'Go', 'R', 'Matlab',
                       'VBA', 'Kotlin', 'Haskell', 'Clojure', 'Bash', 'Other',
-                      'PowerPoint', 'Excel', 'SQL', 'VB.NET',
-                      'Groovy', 'Lua', 'None of the above'];
+                      'PowerPoint', 'Excel', 'None of the above'];
       $scope.programmingLanguages = languages;
       // Populate the school dropdown
       _setupForm();
