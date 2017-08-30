@@ -259,6 +259,46 @@ var reimbursement = {
      type: String,
      max: 30
    },
+   accountOwnerName : {
+     type: String,
+     max: 50,
+     default: ''
+   },
+   accountOwnerBirthdate : {
+     type: String,
+     max: 30,
+     default: ''
+   },
+   accountOwnerA1 : {
+     type: String,
+     max: 30,
+     default: ''
+   },
+   accountOwnerA2 : {
+     type: String,
+     max: 30,
+     default: ''
+   },
+   accountOwnerZIP : {
+     type: String,
+     max: 20,
+     default: ''
+   },
+   accountOwnerCity : {
+     type: String,
+     max: 30,
+     default: ''
+   },
+   accountOwnerRegion : {
+     type: String,
+     max: 30,
+     default: ''
+   },
+   accountOwnerCountry : {
+     type: String,
+     max: 30,
+     default: ''
+   },
    countryOfBank: {
      type: String,
      max: 30
