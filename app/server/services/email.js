@@ -85,7 +85,7 @@ controller.sendAdmittanceEmail = function(user, callback) {
  if (user.profile.AcceptedreimbursementClass === 'Rejected') {
    travelText = 'Unfortunately we have run out of travel reimbursements, so will not be able to grant you reimbursements this time.'
  } else {
-   travelText = 'For travelling from ' + user.travelFromCountry + ' you will be granted X €'
+   travelText = 'For travelling from ' + user.profile.travelFromCountry + ' you will be granted X €'
  }
 
  var locals = {
@@ -121,12 +121,12 @@ controller.sendConfirmationEmail = function(user, token, callback) {
    subject: "[Junction Hackathon] - You are confirmed!"
  };
  var travelText;
- if (user.needsReimbursement) {
+ if (user.profile.needsReimbursement && user.profile.AcceptedreimbursementClass !== 'Rejected') {
    travelText = 'A reminder about your travel reimbursement: ' +
-    '<br>For travelling from ' + user.travelFromCountry + ', you will be <br> granted X eur';
+    '<br>For travelling from ' + user.profile.travelFromCountry + ', you will be <br> granted X eur';
  }
  var accommodationText;
- if (user.applyAccommodation) {
+ if (user.profile.applyAccommodation) {
    accommodationText = 'The free accommodation provided by Junction will be' +
    '<br>held at schools near the event venue. Be sure to bring necessary stuff' +
    '<br>like matress, sleeping bag and pillow.'
