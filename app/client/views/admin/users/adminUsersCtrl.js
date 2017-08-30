@@ -105,7 +105,7 @@ angular.module('reg')
 
       $scope.toggleReject = function($event, user, index) {
         $event.stopPropagation();
-        
+
         if (!user.status.rejected){
           swal({
             title: "Whoa, wait a minute!",
@@ -382,16 +382,16 @@ angular.module('reg')
                 value: user.profile.occupationalStatus.join(', ')
               },{
                 name: 'Top level tools',
-                value: user.profile.topLevelTools.join(', ')
+                value: user.profile.topLevelTools
               },{
                 name: 'Great level tools',
-                value: user.profile.greatLevelTools.join(', ')
+                value: user.profile.greatLevelTools
               },{
                 name: 'Good level tools',
-                value: user.profile.goodLevelTools.join(', ')
+                value: user.profile.goodLevelTools
               },{
                 name: 'Beginner level tools',
-                value: user.profile.beginnerLevelTools.join(', ')
+                value: user.profile.beginnerLevelTools
               },{
                 name: 'Coding experience',
                 value: user.profile.codingExperience
