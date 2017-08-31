@@ -110,10 +110,15 @@
       width: 64px;
       height: 64px;
     }
-    .arrowleft {
+    .left {
       float:left;
     }
-    .arrowright {
+    .chevron {
+      cursor: pointer;
+      margin-top: 20px;
+      font-size: 45px;
+    }
+    .right {
       float:right;
     }
     height: 130px;
