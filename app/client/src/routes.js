@@ -184,8 +184,10 @@ angular.module('reg')
       .state('404', {
         url: "/404",
         templateUrl: "views/404.html",
-        data: {
-          requireLogin: false
+        resolve: {
+          currentUser: function(UserService){
+            return UserService.getCurrentUser();
+          }
         }
       });
 
