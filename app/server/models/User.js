@@ -359,11 +359,6 @@ var reimbursement = {
      default: '',
      max: 32
    },
-   ifsc: {
-     type: String,
-     default: '',
-     max: 11
-   },
    receiptPurposeCode: {
      type: String,
      default: '',

@@ -518,15 +518,6 @@
           </div>
 
           <div class="field" ng-show="isINDIA">
-            <label>IFSC (Indian Financial System Code)</label>
-            <input type="text"
-                   name="ifsc"
-                   class="ifscField"
-                   ng-model="user.reimbursement.ifsc"
-                   placeholder="IN12345678923">
-          </div>
-
-          <div class="field" ng-show="isINDIA">
             <label>Receipt Purpose Code</label>
             <input type="text"
                    name="rpc"
@@ -604,7 +595,7 @@
 
         <div class="field">
           <label>Choose a PDF-file to upload (Max. 2MB)</label>
-          <p>Please name the file this way: <b>firstname_lastname_receipt.pdf</b></p>
+          <p>Please name the file this way: <b>firstname_lastname__birthdate_receipt.pdf</b></p>
           <input
              type="file"
              name="fileUpload"

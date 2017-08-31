@@ -177,7 +177,6 @@ angular.module('reg')
           $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', !disabledToggler);
           $('.bbanField').attr('disabled', !disabledToggler);
-          $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', !disabledToggler);
@@ -203,7 +202,6 @@ angular.module('reg')
           $('.accountNumberField').attr('disabled', disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', !disabledToggler);
-          $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
@@ -227,7 +225,6 @@ angular.module('reg')
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
           $('.zipCodeBankField').attr('disabled', disabledToggler);
@@ -248,9 +245,8 @@ angular.module('reg')
           $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', !disabledToggler);
-          $('.clearingCodeField').attr('disabled', !disabledToggler);
+          $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ifscField').attr('disabled', disabledToggler);
           $('.rcpField').attr('disabled', disabledToggler);
           $('.cityOfBankField').attr('disabled', !disabledToggler);
           $('.zipCodeBankField').attr('disabled', !disabledToggler);
@@ -258,7 +254,7 @@ angular.module('reg')
 
           $('.bbanLabel').html('BBAN (Basic bank account number)')
           $('.swiftBicLabel').html('SWIFT / BIC');
-          $('.ccLabel').html('Clearing code')
+          $('.ccLabel').html('Clearing code (IFSC)');
 
           $scope.isSEPA = false;
           $scope.isUS = false;
@@ -273,14 +269,13 @@ angular.module('reg')
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
           $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
           $('.bbanLabel').html('BBAN (Basic bank account number - Must be <b>EURO</b> account)')
-          $('.swiftBicLabel').html('BIC (BIK if you have it)');
+          $('.swiftBicLabel').html('BIC');
           $('.ccLabel').html('Clearing code');
 
           $scope.isSEPA = false;
@@ -296,7 +291,6 @@ angular.module('reg')
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
           $('.zipCodeBankField').attr('disabled', disabledToggler);
@@ -612,19 +606,6 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please select a file to upload'
-                }
-              ]
-            },
-            ifsc: {
-              identifier: 'ifscField',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter the IFSC.'
-                },
-                {
-                  type: 'exactLength[11]',
-                  prompt: 'IFSC must be 11 characters long.'
                 }
               ]
             },
