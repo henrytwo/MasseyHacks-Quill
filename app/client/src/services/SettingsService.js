@@ -39,7 +39,6 @@ angular.module('reg')
         });
       },
       addSchool: function(text){
-        console.log("school to add:", text);
         return $http.put(base + 'addschool', {
           school: text
         });

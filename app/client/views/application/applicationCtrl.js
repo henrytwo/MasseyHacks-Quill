@@ -87,8 +87,7 @@ angular.module('reg')
       }
 
       function _updateSchools(e) {
-        if (Settings.data.schools.indexOf($scope.user.profile.school) === -1) {
-          console.log('Adding new school');
+        if (Settings.data.schools.indexOf($scope.user.profile.school) === -1 && $scope.user.profile.school !== null) {
           SettingsService.addSchool($scope.user.profile.school)
           .success(function(user){
             return;
