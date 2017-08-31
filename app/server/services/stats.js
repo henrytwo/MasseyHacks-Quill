@@ -18,6 +18,16 @@ function calculateStats(settings){
         O: 0,
         N: 0
       },
+      tracks: {
+        'HealthTech': 0,
+        'Logistics': 0,
+        'Entertainment': 0,
+        'MultimodalMobility': 0,
+        'IntelligentBuildings': 0,
+        'GameJam': 0,
+        'FinTech': 0,
+        'IndustrialInternet': 0
+      },
       schools: {},
       // year: {
       //   '2016': 0,
@@ -88,8 +98,49 @@ function calculateStats(settings){
     Aspecial:      0,
     ArejectedTotal:0,
 
-    TotalAmountofReimbursementsAccepted: 0
+    TotalAmountofReimbursementsAccepted: 0,
+
+    appliedStats: {
+      tracks: {
+        'HealthTech': 0,
+        'Logistics': 0,
+        'Entertainment': 0,
+        'MultimodalMobility': 0,
+        'IntelligentBuildings': 0,
+        'GameJam': 0,
+        'FinTech': 0,
+        'IndustrialInternet': 0
+      }
+    },
+
+    admittedStats: {
+      tracks: {
+        'HealthTech': 0,
+        'Logistics': 0,
+        'Entertainment': 0,
+        'MultimodalMobility': 0,
+        'IntelligentBuildings': 0,
+        'GameJam': 0,
+        'FinTech': 0,
+        'IndustrialInternet': 0
+      }
+    },
+
+    confirmedStats: {
+      tracks: {
+        'HealthTech': 0,
+        'Logistics': 0,
+        'Entertainment': 0,
+        'MultimodalMobility': 0,
+        'IntelligentBuildings': 0,
+        'GameJam': 0,
+        'FinTech': 0,
+        'IndustrialInternet': 0
+      }
+    }
   };
+
+
 
   User
     .find({})
@@ -107,6 +158,18 @@ function calculateStats(settings){
 
         // Add to the gender
         newStats.demo.gender[user.profile.gender] += 1;
+
+        // Add to tracks
+        if(user.status.completedProfile){
+          newStats.appliedStats.tracks[user.profile.mostInterestingTrack] += 1;
+        }
+        if(user.status.admitted){
+          newStats.admittedStats.tracks[user.profile.mostInterestingTrack] += 1;
+        }
+        if(user.status.confirmed){
+          newStats.confirmedStats.tracks[user.profile.mostInterestingTrack] += 1;
+        }
+        newStats.demo.tracks[user.profile.mostInterestingTrack] += 1;
 
         // Count verified
         newStats.verified += user.verified ? 1 : 0;

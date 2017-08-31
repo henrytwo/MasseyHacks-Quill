@@ -127,7 +127,7 @@
                 Outside Europe: <strong>{{stats.RoutsideTotal}}</strong>
           </div>
         </div>
-        
+
         <div class="item">
           <i class="green money icon"></i>
           <div class="content">
@@ -235,31 +235,197 @@
         </div>
       </div> -->
     <div class="ui divider"></div>
-    <div class="ui list">
-      <div
-        class="item"
-        ng-repeat="school in stats.demo.schools | orderBy: '-count'">
-        <div class="content">
-          <strong>{{school.email}}</strong> : {{school.count}} ({{school.count / stats.total * 100 | number: 1}}%)
-          <p>
-          <div class="ui purple mini label">
-            Submitted: {{school.stats.submitted}}
+    <div class="ui header">
+      Track Distribution
+    </div>
+    <div class="field">
+      <label>Account Status</label>
+      <select ng-model="accountStatus" class="ui fluid search selection dropdown">
+        <option value="total" selected="selected">Total</option>
+        <option value="completedProfile">Submitted Application</option>
+        <option value="admitted">Admitted</option>
+        <option value="confirmed">Confirmed</option>
+      </select>
+    </div>
+    <div ng-show="accountStatus=='total'">
+      <div class="ui list">
+        <div class="item">
+          <div class="content">
+            <strong>HealthTech</strong>: {{stats.demo.tracks['HealthTech']}} ({{stats.demo.track['HealthTech'] / stats.total * 100 | number:1}}%)
           </div>
-          <div class="ui pink mini label">
-            Admitted: {{school.stats.admitted}}
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Logistics</strong>: {{stats.demo.tracks['Logistics']}} ({{stats.demo.tracks['Logistics'] / stats.total * 100 | number:1}}%)
           </div>
-          <div class="ui green mini label">
-            Confirmed: {{school.stats.confirmed}}
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Entertainment</strong>: {{stats.demo.tracks['Entertainment']}} ({{stats.demo.tracks['Entertainment'] / stats.total * 100 | number:1}}%)
           </div>
-          <div class="ui red mini label">
-            Declined: {{school.stats.declined}}
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Multimodal Mobility</strong>: {{stats.demo.tracks['MultimodalMobility']}} ({{stats.demo.tracks['MultimodalModal'] / stats.total * 100 | number:1 }}%)
           </div>
-          </p>
-          <div class="ui divider"></div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Intelligent Buildings</strong>: {{stats.demo.tracks['IntelligentBuildings']}} ({{stats.demo.tracks['IntelligentBuildings'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Game Jam</strong>: {{stats.demo.tracks['GameJam']}} ({{stats.demo.tracks['GameJam'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>FinTech</strong>: {{stats.demo.tracks['FinTech']}} ({{stats.demo.tracks['FinTech'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Industrial Internet</strong>: {{stats.demo.tracks['IndustrialInternet']}} ({{stats.demo.tracks['IndustrialInternet'] / stats.total * 100 | number:1 }}%)
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <div ng-show="accountStatus=='completedProfile'">
+      <div class="ui list">
+        <div class="item">
+          <div class="content">
+            <strong>HealthTech</strong>: {{stats.appliedStats.tracks['HealthTech']}} ({{stats.appliedStats.track['HealthTech'] / stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Logistics</strong>: {{stats.appliedStats.tracks['Logistics']}} ({{stats.appliedStats.tracks['Logistics'] / stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Entertainment</strong>: {{stats.appliedStats.tracks['Entertainment']}} ({{stats.appliedStats.tracks['Entertainment'] / stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Multimodal Mobility</strong>: {{stats.appliedStats.tracks['MultimodalMobility']}} ({{stats.appliedStats.tracks['MultimodalModal'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Intelligent Buildings</strong>: {{stats.appliedStats.tracks['IntelligentBuildings']}} ({{stats.appliedStats.tracks['IntelligentBuildings'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Game Jam</strong>: {{stats.appliedStats.tracks['GameJam']}} ({{stats.appliedStats.tracks['GameJam'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>FinTech</strong>: {{stats.appliedStats.tracks['FinTech']}} ({{stats.appliedStats.tracks['FinTech'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Industrial Internet</strong>: {{stats.appliedStats.tracks['IndustrialInternet']}} ({{stats.appliedStats.tracks['IndustrialInternet'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="accountStatus=='admitted'">
+      <div class="ui list">
+        <div class="item">
+          <div class="content">
+            <strong>HealthTech</strong>: {{stats.admittedStats.tracks['HealthTech']}} ({{stats.admittedStats.track['HealthTech'] / stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Logistics</strong>: {{stats.admittedStats.tracks['Logistics']}} ({{stats.admittedStats.tracks['Logistics'] / stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Entertainment</strong>: {{stats.admittedStats.tracks['Entertainment']}} ({{stats.admittedStats.tracks['Entertainment'] / stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Multimodal Mobility</strong>: {{stats.admittedStats.tracks['MultimodalMobility']}} ({{stats.admittedStats.tracks['MultimodalModal'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Intelligent Buildings</strong>: {{stats.admittedStats.tracks['IntelligentBuildings']}} ({{stats.admittedStats.tracks['IntelligentBuildings'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Game Jam</strong>: {{stats.admittedStats.tracks['GameJam']}} ({{stats.admittedStats.tracks['GameJam'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>FinTech</strong>: {{stats.admittedStats.tracks['FinTech']}} ({{stats.admittedStats.tracks['FinTech'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Industrial Internet</strong>: {{stats.admittedStats.tracks['IndustrialInternet']}} ({{stats.admittedStats.tracks['IndustrialInternet'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="accountStatus=='confirmed'">
+      <div class="ui list">
+        <div class="item">
+          <div class="content">
+            <strong>HealthTech</strong>: {{stats.confirmedStats.tracks['HealthTech']}} ({{stats.confirmedStats.track['HealthTech'] / stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Logistics</strong>: {{stats.confirmedStats.tracks['Logistics']}} ({{stats.confirmedStats.tracks['Logistics'] / stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Entertainment</strong>: {{stats.confirmedStats.tracks['Entertainment']}} ({{stats.confirmedStats.tracks['Entertainment'] / stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Multimodal Mobility</strong>: {{stats.confirmedStats.tracks['MultimodalMobility']}} ({{stats.confirmedStats.tracks['MultimodalModal'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Intelligent Buildings</strong>: {{stats.confirmedStats.tracks['IntelligentBuildings']}} ({{stats.confirmedStats.tracks['IntelligentBuildings'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Game Jam</strong>: {{stats.confirmedStats.tracks['GameJam']}} ({{stats.confirmedStats.tracks['GameJam'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>FinTech</strong>: {{stats.confirmedStats.tracks['FinTech']}} ({{stats.confirmedStats.tracks['FinTech'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+        <div class="item">
+          <div class="content">
+            <strong>Industrial Internet</strong>: {{stats.confirmedStats.tracks['IndustrialInternet']}} ({{stats.confirmedStats.tracks['IndustrialInternet'] / stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+      </div>
+    </div>
 
 <!--   <div
     class="ui purple segment"
