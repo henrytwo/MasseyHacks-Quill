@@ -185,12 +185,7 @@ angular.module('reg')
         url: "/404",
         templateUrl: "views/404.html",
         data: {
-          requireLogin: false
-        },
-        resolve: {
-          currentUser: function(UserService){
-            return UserService.getCurrentUser();
-          }
+          unmatched: true
         }
       });
 
@@ -213,6 +208,7 @@ angular.module('reg')
       });
 
       $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+        var unmatched = toState.data.unmatched;
         var requireLogin = toState.data.requireLogin;
         var requireAdmin = toState.data.requireAdmin;
         var requireVerified = toState.data.requireVerified;
@@ -221,6 +217,11 @@ angular.module('reg')
         var requireConfirmed = toState.data.requireConfirmed;
         var requireTravelReimbursementNeeded = toState.data.requireTravelReimbursementNeeded;
         var requireTravelReimbursementClassIsNotRejected = toState.data.requireTravelReimbursementClassIsNotRejected;
+
+        if (unmatched){
+          event.preventDefault();
+          $state.go('app.dashboard');
+        }
 
         if (requireLogin && !Session.getToken()) {
           event.preventDefault();
