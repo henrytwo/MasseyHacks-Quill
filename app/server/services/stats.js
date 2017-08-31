@@ -160,10 +160,10 @@ function calculateStats(settings){
         newStats.demo.gender[user.profile.gender] += 1;
 
         // Add to tracks
-        if(user.status.completedProfile){
+        if(user.status.completedProfile && !user.status.admitted && !user.status.confirmed){
           newStats.appliedStats.tracks[user.profile.mostInterestingTrack] += 1;
         }
-        if(user.status.admitted){
+        if(user.status.admitted  && user.status.completedProfile && !user.status.confirmed){
           newStats.admittedStats.tracks[user.profile.mostInterestingTrack] += 1;
         }
         if(user.status.confirmed){
