@@ -91,7 +91,8 @@ angular.module('reg')
         templateUrl: "views/team/team.html",
         controller: 'TeamCtrl',
         data: {
-          requireVerified: true
+          requireVerified: true,
+          requireApplied: true
         },
         resolve: {
           currentUser: function(UserService){
@@ -207,6 +208,7 @@ angular.module('reg')
         var requireLogin = toState.data.requireLogin;
         var requireAdmin = toState.data.requireAdmin;
         var requireVerified = toState.data.requireVerified;
+        var requireApplied = toState.data.requireApplied;
         var requireAdmitted = toState.data.requireAdmitted;
         var requireConfirmed = toState.data.requireConfirmed;
         var requireTravelReimbursementNeeded = toState.data.requireTravelReimbursementNeeded;
@@ -223,6 +225,11 @@ angular.module('reg')
         }
 
         if (requireVerified && !Session.getUser().verified){
+          event.preventDefault();
+          $state.go('app.dashboard');
+        }
+
+        if(requireApplied && !Session.getUser().completedProfile){
           event.preventDefault();
           $state.go('app.dashboard');
         }
