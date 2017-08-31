@@ -173,7 +173,7 @@ module.exports = function(router) {
      var results = [];
      results.push({
        "name": 'Type in your school',
-       "id": 'This applicant fucked up his school selection'
+       "id": 'Undefined school'
      });
      var response = {
        'results': results
