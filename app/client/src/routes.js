@@ -78,7 +78,7 @@ angular.module('reg')
         controller: 'ConfirmationCtrl',
         data: {
           requireVerified: true,
-          requireApplied: true
+          requireAdmitted: true
         },
         resolve: {
           currentUser: function(UserService){
@@ -207,7 +207,7 @@ angular.module('reg')
         var requireLogin = toState.data.requireLogin;
         var requireAdmin = toState.data.requireAdmin;
         var requireVerified = toState.data.requireVerified;
-        var requireApplied = toState.data.requireApplied;
+        var requireAdmitted = toState.data.requireAdmitted;
         var requireConfirmed = toState.data.requireConfirmed;
         var requireTravelReimbursementNeeded = toState.data.requireTravelReimbursementNeeded;
         var requireTravelReimbursementClassIsNotRejected = toState.data.requireTravelReimbursementClassIsNotRejected;
@@ -227,7 +227,7 @@ angular.module('reg')
           $state.go('app.dashboard');
         }
 
-        if(requireConfirmed && !Session.getUser().status.admitted){
+        if((requireAdmitted && requireVerified) && !Session.getUser().status.admitted && !Utils.isAfter(Session.getUser().status.confirmBy)){
           event.preventDefault();
           $state.go('app.dashboard');
         }
