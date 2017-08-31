@@ -232,11 +232,7 @@ angular.module('reg')
           $state.go('app.dashboard');
         }
 
-        if(requireTravelReimbursementNeeded && !Session.getUser().profile.needsReimbursement){
-          event.preventDefault();
-          $state.go('app.dashboard');
-        }
-        if(requireTravelReimbursementClassIsNotRejected && (Session.getUser().profile.AcceptedreimbursementClass == 'Rejected')){
+        if((requireConfirmed && requireTravelReimbursementNeeded && requireTravelReimbursementClassIsNotRejected) && !Session.getUser().profile.needsReimbursement){
           event.preventDefault();
           $state.go('app.dashboard');
         }
