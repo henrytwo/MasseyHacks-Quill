@@ -176,14 +176,14 @@ controller.sendConfirmationEmail = function(user, token, callback) {
  var travelText;
  if (user.profile.needsReimbursement && user.profile.AcceptedreimbursementClass !== 'Rejected') {
    travelText = 'A reminder about your travel reimbursement: ' +
-    '<br>For travelling from ' + user.profile.travelFromCountry + ', you will be <br> granted ' + getAcceptedreimbAmount(user) + ' €';
+    'For travelling from ' + user.profile.travelFromCountry + ', you will be granted ' + getAcceptedreimbAmount(user) + ' €';
  }
 
  var accommodationText;
  if (user.profile.applyAccommodation) {
-   accommodationText = 'The free accommodation provided by Junction will be' +
-   '<br>held at schools near the event venue. Be sure to bring necessary stuff' +
-   '<br>like matress, sleeping bag and pillow.'
+   accommodationText = 'The free accommodation provided by Junction will be ' +
+   'held at schools near the event venue. Be sure to bring necessary stuff ' +
+   'like matress, sleeping bag and pillow.'
  }
 
  var locals = {
