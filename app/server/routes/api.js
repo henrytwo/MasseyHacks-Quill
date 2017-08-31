@@ -168,6 +168,20 @@ module.exports = function(router) {
      });
    });
 
+
+   router.get('/search/school/', function(req, res) {
+     var results = [];
+     results.push({
+       "name": 'Type in your school',
+       "id": 'This applicant fucked up his school selection'
+     });
+     var response = {
+       'results': results
+     };
+     return res.json(response);
+   });
+
+
    // School search
    router.get('/search/school/:query', function(req, res) {
      var query = req.params.query;
@@ -185,7 +199,7 @@ module.exports = function(router) {
              "id": school
            });
          }
-         if (results.length > 10) {
+         if (results.length > 50) {
            break;
          }
          i++;
