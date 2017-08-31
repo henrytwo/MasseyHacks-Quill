@@ -33,7 +33,7 @@ angular.module('reg')
                        'Java', 'JavaScript', 'Kotlin', 'Lua', 'Matlab', 'Node.js',
                        'Objective-C', 'Perl', 'PHP', 'PowerPoint', 'Python', 'R', 'React',
                        'Ruby', 'Scala', 'SQL', 'Swift', 'TypeScript', 'VBA', 'VB.NET',
-                       'Visual Basic 6', '.NET Core', 'Other', 'None of the above'];
+                       'Visual Basic 6', '.NET Core', 'Other'];
       $scope.programmingLanguages = languages;
       // Populate the school dropdown
       _setupForm();
