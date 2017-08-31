@@ -184,6 +184,7 @@ angular.module('reg')
       .state('404', {
         url: "/404",
         templateUrl: "views/404.html",
+
         resolve: {
           currentUser: function(UserService){
             return UserService.getCurrentUser();
