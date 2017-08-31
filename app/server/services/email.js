@@ -139,7 +139,7 @@ controller.sendAdmittanceEmail = function(user, callback) {
  if (user.profile.AcceptedreimbursementClass === 'Rejected') {
    travelText = 'Unfortunately we have run out of travel reimbursements, so will not be able to grant you reimbursements this time.'
  } else {
-   travelText = 'For travelling from ' + user.profile.travelFromCountry + ' you will be granted ' + getAcceptedreimbAmount(user) +' €'
+   travelText = 'For travelling from ' + user.profile.travelFromCountry + ' you will be granted ' + getAcceptedreimbAmount(user) +' €.'
  }
  var locals = {
    nickname: user.nickname,
@@ -176,7 +176,7 @@ controller.sendConfirmationEmail = function(user, token, callback) {
  var travelText;
  if (user.profile.needsReimbursement && user.profile.AcceptedreimbursementClass !== 'Rejected') {
    travelText = 'A reminder about your travel reimbursement: ' +
-    'For travelling from ' + user.profile.travelFromCountry + ', you will be granted ' + getAcceptedreimbAmount(user) + ' €';
+    'For travelling from ' + user.profile.travelFromCountry + ', you will be granted ' + getAcceptedreimbAmount(user) + ' €.';
  }
 
  var accommodationText;
