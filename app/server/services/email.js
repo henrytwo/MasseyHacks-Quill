@@ -99,6 +99,30 @@ function sendOne(templateName, options, data, callback){
   });
 }
 
+controller.sendApplicationEmail = function(user, callback) {
+  var options = {
+    to: user.email,
+    subject: "[Junction Hackathon] - We have received your application!"
+  };
+
+  var locals = {
+    nickname: user.nickname,
+    dashUrl: ROOT_URL
+  };
+
+  sendOne('email-application', options, locals, function(err, info){
+    if (err){
+      console.log(err);
+    }
+    if (info){
+      console.log(info.message);
+    }
+    if (callback){
+      callback(err, info);
+    }
+  });
+}
+
 /*
 * Send a status update email for admittance.
 * @param  {[type]}   email    [description]
@@ -117,7 +141,6 @@ controller.sendAdmittanceEmail = function(user, callback) {
  } else {
    travelText = 'For travelling from ' + user.profile.travelFromCountry + ' you will be granted ' + getAcceptedreimbAmount(user) +' €'
  }
-console.log(travelText);
  var locals = {
    nickname: user.nickname,
    dashUrl: ROOT_URL,
@@ -156,7 +179,6 @@ controller.sendConfirmationEmail = function(user, token, callback) {
     '<br>For travelling from ' + user.profile.travelFromCountry + ', you will be <br> granted ' + getAcceptedreimbAmount(user) + ' €';
  }
 
- console.log(travelText);
  var accommodationText;
  if (user.profile.applyAccommodation) {
    accommodationText = 'The free accommodation provided by Junction will be' +
@@ -257,7 +279,6 @@ controller.sendVerificationEmail = function(user, token, callback) {
       callback(err, info);
     }
   });
-
 };
 
 /**

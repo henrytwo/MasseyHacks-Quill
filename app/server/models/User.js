@@ -19,6 +19,10 @@ var profile = {
     max: 65,
   },
 
+  submittedApplication: {
+    type: Boolean,
+    default: false
+  },
 
   travelFromCountry: {
     type: String,

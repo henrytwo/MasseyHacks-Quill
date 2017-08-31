@@ -321,6 +321,18 @@ UserController.updateProfileById = function (id, profile, callback){
       }
     });
 
+    if (!profile.submittedApplication) {
+      // Send application success email after first application submission
+      profile.submittedApplication = true;
+      User.findById(id, function(err, user) {
+        if (err) {
+          console.log('Could not send email:');
+          console.log(err);
+        }
+        Mailer.sendApplicationEmail(user);
+      });
+    }
+
     User.findOneAndUpdate({
       _id: id,
       verified: true

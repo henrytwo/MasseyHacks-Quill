@@ -47,8 +47,6 @@ angular.module('reg')
       },
 
       updateReimbursement: function(id, reimbursement) {
-        console.log("updateTest");
-        console.log(reimbursement);
         return $http.put(base + id + '/reimbursement', {
           reimbursement: reimbursement
         });
@@ -84,7 +82,6 @@ angular.module('reg')
       },
 
       admitUser: function(id, reimbClass){
-        console.log("USERSERVICE: " + reimbClass);
         return $http.post(base + id + '/admit', {
           reimbClass: reimbClass
         });
