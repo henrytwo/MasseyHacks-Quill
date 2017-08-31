@@ -34,6 +34,29 @@ angular.module('reg')
       $scope.isAUS = false;
       $scope.isOther = false;
 
+      $('input[type=radio][name=accountOwner]').change(function() {
+        if($(this).val() == 'user'){
+          $('.ACNAME').attr('disabled', true);
+          $('.ACBD').attr('disabled', true);
+          $('.ACAL1').attr('disabled', true);
+          $('.ACAL2').attr('disabled', true);
+          $('.ACCITY').attr('disabled', true);
+          $('.ACZIP').attr('disabled', true);
+          $('.ACREG').attr('disabled', true);
+          $('.ACCOUNTRY').attr('disabled', true);
+        }
+        else{
+          $('.ACNAME').attr('disabled', false);
+          $('.ACBD').attr('disabled', false);
+          $('.ACAL1').attr('disabled', false);
+          $('.ACAL2').attr('disabled', false);
+          $('.ACCITY').attr('disabled', false);
+          $('.ACZIP').attr('disabled', false);
+          $('.ACREG').attr('disabled', false);
+          $('.ACCOUNTRY').attr('disabled', false);
+        }
+      });
+
       $scope.upload = function() {
         var fd = new FormData()
         angular.forEach($scope.files,function(file){
@@ -154,7 +177,6 @@ angular.module('reg')
           $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', !disabledToggler);
           $('.bbanField').attr('disabled', !disabledToggler);
-          $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', !disabledToggler);
@@ -180,7 +202,6 @@ angular.module('reg')
           $('.accountNumberField').attr('disabled', disabledToggler);
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', !disabledToggler);
-          $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
@@ -204,7 +225,6 @@ angular.module('reg')
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
           $('.zipCodeBankField').attr('disabled', disabledToggler);
@@ -225,9 +245,8 @@ angular.module('reg')
           $('.ibanField').attr('disabled', !disabledToggler);
           $('.accountNumberField').attr('disabled', !disabledToggler);
           $('.addressOfBankField').attr('disabled', !disabledToggler);
-          $('.clearingCodeField').attr('disabled', !disabledToggler);
+          $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ifscField').attr('disabled', disabledToggler);
           $('.rcpField').attr('disabled', disabledToggler);
           $('.cityOfBankField').attr('disabled', !disabledToggler);
           $('.zipCodeBankField').attr('disabled', !disabledToggler);
@@ -235,7 +254,7 @@ angular.module('reg')
 
           $('.bbanLabel').html('BBAN (Basic bank account number)')
           $('.swiftBicLabel').html('SWIFT / BIC');
-          $('.ccLabel').html('Clearing code')
+          $('.ccLabel').html('Clearing code (IFSC)');
 
           $scope.isSEPA = false;
           $scope.isUS = false;
@@ -250,14 +269,13 @@ angular.module('reg')
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', !disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
           $('.zipCodeBankField').attr('disabled', disabledToggler);
           $('.brokerageInfoField').attr('disabled', disabledToggler);
 
           $('.bbanLabel').html('BBAN (Basic bank account number - Must be <b>EURO</b> account)')
-          $('.swiftBicLabel').html('BIC (BIK if you have it)');
+          $('.swiftBicLabel').html('BIC');
           $('.ccLabel').html('Clearing code');
 
           $scope.isSEPA = false;
@@ -273,7 +291,6 @@ angular.module('reg')
           $('.addressOfBankField').attr('disabled', disabledToggler);
           $('.clearingCodeField').attr('disabled', disabledToggler);
           $('.bbanField').attr('disabled', disabledToggler);
-          $('.ifscField').attr('disabled', !disabledToggler);
           $('.rcpField').attr('disabled', !disabledToggler);
           $('.cityOfBankField').attr('disabled', disabledToggler);
           $('.zipCodeBankField').attr('disabled', disabledToggler);
@@ -473,6 +490,82 @@ angular.module('reg')
                 }
               ]
             },
+
+            //account owner informtion validation
+
+            accountOwnerName: {
+              identifier: 'ACNAME',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's full name."
+                }
+              ]
+            },
+            accountOwnerBirthdate: {
+              identifier: 'ACBD',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's birthdate."
+                }
+              ]
+            },
+            accountOwnerA1: {
+              identifier: 'ACAL1',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's address line 1."
+                }
+              ]
+            },
+            accountOwnerA2: {
+              identifier: 'ACAL2',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's address line 2."
+                }
+              ]
+            },
+            accountOwnerCity: {
+              identifier: 'ACCITY',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's city."
+                }
+              ]
+            },
+            accountOwnerZIP: {
+              identifier: 'ACZIP',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's zip code."
+                }
+              ]
+            },
+            accountOwnerRegion: {
+              identifier: 'ACREG',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's state/province/region."
+                }
+              ]
+            },
+            accountOwnerName: {
+              identifier: 'ACCOUNTRY',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: "Please enter the account onwer's country."
+                }
+              ]
+            },
+            //account validation
             nameOfBank: {
               identifier: 'nameOfBank',
               rules: [
@@ -513,19 +606,6 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please select a file to upload'
-                }
-              ]
-            },
-            ifsc: {
-              identifier: 'ifscField',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter the IFSC.'
-                },
-                {
-                  type: 'exactLength[11]',
-                  prompt: 'IFSC must be 11 characters long.'
                 }
               ]
             },

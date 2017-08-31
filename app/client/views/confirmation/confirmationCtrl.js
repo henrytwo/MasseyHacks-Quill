@@ -28,6 +28,11 @@ angular.module('reg')
         });
       _setupForm();
 
+      $('.icon')
+      .popup({
+        on: 'hover'
+      });
+
 
       // -------------------------------
       // All this just for dietary restriction checkboxes fml
@@ -110,7 +115,7 @@ angular.module('reg')
             console.log(fields);
           },
           onFailure: function(formErrors, fields){
-            $scope.fieldErrors = formErrors; 
+            $scope.fieldErrors = formErrors;
             $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
 
         }

@@ -76,6 +76,10 @@ angular.module('reg')
         url: "/confirmation",
         templateUrl: "views/confirmation/confirmation.html",
         controller: 'ConfirmationCtrl',
+        data: {
+          requireVerified: true,
+          requireApplied: true
+        },
         resolve: {
           currentUser: function(UserService){
             return UserService.getCurrentUser();
@@ -109,14 +113,14 @@ angular.module('reg')
           requireAdmin: true
         }
       })
-
-
       .state('app.reimbursement', {
         url: "/travelreimbursement",
         templateUrl: "views/reimbursement/reimbursement.html",
         controller: 'ReimbursementCtrl',
         data: {
-          requireVerified: false
+          requireConfirmed: true,
+          requireTravelReimbursementNeeded: true,
+          requireTravelReimbursementClassIsNotRejected: true
         },
         resolve: {
           currentUser: function(UserService){
@@ -128,7 +132,7 @@ angular.module('reg')
         }
       })
 
-      
+
       .state('app.admin.stats', {
         url: "/admin",
         templateUrl: "views/admin/stats/stats.html",
@@ -203,6 +207,10 @@ angular.module('reg')
         var requireLogin = toState.data.requireLogin;
         var requireAdmin = toState.data.requireAdmin;
         var requireVerified = toState.data.requireVerified;
+        var requireApplied = toState.data.requireApplied;
+        var requireConfirmed = toState.data.requireConfirmed;
+        var requireTravelReimbursementNeeded = toState.data.requireTravelReimbursementNeeded;
+        var requireTravelReimbursementClassIsNotRejected = toState.data.requireTravelReimbursementClassIsNotRejected;
 
         if (requireLogin && !Session.getToken()) {
           event.preventDefault();
@@ -215,6 +223,20 @@ angular.module('reg')
         }
 
         if (requireVerified && !Session.getUser().verified){
+          event.preventDefault();
+          $state.go('app.dashboard');
+        }
+
+        if(requireConfirmed && !Session.getUser().status.admitted){
+          event.preventDefault();
+          $state.go('app.dashboard');
+        }
+
+        if(requireTravelReimbursementNeeded && !Session.getUser().profile.needsReimbursement){
+          event.preventDefault();
+          $state.go('app.dashboard');
+        }
+        if(requireTravelReimbursementClassIsNotRejected && (Session.getUser().profile.AcceptedreimbursementClass == 'Rejected')){
           event.preventDefault();
           $state.go('app.dashboard');
         }

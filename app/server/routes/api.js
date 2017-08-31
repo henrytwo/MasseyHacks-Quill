@@ -442,6 +442,9 @@ module.exports = function(router) {
 
   router.put('/settings/addschool', function(req, res){
     var school = req.body.school;
+    if (!school) {
+      res.sendStatus(400, "School is null");
+    }
     SettingsController.addSchool(school, defaultResponse(req, res));
   });
 

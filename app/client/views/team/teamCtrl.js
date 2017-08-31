@@ -7,6 +7,13 @@ angular.module('reg')
     'UserService',
     'TEAM',
     function($scope, currentUser, settings, Utils, UserService, TEAM){
+
+      //icon tooltip popup
+      $('.icon')
+      .popup({
+        on: 'hover'
+      });
+      
       // Get the current user's most recent data.
       var Settings = settings.data;
 

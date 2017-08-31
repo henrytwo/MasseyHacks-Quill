@@ -33,11 +33,11 @@ var options = {
 var transporter = nodemailer.createTransport(smtpTransport(options));
 
 var controller = {};
-var settings;
+var settings = null;
 
 Settings
   .getPublicSettings(function(err, publicSettings){
-     if (err || !publicSettings){
+     if (err){
       throw err;
     }
     settings = publicSettings;
