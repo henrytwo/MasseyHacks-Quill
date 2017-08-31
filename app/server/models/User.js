@@ -10,7 +10,7 @@ var profile = {
   name: {
     type: String,
     min: 1,
-    max: 100,
+    maxlength: 100,
   },
 
   age: {
@@ -27,25 +27,25 @@ var profile = {
   travelFromCountry: {
     type: String,
     min: 4,
-    max: 120,
+    maxlength: 120,
   },
 
   travelFromCity: {
     type: String,
     min: 2,
-    max: 120,
+    maxlength: 120,
   },
 
   homeCountry: {
     type: String,
     min: 4,
-    max: 120,
+    maxlength: 120,
   },
 
   school: {
     type: String,
     min: 1,
-    max: 150,
+    maxlength: 150,
   },
 
   graduationYear: {
@@ -54,24 +54,24 @@ var profile = {
 
   major: {
     type: String,
-    max: 100
+    maxlength: 100
   },
 
   degree: {
     type: String,
-    max: 100,
+    maxlength: 100,
   },
 
   description: {
     type: String,
     min: 0,
-    max: 300
+    maxlength: 300
   },
 
   essay: {
     type: String,
     min: 0,
-    max: 1500
+    maxlength: 1500
   },
 
   gender: {
@@ -94,29 +94,29 @@ var profile = {
 
   mostInterestingTrack: {
     type: String,
-    max: 120,
+    maxlength: 120,
   },
 
   portfolio: {
     type: String,
     min: 5,
-    max: 240,
+    maxlength: 240,
   },
   linkedin: {
     type: String,
     min: 5,
-    max: 240,
+    maxlength: 240,
   },
   github: {
     type: String,
     min: 5,
-    max: 240,
+    maxlength: 240,
   },
 
   // Multiple choice
   occupationalStatus: {
     type: [String],
-    max: 150
+    maxlength: 150
   },
 
   // Tools
@@ -155,12 +155,12 @@ var profile = {
 
   secret: {
     type: String,
-    max: 100,
+    maxlength: 100,
   },
 
   freeComment: {
     type: String,
-    max: 500,
+    maxlength: 500,
   },
 
   operatingSystem: {
@@ -184,7 +184,7 @@ var confirmation = {
   dietaryRestrictions: [String],
   specialNeeds: {
     type: String,
-    max: 500,
+    maxlength: 500,
   },
   shirtSize: {
     type: String,
@@ -198,7 +198,7 @@ var confirmation = {
   phone: {
     type: String,
     min: 0,
-    max: 20,
+    maxlength: 20,
   },
 };
 
@@ -264,135 +264,136 @@ var status = {
 var reimbursement = {
    dateOfBirth: {
      type: String,
-     default: ''
+     default: '',
+     maxlength: 100
    },
    addressLine1: {
      type: String,
-     max: 30
+     maxlength: 30
    },
    addressLine2: {
      type: String,
-     max: 30
+     maxlength: 30
    },
    stateProvinceRegion: {
      type: String,
-     max: 20
+     maxlength: 20
    },
    city : {
      type: String,
-     max: 30
+     maxlength: 30
    },
    accountOwnerName : {
      type: String,
-     max: 50,
+     maxlength: 50,
      default: ''
    },
    accountOwnerBirthdate : {
      type: String,
-     max: 30,
+     maxlength: 30,
      default: ''
    },
    accountOwnerA1 : {
      type: String,
-     max: 30,
+     maxlength: 30,
      default: ''
    },
    accountOwnerA2 : {
      type: String,
-     max: 30,
+     maxlength: 30,
      default: ''
    },
    accountOwnerZIP : {
      type: String,
-     max: 20,
+     maxlength: 20,
      default: ''
    },
    accountOwnerCity : {
      type: String,
-     max: 30,
+     maxlength: 30,
      default: ''
    },
    accountOwnerRegion : {
      type: String,
-     max: 30,
+     maxlength: 30,
      default: ''
    },
    accountOwnerCountry : {
      type: String,
-     max: 30,
+     maxlength: 30,
      default: ''
    },
    countryOfBank: {
      type: String,
-     max: 30
+     maxlength: 30
    },
    countryType: {
      type: String,
-     max: 30
+     maxlength: 30
    },
    nameOfBank: {
      type: String,
-     max: 60
+     maxlength: 60
    },
    cityOfBank: {
      type: String,
-     max: 30
+     maxlength: 30
    },
    addressOfBank: {
      type: String,
      default: '',
-     max: 50
+     maxlength: 50
    },
    zipCode: {
      type: String,
      default: '',
-     max: 10
+     maxlength: 10
    },
    zipCodeOfBank: {
      type: String,
      default: '',
-     max: 10
+     maxlength: 10
    },
    iban: {
      type: String,
      default: '',
-     max: 32
+     maxlength: 32
    },
    bban: {
      type: String,
      default: '',
-     max: 32
+     maxlength: 32
    },
    receiptPurposeCode: {
      type: String,
      default: '',
-     max: 5
+     maxlength: 5
    },
    accountNumber: {
      type: String,
      default: '',
-     max: 30
+     maxlength: 30
    },
    swiftOrBic: {
      type: String,
      default: '',
-     max: 11
+     maxlength: 11
    },
    clearingCode: {
      type: String,
      default: '',
-     max: 30
+     maxlength: 30
    },
    brokerageInfo: {
      type: String,
      default: '',
-     max: 200
+     maxlength: 200
 
    },
    additional: {
      type: String,
      default: '',
-     max: 200
+     maxlength: 200
    }
 };
 // define the schema for our admin model
@@ -415,7 +416,7 @@ var schema = new mongoose.Schema({
   nickname: {
     type: String,
     min: 1,
-    max: 100,
+    maxlength: 100,
     required: true
   },
 
@@ -445,7 +446,7 @@ var schema = new mongoose.Schema({
   teamCode: {
     type: String,
     min: 0,
-    max: 140,
+    maxlength: 140,
   },
 
   verified: {
