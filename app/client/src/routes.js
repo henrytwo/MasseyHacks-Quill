@@ -94,7 +94,6 @@ angular.module('reg')
         templateUrl: "views/team/team.html",
         controller: 'TeamCtrl',
         data: {
-          requireVerified: true,
           requireApplied: true
         },
         resolve: {
@@ -238,7 +237,7 @@ angular.module('reg')
           $state.go('app.dashboard');
         }
 
-        if(requireApplied && !Session.getUser().completedProfile){
+        if(requireApplied && !Session.getUser().status.completedProfile){
           event.preventDefault();
           $state.go('app.dashboard');
         }
