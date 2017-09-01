@@ -5,7 +5,7 @@
       <div class="ui header">
         Search
       </div>
-      <div class="ui form">
+      <!-- <div class="ui form">
         <div class="field">
           <div class="ui icon fluid input">
             <input type="text"
@@ -16,8 +16,27 @@
           </div>
         </div>
 
+      </div> -->
+      <div class="ui form">
+        <div class="field">
+          <div class="ui icon fluid input">
+            <input type="text"
+                   placeholder="Search..."
+                   ng-model="filter.text"
+                   ng-model-options="{debounce: 300}"
+                   ng-change="filterUsers()">
+              <i class="search icon"></i>
+          </div>
+        </div>
+         <div class="ui checkbox">
+            <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.verified">
+            <label> Verified </label>
+          </div>
+          <div class="ui checkbox">
+            <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.admitted">
+            <label> Admitted </label>
+          </div>
       </div>
-
       <div class="ui divider"></div>
 
       <button

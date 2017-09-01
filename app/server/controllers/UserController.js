@@ -227,12 +227,27 @@ UserController.getAll = function (callback) {
 UserController.getPage = function(query, callback){
   var page = query.page;
   var size = parseInt(query.size);
-  var searchText = query.text;
+  var text = "";
+  if(typeof query.filter.text != "undefined") {
+
+    var text = query.filter.text;
+  }
+  
+  var textext = [];
+  var texttatus = [];
+  var findQuery = {
+      $and: [
+          { $or: queryText },
+          { $or: queryStatus }
+          // { $or: [{'profile.name':'tuukka'}]},
+          //  { $or: [{'verified': true}] }
+      ]
+  };
 
   var findQuery = {};
-  if (searchText.length > 0){
+  if (text.length > 0){
     var queries = [];
-    var re = new RegExp(searchText, 'i');
+    var re = new RegExp(text, 'i');
     queries.push({ email: re });
     queries.push({ 'profile.name': re });
     queries.push({ 'teamCode': re });
