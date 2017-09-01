@@ -227,39 +227,52 @@ UserController.getAll = function (callback) {
 UserController.getPage = function(query, callback){
   var page = query.page;
   var size = parseInt(query.size);
-  var text = "";
-  if(typeof query.filter.text != "undefined") {
+  var text = query.filter.text;
 
-    var text = query.filter.text;
+  var textFilter = [];
+  var statusFilter = [];
+   var findQuery = {}//{
+  //     $and: [
+  //         { $or: textFilter },
+  //         { $or: statusFilter }
+  //         // { $or: [{'profile.name':'tuukka'}]},
+  //         //  { $or: [{'verified': true}] }
+  //     ]
+  // };
+  if(typeof query.filter.text != "undefined") {
+    console.log("TEXT " + text);
+    var re = new RegExp(text, 'i');
+    textFilter.push({ email: re });
+    textFilter.push({ 'profile.name': re }); 
+    //findQuery.$or = textFilter;
+  }
+  else {
+    textFilter.push({});
   }
   
-  var textext = [];
-  var texttatus = [];
-  var findQuery = {
-      $and: [
-          { $or: queryText },
-          { $or: queryStatus }
-          // { $or: [{'profile.name':'tuukka'}]},
-          //  { $or: [{'verified': true}] }
-      ]
-  };
+  // var textext = [];
+  // var texttatus = [];
+  // 
 
-  var findQuery = {};
-  if (text.length > 0){
-    var queries = [];
-    var re = new RegExp(text, 'i');
-    queries.push({ email: re });
-    queries.push({ 'profile.name': re });
-    queries.push({ 'teamCode': re });
-    queries.push({ 'profile.homeCountry': re });
-    queries.push({ 'profile.travelFromCountry': re });
-    queries.push({ 'profile.travelFromCity': re });
-    queries.push({ 'profile.school': re });
-    queries.push({ 'profile.mostInterestingTrack': re });
+  // var findQuery = {};
+  // if (text.length > 0){
+  //   var queries = [];
+  //   var re = new RegExp(text, 'i');
+  //   queries.push({ email: re });
+  //   queries.push({ 'profile.name': re });
+  //   queries.push({ 'teamCode': re });
+  //   queries.push({ 'profile.homeCountry': re });
+  //   queries.push({ 'profile.travelFromCountry': re });
+  //   queries.push({ 'profile.travelFromCity': re });
+  //   queries.push({ 'profile.school': re });
+  //   queries.push({ 'profile.mostInterestingTrack': re });
 
-    findQuery.$or = queries;
-  }
-
+  //   findQuery.$or = queries;
+  // }
+  textFilter.push({'verified': query.filter.verified});
+  textFilter.push({'status.admitted': query.filter.admitted});
+  findQuery.$or = textFilter;
+  console.log(findQuery);
   User
     .find(findQuery)
     .sort({

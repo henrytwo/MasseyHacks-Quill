@@ -43,7 +43,7 @@ angular.module('reg')
       }
 
       UserService
-        .getPage($stateParams.page, $stateParams.size, $stateParams.query)
+        .getPage($stateParams.page, $stateParams.size, $stateParams.query, $scope.filter)
         .success(function(data){
           updatePage(data);
         });
