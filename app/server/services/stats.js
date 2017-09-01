@@ -201,7 +201,7 @@ function calculateStats(settings){
         // Count the number of requested travel reimbursement clasess
         newStats.RfinlandTotal += user.profile.AppliedreimbursementClass == "Finland" ? 1 : 0;
         newStats.RbalticsTotal += user.profile.AppliedreimbursementClass == "Baltics" ? 1 : 0;
-        newStats.RnordicTotal += user.profile.AppliedreimbursementClass == "Nordic" ? 1 : 0;
+        newStats.RnordicTotal += user.profile.AppliedreimbursementClass == "Nord" ? 1 : 0;
         newStats.ReuropeTotal += user.profile.AppliedreimbursementClass == "Europe" ? 1 : 0;
         newStats.RoutsideTotal += user.profile.AppliedreimbursementClass == "Outside Europe" ? 1 : 0;
 
