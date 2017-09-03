@@ -242,7 +242,7 @@ angular.module('reg')
           $state.go('app.dashboard');
         }
 
-        if((requireAdmitted && requireVerified) && !Session.getUser().status.admitted && !Utils.isAfter(Session.getUser().status.confirmBy)){
+        if(requireAdmitted && !Session.getUser().status.admitted && !(Date.now() > Session.getUser().status.confirmBy)){
           event.preventDefault();
           $state.go('app.dashboard');
         }
