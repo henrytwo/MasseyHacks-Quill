@@ -31,7 +31,7 @@ angular.module('reg')
       var languages = ['AngularJS', 'Assembly', 'Bash', 'C', 'C#', 'C++', 'Clojure',
                        'CoffeeScript', 'CSS', 'Excel', 'Go', 'Groovy', 'Haskell', 'HTML',
                        'Java', 'JavaScript', 'Kotlin', 'Lua', 'Matlab', 'Node.js',
-                       'Objective-C', 'Perl', 'PHP', 'PowerPoint', 'Python', 'R', 'React',
+                       'Objective-C', 'Perl', 'PHP', 'PowerPoint', 'Python', 'Qt', 'R', 'React',
                        'Ruby', 'Scala', 'SQL', 'Swift', 'TypeScript', 'VBA', 'VB.NET',
                        'Visual Basic 6', '.NET Core', 'Other'];
       $scope.programmingLanguages = languages;
