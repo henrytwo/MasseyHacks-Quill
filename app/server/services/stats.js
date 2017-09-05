@@ -27,7 +27,8 @@ function calculateStats(settings){
         'Game Jam': 0,
         'FinTech': 0,
         'Industrial Internet': 0,
-        'Artificial Intelligence': 0
+        'Artificial Intelligence': 0,
+        'Big Data': 0
       },
       schools: {},
       // year: {
@@ -111,7 +112,8 @@ function calculateStats(settings){
         'Game Jam': 0,
         'FinTech': 0,
         'Industrial Internet': 0,
-        'Artificial Intelligence': 0
+        'Artificial Intelligence': 0,
+        'Big Data': 0
       }
     },
 
@@ -125,7 +127,8 @@ function calculateStats(settings){
         'Game Jam': 0,
         'FinTech': 0,
         'Industrial Internet': 0,
-        'Artificial Intelligence': 0
+        'Artificial Intelligence': 0,
+        'Big Data': 0
       }
     },
 
@@ -139,7 +142,8 @@ function calculateStats(settings){
         'Game Jam': 0,
         'FinTech': 0,
         'Industrial Internet': 0,
-        'Artificial Intelligence': 0
+        'Artificial Intelligence': 0,
+        'Big Data': 0
       }
     }
   };

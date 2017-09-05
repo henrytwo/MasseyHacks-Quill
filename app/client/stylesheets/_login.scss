@@ -12,9 +12,10 @@
 
   .content {
     height: 100%;
-
     position: relative;
     z-index: 2;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
   }
   .hidden {
     display: none
@@ -121,7 +122,7 @@
     .right {
       float:right;
     }
-    height: 130px;
+    height: 180px;
     max-width: 750px;
     text-align: center;
     font-size: 20px;
@@ -191,5 +192,17 @@
 
 @media only screen and (max-width: 790px) {
     /* For mobile phones: */
+    .content {
+      height: 100%;
+      position: relative;
+      z-index: 2;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    }
 
+    #quote{
+      padding-bottom: 40px;
+      width: 300px;
+      margin: auto;
+    }
 }
