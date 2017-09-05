@@ -298,7 +298,7 @@ module.exports = function(router) {
    * POST - Decline an acceptance.
    */
   router.post('/users/:id/decline', isOwnerOrAdmin, function(req, res){
-    var confirmation = req.body.confirmation;
+    var confirmation = sanitize(req.body.confirmation);
     var id = req.params.id;
 
     UserController.declineById(id, defaultResponse(req, res));
@@ -377,7 +377,7 @@ module.exports = function(router) {
    * POST - Reject participant.
    */
   router.post('/users/:id/reject', isAdmin, function(req, res){
-    var confirmation = req.body.confirmation;
+    var confirmation = sanitize(req.body.confirmation);
     var id = req.params.id;
 
     UserController.rejectById(id, defaultResponse(req, res));
@@ -389,7 +389,7 @@ module.exports = function(router) {
    * POST - Unreject participant.
    */
   router.post('/users/:id/unreject', isAdmin, function(req, res){
-    var confirmation = req.body.confirmation;
+    var confirmation = sanitize(req.body.confirmation);
     var id = req.params.id;
 
     UserController.unRejectById(id, defaultResponse(req, res));
@@ -531,7 +531,7 @@ module.exports = function(router) {
    *
    */
   router.put('/settings/reimbClasses', isAdmin, function(req, res){
-    var reimbClasses = req.body.reimbClasses;
+    var reimbClasses = sanitize(req.body.reimbClasses);
     SettingsController.updateReimbClasses(reimbClasses, defaultResponse(req, res));
   });
 };
