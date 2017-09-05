@@ -3,7 +3,7 @@ var SettingsController = require('../controllers/SettingsController');
 
 var request = require('request');
 var multer = require('multer');
-
+var sanitize = require('mongo-sanitize');
 
 var storage = multer.diskStorage({
   destination: 'uploads/',
@@ -184,7 +184,7 @@ module.exports = function(router) {
 
    // School search
    router.get('/search/school/:query', function(req, res) {
-     var query = req.params.query;
+     var query = sanitize(req.params.query);
      SettingsController.getSchools(function(err, schools) {
        if (err) {
          res.sendStatus(500);
@@ -267,7 +267,7 @@ module.exports = function(router) {
    */
 
   router.put('/users/:id/profile', isOwnerOrAdmin, function(req, res){
-    var profile = req.body.profile;
+    var profile = sanitize(req.body.profile);
     var id = req.params.id;
 
     UserController.updateProfileById(id, profile , defaultResponse(req, res));
@@ -279,14 +279,14 @@ module.exports = function(router) {
    * PUT - Update a specific user's confirmation information.
    */
   router.put('/users/:id/confirm', isOwnerOrAdmin, function(req, res){
-    var confirmation = req.body.confirmation;
+    var confirmation = sanitize(req.body.confirmation);
     var id = req.params.id;
 
     UserController.updateConfirmationById(id, confirmation, defaultResponse(req, res));
   });
 
   router.put('/users/:id/reimbursement', isOwnerOrAdmin, function(req, res){
-    var reimbursement = req.body.reimbursement;
+    var reimbursement = sanitize(req.body.reimbursement);
     var id = req.params.id;
 
     UserController.updateReimbursementById(id, reimbursement, defaultResponse(req, res));
@@ -320,7 +320,7 @@ module.exports = function(router) {
    * }
    */
   router.put('/users/:id/team', isOwnerOrAdmin, function(req, res){
-    var code = req.body.code;
+    var code = sanitize(req.body.code);
     var id = req.params.id;
 
     UserController.createOrJoinTeam(id, code, defaultResponse(req, res));
@@ -366,8 +366,8 @@ module.exports = function(router) {
   router.post('/users/:id/admit', isAdmin, function(req, res){
     // Accept the hacker. Admin only
     var id = req.params.id;
-    var reimbClass = req.body.reimbClass;
-    var user = req.user;
+    var reimbClass = sanitize(req.body.reimbClass);
+    var user = sanitize(req.user);
     UserController.admitUser(id, user, reimbClass, defaultResponse(req, res));
   });
 
@@ -400,7 +400,7 @@ module.exports = function(router) {
    */
   router.post('/users/:id/checkin', isAdmin, function(req, res){
     var id = req.params.id;
-    var user = req.user;
+    var user = sanitize(req.user);
     UserController.checkInById(id, user, defaultResponse(req, res));
   });
 
@@ -409,7 +409,7 @@ module.exports = function(router) {
    */
   router.post('/users/:id/checkout', isAdmin, function(req, res){
     var id = req.params.id;
-    var user = req.user;
+    var user = sanitize(req.user);
     UserController.checkOutById(id, user, defaultResponse(req, res));
   });
 
@@ -455,7 +455,8 @@ module.exports = function(router) {
   });
 
   router.put('/settings/addschool', function(req, res){
-    var school = req.body.school;
+    var body = sanitize(req.body);
+    var school = body.school;
     if (!school) {
       res.sendStatus(400, "School is null");
     }
