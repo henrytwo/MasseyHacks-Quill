@@ -38,12 +38,12 @@ angular.module('reg')
       // Populate the school dropdown
       _setupForm();
 
-      $scope.regIsClosed = Date.now() > Settings.data.timeClose;
+      $scope.regIsClosed = Date.now() > Settings.data.timeClose || $scope.user.status.admitted;
 
       var reimbClasses;
       $.getJSON('../assets/reimbClasses.json').done(function(data){
               reimbClasses = data;
-        });
+      });
 
       function _updateUser(e){
         // Update user profile
@@ -326,6 +326,11 @@ angular.module('reg')
           $("#greatLevelTools").dropdown('set selected', $scope.user.profile.greatLevelTools);
           $("#goodLevelTools").dropdown('set selected', $scope.user.profile.goodLevelTools);
           $("#beginnerLevelTools").dropdown('set selected', $scope.user.profile.beginnerLevelTools);
+
+          if ($scope.regIsClosed) {
+            console.log('reg is closed');
+            $('.ui.dropdown').addClass("disabled");
+          }
 
         }, 1);
       }
