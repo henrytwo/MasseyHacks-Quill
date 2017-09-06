@@ -298,7 +298,7 @@ module.exports = function(router) {
    * POST - Decline an acceptance.
    */
   router.post('/users/:id/decline', isOwnerOrAdmin, function(req, res){
-    var confirmation = sanitize(req.body.confirmation);
+    var confirmation = req.body.confirmation;
     var id = req.params.id;
 
     UserController.declineById(id, defaultResponse(req, res));
@@ -366,8 +366,8 @@ module.exports = function(router) {
   router.post('/users/:id/admit', isAdmin, function(req, res){
     // Accept the hacker. Admin only
     var id = req.params.id;
-    var reimbClass = sanitize(req.body.reimbClass);
-    var user = sanitize(req.user);
+    var reimbClass = req.body.reimbClass;
+    var user = req.user;
     UserController.admitUser(id, user, reimbClass, defaultResponse(req, res));
   });
 
@@ -377,7 +377,7 @@ module.exports = function(router) {
    * POST - Reject participant.
    */
   router.post('/users/:id/reject', isAdmin, function(req, res){
-    var confirmation = sanitize(req.body.confirmation);
+    var confirmation = req.body.confirmation;
     var id = req.params.id;
 
     UserController.rejectById(id, defaultResponse(req, res));
@@ -389,7 +389,7 @@ module.exports = function(router) {
    * POST - Unreject participant.
    */
   router.post('/users/:id/unreject', isAdmin, function(req, res){
-    var confirmation = sanitize(req.body.confirmation);
+    var confirmation = req.body.confirmation;
     var id = req.params.id;
 
     UserController.unRejectById(id, defaultResponse(req, res));
@@ -400,7 +400,7 @@ module.exports = function(router) {
    */
   router.post('/users/:id/checkin', isAdmin, function(req, res){
     var id = req.params.id;
-    var user = sanitize(req.user);
+    var user = req.user;
     UserController.checkInById(id, user, defaultResponse(req, res));
   });
 
@@ -409,7 +409,7 @@ module.exports = function(router) {
    */
   router.post('/users/:id/checkout', isAdmin, function(req, res){
     var id = req.params.id;
-    var user = sanitize(req.user);
+    var user = req.user;
     UserController.checkOutById(id, user, defaultResponse(req, res));
   });
 
@@ -531,7 +531,7 @@ module.exports = function(router) {
    *
    */
   router.put('/settings/reimbClasses', isAdmin, function(req, res){
-    var reimbClasses = sanitize(req.body.reimbClasses);
+    var reimbClasses = req.body.reimbClasses;
     SettingsController.updateReimbClasses(reimbClasses, defaultResponse(req, res));
   });
 };
