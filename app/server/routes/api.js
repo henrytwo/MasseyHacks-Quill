@@ -184,7 +184,8 @@ module.exports = function(router) {
 
    // School search
    router.get('/search/school/:query', function(req, res) {
-     var query = sanitize(req.params.query);
+     var params = sanitize(req.params);
+     var query = params.query;
      SettingsController.getSchools(function(err, schools) {
        if (err) {
          res.sendStatus(500);
@@ -193,7 +194,7 @@ module.exports = function(router) {
        var i = 0;
        while (i < schools.length) {
          var school = schools[i];
-         if (school.toLowerCase().search(query.toLowerCase()) !== -1) {
+         if (school.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
            results.push({
              "name": school,
              "id": school
