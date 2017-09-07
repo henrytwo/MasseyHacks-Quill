@@ -146,7 +146,11 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please enter your graduationYear.'
-                }
+                },
+                {
+                  type: 'integer[2017..2040]',
+                  prompt: 'Your graduation year should be something sensible.'
+                },
               ]
             },
             degree: {
