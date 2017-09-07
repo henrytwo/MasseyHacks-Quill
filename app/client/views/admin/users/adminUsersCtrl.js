@@ -49,21 +49,12 @@ angular.module('reg')
         });
 
       $scope.filterUsers = function() {
-        console.log("text: " + $scope.filter.text);
         UserService
           .getPage($stateParams.page, $stateParams.size, $scope.filter)
           .success(function(data){
             updatePage(data);
           });
       }
-
-      // $scope.$watch('queryText', function(queryText){
-      //   UserService
-      //     .getPage($stateParams.page, $stateParams.size, queryText)
-      //     .success(function(data){
-      //       updatePage(data);
-      //     });
-      // });
 
       $scope.goToPage = function(page){
         $state.go('app.admin.users', {

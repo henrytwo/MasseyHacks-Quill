@@ -231,52 +231,50 @@ UserController.getPage = function(query, callback){
 
   var textFilter = [];
   var statusFilter = [];
-   var findQuery = {}//{
-  //     $and: [
-  //         { $or: textFilter },
-  //         { $or: statusFilter }
-  //         // { $or: [{'profile.name':'tuukka'}]},
-  //         //  { $or: [{'verified': true}] }
-  //     ]
-  // };
+
+  var findQuery = {
+      $and: [
+          { $or: textFilter},
+          { $or: statusFilter }
+      ]
+  }
+
   if(typeof query.filter.text != "undefined") {
     console.log("TEXT " + text);
     var re = new RegExp(text, 'i');
     textFilter.push({ email: re });
     textFilter.push({ 'profile.name': re }); 
-    //findQuery.$or = textFilter;
+    textFilter.push({ 'teamCode': re });
+    textFilter.push({ 'profile.homeCountry': re });
+    textFilter.push({ 'profile.travelFromCountry': re });
+    textFilter.push({ 'profile.travelFromCity': re });
+    textFilter.push({ 'profile.school': re });
+    textFilter.push({ 'profile.mostInterestingTrack': re });
+    textFilter.push({ 'id': re });
   }
   else {
-    textFilter.push({});
+    findQuery = {};
   }
   
-  // var textext = [];
-  // var texttatus = [];
-  // 
+  if(query.filter.verified === 'true')
+    statusFilter.push({'verified': query.filter.verified});
+  else if(query.filter.submitted === 'true')
+    statusFilter.push({'status.completedProfile': query.filter.submitted});
+  else if(query.filter.admitted === 'true')
+    statusFilter.push({'status.admitted': query.filter.admitted});
+  else if(query.filter.confirmed ==='true')
+    statusFilter.push({'status.confirmed': query.filter.confirmed});
+  else if(query.filter.notConfirmed ==='true')
+    findQuery = { $and: [{'status.admitted': true}, {'status.confirmed':false}]};
+  else if(query.filter.needsReimbursement === 'true')
+    statusFilter.push({'profile.needsReimbursement': query.filter.needsReimbursement});
+  else
+   statusFilter.push({});
 
-  // var findQuery = {};
-  // if (text.length > 0){
-  //   var queries = [];
-  //   var re = new RegExp(text, 'i');
-  //   queries.push({ email: re });
-  //   queries.push({ 'profile.name': re });
-  //   queries.push({ 'teamCode': re });
-  //   queries.push({ 'profile.homeCountry': re });
-  //   queries.push({ 'profile.travelFromCountry': re });
-  //   queries.push({ 'profile.travelFromCity': re });
-  //   queries.push({ 'profile.school': re });
-  //   queries.push({ 'profile.mostInterestingTrack': re });
-
-  //   findQuery.$or = queries;
-  // }
-  textFilter.push({'verified': query.filter.verified});
-  textFilter.push({'status.admitted': query.filter.admitted});
-  findQuery.$or = textFilter;
-  console.log(findQuery);
   User
     .find(findQuery)
     .sort({
-      'profile.name': 'asc'
+      'user.timestamp': 'asc'
     })
     .select('+status.admittedBy')
     .skip(page * size)
