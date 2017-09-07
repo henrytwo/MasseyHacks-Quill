@@ -43,18 +43,18 @@ angular.module('reg')
       }
 
       UserService
-        .getPage($stateParams.page, $stateParams.size, $stateParams.query)
+        .getPage($stateParams.page, $stateParams.size, $stateParams.query, $scope.filter)
         .success(function(data){
           updatePage(data);
         });
 
-      $scope.$watch('queryText', function(queryText){
+      $scope.filterUsers = function() {
         UserService
-          .getPage($stateParams.page, $stateParams.size, queryText)
+          .getPage($stateParams.page, $stateParams.size, $scope.filter)
           .success(function(data){
             updatePage(data);
           });
-      });
+      }
 
       $scope.goToPage = function(page){
         $state.go('app.admin.users', {
