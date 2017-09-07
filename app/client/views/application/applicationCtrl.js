@@ -328,7 +328,6 @@ angular.module('reg')
           $("#beginnerLevelTools").dropdown('set selected', $scope.user.profile.beginnerLevelTools);
 
           if ($scope.regIsClosed) {
-            console.log('reg is closed');
             $('.ui.dropdown').addClass("disabled");
           }
 
@@ -337,7 +336,6 @@ angular.module('reg')
 
       $scope.submitForm = function(){
         console.log($scope.user.profile.school);
-
         if (!$scope.schoolChecked) {
           $scope.user.profile.school = null;
           $scope.user.profile.graduationYear = null;
