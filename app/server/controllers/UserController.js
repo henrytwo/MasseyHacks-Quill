@@ -235,12 +235,11 @@ UserController.getPage = function(query, callback){
   var findQuery = {
       $and: [
           { $or: textFilter},
-          { $or: statusFilter }
+          { $and: statusFilter }
       ]
   }
 
   if(typeof query.filter.text != "undefined") {
-    console.log("TEXT " + text);
     var re = new RegExp(text, 'i');
     textFilter.push({ email: re });
     textFilter.push({ 'profile.name': re }); 
@@ -251,23 +250,28 @@ UserController.getPage = function(query, callback){
     textFilter.push({ 'profile.school': re });
     textFilter.push({ 'profile.mostInterestingTrack': re });
     textFilter.push({ 'id': re });
+    textFilter.push({ 'profile.AppliedreimbursementClass': re });
   }
   else {
     findQuery = {};
   }
   
-  if(query.filter.verified === 'true')
-    statusFilter.push({'verified': query.filter.verified});
-  else if(query.filter.submitted === 'true')
-    statusFilter.push({'status.completedProfile': query.filter.submitted});
-  else if(query.filter.admitted === 'true')
-    statusFilter.push({'status.admitted': query.filter.admitted});
+  if(query.filter.verified === 'true') {
+    statusFilter.push({'verified': 'true'});
+    statusFilter.push({'status.completedProfile': 'false'});
+  }
+  else if(query.filter.submitted === 'true') {
+    statusFilter.push({'status.completedProfile': 'true'});
+    statusFilter.push({'status.admitted': 'false'});
+  }
+  else if(query.filter.admitted === 'true') {
+    statusFilter.push({'status.admitted': 'true'});
+    statusFilter.push({'status.confirmed': 'false'});
+  }
   else if(query.filter.confirmed ==='true')
-    statusFilter.push({'status.confirmed': query.filter.confirmed});
-  else if(query.filter.notConfirmed ==='true')
-    findQuery = { $and: [{'status.admitted': true}, {'status.confirmed':false}]};
+    statusFilter.push({'status.confirmed': 'true'});
   else if(query.filter.needsReimbursement === 'true')
-    statusFilter.push({'profile.needsReimbursement': query.filter.needsReimbursement});
+    statusFilter.push({'profile.needsReimbursement': 'true'});
   else
    statusFilter.push({});
 
