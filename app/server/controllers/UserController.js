@@ -251,6 +251,7 @@ UserController.getPage = function(query, callback){
     textFilter.push({ 'profile.mostInterestingTrack': re });
     textFilter.push({ 'id': re });
     textFilter.push({ 'profile.AppliedreimbursementClass': re });
+    textFilter.push({ 'profile.secret': re });
   }
   else {
     findQuery = {};
