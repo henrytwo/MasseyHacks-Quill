@@ -3,7 +3,7 @@ var SettingsController = require('../controllers/SettingsController');
 
 var request = require('request');
 var multer = require('multer');
-
+var sanitize = require('mongo-sanitize');
 
 var storage = multer.diskStorage({
   destination: 'uploads/',
@@ -184,7 +184,8 @@ module.exports = function(router) {
 
    // School search
    router.get('/search/school/:query', function(req, res) {
-     var query = req.params.query;
+     var params = sanitize(req.params);
+     var query = params.query;
      SettingsController.getSchools(function(err, schools) {
        if (err) {
          res.sendStatus(500);
@@ -193,7 +194,7 @@ module.exports = function(router) {
        var i = 0;
        while (i < schools.length) {
          var school = schools[i];
-         if (school.toLowerCase().search(query.toLowerCase()) !== -1) {
+         if (school.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
            results.push({
              "name": school,
              "id": school
@@ -267,7 +268,7 @@ module.exports = function(router) {
    */
 
   router.put('/users/:id/profile', isOwnerOrAdmin, function(req, res){
-    var profile = req.body.profile;
+    var profile = sanitize(req.body.profile);
     var id = req.params.id;
 
     UserController.updateProfileById(id, profile , defaultResponse(req, res));
@@ -279,14 +280,14 @@ module.exports = function(router) {
    * PUT - Update a specific user's confirmation information.
    */
   router.put('/users/:id/confirm', isOwnerOrAdmin, function(req, res){
-    var confirmation = req.body.confirmation;
+    var confirmation = sanitize(req.body.confirmation);
     var id = req.params.id;
 
     UserController.updateConfirmationById(id, confirmation, defaultResponse(req, res));
   });
 
   router.put('/users/:id/reimbursement', isOwnerOrAdmin, function(req, res){
-    var reimbursement = req.body.reimbursement;
+    var reimbursement = sanitize(req.body.reimbursement);
     var id = req.params.id;
 
     UserController.updateReimbursementById(id, reimbursement, defaultResponse(req, res));
@@ -320,7 +321,7 @@ module.exports = function(router) {
    * }
    */
   router.put('/users/:id/team', isOwnerOrAdmin, function(req, res){
-    var code = req.body.code;
+    var code = sanitize(req.body.code);
     var id = req.params.id;
 
     UserController.createOrJoinTeam(id, code, defaultResponse(req, res));
@@ -455,7 +456,8 @@ module.exports = function(router) {
   });
 
   router.put('/settings/addschool', function(req, res){
-    var school = req.body.school;
+    var body = sanitize(req.body);
+    var school = body.school;
     if (!school) {
       res.sendStatus(400, "School is null");
     }

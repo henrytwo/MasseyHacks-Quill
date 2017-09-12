@@ -227,28 +227,59 @@ UserController.getAll = function (callback) {
 UserController.getPage = function(query, callback){
   var page = query.page;
   var size = parseInt(query.size);
-  var searchText = query.text;
+  var text = query.filter.text;
 
-  var findQuery = {};
-  if (searchText.length > 0){
-    var queries = [];
-    var re = new RegExp(searchText, 'i');
-    queries.push({ email: re });
-    queries.push({ 'profile.name': re });
-    queries.push({ 'teamCode': re });
-    queries.push({ 'profile.homeCountry': re });
-    queries.push({ 'profile.travelFromCountry': re });
-    queries.push({ 'profile.travelFromCity': re });
-    queries.push({ 'profile.school': re });
-    queries.push({ 'profile.mostInterestingTrack': re });
+  var textFilter = [];
+  var statusFilter = [];
 
-    findQuery.$or = queries;
+  var findQuery = {
+      $and: [
+          { $or: textFilter},
+          { $and: statusFilter }
+      ]
   }
+
+  if(typeof query.filter.text != "undefined") {
+    var re = new RegExp(text, 'i');
+    textFilter.push({ email: re });
+    textFilter.push({ 'profile.name': re }); 
+    textFilter.push({ 'teamCode': re });
+    textFilter.push({ 'profile.homeCountry': re });
+    textFilter.push({ 'profile.travelFromCountry': re });
+    textFilter.push({ 'profile.travelFromCity': re });
+    textFilter.push({ 'profile.school': re });
+    textFilter.push({ 'profile.mostInterestingTrack': re });
+    textFilter.push({ 'id': re });
+    textFilter.push({ 'profile.AppliedreimbursementClass': re });
+    textFilter.push({ 'profile.secret': re });
+  }
+  else {
+    findQuery = {};
+  }
+  
+  if(query.filter.verified === 'true') {
+    statusFilter.push({'verified': 'true'});
+    statusFilter.push({'status.completedProfile': 'false'});
+  }
+  else if(query.filter.submitted === 'true') {
+    statusFilter.push({'status.completedProfile': 'true'});
+    statusFilter.push({'status.admitted': 'false'});
+  }
+  else if(query.filter.admitted === 'true') {
+    statusFilter.push({'status.admitted': 'true'});
+    statusFilter.push({'status.confirmed': 'false'});
+  }
+  else if(query.filter.confirmed ==='true')
+    statusFilter.push({'status.confirmed': 'true'});
+  else if(query.filter.needsReimbursement === 'true')
+    statusFilter.push({'profile.needsReimbursement': 'true'});
+  else
+   statusFilter.push({});
 
   User
     .find(findQuery)
     .sort({
-      'profile.name': 'asc'
+      'user.timestamp': 'asc'
     })
     .select('+status.admittedBy')
     .skip(page * size)

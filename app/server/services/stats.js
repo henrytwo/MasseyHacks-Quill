@@ -22,12 +22,13 @@ function calculateStats(settings){
         'HealthTech': 0,
         'Logistics': 0,
         'Entertainment': 0,
-        'Multimodal Mobility': 0,
+        'Mobility': 0,
         'Intelligent Buildings': 0,
         'Game Jam': 0,
         'FinTech': 0,
         'Industrial Internet': 0,
-        'Artificial Intelligence': 0
+        'Artificial Intelligence': 0,
+        'Big Data': 0
       },
       schools: {},
       // year: {
@@ -106,12 +107,13 @@ function calculateStats(settings){
         'HealthTech': 0,
         'Logistics': 0,
         'Entertainment': 0,
-        'Multimodal Mobility': 0,
+        'Mobility': 0,
         'Intelligent Buildings': 0,
         'Game Jam': 0,
         'FinTech': 0,
         'Industrial Internet': 0,
-        'Artificial Intelligence': 0
+        'Artificial Intelligence': 0,
+        'Big Data': 0
       }
     },
 
@@ -120,12 +122,13 @@ function calculateStats(settings){
         'HealthTech': 0,
         'Logistics': 0,
         'Entertainment': 0,
-        'Multimodal Mobility': 0,
+        'Mobility': 0,
         'Intelligent Buildings': 0,
         'Game Jam': 0,
         'FinTech': 0,
         'Industrial Internet': 0,
-        'Artificial Intelligence': 0
+        'Artificial Intelligence': 0,
+        'Big Data': 0
       }
     },
 
@@ -134,12 +137,13 @@ function calculateStats(settings){
         'HealthTech': 0,
         'Logistics': 0,
         'Entertainment': 0,
-        'Multimodal Mobility': 0,
+        'Mobility': 0,
         'Intelligent Buildings': 0,
         'Game Jam': 0,
         'FinTech': 0,
         'Industrial Internet': 0,
-        'Artificial Intelligence': 0
+        'Artificial Intelligence': 0,
+        'Big Data': 0
       }
     }
   };

@@ -38,12 +38,12 @@ angular.module('reg')
       // Populate the school dropdown
       _setupForm();
 
-      $scope.regIsClosed = Date.now() > Settings.data.timeClose;
+      $scope.regIsClosed = Date.now() > Settings.data.timeClose || $scope.user.status.admitted;
 
       var reimbClasses;
       $.getJSON('../assets/reimbClasses.json').done(function(data){
               reimbClasses = data;
-        });
+      });
 
       function _updateUser(e){
         // Update user profile
@@ -146,7 +146,11 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please enter your graduationYear.'
-                }
+                },
+                {
+                  type: 'integer[2017..2040]',
+                  prompt: 'Your graduation year should be something sensible.'
+                },
               ]
             },
             degree: {
@@ -327,12 +331,15 @@ angular.module('reg')
           $("#goodLevelTools").dropdown('set selected', $scope.user.profile.goodLevelTools);
           $("#beginnerLevelTools").dropdown('set selected', $scope.user.profile.beginnerLevelTools);
 
+          if ($scope.regIsClosed) {
+            $('.ui.dropdown').addClass("disabled");
+          }
+
         }, 1);
       }
 
       $scope.submitForm = function(){
         console.log($scope.user.profile.school);
-
         if (!$scope.schoolChecked) {
           $scope.user.profile.school = null;
           $scope.user.profile.graduationYear = null;
