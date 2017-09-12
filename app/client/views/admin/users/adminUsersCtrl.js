@@ -268,7 +268,12 @@ angular.module('reg')
                   output += ";";
                   continue;
                 }
-                output += row[i].fields[j].value + ";";
+                let field = row[i].fields[j].value; 
+                try {
+                  output += field.replace(/(\r\n|\n|\r)/gm," ") + ";";
+                } catch (err){
+                  output += field + ";";
+                }
               }
             }
             output += "\n";
@@ -276,7 +281,7 @@ angular.module('reg')
 
           var element = document.createElement('a');
           element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
-          element.setAttribute('download', "base.csv");
+          element.setAttribute('download', "base " + new Date().toDateString() + ".csv");
           element.style.display = 'none';
           document.body.appendChild(element);
           element.click();
@@ -284,9 +289,7 @@ angular.module('reg')
 
           });
       }
-      function findUser(user){
-
-      }
+      
       function generateSections(user){
         return [
           {
