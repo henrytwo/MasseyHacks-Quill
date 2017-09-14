@@ -222,6 +222,7 @@
             <select class="ui fluid search selection dropdown"
                    name="countryOfBank"
                    id="countryOfB"
+                   ng-change="onBankCountryUpdate()"
                    ng-model="user.reimbursement.countryOfBank">
              <option value="">Country...</option>
              <option value="Afganistan">Afghanistan</option>
@@ -603,7 +604,9 @@
              type="file"
              name="fileUpload"
              file-input="files"
-             accept="application/pdf"/>
+             accept="application/pdf"
+             id="fileName"
+             onchange="angular.element(this).scope().updateFileName()"/>
              <button class="ui button sea-serpent" ng-click="upload()">Upload</button>
         </div>
 

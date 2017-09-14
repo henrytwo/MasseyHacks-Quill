@@ -92,7 +92,7 @@ angular.module('reg')
             console.log( "Error loading iban.json" );
         });
 
-      $('#countryOfB').change(function() {
+      $scope.onBankCountryUpdate = function() {
 
           //When the Country of Bank field gets changed,
           //look through what is the type of the country
@@ -100,7 +100,14 @@ angular.module('reg')
           if($('#countryOfB').val() != ''){
             checkCountryType();
           }
-      });
+      };
+
+      $scope.updateFileName = function() {
+          //When a new file is chosen, update the file name for the user in the scope
+          let strings = $('#fileName').val().split('\\');
+          let fileName = strings[strings.length - 1];
+          $scope.user.reimbursement.fileName = fileName;
+      }
 
       $('.icon')
       .popup({
