@@ -228,7 +228,7 @@ UserController.getPage = function(query, callback){
   var page = query.page;
   var size = parseInt(query.size);
   var text = query.filter.text;
-
+  var sort = query.sort == 'true' ? -1 : 1;
   var textFilter = [];
   var statusFilter = [];
 
@@ -242,7 +242,7 @@ UserController.getPage = function(query, callback){
   if(typeof query.filter.text != "undefined") {
     var re = new RegExp(text, 'i');
     textFilter.push({ email: re });
-    textFilter.push({ 'profile.name': re }); 
+    textFilter.push({ 'profile.name': re });
     textFilter.push({ 'teamCode': re });
     textFilter.push({ 'profile.homeCountry': re });
     textFilter.push({ 'profile.travelFromCountry': re });
@@ -256,7 +256,7 @@ UserController.getPage = function(query, callback){
   else {
     findQuery = {};
   }
-  
+
   if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
     statusFilter.push({'status.completedProfile': 'false'});
@@ -279,7 +279,7 @@ UserController.getPage = function(query, callback){
   User
     .find(findQuery)
     .sort({
-      'user.timestamp': 'asc'
+      'timestamp': sort
     })
     .select('+status.admittedBy')
     .skip(page * size)

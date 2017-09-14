@@ -234,7 +234,7 @@ module.exports = function(router) {
   router.get('/users', isAdmin, function(req, res){
     var query = req.query;
 
-    if (query.page && query.size){
+    if (query.page && query.size && query.sort){
 
       UserController.getPage(query, defaultResponse(req, res));
 
