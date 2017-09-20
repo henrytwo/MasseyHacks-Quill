@@ -115,7 +115,7 @@ angular.module('reg')
       $scope.getQRCode = function(id){
         $http.get('/api/qr/' + id)
         .then(function(response){
-          document.getElementById('placeHolder').innerHTML = response.data;
+          document.getElementById('QRContainer').innerHTML = response.data;
         });
       };
       $scope.getQRCode($scope.user.id);      

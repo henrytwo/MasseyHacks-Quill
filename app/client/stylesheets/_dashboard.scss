@@ -4,13 +4,6 @@
     p {
       text-align: left;
     }
-    #placeHolder {
-      text-align: center;
-    }
-    img {
-      display: block;
-      margin: 0 auto;
-    }
     .button {
       margin-top: 12px;
     }
@@ -82,6 +75,11 @@
       margin-bottom: 24px;
     }
   }
+}
+
+img {
+  display: block;
+  margin: 0 auto;
 }
 
 .resend {
