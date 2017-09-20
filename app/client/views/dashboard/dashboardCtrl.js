@@ -3,6 +3,7 @@ angular.module('reg')
     '$rootScope',
     '$scope',
     '$sce',
+    '$http',
     'currentUser',
     'settings',
     'Utils',
@@ -10,7 +11,7 @@ angular.module('reg')
     'UserService',
     'EVENT_INFO',
     'DASHBOARD',
-    function($rootScope, $scope, $sce, currentUser, settings, Utils, AuthService, UserService, DASHBOARD){
+    function($rootScope, $scope, $sce, $http, currentUser, settings, Utils, AuthService, UserService, DASHBOARD){
       var Settings = settings.data;
       var user = currentUser.data;
       $scope.user = user;
@@ -80,7 +81,6 @@ angular.module('reg')
           });
       };
 
-
       // -----------------------------------------------------
       // Text!
       // -----------------------------------------------------
@@ -110,5 +110,15 @@ angular.module('reg')
               });
         });
       };
+
+      //QR
+      $scope.getQRCode = function(id){
+        $http.get('/api/qr/' + id)
+        .then(function(response){
+          document.getElementById('placeHolder').innerHTML = response.data;
+        });
+      };
+      $scope.getQRCode($scope.user.id);      
+      
 
     }]);

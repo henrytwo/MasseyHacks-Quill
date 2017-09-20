@@ -1,7 +1,12 @@
 <div id="admin" class="page">
+  <script src="../../src/qrscanner/jsqrcode-combined.min.js"></script> 
+  <script src="../../src/qrscanner/html5-qrcode.min.js"></script>
   <div class="divided title">
   GOD MODE
   </div>
+
+  <div id="reader" style="width:300px;height:300px"></div>
+  <input type="text" id="qrInput" ng-molel="qrInput">
 
   <div class="ui three item menu">
     <a

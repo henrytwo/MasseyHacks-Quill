@@ -1,6 +1,6 @@
 var UserController = require('../controllers/UserController');
 var SettingsController = require('../controllers/SettingsController');
-
+var qrcode = require('qrcode-generator');
 var request = require('request');
 var multer = require('multer');
 var sanitize = require('mongo-sanitize');
@@ -23,6 +23,15 @@ var upload = multer({
   limits: { fileSize: 2000000 }
 
  }).single('file');
+
+ function generateQR(data){
+  var typeNumber = 4;
+  var errorCorrectionLevel = 'L';
+  var qr = qrcode(typeNumber, errorCorrectionLevel);
+  qr.addData(data);
+  qr.make();
+  return qr.createImgTag(10); 
+ }
 
 module.exports = function(router) {
 
@@ -132,26 +141,21 @@ module.exports = function(router) {
    *  API!
    */
 
+  /*
+  QR-CODE GENERATION
+  */
+
+  router.get('/qr/:id', function(req, res) {
+    var id = req.params.id;
+    res.send(generateQR(id));
+  });
+
+  //Checking in with QR
+
    /**
    * FILE UPLOAD
    */
    router.post('/upload', function(req, res) {
-     /*var token = getToken(req);
-     var User;
-
-     console.log(token)
-
-     UserController.getByToken(token, function(err, user){
-
-       if (err) {
-         return res.sendStatus(500);
-       }
-
-       if (user){
-         User = user;
-       }
-
-     });*/
      upload(req, res, function(err) {
        console.log(storage)
        if(req.fileValidationError){
@@ -402,8 +406,20 @@ module.exports = function(router) {
   router.post('/users/:id/checkin', isAdmin, function(req, res){
     var id = req.params.id;
     var user = req.user;
+    console.log("checked in")
     UserController.checkInById(id, user, defaultResponse(req, res));
   });
+
+  /**
+   * Check in user with QR code. VOLUNTEER OR ADMIN
+   */
+
+  router.post('/users/:id/qrcheck', isAdmin, function(req, res){
+    var id = req.params.id;
+    var user = req.user;
+    UserController.QRcheckInById(id, user, defaultResponse(req, res));
+  });
+
 
   /**
    * Check in a user. ADMIN ONLY, DUH

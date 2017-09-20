@@ -870,6 +870,29 @@ UserController.checkInById = function(id, user, callback){
 /**
  * [ADMIN ONLY]
  *
+ * Check in a user.
+ * @param  {String}   userId   User id of the user getting checked in.
+ * @param  {String}   user     User checking in this person.
+ * @param  {Function} callback args(err, user)
+ */
+UserController.QRcheckInById = function(id, user, callback){
+  User.findOneAndUpdate({
+    id: id,
+    verified: true
+  },{
+    $set: {
+      'status.checkedIn': true,
+      'status.checkInTime': Date.now()
+    }
+  }, {
+    new: true
+  },
+  callback);
+};
+
+/**
+ * [ADMIN ONLY]
+ *
  * Check out a user.
  * @param  {String}   userId   User id of the user getting checked out.
  * @param  {String}   user     User checking in this person.

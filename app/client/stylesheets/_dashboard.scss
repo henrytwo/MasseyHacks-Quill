@@ -4,11 +4,23 @@
     p {
       text-align: left;
     }
+    #placeHolder {
+      text-align: center;
+    }
+    img {
+      display: block;
+      margin: 0 auto;
+    }
     .button {
       margin-top: 12px;
     }
     .header {
       font-size: 1.2em;
+    }
+    #placeHolder {
+      width: 410;
+      height: 600;
+      margin: auto;
     }
     .state {
       text-align: center;

@@ -99,6 +99,10 @@ angular.module('reg')
         return $http.post(base + id + '/checkin');
       },
 
+      QRcheckIn: function(id){
+        return $http.post(base + id + '/qrcheck');
+      },
+
       checkOut: function(id){
         return $http.post(base + id + '/checkout');
       },
