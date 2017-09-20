@@ -498,7 +498,17 @@ angular.module('reg')
               ]
             },
 
-            //account owner informtion validation
+            //account owner information validation
+
+            accountOwnerCheck: {
+              identifier: 'ownerCheck',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select one of the options about the owner of the bank account.'
+                }
+              ]
+            },
 
             accountOwnerName: {
               identifier: 'ACNAME',

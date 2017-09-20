@@ -115,7 +115,7 @@
         <div class="inline fields">
           <label>Will the reimbursement be paid to your <b>own</b> bank account?</label>
           <div class="field">
-            <div class="ui radio checkbox">
+            <div class="ui radio checkbox" name="ownerCheck">
               <input type="radio" name="accountOwner" checked="true" ng-model="accountOwner" value="user">
               <label>Yes</label>
             </div>
@@ -140,6 +140,7 @@
             <input type="text"
                    name="ACNAME"
                    class="ACNAME"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerName">
           </div>
 
@@ -148,6 +149,7 @@
             <input type="date"
                    name="ACBD"
                    class="ACBD"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerBirthdate">
           </div>
 
@@ -159,6 +161,7 @@
             <input type="text"
                    name="ACAL1"
                    class="ACAL1"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerA1">
           </div>
 
@@ -170,6 +173,7 @@
             <input type="text"
                    name="ACAL2"
                    class="ACAL2"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerA2">
           </div>
 
@@ -178,6 +182,7 @@
             <input type="text"
                    name="ACCITY"
                    class="ACCITY"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerCity"
                    placeholder="Hack">
           </div>
@@ -190,6 +195,7 @@
             <input type="text"
                    name="ACZIP"
                    class="ACZIP"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerZIP">
           </div>
 
@@ -198,6 +204,7 @@
             <input type="text"
                    name="ACREG"
                    class="ACREG"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerRegion">
           </div>
 
@@ -206,6 +213,7 @@
             <input type="text"
                    name="ACCOUNTRY"
                    class="ACCOUNTRY"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerCountry">
           </div>
         </div>
@@ -213,7 +221,7 @@
         <br/>
 
         <div class="accountInformationFields">
-          <div class="title">
+          <div class="title" style="padding-bottom:20px">
             Account Information
           </div>
           <div class="field">
