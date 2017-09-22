@@ -875,7 +875,8 @@ UserController.checkInById = function(id, user, callback){
  * @param  {String}   user     User checking in this person.
  * @param  {Function} callback args(err, user)
  */
-UserController.QRcheckInById = function(id, user, callback){
+UserController.QRcheckInById = function(id, callback){
+  console.log(id);
   User.findOneAndUpdate({
     id: id,
     verified: true

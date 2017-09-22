@@ -17,6 +17,7 @@ User
       u.nickname = ADMIN_NICKNAME;
       u.password = User.generateHash(ADMIN_PASSWORD);
       u.admin = true;
+      u.volunteer = true;
       u.nickname = "admin";
       u.id = "SuperAdminLeetHacker";
       u.verified = true;

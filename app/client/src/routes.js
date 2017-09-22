@@ -116,6 +116,14 @@ angular.module('reg')
           requireAdmin: true
         }
       })
+      .state('app.checkin', {
+        url: '/checkin',
+        templateUrl: 'views/checkin/checkin.html',
+        controller: 'CheckinCtrl',
+        data: {
+          requireVolunteer: true
+        }
+      })
       .state('app.reimbursement', {
         url: "/travelreimbursement",
         templateUrl: "views/reimbursement/reimbursement.html",
@@ -210,6 +218,7 @@ angular.module('reg')
         var unmatched = toState.data.unmatched;
         var requireLogin = toState.data.requireLogin;
         var requireAdmin = toState.data.requireAdmin;
+        var requireVolunteer = toState.data.requireVolunteer;
         var requireVerified = toState.data.requireVerified;
         var requireApplied = toState.data.requireApplied;
         var requireAdmitted = toState.data.requireAdmitted;
@@ -228,6 +237,11 @@ angular.module('reg')
         }
 
         if (requireAdmin && !Session.getUser().admin) {
+          event.preventDefault();
+          $state.go('app.dashboard');
+        }
+
+        if(requireVolunteer && !Session.getUser().volunteer){
           event.preventDefault();
           $state.go('app.dashboard');
         }

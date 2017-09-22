@@ -65,6 +65,28 @@ module.exports = function(router) {
     });
   }
 
+  function isVolunteer(req, res, next){
+    
+        var token = getToken(req);
+    
+        UserController.getByToken(token, function(err, user){
+    
+          if (err) {
+            return res.status(500).send(err);
+          }
+    
+          if (user && user.volunteer){
+            req.user = user;
+            return next();
+          }
+    
+          return res.status(401).send({
+            message: 'Get outta here, punk!'
+          });
+    
+        });
+      }
+
   /**
    * [Users API Only]
    *
@@ -414,10 +436,9 @@ module.exports = function(router) {
    * Check in user with QR code. VOLUNTEER OR ADMIN
    */
 
-  router.post('/users/:id/qrcheck', isAdmin, function(req, res){
+  router.post('/users/:id/qrcheck', isVolunteer, function(req, res){
     var id = req.params.id;
-    var user = req.user;
-    UserController.QRcheckInById(id, user, defaultResponse(req, res));
+    UserController.QRcheckInById(id, defaultResponse(req, res));
   });
 
 

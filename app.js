@@ -16,6 +16,7 @@ database = process.env.MONGO_URL || database;
 
 var settingsConfig  = require('./config/settings');
 var adminConfig     = require('./config/admin');
+var volunteerConfig = require('./config/volunteer');
 
 var app             = express();
 // Connect to mongodb
