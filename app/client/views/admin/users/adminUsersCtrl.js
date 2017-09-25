@@ -268,7 +268,7 @@ angular.module('reg')
                   output += ";";
                   continue;
                 }
-                let field = row[i].fields[j].value; 
+                var field = row[i].fields[j].value; 
                 try {
                   output += field.replace(/(\r\n|\n|\r)/gm," ") + ";";
                 } catch (err){
@@ -289,7 +289,7 @@ angular.module('reg')
 
           });
       }
-      
+
       function generateSections(user){
         return [
           {
