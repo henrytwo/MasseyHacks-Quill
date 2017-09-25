@@ -186,6 +186,7 @@ module.exports = function(router) {
    router.get('/search/school/:query', function(req, res) {
      var params = sanitize(req.params);
      var query = params.query;
+     query = query.replace(/[!@#$<>%^*()]/g, "");
      SettingsController.getSchools(function(err, schools) {
        if (err) {
          res.sendStatus(500);
@@ -461,6 +462,7 @@ module.exports = function(router) {
     if (!school) {
       res.sendStatus(400, "School is null");
     }
+    school = school.replace(/[!@#$<>%^*()]/g, "");
     SettingsController.addSchool(school, defaultResponse(req, res));
   });
 
