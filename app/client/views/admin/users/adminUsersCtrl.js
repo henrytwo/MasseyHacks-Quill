@@ -477,11 +477,17 @@ angular.module('reg')
                 name: 'AddressLine 2',
                 value: user.reimbursement.addressLine2
               },{
+                name: 'City',
+                value: user.reimbursement.city
+              },{
                 name: 'State/Province/Region',
                 value: user.reimbursement.stateProvinceRegion
               },{
                 name: 'A country Of Bank',
                 value: user.reimbursement.countryOfBank
+              },{
+                name: 'Type of Country',
+                value: user.reimbursement.countryType
               },{
                 name: 'Name Of the Bank',
                 value: user.reimbursement.nameOfBank
@@ -495,11 +501,32 @@ angular.module('reg')
                 name: 'Account Number',
                 value: user.reimbursement.accountNumber
               },{
-                name: 'swiftOrBicOrClearingCode',
+                name: 'Swift / BIC',
                 value: user.reimbursement.swiftOrBicOrClearingCode
               },{
                 name: 'Brokerage Info',
                 value: user.reimbursement.brokerageInfo
+              },{
+                name: 'Name, Account owner',
+                value: user.reimbursement.accountOwnerName
+              },{
+                name: 'Birthdate, Account owner',
+                value: formatTime(user.reimbursement.accountOwnerBirthdate)
+              },{
+                name: 'Address 1, Account owner',
+                value: user.reimbursement.accountOwnerA1
+              },{
+                name: 'Address 2, Account owner',
+                value: user.reimbursement.accountOwnerA2
+              },{
+                name: 'ZIP, Account owner',
+                value: user.reimbursement.accountOwnerZIP
+              },{
+                name: 'City, Account owner',
+                value: user.reimbursement.accountOwnerCity
+              },{
+                name: 'Country, Account owner',
+                value: user.reimbursement.accountOwnerCountry
               },{
                 name: 'Additional',
                 value: user.reimbursement.additional
