@@ -61,7 +61,7 @@ angular.module('reg')
 
       $scope.filterUsers = function() {
         UserService
-          .getPage($stateParams.page, $stateParams.size, $scope.filter)
+          .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
           .success(function(data){
             updatePage(data);
           });
