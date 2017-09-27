@@ -8,6 +8,8 @@ angular.module('reg')
 
       $scope.pages = [];
       $scope.users = [];
+      // to know when to filter by date
+      $scope.sortDate = true;
 
       // Semantic-UI moves modal content into a dimmer at the top level.
       // While this is usually nice, it means that with our routing will generate
@@ -43,10 +45,19 @@ angular.module('reg')
       }
 
       UserService
-        .getPage($stateParams.page, $stateParams.size, $stateParams.query, $scope.filter)
+        .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
         .success(function(data){
           updatePage(data);
         });
+
+      $scope.sortByDate = function(){
+        $scope.sortDate = !$scope.sortDate;
+        UserService
+                  .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
+                  .success(function(data){
+                    updatePage(data);
+                  });
+      }
 
       $scope.filterUsers = function() {
         UserService
@@ -268,7 +279,7 @@ angular.module('reg')
                   output += ";";
                   continue;
                 }
-                var field = row[i].fields[j].value; 
+                var field = row[i].fields[j].value;
                 try {
                   output += field.replace(/(\r\n|\n|\r)/gm," ") + ";";
                 } catch (err){
