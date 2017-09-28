@@ -135,11 +135,13 @@ controller.sendAdmittanceEmail = function(user, callback) {
    to: user.email,
    subject: "[Junction 2017] - You have been admitted!"
  };
- var travelText;
- if (user.profile.AcceptedreimbursementClass === 'Rejected') {
-   travelText = 'Unfortunately we have run out of travel reimbursements, so will not be able to grant you reimbursements this time.'
- } else {
-   travelText = 'For travelling from ' + user.profile.travelFromCountry + ' you will be granted ' + getAcceptedreimbAmount(user) +' €.'
+ var travelText = "";
+ if (user.profile.needsReimbursement) {
+   if (user.profile.AcceptedreimbursementClass === 'Rejected') {
+     travelText = 'Unfortunately we have run out of travel reimbursements, so will not be able to grant you reimbursements this time.'
+   } else {
+     travelText = 'For travelling from ' + user.profile.travelFromCountry + ' you will be granted ' + getAcceptedreimbAmount(user) +' €.'
+   }
  }
  var locals = {
    nickname: user.nickname,
