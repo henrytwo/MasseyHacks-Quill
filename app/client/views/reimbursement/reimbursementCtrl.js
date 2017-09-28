@@ -104,8 +104,8 @@ angular.module('reg')
 
       $scope.updateFileName = function() {
           //When a new file is chosen, update the file name for the user in the scope
-          let strings = $('#fileName').val().split('\\');
-          let fileName = strings[strings.length - 1];
+          var strings = $('#fileName').val().split('\\');
+          var fileName = strings[strings.length - 1];
           $scope.user.reimbursement.fileName = fileName;
       }
 
