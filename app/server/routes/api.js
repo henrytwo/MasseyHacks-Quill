@@ -1,18 +1,32 @@
 var UserController = require('../controllers/UserController');
 var SettingsController = require('../controllers/SettingsController');
 
+var aws = require('aws-sdk');
 var request = require('request');
 var multer = require('multer');
+var multerS3 = require('multer-s3');
 var sanitize = require('mongo-sanitize');
 
+var s3 = new aws.S3();
+/*
 var storage = multer.diskStorage({
   destination: 'uploads/',
   filename: function (req, file, cb) {
     cb(null, file.originalname)
   }
-})
+})*/
 var upload = multer({
-  storage: storage,
+  storage: multerS3({
+    s3: s3,
+    bucket: 'junction-2017-tr-receipts',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    metadata: function(req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: function(req,file,cb) {
+      cb(null, file.originalname)
+    }
+  }),
   fileFilter: function (req, file, cb) {
     if (file.mimetype !== 'application/pdf') {
       req.fileValidationError = 'File not pdf';
@@ -153,7 +167,6 @@ module.exports = function(router) {
 
      });*/
      upload(req, res, function(err) {
-       console.log(storage)
        if(req.fileValidationError){
          res.sendStatus(400, "The file format is not pdf.");
        }
