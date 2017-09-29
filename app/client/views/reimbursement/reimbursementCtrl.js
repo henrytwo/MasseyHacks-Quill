@@ -58,6 +58,7 @@ angular.module('reg')
       });
 
       $scope.upload = function() {
+        $('.loader').attr('class', $('.loader').attr('class') + ' active')
         var fd = new FormData()
         angular.forEach($scope.files,function(file){
           fd.append('file',file)
@@ -70,9 +71,11 @@ angular.module('reg')
           })
           .success(function(data) {
             console.log(data);
+            $('.loader').attr('class', 'ui inline loader');
             swal("Success!", "Your file has been uploaded to our servers.")
           })
           .error(function() {
+            $('.loader').attr('class', 'ui inline loader');
             swal("Error!", "Your file is not in the right format or is too large.")
           });
         }
