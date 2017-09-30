@@ -58,12 +58,12 @@ angular.module('reg')
       });
 
       $scope.upload = function() {
-        $('.loader').attr('class', $('.loader').attr('class') + ' active')
         var fd = new FormData()
         angular.forEach($scope.files,function(file){
           fd.append('file',file)
         });
         if($scope.files){
+          $('.loader').attr('class', $('.loader').attr('class') + ' active');
           $http.post('/api/upload', fd,
           {
             transformRequest:angular.identity,
