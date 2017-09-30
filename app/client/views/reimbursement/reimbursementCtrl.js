@@ -63,6 +63,7 @@ angular.module('reg')
           fd.append('file',file)
         });
         if($scope.files){
+          $('.loader').attr('class', $('.loader').attr('class') + ' active');
           $http.post('/api/upload', fd,
           {
             transformRequest:angular.identity,
@@ -70,9 +71,11 @@ angular.module('reg')
           })
           .success(function(data) {
             console.log(data);
+            $('.loader').attr('class', 'ui inline loader');
             swal("Success!", "Your file has been uploaded to our servers.")
           })
           .error(function() {
+            $('.loader').attr('class', 'ui inline loader');
             swal("Error!", "Your file is not in the right format or is too large.")
           });
         }
