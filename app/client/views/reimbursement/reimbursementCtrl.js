@@ -70,7 +70,6 @@ angular.module('reg')
             headers:{'Content-Type':undefined}
           })
           .success(function(data) {
-            console.log(data);
             $('.loader').attr('class', 'ui inline loader');
             swal("Success!", "Your file has been uploaded to our servers.")
           })
@@ -83,6 +82,7 @@ angular.module('reg')
       // Set up the user
       $scope.user = currentUser.data;
       $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
+      $scope.generalCheck = $scope.user.status.reimbursementApplied;
 
       //var ibanCountries;
       $.getJSON('../assets/iban.json')
@@ -177,9 +177,6 @@ angular.module('reg')
         if(filteredCountry[0] != undefined){
           countryType = filteredCountry[0].countryType;
         }
-
-        console.log(countryType);
-        console.log($scope.user.reimbursement)
 
         if(countryType === "SEPA" || countryType === "ibanAndBic" || countryType === "onlyIban"){
           //disable the fields that are not needed before they are hidden with ng-show

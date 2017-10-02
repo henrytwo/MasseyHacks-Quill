@@ -600,7 +600,7 @@
           </div>
         </div>
 
-        <div class="divided title receipt">
+        <div class="divided title receipt" style="margin-top:20px;">
           RECEIPTS
         </div>
 
@@ -616,8 +616,9 @@
              file-input="files"
              accept="application/pdf"
              id="fileName"
+             placeholder="user.reimbursement.fileName"
              onchange="angular.element(this).scope().updateFileName()"/>
-             <button class="ui button sea-serpent" ng-click="upload()">Upload</button>
+             <button class="ui button sea-serpent" ng-click="upload()" style="margin-top:10px;">Upload</button>
              <div class="ui inline loader"></div>
         </div>
 

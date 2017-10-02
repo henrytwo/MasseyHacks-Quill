@@ -246,8 +246,7 @@ angular.module('reg')
           event.preventDefault();
           $state.go('app.dashboard');
         }
-
-        if((requireConfirmed && requireTravelReimbursementNeeded && requireTravelReimbursementClassIsNotRejected) && !Session.getUser().profile.needsReimbursement){
+        if((requireConfirmed && !(Session.getUser().status.confirmed)) || (requireTravelReimbursementNeeded && !Session.getUser().profile.needsReimbursement) || (requireTravelReimbursementClassIsNotRejected && (Session.getUser().profile.AcceptedreimbursementClass === 'Rejected'))){
           event.preventDefault();
           $state.go('app.dashboard');
         }
