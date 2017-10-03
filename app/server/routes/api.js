@@ -150,11 +150,8 @@ module.exports = function(router) {
    * FILE UPLOAD
    */
    router.post('/upload', function(req, res) {
-     /*var token = getToken(req);
-     var User;
-
-     console.log(token)
-
+     var token = getToken(req);
+     
      UserController.getByToken(token, function(err, user){
 
        if (err) {
@@ -162,23 +159,27 @@ module.exports = function(router) {
        }
 
        if (user){
-         User = user;
-       }
 
-     });*/
-     upload(req, res, function(err) {
-       if(req.fileValidationError){
-         res.sendStatus(400, "The file format is not pdf.");
-       }
-       if(err){
-         if(err.code === 'LIMIT_FILE_SIZE'){
-           res.sendStatus(413);
-         }
-         res.sendStatus(400);
-       }
+        if(!user.status.confirmed || !user.profile.needsReimbursement){
+          return res.sendStatus(403);
+        }
 
-       res.sendStatus(200);
+        upload(req, res, function(err) {
+          console.log("UPLOADING!")
+          if(req.fileValidationError){
+            return res.sendStatus(400, "The file format is not pdf.");
+          }
+          if(err){
+            if(err.code === 'LIMIT_FILE_SIZE'){
+              return res.sendStatus(413);
+            }
+            return res.sendStatus(400);
+          }
+          return res.sendStatus(200);
+        });
+      }
      });
+
    });
 
 
