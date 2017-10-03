@@ -160,7 +160,7 @@ module.exports = function(router) {
 
        if (user){
 
-        if(!user.status.confirmed || !user.profile.needsReimbursement){
+        if(!user.status.confirmed || !user.profile.needsReimbursement || (user.profile.AcceptedReimbursementClass === 'Rejected')){
           return res.sendStatus(403);
         }
 
