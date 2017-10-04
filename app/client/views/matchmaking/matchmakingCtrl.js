@@ -13,7 +13,7 @@ angular.module('reg')
       .popup({
         on: 'hover'
       });
-
+      console.log(TEAM);
       // Get the current user's most recent data.
       var Settings = settings.data;
 
@@ -23,44 +23,19 @@ angular.module('reg')
 
       $scope.TEAM = TEAM;
 
-     function _populateTeammates(){
-       UserService
-         .getMyTeammates()
-         .success(function(users){
-           $scope.error = null;
-           $scope.teammates = users;
-         });
-     }
+      $scope.showIndividualForm = false;
+      $scope.showTeamForm = false;
 
 
-      if ($scope.user.teamCode){
-        _populateTeammates();
-      }
-
-      $scope.joinTeam = function(){
-        UserService
-          .joinOrCreateTeam($scope.code)
-          .success(function(user){
-            $scope.error = null;
-            $scope.user = user;
-            _populateTeammates();
-          })
-          .error(function(res){
-            $scope.error = res.message;
-          });
+      $scope.setIndividual = function(){
+        console.log('Search as individual');
+        $scope.showIndividualForm = true;
+        $scope.showTeamForm = false;
       };
 
-      $scope.leaveTeam = function(){
-        UserService
-          .leaveTeam()
-          .success(function(user){
-            $scope.error = null;
-            $scope.user = user;
-            $scope.teammates = [];
-          })
-          .error(function(res){
-            $scope.error = res.data.message;
-          });
+      $scope.setTeam = function(){
+        console.log('Search as a team');
+        $scope.showTeamForm = true;
+        $scope.showIndividualForm = false;
       };
-
     }]);
