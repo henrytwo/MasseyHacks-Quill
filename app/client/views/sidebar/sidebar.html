@@ -31,7 +31,7 @@
 
     <div ui-sref-active="active"
          ui-sref="app.reimbursement"
-         ng-show="currentUser.status.admitted && currentUser.profile.needsReimbursement && !currentUser.status.declined && !(currentUser.profile.AcceptedreimbursementClass=='Rejected')  && currentUser.status.confirmed" 
+         ng-show="currentUser.status.admitted && currentUser.profile.needsReimbursement && !currentUser.status.declined && !(currentUser.profile.AcceptedreimbursementClass=='Rejected')  && currentUser.status.confirmed"
          class="item">
       Travel Reimbursement
     </div>
@@ -42,6 +42,14 @@
       ng-show="!currentUser.status.declined && currentUser.status.completedProfile"
       class="item">
       Team
+    </div>
+
+    <div
+      ui-sref-active="active"
+      ui-sref="app.matchmaking"
+      ng-show="!currentUser.status.declined && currentUser.status.completedProfile"
+      class="item">
+      Team Matchmaking
     </div>
 
     <div

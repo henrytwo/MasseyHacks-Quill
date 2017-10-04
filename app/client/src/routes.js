@@ -105,6 +105,22 @@ angular.module('reg')
           }
         }
       })
+      .state('app.matchmaking', {
+        url: "/matchmaking",
+        templateUrl: "views/matchmaking/matchmaking.html",
+        controller: 'MatchmakingCtrl',
+        data: {
+          requireApplied: true
+        },
+        resolve: {
+          currentUser: function(UserService){
+            return UserService.getCurrentUser();
+          },
+          settings: function(SettingsService){
+            return SettingsService.getPublicSettings();
+          }
+        }
+      })
       .state('app.admin', {
         views: {
           '': {
