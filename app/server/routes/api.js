@@ -15,28 +15,6 @@ var storage = multer.diskStorage({
     cb(null, file.originalname)
   }
 })*/
-var upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: 'junction-2017-tr-receipts',
-    contentType: multerS3.AUTO_CONTENT_TYPE,
-    metadata: function(req, file, cb) {
-      cb(null, {fieldName: file.fieldname});
-    },
-    key: function(req,file,cb) {
-      cb(null, file.originalname)
-    }
-  }),
-  fileFilter: function (req, file, cb) {
-    if (file.mimetype !== 'application/pdf') {
-      req.fileValidationError = 'File not pdf';
-      return cb(null, false);
-    }
-    cb(null, true);
-  },
-  limits: { fileSize: 2000000 }
-
- }).single('file');
 
 module.exports = function(router) {
 
@@ -149,6 +127,40 @@ module.exports = function(router) {
    /**
    * FILE UPLOAD
    */
+   var upload = multer({
+    storage: multerS3({
+      s3: s3,
+      bucket: 'junction-2017-tr-receipts',
+      contentType: multerS3.AUTO_CONTENT_TYPE,
+      metadata: function(req, file, cb) {
+        cb(null, {fieldName: file.fieldname});
+      },
+      key: function(req,file,cb) {
+        var token = getToken(req);
+        
+        UserController.getByToken(token, function(err, user){
+          if(user){
+            var filename = user.profile.name.split(' ').join('_') + '_' + user.id + '_receipts' + '.pdf';
+            cb(null, filename)
+          }
+        }
+      )}
+    }),
+    fileFilter: function (req, file, cb) {
+      if (file.mimetype !== 'application/pdf') {
+        req.fileValidationError = 'File not pdf';
+        return cb(null, false);
+      }
+      cb(null, true);
+    },
+    /*
+    filename: function(req, file, cb) {
+      cb(null, 'lol.pdf');
+    },*/
+    limits: { fileSize: 2000000 }
+  
+   }).single('file');
+   
    router.post('/upload', function(req, res) {
      var token = getToken(req);
      

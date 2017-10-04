@@ -347,6 +347,10 @@ var reimbursement = {
    fileName: {
      type: String
    },
+   fileUploaded: {
+     type: Boolean,
+     default: false
+   },
    zipCode: {
      type: String,
      default: '',
