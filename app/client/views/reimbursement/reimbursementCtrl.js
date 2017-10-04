@@ -26,6 +26,7 @@ angular.module('reg')
     function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService){
 
       $scope.isDisabled = false;
+      $scope.fileSelected = false;
 
       $scope.isSEPA = false;
       $scope.isUS = false;
@@ -71,6 +72,8 @@ angular.module('reg')
           })
           .success(function(data) {
             $scope.user.reimbursement.fileName = $scope.fileName;
+            $scope.user.reimbursement.fileUploaded = true;
+            checkCountryType();
             $('.loader').attr('class', 'ui inline loader');
             swal("Success!", "Your file has been uploaded to our servers.")
           })
@@ -108,6 +111,10 @@ angular.module('reg')
 
       $scope.updateFileName = function() {
           //When a new file is chosen, update the file name for the user in the scope
+          if(!$scope.fileSelected){
+            $scope.fileSelected = true;
+            checkCountryType();
+          }
           var strings = $('#fileName').val().split('\\');
           var fileName = strings[strings.length - 1];
           $scope.fileName = fileName;
@@ -400,6 +407,28 @@ angular.module('reg')
           ]
         };
 
+        var fileUpload = {
+          identifier: 'fileUpload',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please select a file to upload'
+            }
+          ]
+        };
+
+        if($scope.fileSelected){
+          fileUpload.rules = [
+          {
+            type: 'exactLength[100]',
+            prompt: "Please upload the file you've selected"
+          }
+          ];
+        }
+        if($scope.user.reimbursement.fileUploaded){
+          fileUpload.rules = [];
+        }
+
         if(countryType === "ibanOrOther" || countryType === "onlyIban" || countryType === "NotDefined" || countryType === "AUS" || countryType === "IND"){
 
           swiftOrBic.rules = [];
@@ -618,15 +647,7 @@ angular.module('reg')
             cityOfBank: cityOfBank,
             zipCodeBank: zipCodeBank,
             brokerageInfo: brokerageInfo,
-            fileUpload: {
-              identifier: 'fileUpload',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select a file to upload'
-                }
-              ]
-            },
+            fileUpload: fileUpload,
             receiptPurposeCode: {
               identifier: 'rcpField',
               rules: [
