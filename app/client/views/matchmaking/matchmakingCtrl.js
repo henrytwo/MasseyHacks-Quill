@@ -13,7 +13,6 @@ angular.module('reg')
       .popup({
         on: 'hover'
       });
-      console.log(TEAM);
       // Get the current user's most recent data.
       var Settings = settings.data;
 
@@ -25,6 +24,7 @@ angular.module('reg')
 
       $scope.showIndividualForm = false;
       $scope.showTeamForm = false;
+      $scope.showForms = true;
 
 
       $scope.setIndividual = function(){

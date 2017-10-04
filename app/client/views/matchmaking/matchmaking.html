@@ -10,94 +10,89 @@
         ng-show="error">
         {{error}}
       </div>
+      <div ng-show="showForms">
+        <div class="title">
+          LOL
+        </div>
 
-      <div class="title">
-        LOL
-      </div>
+        <div>
+          <div class="ui divider"></div>
 
-      <p
-        ng-repeat="user in teammates"
-        class="item">
-        {{user.profile.name || 'Somebody (has not filled out their profile!)'}}
-      </p>
+          <button
+            class="ui fluid sea-serpent button"
+            ng-click="setIndividual()">Searching for team</button>
+          <button
+            class="ui fluid sea-serpent button"
+            ng-click="setTeam()">Looking for teammates</button>
+        </div>
+        <br>
+        <br>
 
-      <div>
-        <div class="ui divider"></div>
+        <!-- Individual form -->
+        <div ng-show="showIndividualForm">
+          <div class="ui stackable page grid">
+            <div class="column">
+              <div class="ui form error"
+                    ng-class="{'loading': loading}">
 
-        <button
-          class="ui fluid sea-serpent button"
-          ng-click="setIndividual()">Searching for team</button>
-        <button
-          class="ui fluid sea-serpent button"
-          ng-click="setTeam()">Looking for teammates</button>
-      </div>
-      <br>
-      <br>
-      
-      <!-- Individual form -->
-      <div ng-show="showIndividualForm">
-        <div class="ui stackable page grid">
-          <div class="column">
-            <div class="ui form error"
-                  ng-class="{'loading': loading}">
+                <div class="divided title">Information about yourself</div>
 
-              <div class="divided title">Information about yourself</div>
+                <div class="field">
+                  <label> Email </label>
+                  <input type="email"
+                         name="email"
+                         ng-model="user.email">
+                </div>
 
-              <div class="field">
-                <label> Email </label>
-                <input type="email"
-                       name="email"
-                       ng-model="user.email">
-              </div>
+                <div class="field">
+                  <label> Nickname </label>
+                  <input type="text"
+                         name="nickname"
+                         ng-model="user.nickname">
+                </div>
 
-              <div class="field">
-                <label> Nickname </label>
-                <input type="text"
-                       name="nickname"
-                       ng-model="user.nickname">
-              </div>
-
-              <div class="field" style="margin-bottom:5px">
-                <button type="submit"
-                        class="fluid ui sea-serpent button"
-                        ng-click="submitForm()">
-                  Submit
-                </button>
+                <div class="field" style="margin-bottom:5px">
+                  <button type="submit"
+                          class="fluid ui sea-serpent button"
+                          ng-click="submitForm()">
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-            <!-- Team form -->
-      <div ng-show="showTeamForm">
-        <div class="ui stackable page grid">
-          <div class="column">
-            <div class="ui form error"
-                  ng-class="{'loading': loading}">
+              <!-- Team form -->
+        <div ng-show="showTeamForm">
+          <div class="ui stackable page grid">
+            <div class="column">
+              <div class="ui form error"
+                    ng-class="{'loading': loading}">
 
-              <div class="divided title">Information about your team</div>
+                <div class="divided title">Information about your team</div>
 
-              <div class="field">
-                <label> Email </label>
-                <input type="email"
-                       name="email"
-                       ng-model="user.email">
-              </div>
+                <div class="field">
+                  <label> Email </label>
+                  <input type="email"
+                         name="email"
+                         ng-model="user.email">
+                </div>
 
-              <div class="field">
-                <label> Nickname </label>
-                <input type="text"
-                       name="nickname"
-                       ng-model="user.nickname">
-              </div>
+                <div class="field">
+                  <label> Nickname </label>
+                  <input type="text"
+                         name="nickname"
+                         ng-model="user.nickname">
+                </div>
 
-              <div class="field" style="margin-bottom:5px">
-                <button type="submit"
-                        class="fluid ui sea-serpent button"
-                        ng-click="submitForm()">
-                  Submit
-                </button>
+                <div class="field" style="margin-bottom:5px">
+                  <button type="submit"
+                          class="fluid ui sea-serpent button"
+                          ng-click="submitForm()">
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
           </div>
