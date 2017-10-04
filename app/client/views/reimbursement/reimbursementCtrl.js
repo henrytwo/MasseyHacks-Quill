@@ -70,6 +70,7 @@ angular.module('reg')
             headers:{'Content-Type':undefined}
           })
           .success(function(data) {
+            $scope.user.reimbursement.fileName = $scope.fileName;
             $('.loader').attr('class', 'ui inline loader');
             swal("Success!", "Your file has been uploaded to our servers.")
           })
@@ -109,7 +110,7 @@ angular.module('reg')
           //When a new file is chosen, update the file name for the user in the scope
           var strings = $('#fileName').val().split('\\');
           var fileName = strings[strings.length - 1];
-          $scope.user.reimbursement.fileName = fileName;
+          $scope.fileName = fileName;
       }
 
       $('.icon')
