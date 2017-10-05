@@ -161,9 +161,9 @@ module.exports = function(router) {
   
    }).single('file');
    
-   router.post('/upload', function(req, res) {
+   router.post('/upload/:filename', function(req, res) {
      var token = getToken(req);
-     
+
      UserController.getByToken(token, function(err, user){
 
        if (err) {
@@ -187,7 +187,7 @@ module.exports = function(router) {
             }
             return res.sendStatus(400);
           }
-          return res.sendStatus(200);
+          UserController.updateFileNameById(user._id, req.params.filename, defaultResponse(req, res));
         });
       }
      });
