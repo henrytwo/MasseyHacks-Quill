@@ -128,6 +128,7 @@ module.exports = function(router) {
    * FILE UPLOAD
    */
    var upload = multer({
+    //create storage using multerS3
     storage: multerS3({
       s3: s3,
       bucket: 'junction-2017-tr-receipts',
@@ -137,15 +138,19 @@ module.exports = function(router) {
       },
       key: function(req,file,cb) {
         var token = getToken(req);
-        
         UserController.getByToken(token, function(err, user){
+          if (err) {
+            return res.sendStatus(500);
+          }
           if(user){
+            //set the file name by user information so that if the user uploads a new file, it replaces the old one in S3
             var filename = user.profile.name.split(' ').join('_') + '_' + user.id + '_receipts' + '.pdf';
             cb(null, filename)
           }
         }
       )}
     }),
+    //custom filters to filter out everything except pdf files
     fileFilter: function (req, file, cb) {
       if (file.mimetype !== 'application/pdf') {
         req.fileValidationError = 'File not pdf';
@@ -153,10 +158,7 @@ module.exports = function(router) {
       }
       cb(null, true);
     },
-    /*
-    filename: function(req, file, cb) {
-      cb(null, 'lol.pdf');
-    },*/
+    //Limit the filesize to 2MB
     limits: { fileSize: 2000000 }
   
    }).single('file');
@@ -177,17 +179,18 @@ module.exports = function(router) {
         }
 
         upload(req, res, function(err) {
-          console.log("UPLOADING!")
           if(req.fileValidationError){
             return res.sendStatus(400, "The file format is not pdf.");
           }
           if(err){
+            //give different error if the error is related to file size
             if(err.code === 'LIMIT_FILE_SIZE'){
               return res.sendStatus(413);
             }
             return res.sendStatus(400);
           }
-          UserController.updateFileNameById(user._id, req.params.filename, defaultResponse(req, res));
+          //Update the fileName field for the user, so that user can see if they uploaded a file already (even if they didn't submit the form)
+          UserController.updateFileNameById(user._id, sanitize(req.params.filename), defaultResponse(req, res));
         });
       }
      });
