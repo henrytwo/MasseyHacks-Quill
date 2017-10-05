@@ -1,28 +1,20 @@
 var UserController = require('../controllers/UserController');
 var SettingsController = require('../controllers/SettingsController');
 
+var aws = require('aws-sdk');
 var request = require('request');
 var multer = require('multer');
+var multerS3 = require('multer-s3');
 var sanitize = require('mongo-sanitize');
 
+var s3 = new aws.S3();
+/*
 var storage = multer.diskStorage({
   destination: 'uploads/',
   filename: function (req, file, cb) {
     cb(null, file.originalname)
   }
-})
-var upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, cb) {
-    if (file.mimetype !== 'application/pdf') {
-      req.fileValidationError = 'File not pdf';
-      return cb(null, false);
-    }
-    cb(null, true);
-  },
-  limits: { fileSize: 2000000 }
-
- }).single('file');
+})*/
 
 module.exports = function(router) {
 
@@ -135,11 +127,44 @@ module.exports = function(router) {
    /**
    * FILE UPLOAD
    */
-   router.post('/upload', function(req, res) {
-     /*var token = getToken(req);
-     var User;
-
-     console.log(token)
+   var upload = multer({
+    //create storage using multerS3
+    storage: multerS3({
+      s3: s3,
+      bucket: 'junction-2017-tr-receipts',
+      contentType: multerS3.AUTO_CONTENT_TYPE,
+      metadata: function(req, file, cb) {
+        cb(null, {fieldName: file.fieldname});
+      },
+      key: function(req,file,cb) {
+        var token = getToken(req);
+        UserController.getByToken(token, function(err, user){
+          if (err) {
+            return res.sendStatus(500);
+          }
+          if(user){
+            //set the file name by user information so that if the user uploads a new file, it replaces the old one in S3
+            var filename = user.profile.name.split(' ').join('_') + '_' + user.id + '_receipts' + '.pdf';
+            cb(null, filename)
+          }
+        }
+      )}
+    }),
+    //custom filters to filter out everything except pdf files
+    fileFilter: function (req, file, cb) {
+      if (file.mimetype !== 'application/pdf') {
+        req.fileValidationError = 'File not pdf';
+        return cb(null, false);
+      }
+      cb(null, true);
+    },
+    //Limit the filesize to 2MB
+    limits: { fileSize: 2000000 }
+  
+   }).single('file');
+   
+   router.post('/upload/:filename', function(req, res) {
+     var token = getToken(req);
 
      UserController.getByToken(token, function(err, user){
 
@@ -148,24 +173,28 @@ module.exports = function(router) {
        }
 
        if (user){
-         User = user;
-       }
 
-     });*/
-     upload(req, res, function(err) {
-       console.log(storage)
-       if(req.fileValidationError){
-         res.sendStatus(400, "The file format is not pdf.");
-       }
-       if(err){
-         if(err.code === 'LIMIT_FILE_SIZE'){
-           res.sendStatus(413);
-         }
-         res.sendStatus(400);
-       }
+        if(!user.status.confirmed || !user.profile.needsReimbursement || (user.profile.AcceptedReimbursementClass === 'Rejected')){
+          return res.sendStatus(403);
+        }
 
-       res.sendStatus(200);
+        upload(req, res, function(err) {
+          if(req.fileValidationError){
+            return res.sendStatus(400, "The file format is not pdf.");
+          }
+          if(err){
+            //give different error if the error is related to file size
+            if(err.code === 'LIMIT_FILE_SIZE'){
+              return res.sendStatus(413);
+            }
+            return res.sendStatus(400);
+          }
+          //Update the fileName field for the user, so that user can see if they uploaded a file already (even if they didn't submit the form)
+          UserController.updateFileNameById(user._id, sanitize(req.params.filename), defaultResponse(req, res));
+        });
+      }
      });
+
    });
 
 
@@ -235,7 +264,7 @@ module.exports = function(router) {
   router.get('/users', isAdmin, function(req, res){
     var query = req.query;
 
-    if (query.page && query.size){
+    if (query.page && query.size && query.sort){
 
       UserController.getPage(query, defaultResponse(req, res));
 

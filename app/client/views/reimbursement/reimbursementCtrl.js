@@ -26,6 +26,7 @@ angular.module('reg')
     function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService){
 
       $scope.isDisabled = false;
+      $scope.fileSelected = false;
 
       $scope.isSEPA = false;
       $scope.isUS = false;
@@ -63,16 +64,21 @@ angular.module('reg')
           fd.append('file',file)
         });
         if($scope.files){
-          $http.post('/api/upload', fd,
+          $('.loader').attr('class', $('.loader').attr('class') + ' active');
+          $http.post('/api/upload/' + $scope.fileName, fd,
           {
             transformRequest:angular.identity,
             headers:{'Content-Type':undefined}
           })
           .success(function(data) {
-            console.log(data);
+            $scope.user.reimbursement.fileName = $scope.fileName;
+            $scope.user.reimbursement.fileUploaded = true;
+            checkCountryType();
+            $('.loader').attr('class', 'ui inline loader');
             swal("Success!", "Your file has been uploaded to our servers.")
           })
           .error(function() {
+            $('.loader').attr('class', 'ui inline loader');
             swal("Error!", "Your file is not in the right format or is too large.")
           });
         }
@@ -80,6 +86,7 @@ angular.module('reg')
       // Set up the user
       $scope.user = currentUser.data;
       $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
+      $scope.generalCheck = $scope.user.status.reimbursementApplied;
 
       //var ibanCountries;
       $.getJSON('../assets/iban.json')
@@ -92,7 +99,7 @@ angular.module('reg')
             console.log( "Error loading iban.json" );
         });
 
-      $('#countryOfB').change(function() {
+      $scope.onBankCountryUpdate = function() {
 
           //When the Country of Bank field gets changed,
           //look through what is the type of the country
@@ -100,7 +107,18 @@ angular.module('reg')
           if($('#countryOfB').val() != ''){
             checkCountryType();
           }
-      });
+      };
+
+      $scope.updateFileName = function() {
+          //When a new file is chosen, update the file name for the user in the scope
+          if(!$scope.fileSelected){
+            $scope.fileSelected = true;
+            checkCountryType();
+          }
+          var strings = $('#fileName').val().split('\\');
+          var fileName = strings[strings.length - 1];
+          $scope.fileName = fileName;
+      }
 
       $('.icon')
       .popup({
@@ -167,9 +185,6 @@ angular.module('reg')
         if(filteredCountry[0] != undefined){
           countryType = filteredCountry[0].countryType;
         }
-
-        console.log(countryType);
-        console.log($scope.user.reimbursement)
 
         if(countryType === "SEPA" || countryType === "ibanAndBic" || countryType === "onlyIban"){
           //disable the fields that are not needed before they are hidden with ng-show
@@ -392,6 +407,28 @@ angular.module('reg')
           ]
         };
 
+        var fileUpload = {
+          identifier: 'fileUpload',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please select a file to upload'
+            }
+          ]
+        };
+
+        if($scope.fileSelected){
+          fileUpload.rules = [
+          {
+            type: 'exactLength[100]',
+            prompt: "Please upload the file you've selected"
+          }
+          ];
+        }
+        if($scope.user.reimbursement.fileUploaded){
+          fileUpload.rules = [];
+        }
+
         if(countryType === "ibanOrOther" || countryType === "onlyIban" || countryType === "NotDefined" || countryType === "AUS" || countryType === "IND"){
 
           swiftOrBic.rules = [];
@@ -491,7 +528,17 @@ angular.module('reg')
               ]
             },
 
-            //account owner informtion validation
+            //account owner information validation
+
+            accountOwnerCheck: {
+              identifier: 'ownerCheck',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select one of the options about the owner of the bank account.'
+                }
+              ]
+            },
 
             accountOwnerName: {
               identifier: 'ACNAME',
@@ -600,15 +647,7 @@ angular.module('reg')
             cityOfBank: cityOfBank,
             zipCodeBank: zipCodeBank,
             brokerageInfo: brokerageInfo,
-            fileUpload: {
-              identifier: 'fileUpload',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select a file to upload'
-                }
-              ]
-            },
+            fileUpload: fileUpload,
             receiptPurposeCode: {
               identifier: 'rcpField',
               rules: [

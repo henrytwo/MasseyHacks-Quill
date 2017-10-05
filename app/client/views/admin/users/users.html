@@ -103,7 +103,7 @@
           <div class="field"
           ng-if="selectedUser.profile.needsReimbursement">
           <label>
-            Choose reimbursement class for the participant. Participant requested class: 
+            Choose reimbursement class for the participant. Participant requested class:
             <strong>{{selectedUser.profile.AppliedreimbursementClass}}</strong>
           </label>
           <select
@@ -124,7 +124,7 @@
            placeholder="Special amount"
            ng-if="selectedUser.Class=='Special'"
            ng-model="selectedUser.SpecialClass">
-           
+
         </div>
             <button
               class="ui negative button"
@@ -133,7 +133,7 @@
               </i>
               <i ng-if="selectedUser.status.rejected">Unreject
               </i>
-            </button>  
+            </button>
             <button
               class="ui positive button"
               ng-click="acceptUser($event, selectedUser, $index)">
@@ -144,7 +144,7 @@
             <i class="checkmark icon"></i>
           </div>
         </div>
-        
+
       </div>
 
       <table
@@ -154,6 +154,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>E-mail address</th>
+            <th class="sortable" ng-click='sortByDate()'>Application date <i ng-class="{angle: true, icon: true, down: sortDate, up: !sortDate}"></i></th>
             <th>School</th>
             <th>Team</th>
             <th>Age</th>
@@ -188,6 +189,7 @@
                 {{user.profile.name}}
             </td>
             <td>{{user.email}}</td>
+            <td>{{user.timestamp | date: 'mediumDate'}}</td>
             <td>{{user.profile.school}}</td>
             <td>{{user.teamCode}}</td>
             <td>{{user.profile.age}}</td>
@@ -245,14 +247,14 @@
                 class="red remove circle icon">
               </i>
             </td>
-            <td> 
+            <td>
             {{user.profile.AppliedreimbursementClass}}
 
             </td>
             <td>
               {{user.profile.AcceptedreimbursementClass}}
             </td>
-            
+
             <td
               class="collapsing">
               <button

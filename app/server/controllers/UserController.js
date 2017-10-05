@@ -228,7 +228,7 @@ UserController.getPage = function(query, callback){
   var page = query.page;
   var size = parseInt(query.size);
   var text = query.filter.text;
-
+  var sort = query.sort == 'true' ? -1 : 1;
   var textFilter = [];
   var statusFilter = [];
 
@@ -242,7 +242,7 @@ UserController.getPage = function(query, callback){
   if(typeof query.filter.text != "undefined") {
     var re = new RegExp(text, 'i');
     textFilter.push({ email: re });
-    textFilter.push({ 'profile.name': re }); 
+    textFilter.push({ 'profile.name': re });
     textFilter.push({ 'teamCode': re });
     textFilter.push({ 'profile.homeCountry': re });
     textFilter.push({ 'profile.travelFromCountry': re });
@@ -251,11 +251,12 @@ UserController.getPage = function(query, callback){
     textFilter.push({ 'profile.mostInterestingTrack': re });
     textFilter.push({ 'id': re });
     textFilter.push({ 'profile.AppliedreimbursementClass': re });
+    textFilter.push({ 'profile.secret': re });
   }
   else {
     findQuery = {};
   }
-  
+
   if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
     statusFilter.push({'status.completedProfile': 'false'});
@@ -278,7 +279,7 @@ UserController.getPage = function(query, callback){
   User
     .find(findQuery)
     .sort({
-      'user.timestamp': 'asc'
+      'timestamp': sort
     })
     .select('+status.admittedBy')
     .skip(page * size)
@@ -431,6 +432,38 @@ UserController.updateConfirmationById = function (id, confirmation, callback){
   });
 };
 
+UserController.updateFileNameById = function(id, fileName, callback){
+  User.findById(id, function(err, user){
+    if(err || !user){
+      return callback(err);
+    }
+
+    User.findOneAndUpdate({
+      '_id': id,
+      'verified': true,
+      'status.admitted': true,
+      'status.declined': {$ne: true}
+    },
+      {
+        $set: {
+          'lastUpdated': Date.now(),
+          'reimbursement.fileName': fileName,
+          'reimbursement.fileUploaded': true
+        }
+      }, 
+        {
+          new: true
+        },
+        function(err, user) {
+          if (err || !user) {
+            return callback(err);
+          }
+          //Mailer.sendConfirmationEmail(user); PUT TRAVEL REIMBURSEMENT MAIL HERE?
+          return callback(err, user);
+        });
+  });
+};
+
 UserController.updateReimbursementById = function (id, reimbursement, callback){
 
   User.findById(id, function(err, user){
@@ -438,14 +471,6 @@ UserController.updateReimbursementById = function (id, reimbursement, callback){
     if(err || !user){
       return callback(err);
     }
-
-    // Make sure that the user followed the deadline, but if they're already confirmed
-    // that's okay.
-    /*if (Date.now() >= user.status.confirmBy && !user.status.confirmed){
-      return callback({
-        message: "You've missed the confirmation deadline."
-      });
-    } IMPLEMENT SOMETHING LIKE THIS FOR LAST DATE OF TRAVEL REIMBS*/
 
     User.findOneAndUpdate({
       '_id': id,

@@ -18,6 +18,8 @@
         <li class="tip"><b>Deadline</b> for submission of application and for travel receipt is <b>23:59 03.12.2017</b>. Subsequent notifications are not quoted.</li>
         <li class="tip">It may take some time to receive the travel reimbursement, as be begin the process during after all the participants have registered in the event.</li>
         <li class="tip">The address/country you type here should be the address where you’re <b>living and would be paying taxes</b>.</li>
+        <li class="tip">All recipients are <b>obligated to pay taxes from travel reimbursement</b>. Recipients belonging under Finnish tax jurisdiction will be required to pay their travel reimbursements as “earned income” (“ansiotulo” in Finnish). Other recipients will be obligated to pay travel reimbursements as “tax at the source” which is flat 35 % for everyone outside of Finnish tax jurisdiction. This means, for other recipients, that if you are granted a travel reimbursement of 100 €, you will receive 65 € and Junction will handle the taxation.
+            </li>
         <li class="tip">Failure to follow these instructions will lead to <b>rejection</b> of your travel reimbursement</li>
       </ol>
       <div class="ui checkbox">
@@ -115,7 +117,7 @@
         <div class="inline fields">
           <label>Will the reimbursement be paid to your <b>own</b> bank account?</label>
           <div class="field">
-            <div class="ui radio checkbox">
+            <div class="ui radio checkbox" name="ownerCheck">
               <input type="radio" name="accountOwner" checked="true" ng-model="accountOwner" value="user">
               <label>Yes</label>
             </div>
@@ -140,6 +142,7 @@
             <input type="text"
                    name="ACNAME"
                    class="ACNAME"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerName">
           </div>
 
@@ -148,6 +151,7 @@
             <input type="date"
                    name="ACBD"
                    class="ACBD"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerBirthdate">
           </div>
 
@@ -159,6 +163,7 @@
             <input type="text"
                    name="ACAL1"
                    class="ACAL1"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerA1">
           </div>
 
@@ -170,6 +175,7 @@
             <input type="text"
                    name="ACAL2"
                    class="ACAL2"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerA2">
           </div>
 
@@ -178,6 +184,7 @@
             <input type="text"
                    name="ACCITY"
                    class="ACCITY"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerCity"
                    placeholder="Hack">
           </div>
@@ -190,6 +197,7 @@
             <input type="text"
                    name="ACZIP"
                    class="ACZIP"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerZIP">
           </div>
 
@@ -198,6 +206,7 @@
             <input type="text"
                    name="ACREG"
                    class="ACREG"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerRegion">
           </div>
 
@@ -206,6 +215,7 @@
             <input type="text"
                    name="ACCOUNTRY"
                    class="ACCOUNTRY"
+                   disabled="true"
                    ng-model="user.reimbursement.accountOwnerCountry">
           </div>
         </div>
@@ -213,7 +223,7 @@
         <br/>
 
         <div class="accountInformationFields">
-          <div class="title">
+          <div class="title" style="padding-bottom:20px">
             Account Information
           </div>
           <div class="field">
@@ -222,6 +232,7 @@
             <select class="ui fluid search selection dropdown"
                    name="countryOfBank"
                    id="countryOfB"
+                   ng-change="onBankCountryUpdate()"
                    ng-model="user.reimbursement.countryOfBank">
              <option value="">Country...</option>
              <option value="Afganistan">Afghanistan</option>
@@ -589,22 +600,27 @@
           </div>
         </div>
 
-        <div class="divided title receipt">
+        <div class="divided title receipt" style="margin-top:20px;">
           RECEIPTS
         </div>
 
         <div class="field">
           <label>
             Choose a PDF-file to upload (Max. 2MB)
-            <i class="help circle icon link" data-content="Please select one pdf-file and press the Upload-button to send us the receipt. Example of the file name: harry_hacker_010190.pdf" data-variation="inverted" data-position="right center"></i>
+            <i class="help circle icon link" data-content="Please select one pdf-file and press the Upload-button to send us the receipt." data-variation="inverted" data-position="right center"></i>
           </label>
-          <p>Please name the file this way: <b>firstname_lastname__birthdate_receipt.pdf</b></p>
+          <p ng-show="user.reimbursement.fileName">You've successfully uploaded us this file: <b>{{user.reimbursement.fileName}}</b></p>
+          <p ng-show="user.reimbursement.fileName">Uploading a new file will <b>replace</b> the previous one!</p>
           <input
              type="file"
              name="fileUpload"
              file-input="files"
-             accept="application/pdf"/>
-             <button class="ui button sea-serpent" ng-click="upload()">Upload</button>
+             accept="application/pdf"
+             id="fileName"
+             placeholder="user.reimbursement.fileName"
+             onchange="angular.element(this).scope().updateFileName()"/>
+             <button class="ui button sea-serpent" ng-click="upload()" style="margin-top:10px;">Upload</button>
+             <div class="ui inline loader"></div>
         </div>
 
         <div class="field">

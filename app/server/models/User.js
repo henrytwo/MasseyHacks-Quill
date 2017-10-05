@@ -344,6 +344,13 @@ var reimbursement = {
      default: '',
      maxlength: 50
    },
+   fileName: {
+     type: String
+   },
+   fileUploaded: {
+     type: Boolean,
+     default: false
+   },
    zipCode: {
      type: String,
      default: '',

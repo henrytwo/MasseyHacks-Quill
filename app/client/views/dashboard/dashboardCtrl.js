@@ -15,7 +15,6 @@ angular.module('reg')
       var user = currentUser.data;
       $scope.user = user;
       $scope.classAmount = Utils.getAcceptedreimbAmount(user, Settings);
-
       $scope.DASHBOARD = DASHBOARD;
 
       for (var msg in $scope.DASHBOARD) {
