@@ -609,6 +609,8 @@
             Choose a PDF-file to upload (Max. 2MB)
             <i class="help circle icon link" data-content="Please select one pdf-file and press the Upload-button to send us the receipt." data-variation="inverted" data-position="right center"></i>
           </label>
+          <p ng-show="user.reimbursement.fileName">You've successfully uploaded us this file: <b>{{user.reimbursement.fileName}}</b></p>
+          <p ng-show="user.reimbursement.fileName">Uploading a new file will <b>replace</b> the previous one!</p>
           <input
              type="file"
              name="fileUpload"
