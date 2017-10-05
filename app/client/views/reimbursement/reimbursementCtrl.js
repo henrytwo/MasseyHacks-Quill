@@ -65,13 +65,12 @@ angular.module('reg')
         });
         if($scope.files){
           $('.loader').attr('class', $('.loader').attr('class') + ' active');
-          $http.post('/api/upload', fd,
+          $http.post('/api/upload/' + $scope.fileName, fd,
           {
             transformRequest:angular.identity,
             headers:{'Content-Type':undefined}
           })
           .success(function(data) {
-            $scope.user.reimbursement.fileName = $scope.fileName;
             $scope.user.reimbursement.fileUploaded = true;
             checkCountryType();
             $('.loader').attr('class', 'ui inline loader');
