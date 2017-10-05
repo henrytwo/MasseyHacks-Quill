@@ -71,6 +71,7 @@ angular.module('reg')
             headers:{'Content-Type':undefined}
           })
           .success(function(data) {
+            $scope.user.reimbursement.fileName = $scope.fileName;
             $scope.user.reimbursement.fileUploaded = true;
             checkCountryType();
             $('.loader').attr('class', 'ui inline loader');
