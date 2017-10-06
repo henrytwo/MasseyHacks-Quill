@@ -100,7 +100,16 @@ function calculateStats(settings){
     Aspecial:      0,
     ArejectedTotal:0,
 
+    CfinlandTotal: 0,
+    CbalticsTotal: 0,
+    CnordicTotal:  0,
+    CeuropeTotal:  0,
+    CoutsideTotal: 0,
+    Cspecial:      0,
+    CrejectedTotal:0,
+
     TotalAmountofReimbursementsAccepted: 0,
+    TotalAmountofReimbursementsConfirmed: 0,
 
     appliedStats: {
       tracks: {
@@ -216,30 +225,51 @@ function calculateStats(settings){
         if(!user.status.declined){
           var regex = /\d/g;
           if (user.profile.AcceptedreimbursementClass == "Finland") {
+            if (user.status.confirmed) {
+              newStats.CfinlandTotal += 1;
+              newStats.TotalAmountofReimbursementsConfirmed += settings.reimbursementClass.Finland;
+            }
             newStats.AfinlandTotal += 1;
             newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Finland;
-          }
-          else if (user.profile.AcceptedreimbursementClass == "Baltics") {
+          } else if (user.profile.AcceptedreimbursementClass == "Baltics") {
+            if (user.status.confirmed) {
+              newStats.CbalticsTotal += 1;
+              newStats.TotalAmountofReimbursementsConfirmed += settings.reimbursementClass.Baltics;
+            }
             newStats.AbalticsTotal += 1;
             newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Baltics;
-          }
-          else if (user.profile.AcceptedreimbursementClass == "Nordic") {
+          } else if (user.profile.AcceptedreimbursementClass == "Nordic") {
+            if (user.status.confirmed) {
+              newStats.CnordicTotal += 1;
+              newStats.TotalAmountofReimbursementsConfirmed += settings.reimbursementClass.Nordic;
+            }
             newStats.AnordicTotal += 1;
             newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Nordic;
-          }
-          else if (user.profile.AcceptedreimbursementClass == "Europe") {
+          } else if (user.profile.AcceptedreimbursementClass == "Europe") {
+            if (user.status.confirmed) {
+              newStats.CeuropeTotal += 1;
+              newStats.TotalAmountofReimbursementsConfirmed += settings.reimbursementClass.Europe;
+            }
             newStats.AeuropeTotal += 1;
             newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Europe;
-          }
-          else if (user.profile.AcceptedreimbursementClass == "Outside Europe") {
+          } else if (user.profile.AcceptedreimbursementClass == "Outside Europe") {
+            if (user.status.confirmed) {
+              newStats.CoutsideTotal += 1;
+              newStats.TotalAmountofReimbursementsConfirmed += settings.reimbursementClass.Outside;
+            }
             newStats.AoutsideTotal += 1;
             newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Outside;
-          }
-          else if (regex.test(user.profile.AcceptedreimbursementClass)) {
+          } else if (regex.test(user.profile.AcceptedreimbursementClass)) {
+            if (user.status.confirmed) {
+              newStats.Cspecial += 1;
+              newStats.TotalAmountofReimbursementsConfirmed += parseInt(user.profile.AcceptedreimbursementClass);
+            }
             newStats.Aspecial += 1;
             newStats.TotalAmountofReimbursementsAccepted += parseInt(user.profile.AcceptedreimbursementClass);
-          }
-          else if (user.profile.AcceptedreimbursementClass == "Rejected") {
+          } else if (user.profile.AcceptedreimbursementClass == "Rejected") {
+            if (user.status.confirmed) {
+              newStats.CrejectedTotal += 1;
+            }
             newStats.ArejectedTotal += 1;
           }
         }
