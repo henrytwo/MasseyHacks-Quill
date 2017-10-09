@@ -102,6 +102,7 @@ function sendOne(templateName, options, data, callback){
 controller.sendLaggerEmails = function(users, callback) {
   for (var i = 0; i < users.length; i++) {
     var user = users[i];
+    console.log(user);
     var options = {
       to: user.email,
       subject: "[Junction 2017] - We are still waiting for your application!"
@@ -112,9 +113,8 @@ controller.sendLaggerEmails = function(users, callback) {
       dashUrl: ROOT_URL
     };
 
-    console.log('Sending lagger emails to address ' + user.email);
-    /*
-    sendOne('email-application', options, locals, function(err, info){
+    console.log('Sending lagger email to address ' + user.email);
+    sendOne('email-lagger', options, locals, function(err, info){
       if (err){
         console.log(err);
       }
@@ -125,7 +125,6 @@ controller.sendLaggerEmails = function(users, callback) {
         callback(err, info);
       }
     });
-    */
   }
 }
 
