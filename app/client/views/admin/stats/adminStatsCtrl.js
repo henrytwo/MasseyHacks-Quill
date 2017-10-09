@@ -15,4 +15,13 @@ angular.module('reg')
         return moment(date).fromNow();
       };
 
+      $scope.sendLaggerEmails = function(){
+        console.log("Send emails");
+        UserService
+          .sendLaggerEmails()
+          .then(function(){
+            sweetAlert('Your emails have been sent.');
+          });
+      };
+
     }]);

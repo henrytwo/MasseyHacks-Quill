@@ -444,6 +444,14 @@ module.exports = function(router) {
     UserController.checkOutById(id, user, defaultResponse(req, res));
   });
 
+   /**
+   * Send emails to unsubmitted applicants
+   */
+  router.post('/users/sendlagemails', isAdmin, function(req, res){
+    console.log('Sending lag emails')
+    UserController.sendEmailsToNonCompleteProfiles(defaultResponse(req, res));
+  });
+
 
   // ---------------------------------------------
   // Settings [ADMIN ONLY!]

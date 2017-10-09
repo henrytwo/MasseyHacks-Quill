@@ -99,6 +99,38 @@ function sendOne(templateName, options, data, callback){
   });
 }
 
+controller.sendLaggerEmails = function(users, callback) {
+  console.log(users);
+  for (var i = 0; i < users.length; i++) {
+    var user = users[i];
+    console.log(user);
+    var options = {
+      to: user.email,
+      subject: "[Junction 2017] - We are still waiting for your application!"
+    };
+  
+    var locals = {
+      nickname: user.nickname,
+      dashUrl: ROOT_URL
+    };
+
+    console.log('Sending lagger emails to address ' + user.email);
+    /*
+    sendOne('email-application', options, locals, function(err, info){
+      if (err){
+        console.log(err);
+      }
+      if (info){
+        console.log(info.message);
+      }
+      if (callback){
+        callback(err, info);
+      }
+    });
+    */
+  }
+}
+
 controller.sendApplicationEmail = function(user, callback) {
   var options = {
     to: user.email,
