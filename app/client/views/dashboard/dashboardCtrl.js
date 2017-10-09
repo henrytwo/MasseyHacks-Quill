@@ -113,10 +113,12 @@ angular.module('reg')
 
       //QR
       $scope.getQRCode = function(id){
-        $http.get('/api/qr/' + id)
-        .then(function(response){
-          document.getElementById('QRContainer').innerHTML = response.data;
-        });
+        if($scope.user.status.confirmed){
+          $http.get('/api/qr/' + id)
+          .then(function(response){
+            document.getElementById('QRContainer').innerHTML = response.data;
+          });
+        }
       };
       $scope.getQRCode($scope.user.id);      
       
