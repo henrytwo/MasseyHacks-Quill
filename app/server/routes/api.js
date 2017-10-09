@@ -24,15 +24,6 @@ var upload = multer({
 
  }).single('file');
 
- function generateQR(data){
-  var typeNumber = 4;
-  var errorCorrectionLevel = 'L';
-  var qr = qrcode(typeNumber, errorCorrectionLevel);
-  qr.addData(data);
-  qr.make();
-  return qr.createImgTag(10); 
- }
-
 module.exports = function(router) {
 
   function getToken(req){
@@ -166,6 +157,15 @@ module.exports = function(router) {
   /*
   QR-CODE GENERATION
   */
+
+  function generateQR(data){
+    var typeNumber = 4;
+    var errorCorrectionLevel = 'L';
+    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    qr.addData(data);
+    qr.make();
+    return qr.createImgTag(8); 
+  }
 
   router.get('/qr/:id', function(req, res) {
     var id = req.params.id;
@@ -436,7 +436,7 @@ module.exports = function(router) {
    * Check in user with QR code. VOLUNTEER OR ADMIN
    */
 
-  router.post('/users/:id/qrcheck', isVolunteer, function(req, res){
+  router.post('/users/:id/qrcheck', (isVolunteer || isAdmin), function(req, res){
     var id = req.params.id;
     UserController.QRcheckInById(id, defaultResponse(req, res));
   });

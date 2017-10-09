@@ -241,7 +241,7 @@ angular.module('reg')
           $state.go('app.dashboard');
         }
 
-        if(requireVolunteer && !Session.getUser().volunteer){
+        if(requireVolunteer && !Session.getUser().admin){
           event.preventDefault();
           $state.go('app.dashboard');
         }

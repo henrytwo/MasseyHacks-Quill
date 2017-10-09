@@ -879,6 +879,7 @@ UserController.QRcheckInById = function(id, callback){
   console.log(id);
   User.findOneAndUpdate({
     id: id,
+    confirmed: true,
     verified: true
   },{
     $set: {
@@ -887,8 +888,13 @@ UserController.QRcheckInById = function(id, callback){
     }
   }, {
     new: true
-  },
-  callback);
+  },    
+  function(err, user) {
+    if (err || !user) {
+      return callback(err);
+    }
+    return callback(err, user);
+  });
 };
 
 /**

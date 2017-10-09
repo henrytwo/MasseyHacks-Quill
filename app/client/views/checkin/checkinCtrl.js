@@ -17,7 +17,7 @@ angular.module('reg')
               });
             })
             .error(function(res){
-              sweetAlert("Uh oh!", "Something went wrong.", "error");
+              sweetAlert("Uh oh!", "User not admitted/confirmed or not valid!", "error");
             });
         },
       function(error){
