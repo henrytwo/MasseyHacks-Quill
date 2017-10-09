@@ -448,7 +448,6 @@ module.exports = function(router) {
    * Send emails to unsubmitted applicants
    */
   router.post('/users/sendlagemails', isAdmin, function(req, res){
-    console.log('Sending lag emails')
     UserController.sendEmailsToNonCompleteProfiles(defaultResponse(req, res));
   });
 

@@ -727,13 +727,11 @@ UserController.sendVerificationEmailById = function(id, callback){
 
 UserController.sendEmailsToNonCompleteProfiles = function(callback) {
   User.find({"status.completedProfile": true}, 'email nickname', function (err, users) {
-    console.log('Usercontroller send');
     if (err) {
       return callback(err);
     }
-    console.log(users);
     Mailer.sendLaggerEmails(users);
-    callback(err);
+    return callback(err);
   });
 }
 

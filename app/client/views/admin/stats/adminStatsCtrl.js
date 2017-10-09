@@ -16,11 +16,20 @@ angular.module('reg')
       };
 
       $scope.sendLaggerEmails = function(){
-        console.log("Send emails");
-        UserService
-          .sendLaggerEmails()
-          .then(function(){
-            sweetAlert('Your emails have been sent.');
+        swal({
+          title: "Are you sure?",
+          text: "This will send an email to every user who has not submitted an application. You might really fuck this up.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, send those bitches.",
+          closeOnConfirm: false
+          }, function(){
+            UserService
+              .sendLaggerEmails()
+              .then(function(){
+                sweetAlert('Your emails have been sent.');
+            });
           });
       };
 

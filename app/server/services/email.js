@@ -100,10 +100,8 @@ function sendOne(templateName, options, data, callback){
 }
 
 controller.sendLaggerEmails = function(users, callback) {
-  console.log(users);
   for (var i = 0; i < users.length; i++) {
     var user = users[i];
-    console.log(user);
     var options = {
       to: user.email,
       subject: "[Junction 2017] - We are still waiting for your application!"
