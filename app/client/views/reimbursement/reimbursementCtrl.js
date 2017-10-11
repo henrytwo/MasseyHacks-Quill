@@ -63,9 +63,10 @@ angular.module('reg')
         angular.forEach($scope.files,function(file){
           fd.append('file',file)
         });
+
         if($scope.files){
           $('.loader').attr('class', $('.loader').attr('class') + ' active');
-          $http.post('/api/upload/' + $scope.fileName, fd,
+          $http.post('/api/upload/' + $scope.fileName + '/' + $scope.user.reimbursement.dateOfBirth, fd,
           {
             transformRequest:angular.identity,
             headers:{'Content-Type':undefined}
@@ -120,6 +121,14 @@ angular.module('reg')
           $scope.fileName = fileName;
       }
 
+      $('.dateOfBirth').change(function() {
+        if($scope.user.reimbursement.dateOfBirth !== 'undefined'){
+          $('#fileName').attr('disabled', false);
+        }
+        else{
+          $('#fileName').attr('disabled', true);
+        }
+      });
       $('.icon')
       .popup({
         on: 'hover'

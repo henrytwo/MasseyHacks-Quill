@@ -127,48 +127,8 @@ module.exports = function(router) {
    /**
    * FILE UPLOAD
    */
-   var upload = multer({
-    //create storage using multerS3
-    storage: multerS3({
-      s3: s3,
-      bucket: 'junction-2017-tr-receipts',
-      contentType: multerS3.AUTO_CONTENT_TYPE,
-      metadata: function(req, file, cb) {
-        cb(null, {fieldName: file.fieldname});
-      },
-      key: function(req,file,cb) {
-        var token = getToken(req);
-        UserController.getByToken(token, function(err, user){
-          if (err) {
-            return res.sendStatus(500);
-          }
-          if(user){
-            var date = new Date(user.reimbursement.dateOfBirth);
-            var offset = date.getTimezoneOffset();
-            console.log(offset);
-            var dateWithOffset = new Date(date.getTime() - offset*60*1000);
-            console.log(dateWithOffset);
-            //set the file name by user information so that if the user uploads a new file, it replaces the old one in S3
-            var filename = user.profile.name.split(' ').join('_') + '_' + dateWithOffset.toISOString().split('T')[0] + '_' + user.id + '_receipts' + '.pdf';
-            cb(null, filename)
-          }
-        }
-      )}
-    }),
-    //custom filters to filter out everything except pdf files
-    fileFilter: function (req, file, cb) {
-      if (file.mimetype !== 'application/pdf') {
-        req.fileValidationError = 'File not pdf';
-        return cb(null, false);
-      }
-      cb(null, true);
-    },
-    //Limit the filesize to 2MB
-    limits: { fileSize: 2000000 }
-  
-   }).single('file');
    
-   router.post('/upload/:filename', function(req, res) {
+   router.post('/upload/:filename/:dateofbirth', function(req, res) {
      var token = getToken(req);
 
      UserController.getByToken(token, function(err, user){
@@ -182,6 +142,37 @@ module.exports = function(router) {
         if(!user.status.confirmed || !user.profile.needsReimbursement || (user.profile.AcceptedReimbursementClass === 'Rejected')){
           return res.sendStatus(403);
         }
+        var upload = multer({
+          //create storage using multerS3
+          storage: multerS3({
+            s3: s3,
+            bucket: 'junction-2017-tr-receipts',
+            contentType: multerS3.AUTO_CONTENT_TYPE,
+            metadata: function(req, file, cb) {
+              cb(null, {fieldName: file.fieldname});
+            },
+            key: function(req,file,cb) {
+                //get the date right by adding the offset of timezone
+                var date = new Date(req.params.dateofbirth);
+                var offset = date.getTimezoneOffset();
+                var dateWithOffset = new Date(date.getTime() - offset*60*1000);
+                //set the file name by user information so that if the user uploads a new file, it replaces the old one in S3
+                var filename = user.profile.name.split(' ').join('_') + '_' + dateWithOffset.toISOString().split('T')[0] + '_' + user.id + '_receipts' + '.pdf';
+                cb(null, filename)
+            }
+          }),
+          //custom filters to filter out everything except pdf files
+          fileFilter: function (req, file, cb) {
+            if (file.mimetype !== 'application/pdf') {
+              req.fileValidationError = 'File not pdf';
+              return cb(null, false);
+            }
+            cb(null, true);
+          },
+          //Limit the filesize to 2MB
+          limits: { fileSize: 2000000 }
+        
+         }).single('file');
 
         upload(req, res, function(err) {
           if(req.fileValidationError){

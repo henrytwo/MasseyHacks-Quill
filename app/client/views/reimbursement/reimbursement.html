@@ -52,6 +52,7 @@
           <label> Date of Birth </label>
           <input type="date"
                  name="dateOfBirth"
+                 class="dateOfBirth"
                  ng-model="user.reimbursement.dateOfBirth">
         </div>
 
@@ -616,7 +617,7 @@
              file-input="files"
              accept="application/pdf"
              id="fileName"
-             placeholder="user.reimbursement.fileName"
+             disabled="user.reimbursement.dateOfBirth === 'Invalid Date'"
              onchange="angular.element(this).scope().updateFileName()"/>
              <button class="ui button sea-serpent" ng-click="upload()" style="margin-top:10px;">Upload</button>
              <div class="ui inline loader"></div>
