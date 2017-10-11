@@ -88,6 +88,7 @@ angular.module('reg')
       $scope.user = currentUser.data;
       $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
       $scope.generalCheck = $scope.user.status.reimbursementApplied;
+      $scope.dateOfBirth = $scope.user.reimbursement.dateOfBirth;
 
       //var ibanCountries;
       $.getJSON('../assets/iban.json')
@@ -124,6 +125,9 @@ angular.module('reg')
       $('.dateOfBirth').change(function() {
         if($scope.user.reimbursement.dateOfBirth !== 'undefined'){
           $('#fileName').attr('disabled', false);
+          var offset = $scope.dateOfBirth.getTimezoneOffset();
+          var dateWithOffset = new Date($scope.dateOfBirth.getTime() - offset*60*1000);
+          $scope.user.reimbursement.dateOfBirth = dateWithOffset;
         }
         else{
           $('#fileName').attr('disabled', true);
