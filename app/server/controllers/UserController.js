@@ -731,6 +731,16 @@ UserController.sendVerificationEmailById = function(id, callback){
   });
 };
 
+UserController.sendEmailsToNonCompleteProfiles = function(callback) {
+  User.find({"status.completedProfile": true}, 'email nickname', function (err, users) {
+    if (err) {
+      return callback(err);
+    }
+    Mailer.sendLaggerEmails(users);
+    return callback(err);
+  });
+}
+
 /**
  * Password reset email
  * @param  {[type]}   email    [description]
