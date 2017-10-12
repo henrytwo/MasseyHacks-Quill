@@ -532,6 +532,15 @@ angular.module('reg')
                 }
               ]
             },
+            nationality: {
+              identifier: 'nationality',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your nationality.'
+                }
+              ]
+            },
             countryOfBank: {
               identifier: 'countryOfBank',
               rules: [
