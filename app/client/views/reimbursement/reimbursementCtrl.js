@@ -24,7 +24,13 @@ angular.module('reg')
     'Session',
     'UserService',
     function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService){
-
+      
+      // Set up the user
+      $scope.user = currentUser.data;
+      $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
+      $scope.generalCheck = $scope.user.status.reimbursementApplied;
+      $scope.dateOfBirth = $scope.user.reimbursement.dateOfBirth;
+      $scope.disableUpload = isNaN(Date.parse($scope.dateOfBirth));
       $scope.isDisabled = false;
       $scope.fileSelected = false;
 
@@ -63,9 +69,10 @@ angular.module('reg')
         angular.forEach($scope.files,function(file){
           fd.append('file',file)
         });
+
         if($scope.files){
           $('.loader').attr('class', $('.loader').attr('class') + ' active');
-          $http.post('/api/upload/' + $scope.fileName, fd,
+          $http.post('/api/upload/' + $scope.fileName + '/' + $scope.user.reimbursement.dateOfBirth, fd,
           {
             transformRequest:angular.identity,
             headers:{'Content-Type':undefined}
@@ -83,10 +90,6 @@ angular.module('reg')
           });
         }
       }
-      // Set up the user
-      $scope.user = currentUser.data;
-      $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
-      $scope.generalCheck = $scope.user.status.reimbursementApplied;
 
       //var ibanCountries;
       $.getJSON('../assets/iban.json')
@@ -120,6 +123,17 @@ angular.module('reg')
           $scope.fileName = fileName;
       }
 
+      $('.dateOfBirth').change(function() {
+        if($scope.user.reimbursement.dateOfBirth !== 'undefined'){
+          $scope.disableUpload = false;
+          var offset = $scope.dateOfBirth.getTimezoneOffset();
+          var dateWithOffset = new Date($scope.dateOfBirth.getTime() - offset*60*1000);
+          $scope.user.reimbursement.dateOfBirth = dateWithOffset;
+        }
+        else{
+          $scope.disableUpload = true;
+        }
+      });
       $('.icon')
       .popup({
         on: 'hover'

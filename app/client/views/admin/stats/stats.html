@@ -147,10 +147,35 @@
           <i class="green money icon"></i>
           <div class="content">
             <strong>
-              Total amount of reimbursements given: {{stats.TotalAmountofReimbursementsAccepted}} €
+              Accepted amount of reimbursements given: {{stats.TotalAmountofReimbursementsAccepted}} €
             </strong>
           </div>
         </div>
+
+        <div class="item">
+          <i class="green money icon"></i>
+          <div class="content">
+            <strong>
+              Confirmed travel reimbursement classes:
+            </strong>
+              Finland: <strong>{{stats.CfinlandTotal}}</strong>
+              Baltics: <strong>{{stats.CbalticsTotal}}</strong>
+              Nordic: <strong>{{stats.CnordicTotal}}</strong>
+              Europe: <strong>{{stats.CeuropeTotal}}</strong>
+              Outside Europe: <strong>{{stats.CoutsideTotal}}</strong>
+              Special: <strong>{{stats.Cspecial}}</strong>
+              Rejected:<strong>{{stats.CrejectedTotal}}</strong>
+          </div>
+        </div>
+        <div class="item">
+          <i class="green money icon"></i>
+          <div class="content">
+            <strong>
+              Confirmed amount of reimbursements given: {{stats.TotalAmountofReimbursementsConfirmed}} €
+            </strong>
+          </div>
+        </div>
+
         <div class="ui divider"></div>
 
         <div class="item">
@@ -179,6 +204,23 @@
 
       </div>
     </div>
+    <div class="ui divider"></div>
+
+        <div class="item">
+          <div class="content">
+            <strong>
+              Send remainder emails for users who have not submitted application:
+            </strong>
+            <div class="field" style="margin-bottom:5px">
+              <button type="submit"
+                      class="fluid ui sea-serpent button"
+                      ng-click="sendLaggerEmails()">
+                Send!
+              </button>
+            </div>
+          </div>
+        </div>
+
   </div>
 
   <div
