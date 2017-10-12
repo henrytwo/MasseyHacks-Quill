@@ -260,19 +260,25 @@ UserController.getPage = function(query, callback){
   if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
     statusFilter.push({'status.completedProfile': 'false'});
+    statusFilter.push({'status.rejected': 'false'});
   }
   else if(query.filter.submitted === 'true') {
     statusFilter.push({'status.completedProfile': 'true'});
     statusFilter.push({'status.admitted': 'false'});
+    statusFilter.push({'status.rejected': 'false'});
   }
   else if(query.filter.admitted === 'true') {
     statusFilter.push({'status.admitted': 'true'});
     statusFilter.push({'status.confirmed': 'false'});
-  }
-  else if(query.filter.confirmed ==='true')
+    statusFilter.push({'status.rejected': 'false'});
+  } else if(query.filter.confirmed ==='true') {
     statusFilter.push({'status.confirmed': 'true'});
-  else if(query.filter.needsReimbursement === 'true')
+    statusFilter.push({'status.rejected': 'false'});
+  } else if(query.filter.needsReimbursement === 'true') {
     statusFilter.push({'profile.needsReimbursement': 'true'});
+    statusFilter.push({'status.rejected': 'false'});
+  } else if(query.filter.rejected === 'true')
+    statusFilter.push({'status.rejected': 'true'});
   else
    statusFilter.push({});
 
