@@ -732,7 +732,7 @@ UserController.sendVerificationEmailById = function(id, callback){
 };
 
 UserController.sendEmailsToNonCompleteProfiles = function(callback) {
-  User.find({"status.completedProfile": true}, 'email nickname', function (err, users) {
+  User.find({"status.completedProfile": false}, 'email nickname', function (err, users) {
     if (err) {
       return callback(err);
     }
