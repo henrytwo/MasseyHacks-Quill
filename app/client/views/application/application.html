@@ -31,6 +31,9 @@
         maxSelections: 2
       });
 
+    $( '#submitButton' ).click(function() {
+      fbq('track', 'CompleteRegistration');
+    });
   </script>
 
   <div class="ui stackable page grid">
@@ -1089,6 +1092,7 @@
         <div class="field" style="margin-bottom:5px" ng-hide="regIsClosed">
           <button type="submit"
                   class="fluid ui sea-serpent button"
+                  id="submitButton"
                   ng-click="submitForm()">
             Submit
           </button>
