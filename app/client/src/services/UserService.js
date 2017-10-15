@@ -104,6 +104,10 @@ angular.module('reg')
         return $http.post(base + id + '/checkout');
       },
 
+      sendLaggerEmails: function() {
+        return $http.post(base + 'sendlagemails');
+      },
+
     };
   }
   ]);

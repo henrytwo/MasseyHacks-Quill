@@ -283,6 +283,11 @@ var reimbursement = {
      type: String,
      maxlength: 30
    },
+   nationality:{
+     type: String,
+     maxlength: 40,
+     default: ''
+   },
    accountOwnerName : {
      type: String,
      maxlength: 50,
