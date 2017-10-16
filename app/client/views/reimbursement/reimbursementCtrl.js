@@ -27,13 +27,14 @@ angular.module('reg')
       
       // Set up the user
       $scope.user = currentUser.data;
-      $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
+      console.log($scope.user.reimbursement.dateOfBirth);
+      $scope.user.reimbursement.dateOfBirth = ""
       $scope.generalCheck = $scope.user.status.reimbursementApplied;
       $scope.dateOfBirth = $scope.user.reimbursement.dateOfBirth;
       $scope.disableUpload = isNaN(Date.parse($scope.dateOfBirth));
       $scope.isDisabled = false;
       $scope.fileSelected = false;
-
+      console.log($scope.user.reimbursement.dateOfBirth);
       $scope.isSEPA = false;
       $scope.isUS = false;
       $scope.isRUS = false;
@@ -128,7 +129,9 @@ angular.module('reg')
           $scope.disableUpload = false;
           var offset = $scope.dateOfBirth.getTimezoneOffset();
           var dateWithOffset = new Date($scope.dateOfBirth.getTime() - offset*60*1000);
+          console.log($scope.user.reimbursement.dateOfBirth);          
           $scope.user.reimbursement.dateOfBirth = dateWithOffset;
+          console.log($scope.user.reimbursement.dateOfBirth);
         }
         else{
           $scope.disableUpload = true;
