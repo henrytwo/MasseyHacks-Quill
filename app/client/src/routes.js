@@ -116,7 +116,7 @@ angular.module('reg')
           requireAdmin: true
         }
       })
-      .state('app.reimbursement', {
+      /*.state('app.reimbursement', {
         url: "/travelreimbursement",
         templateUrl: "views/reimbursement/reimbursement.html",
         controller: 'ReimbursementCtrl',
@@ -133,7 +133,7 @@ angular.module('reg')
             return SettingsService.getPublicSettings();
           }
         }
-      })
+      })*/
 
 
       .state('app.admin.stats', {
@@ -246,10 +246,10 @@ angular.module('reg')
           event.preventDefault();
           $state.go('app.dashboard');
         }
-        if((requireConfirmed && !(Session.getUser().status.confirmed)) || (requireTravelReimbursementNeeded && !Session.getUser().profile.needsReimbursement) || (requireTravelReimbursementClassIsNotRejected && (Session.getUser().profile.AcceptedreimbursementClass === 'Rejected'))){
+        /*if((requireConfirmed && !(Session.getUser().status.confirmed)) || (requireTravelReimbursementNeeded && !Session.getUser().profile.needsReimbursement) || (requireTravelReimbursementClassIsNotRejected && (Session.getUser().profile.AcceptedreimbursementClass === 'Rejected'))){
           event.preventDefault();
           $state.go('app.dashboard');
-        }
+        }*/
 
       });
 
