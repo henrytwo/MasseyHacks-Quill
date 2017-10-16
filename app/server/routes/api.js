@@ -128,7 +128,7 @@ module.exports = function(router) {
    * FILE UPLOAD
    */
    
-   router.post('/upload/:filename/:dateofbirth', function(req, res) {
+   router.post('/upload/:filename', function(req, res) {
      var token = getToken(req);
 
      UserController.getByToken(token, function(err, user){
@@ -153,10 +153,8 @@ module.exports = function(router) {
             },
             key: function(req,file,cb) {
                 //get the date right by adding the offset of timezone
-                var date = new Date(req.params.dateofbirth);
-                console.log(date);
                 //set the file name by user information so that if the user uploads a new file, it replaces the old one in S3
-                var filename = user.profile.name.split(' ').join('_') + '_' + date.toISOString().split('T')[0] + '_' + user.id + '_receipts' + '.pdf';
+                var filename = user.profile.name.split(' ').join('_') + '_' + user.id + '_receipts' + '.pdf';
                 cb(null, filename)
             }
           }),
