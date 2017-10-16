@@ -28,7 +28,7 @@ angular.module('reg')
       // Set up the user
       $scope.user = currentUser.data;
       $scope.generalCheck = $scope.user.status.reimbursementApplied;
-      $scope.dateOfBirth = $scope.user.reimbursement.dateOfBirth;
+      $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
       $scope.fileSelected = false;
       $scope.isSEPA = false;
       $scope.isUS = false;
@@ -86,6 +86,8 @@ angular.module('reg')
           });
         }
       }
+
+      console.log($scope.user.reimbursement.dateOfBirth);
 
       //var ibanCountries;
       $.getJSON('../assets/iban.json')
