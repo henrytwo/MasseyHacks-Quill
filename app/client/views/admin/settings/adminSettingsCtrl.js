@@ -103,7 +103,7 @@ angular.module('reg')
         var submitTRBy = cleanDate($scope.settings.timeTR).getTime();
 
         SettingsService
-          .updateConfirmationTime(submitTRBy)
+          .updateTRTime(submitTRBy)
           .success(function(settings){
             updateSettings(settings);
             swal("Sounds good!", "TR Closing Date Updated", "success");
