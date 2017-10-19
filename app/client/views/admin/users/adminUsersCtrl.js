@@ -30,8 +30,6 @@ angular.module('reg')
       }
       });
 
-      console.log($scope.selectedUser.sections);
-
       function updatePage(data){
         $scope.users = data.users;
         $scope.currentPage = data.page;

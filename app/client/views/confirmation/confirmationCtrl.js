@@ -13,8 +13,6 @@ angular.module('reg')
       var user = currentUser.data;
       $scope.user = user;
 
-      console.log(user.confirmation);
-
       $scope.pastConfirmation = Date.now() > user.status.confirmBy;
 
       $scope.formatTime = Utils.formatTime;
@@ -111,8 +109,6 @@ angular.module('reg')
             },
             onSuccess: function(event, fields){
             _updateUser();
-            console.log("on success");
-            console.log(fields);
           },
           onFailure: function(formErrors, fields){
             $scope.fieldErrors = formErrors;

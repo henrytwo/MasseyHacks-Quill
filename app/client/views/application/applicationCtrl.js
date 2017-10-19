@@ -339,7 +339,6 @@ angular.module('reg')
       }
 
       $scope.submitForm = function(){
-        console.log($scope.user.profile.school);
         if (!$scope.schoolChecked) {
           $scope.user.profile.school = null;
           $scope.user.profile.graduationYear = null;

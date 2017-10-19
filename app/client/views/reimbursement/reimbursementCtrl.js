@@ -87,8 +87,6 @@ angular.module('reg')
         }
       }
 
-      console.log($scope.user.reimbursement.dateOfBirth);
-
       //var ibanCountries;
       $.getJSON('../assets/iban.json')
         .done(function(data){
