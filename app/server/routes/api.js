@@ -517,6 +517,17 @@ module.exports = function(router) {
     SettingsController.updateField('timeConfirm', time, defaultResponse(req, res));
   });
 
+    /**
+   * Update the TR date.
+   * body: {
+   *   time: Number
+   * }
+   */
+  router.put('/settings/tr-by', isAdmin, function(req, res){
+    var time = req.body.time;
+    SettingsController.updateField('timeTR', time, defaultResponse(req, res));
+  });
+
   /**
    * Set the registration open and close times.
    * body : {

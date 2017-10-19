@@ -46,6 +46,10 @@ var schema = new mongoose.Schema({
     type: Number,
     default: 604800000 // Date of confirmation
   },
+  timeTR: {
+    type: Number,
+    default: Date.now() + 31104000000 // Add a year from now.
+  },
   whitelistedEmails: {
     type: [String],
     select: false,

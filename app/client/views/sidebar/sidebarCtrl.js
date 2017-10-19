@@ -15,6 +15,11 @@ angular.module('reg')
       $scope.EVENT_INFO = EVENT_INFO;
 
       $scope.pastConfirmation = Utils.isAfter(user.status.confirmBy);
+      console.log(Date.now())
+      console.log(settings.timeTR)
+      $scope.pastTR = Date.now() > settings.timeTR;
+
+      console.log($scope.pastTR);
 
       $scope.logout = function(){
         AuthService.logout();
