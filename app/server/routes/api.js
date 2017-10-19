@@ -436,8 +436,8 @@ module.exports = function(router) {
    * Check in user with QR code. VOLUNTEER OR ADMIN
    */
 
-  router.post('/users/:id/qrcheck', (isVolunteer || isAdmin), function(req, res){
-    var id = req.params.id;
+  router.post('/users/:id/qrcheck', isAdmin, function(req, res){
+    var id = sanitize(req.params.id);
     UserController.QRcheckInById(id, defaultResponse(req, res));
   });
 
