@@ -16,6 +16,7 @@ angular.module('reg')
                 type: "success",
                 confirmButtonColor: "#5ABECF"
               });
+              $scope.filterUsers();
             })
             .error(function(res){
               sweetAlert("Uh oh!", "User not admitted/confirmed or not valid!", "error");
@@ -64,6 +65,14 @@ angular.module('reg')
       }
       $scope.pages = p;
     }
+    $scope.filterUsers = function() {
+      UserService
+        .getPage($stateParams.page, $stateParams.size, $scope.filter)
+        .success(function(data){
+          updatePage(data);
+        });
+    }
+
     $scope.toggleCheckIn = function($event, user, index) {
       $event.stopPropagation();
 
