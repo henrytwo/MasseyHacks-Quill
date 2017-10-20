@@ -312,7 +312,7 @@ module.exports = function(router) {
   router.put('/users/:id/reimbursement', isOwnerOrAdmin, function(req, res){
     var reimbursement = sanitize(req.body.reimbursement);
     var id = req.params.id;
-
+    
     UserController.updateReimbursementById(id, reimbursement, defaultResponse(req, res));
   });
 
@@ -515,6 +515,17 @@ module.exports = function(router) {
   router.put('/settings/confirm-by', isAdmin, function(req, res){
     var time = req.body.time;
     SettingsController.updateField('timeConfirm', time, defaultResponse(req, res));
+  });
+
+    /**
+   * Update the TR date.
+   * body: {
+   *   time: Number
+   * }
+   */
+  router.put('/settings/tr-by', isAdmin, function(req, res){
+    var time = req.body.time;
+    SettingsController.updateField('timeTR', time, defaultResponse(req, res));
   });
 
   /**

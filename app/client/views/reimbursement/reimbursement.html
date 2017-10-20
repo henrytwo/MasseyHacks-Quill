@@ -6,6 +6,8 @@
 
   <div class="ui stackable page grid">
     <div class="column">
+      <h1 ng-hide="!pastTRDeadline">Travel reimbursement application is closed</h1>
+        
       <div class="small title">General information</div>
       <ol>
         <li class="tip">The information we receive will be directly run into our payment system, and thus, we’ll relieve our responsibility for examining individuals’ erroneous travel reimbursement filings.</li>
@@ -927,6 +929,7 @@
 
         <div class="field">
           <button type="submit"
+                  ng-disabled="pastTRDeadline"
                   class="fluid ui sea-serpent button"
                   ng-click="submitForm()">
             Submit

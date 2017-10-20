@@ -18,6 +18,7 @@ angular.module('reg')
         settings.timeOpen = new Date(settings.timeOpen);
         settings.timeClose = new Date(settings.timeClose);
         settings.timeConfirm = new Date(settings.timeConfirm);
+        settings.timeTR = new Date(settings.timeTR);
 
         $scope.settings = settings;
       }
@@ -93,6 +94,19 @@ angular.module('reg')
           .success(function(settings){
             updateSettings(settings);
             swal("Sounds good!", "Confirmation Date Updated", "success");
+          });
+      };
+
+      // TR Closing Time -----------------------
+
+      $scope.updateTRTime = function(){
+        var submitTRBy = cleanDate($scope.settings.timeTR).getTime();
+
+        SettingsService
+          .updateTRTime(submitTRBy)
+          .success(function(settings){
+            updateSettings(settings);
+            swal("Sounds good!", "TR Closing Date Updated", "success");
           });
       };
 

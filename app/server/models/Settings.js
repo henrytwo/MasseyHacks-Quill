@@ -46,6 +46,10 @@ var schema = new mongoose.Schema({
     type: Number,
     default: 604800000 // Date of confirmation
   },
+  timeTR: {
+    type: Number,
+    default: Date.now() + 31104000000 // Add a year from now.
+  },
   whitelistedEmails: {
     type: [String],
     select: false,
@@ -96,12 +100,13 @@ schema.statics.getSchools = function(callback){
 schema.statics.getRegistrationTimes = function(callback){
   this
     .findOne({})
-    .select('timeOpen timeClose timeConfirm')
+    .select('timeOpen timeClose timeConfirm timeTR')
     .exec(function(err, settings){
       callback(err, {
         timeOpen: settings.timeOpen,
         timeClose: settings.timeClose,
-        timeConfirm: settings.timeConfirm
+        timeConfirm: settings.timeConfirm,
+        timeTR: settings.timeTR
       });
     });
 };
