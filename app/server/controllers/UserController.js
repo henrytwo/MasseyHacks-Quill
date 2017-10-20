@@ -876,21 +876,19 @@ UserController.checkInById = function(id, user, callback){
  * @param  {Function} callback args(err, user)
  */
 UserController.QRcheckInById = function(id, callback){
-  User.findOneAndUpdate({
-    id: id,
-    confirmed: true,
-    verified: true
-  },{
-    $set: {
-      'status.checkedIn': true,
-      'status.checkInTime': Date.now()
+  User.findOne({'id': id, 'status.confirmed':true}, function(err, user){
+    if(err) callback(err);
+    else if(user) {
+      user.set({ 'status.checkedIn': true, 'status.checkInTime': Date.now() });
+      user.save(function(err, user){
+        if(err) return callback(err);
+        return callback(err, user);
+      })
     }
-  }, {
-    new: true
-  },    
-  function(err) {
-    return callback(err);
-  });
+    else {
+      return callback("No user found", null)
+    }
+  })
 };
 
 /**

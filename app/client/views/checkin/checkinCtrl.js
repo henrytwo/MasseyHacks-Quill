@@ -48,10 +48,11 @@ angular.module('reg')
     }
     });
 
-    console.log($scope.selectedUser.sections);
-
     function updatePage(data){
-      $scope.users = data.users;
+      console.log(data.users)
+      $scope.users = data.users.filter(function(user){
+        return user.status.admitted !== false;
+      });
       $scope.currentPage = data.page;
       $scope.pageSize = data.size;
 
@@ -61,6 +62,37 @@ angular.module('reg')
       }
       $scope.pages = p;
     }
+    $scope.toggleCheckIn = function($event, user, index) {
+      $event.stopPropagation();
+
+      if (!user.status.checkedIn){
+        swal({
+          title: "Whoa, wait a minute!",
+          text: "You are about to check in " + user.profile.name + "!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, check them in.",
+          closeOnConfirm: false
+          },
+          function(){
+            UserService
+              .checkIn(user._id)
+              .success(function(user){
+                $scope.users[index] = user;
+                swal("Accepted", user.profile.name + ' has been checked in.', "success");
+              });
+          }
+        );
+      } else {
+        UserService
+          .checkOut(user._id)
+          .success(function(user){
+            $scope.users[index] = user;
+            swal("Accepted", user.profile.name + ' has been checked out.', "success");
+          });
+      }
+    };
 
     UserService
       .getPage($stateParams.page, $stateParams.size, $stateParams.query, $scope.filter)
