@@ -52,6 +52,8 @@ angular.module('reg')
       console.log(data.users)
       $scope.users = data.users.filter(function(user){
         return user.status.admitted !== false;
+      }).filter(function(user){
+        return user.status.declined !== true;
       });
       $scope.currentPage = data.page;
       $scope.pageSize = data.size;
