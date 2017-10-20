@@ -472,36 +472,44 @@ UserController.updateFileNameById = function(id, fileName, callback){
 
 UserController.updateReimbursementById = function (id, reimbursement, callback){
 
-  User.findById(id, function(err, user){
+  Settings.getRegistrationTimes(function(err, times){
 
-    if(err || !user){
-      return callback(err);
-    }
-
-    User.findOneAndUpdate({
-      '_id': id,
-      'verified': true,
-      'status.admitted': true,
-      'status.declined': {$ne: true}
-    },
-      {
-        $set: {
-          'lastUpdated': Date.now(),
-          'reimbursement': reimbursement,
-          'status.reimbursementApplied': true,
-        }
-      }, {
-        new: true
-      },
-      function(err, user) {
-        if (err || !user) {
-          return callback(err);
-        }
-        //Mailer.sendConfirmationEmail(user); PUT TRAVEL REIMBURSEMENT MAIL HERE?
-        return callback(err, user);
+    if(Date.now() > times.timeTR){
+      return callback({
+        message: "You've missed the confirmation deadline."
       });
-  });
-};
+    }
+    
+    User.findById(id, function(err, user){
+
+      if(err || !user){
+        return callback(err);
+      }
+
+      User.findOneAndUpdate({
+        '_id': id,
+        'verified': true,
+        'status.admitted': true,
+        'status.declined': {$ne: true}
+      },
+        {
+          $set: {
+            'lastUpdated': Date.now(),
+            'reimbursement': reimbursement,
+            'status.reimbursementApplied': true,
+          }
+        }, {
+          new: true
+        },
+        function(err, user) {
+          if (err || !user) {
+            return callback(err);
+          }
+          //Mailer.sendConfirmationEmail(user); PUT TRAVEL REIMBURSEMENT MAIL HERE?
+          return callback(err, user);
+        });
+    });
+})};
 
 /**
  * Decline an acceptance, given an id.

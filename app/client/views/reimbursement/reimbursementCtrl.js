@@ -24,11 +24,13 @@ angular.module('reg')
     'Session',
     'UserService',
     function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService){
-      
+
       // Set up the user
       $scope.user = currentUser.data;
       $scope.generalCheck = $scope.user.status.reimbursementApplied;
       $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
+
+      $scope.pastTRDeadline = (Date.now() > Settings.data.timeTR);
       $scope.fileSelected = false;
       $scope.isSEPA = false;
       $scope.isUS = false;
@@ -86,8 +88,6 @@ angular.module('reg')
           });
         }
       }
-
-      console.log($scope.user.reimbursement.dateOfBirth);
 
       //var ibanCountries;
       $.getJSON('../assets/iban.json')

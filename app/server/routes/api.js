@@ -312,7 +312,7 @@ module.exports = function(router) {
   router.put('/users/:id/reimbursement', isOwnerOrAdmin, function(req, res){
     var reimbursement = sanitize(req.body.reimbursement);
     var id = req.params.id;
-
+    
     UserController.updateReimbursementById(id, reimbursement, defaultResponse(req, res));
   });
 

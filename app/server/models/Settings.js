@@ -100,12 +100,13 @@ schema.statics.getSchools = function(callback){
 schema.statics.getRegistrationTimes = function(callback){
   this
     .findOne({})
-    .select('timeOpen timeClose timeConfirm')
+    .select('timeOpen timeClose timeConfirm timeTR')
     .exec(function(err, settings){
       callback(err, {
         timeOpen: settings.timeOpen,
         timeClose: settings.timeClose,
-        timeConfirm: settings.timeConfirm
+        timeConfirm: settings.timeConfirm,
+        timeTR: settings.timeTR
       });
     });
 };
