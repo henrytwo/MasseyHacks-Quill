@@ -69,7 +69,7 @@ angular.module('reg')
         return false;
       };
 
-      $scope.showWaitlist = !regIsOpen && user.status.completedProfile && !user.status.admitted;
+      $scope.showWaitlist = false; //!regIsOpen && user.status.completedProfile && !user.status.admitted;
 
       $scope.resendEmail = function(){
         AuthService
