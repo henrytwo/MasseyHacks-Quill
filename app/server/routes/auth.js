@@ -66,7 +66,7 @@ module.exports = function(router){
    * }
    *
    */
-  router.post('/register',
+  /*router.post('/register',
     function(req, res, next){
       // Register with an email and password
       var email = req.body.email;
@@ -80,7 +80,7 @@ module.exports = function(router){
           }
           return res.json(user);
       });
-  });
+  });*/
 
   router.post('/reset',
     function(req, res, next){
