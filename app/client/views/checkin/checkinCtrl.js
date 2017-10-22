@@ -19,6 +19,7 @@ angular.module('reg')
               $scope.filterUsers();
             })
             .error(function(res){
+              console.log(res);
               sweetAlert("Uh oh!", "User not admitted/confirmed or not valid!", "error");
             });
         },
