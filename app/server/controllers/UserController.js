@@ -5,6 +5,7 @@ var Mailer = require('../services/email');
 var Stats = require('../services/stats');
 
 var validator = require('validator');
+var csvValidation = require('../services/csvValidation').csvValidation;
 var moment = require('moment');
 var shuffleSeed = require('shuffle-seed');
 
@@ -271,13 +272,16 @@ UserController.getPage = function(query, callback){
     statusFilter.push({'status.admitted': 'true'});
     statusFilter.push({'status.confirmed': 'false'});
     statusFilter.push({'status.rejected': 'false'});
-  } else if(query.filter.confirmed ==='true') {
+  } 
+  else if(query.filter.confirmed ==='true') {
     statusFilter.push({'status.confirmed': 'true'});
     statusFilter.push({'status.rejected': 'false'});
-  } else if(query.filter.needsReimbursement === 'true') {
+  } 
+  else if(query.filter.needsReimbursement === 'true') {
     statusFilter.push({'profile.needsReimbursement': 'true'});
     statusFilter.push({'status.rejected': 'false'});
-  } else if(query.filter.rejected === 'true')
+  } 
+  else if(query.filter.rejected === 'true')
     statusFilter.push({'status.rejected': 'true'});
   else
    statusFilter.push({});
@@ -332,60 +336,61 @@ UserController.updateProfileById = function (id, profile, callback){
 
   // Validate the user profile, and mark the user as profile completed
   // when successful.
-  User.validateProfile(profile, function(err){
-    if (err){
-      return callback({message: 'invalid profile'});
-    }
-
-    // Check if its within the registration window.
-    Settings.getRegistrationTimes(function(err, times){
-      if (err) {
-        callback(err);
+  csvValidation(profile, function(profileValidated){
+    User.validateProfile(profile, function(err){
+      if (err){
+        return callback({message: 'invalid profile'});
       }
 
-      var now = Date.now();
-
-      if (now < times.timeOpen){
-        return callback({
-          message: "Registration opens in " + moment(times.timeOpen).fromNow() + "!"
-        });
-      }
-
-      if (now > times.timeClose){
-        return callback({
-          message: "Sorry, registration is closed."
-        });
-      }
-    });
-
-    if (!profile.submittedApplication) {
-      // Send application success email after first application submission
-      profile.submittedApplication = true;
-      User.findById(id, function(err, user) {
+      // Check if its within the registration window.
+      Settings.getRegistrationTimes(function(err, times){
         if (err) {
-          console.log('Could not send email:');
-          console.log(err);
+          callback(err);
         }
-        Mailer.sendApplicationEmail(user);
+
+        var now = Date.now();
+
+        if (now < times.timeOpen){
+          return callback({
+            message: "Registration opens in " + moment(times.timeOpen).fromNow() + "!"
+          });
+        }
+
+        if (now > times.timeClose){
+          return callback({
+            message: "Sorry, registration is closed."
+          });
+        }
       });
-    }
 
-    User.findOneAndUpdate({
-      _id: id,
-      verified: true
-    },
-      {
-        $set: {
-          'lastUpdated': Date.now(),
-          'profile': profile,
-          'status.completedProfile': true
-        }
+      if (!profile.submittedApplication) {
+        // Send application success email after first application submission
+        profile.submittedApplication = true;
+        User.findById(id, function(err, user) {
+          if (err) {
+            console.log('Could not send email:');
+            console.log(err);
+          }
+          Mailer.sendApplicationEmail(user);
+        });
+      }
+      
+      User.findOneAndUpdate({
+        _id: id,
+        verified: true
       },
-      {
-        new: true
-      },
-      callback);
-
+        {
+          $set: {
+            'lastUpdated': Date.now(),
+            'profile': profileValidated,
+            'status.completedProfile': true
+          }
+        },
+        {
+          new: true
+        },
+        callback);
+      });
   });
 };
 
@@ -397,45 +402,47 @@ UserController.updateProfileById = function (id, profile, callback){
  * @param  {Function} callback      Callback with args (err, user)
  */
 UserController.updateConfirmationById = function (id, confirmation, callback){
+  csvValidation(confirmation, function(confirmationValidated){
+    User.findById(id, function(err, user){
 
-  User.findById(id, function(err, user){
+      if(err || !user){
+        return callback(err);
+      }
 
-    if(err || !user){
-      return callback(err);
-    }
+      // Make sure that the user followed the deadline, but if they're already confirmed
+      // that's okay.
+      if (Date.now() >= user.status.confirmBy && !user.status.confirmed){
+        return callback({
+          message: "You've missed the confirmation deadline."
+        });
+      }
 
-    // Make sure that the user followed the deadline, but if they're already confirmed
-    // that's okay.
-    if (Date.now() >= user.status.confirmBy && !user.status.confirmed){
-      return callback({
-        message: "You've missed the confirmation deadline."
-      });
-    }
-
-    // You can only confirm acceptance if you're admitted and haven't declined.
-    User.findOneAndUpdate({
-      '_id': id,
-      'verified': true,
-      'status.admitted': true,
-      'status.declined': {$ne: true}
-    },
-      {
-        $set: {
-          'lastUpdated': Date.now(),
-          'confirmation': confirmation,
-          'status.confirmed': true,
-        }
-      }, {
-        new: true
-      },
-      function(err, user) {
-        if (err || !user) {
-          return callback(err);
-        }
-        Mailer.sendConfirmationEmail(user);
-        return callback(err, user);
-      });
-  });
+      
+        // You can only confirm acceptance if you're admitted and haven't declined.
+        User.findOneAndUpdate({
+          '_id': id,
+          'verified': true,
+          'status.admitted': true,
+          'status.declined': {$ne: true}
+        },
+          {
+            $set: {
+              'lastUpdated': Date.now(),
+              'confirmation': confirmationValidated,
+              'status.confirmed': true,
+            }
+          }, {
+            new: true
+          },
+          function(err, user) {
+            if (err || !user) {
+              return callback(err);
+            }
+            Mailer.sendConfirmationEmail(user);
+            return callback(err, user);
+          });
+        });
+    });
 };
 
 UserController.updateFileNameById = function(id, fileName, callback){
@@ -472,33 +479,34 @@ UserController.updateFileNameById = function(id, fileName, callback){
 
 UserController.updateReimbursementById = function (id, reimbursement, callback){
 
-  User.findById(id, function(err, user){
+  csvValidation(reimbursement, function(reimbursementValidated){
+    User.findById(id, function(err, user){
 
-    if(err || !user){
-      return callback(err);
-    }
-
-    User.findOneAndUpdate({
-      '_id': id,
-      'verified': true,
-      'status.admitted': true,
-      'status.declined': {$ne: true}
-    },
-      {
-        $set: {
-          'lastUpdated': Date.now(),
-          'reimbursement': reimbursement,
-          'status.reimbursementApplied': true,
-        }
-      }, {
-        new: true
-      },
-      function(err, user) {
-        if (err || !user) {
-          return callback(err);
-        }
-        //Mailer.sendConfirmationEmail(user); PUT TRAVEL REIMBURSEMENT MAIL HERE?
-        return callback(err, user);
+      if(err || !user){
+        return callback(err);
+      }
+        User.findOneAndUpdate({
+          '_id': id,
+          'verified': true,
+          'status.admitted': true,
+          'status.declined': {$ne: true}
+        },
+          {
+            $set: {
+              'lastUpdated': Date.now(),
+              'reimbursement': reimbursementValidated,
+              'status.reimbursementApplied': true,
+            }
+          }, {
+            new: true
+          },
+          function(err, user) {
+            if (err || !user) {
+              return callback(err);
+            }
+            //Mailer.sendConfirmationEmail(user); PUT TRAVEL REIMBURSEMENT MAIL HERE?
+            return callback(err, user);
+          });
       });
   });
 };
@@ -653,45 +661,47 @@ UserController.getTeammates = function(id, callback){
  * @param  {Function} callback args(err, users)
  */
 UserController.createOrJoinTeam = function(id, code, callback){
-
-  if (!code){
-    return callback({
-      message: "Please enter a team name."
-    });
-  }
-
-  if (typeof code !== 'string') {
-    return callback({
-      message: "Get outta here, punk!"
-    });
-  }
-
-  User.find({
-    teamCode: code
-  })
-  .select('profile.name')
-  .exec(function(err, users){
-    // Check to see if this team is joinable (< team max size)
-    if (users.length >= maxTeamSize){
+  csvValidation(code, function(codeValidated){
+    if (!code){
       return callback({
-        message: "Team is full."
+        message: "Please enter a team name."
       });
     }
 
-    // Otherwise, we can add that person to the team.
-    User.findOneAndUpdate({
-      _id: id,
-      verified: true
-    },{
-      $set: {
-        teamCode: code
-      }
-    }, {
-      new: true
-    },
-    callback);
+    if (typeof code !== 'string') {
+      return callback({
+        message: "Get outta here, punk!"
+      });
+    }
 
-  });
+    User.find({
+      teamCode: code
+    })
+    .select('profile.name')
+    .exec(function(err, users){
+      // Check to see if this team is joinable (< team max size)
+      if (users.length >= maxTeamSize){
+        return callback({
+          message: "Team is full."
+        });
+      }
+
+      // Otherwise, we can add that person to the team.
+      //
+      User.findOneAndUpdate({
+        _id: id,
+        verified: true
+      },{
+        $set: {
+          teamCode: codeValidated
+        }
+      }, {
+        new: true
+      },
+      callback);
+      
+    });
+    });
 };
 
 /**
