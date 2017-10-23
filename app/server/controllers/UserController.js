@@ -478,13 +478,21 @@ UserController.updateFileNameById = function(id, fileName, callback){
 };
 
 UserController.updateReimbursementById = function (id, reimbursement, callback){
-
   csvValidation(reimbursement, function(reimbursementValidated){
-    User.findById(id, function(err, user){
+    Settings.getRegistrationTimes(function(err, times){
 
-      if(err || !user){
-        return callback(err);
+      if(Date.now() > times.timeTR){
+        return callback({
+          message: "You've missed the confirmation deadline."
+        });
       }
+      
+      User.findById(id, function(err, user){
+
+        if(err || !user){
+          return callback(err);
+        }
+
         User.findOneAndUpdate({
           '_id': id,
           'verified': true,
@@ -508,6 +516,7 @@ UserController.updateReimbursementById = function (id, reimbursement, callback){
             return callback(err, user);
           });
       });
+    })
   });
 };
 
@@ -740,6 +749,16 @@ UserController.sendVerificationEmailById = function(id, callback){
       return callback(err, user);
   });
 };
+
+UserController.sendEmailsToNonCompleteProfiles = function(callback) {
+  User.find({"status.completedProfile": false}, 'email nickname', function (err, users) {
+    if (err) {
+      return callback(err);
+    }
+    Mailer.sendLaggerEmails(users);
+    return callback(err);
+  });
+}
 
 /**
  * Password reset email

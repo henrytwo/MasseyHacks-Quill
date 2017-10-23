@@ -25,9 +25,13 @@ angular.module('reg')
     'UserService',
     function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService){
 
-      $scope.isDisabled = false;
-      $scope.fileSelected = false;
+      // Set up the user
+      $scope.user = currentUser.data;
+      $scope.generalCheck = $scope.user.status.reimbursementApplied;
+      $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
 
+      $scope.pastTRDeadline = (Date.now() > Settings.data.timeTR);
+      $scope.fileSelected = false;
       $scope.isSEPA = false;
       $scope.isUS = false;
       $scope.isRUS = false;
@@ -66,7 +70,7 @@ angular.module('reg')
 
         if($scope.files){
           $('.loader').attr('class', $('.loader').attr('class') + ' active');
-          $http.post('/api/upload/' + $scope.fileName + '/' + $scope.user.reimbursement.dateOfBirth, fd,
+          $http.post('/api/upload/' + $scope.fileName, fd,
           {
             transformRequest:angular.identity,
             headers:{'Content-Type':undefined}
@@ -84,11 +88,6 @@ angular.module('reg')
           });
         }
       }
-      // Set up the user
-      $scope.user = currentUser.data;
-      $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
-      $scope.generalCheck = $scope.user.status.reimbursementApplied;
-      $scope.dateOfBirth = $scope.user.reimbursement.dateOfBirth;
 
       //var ibanCountries;
       $.getJSON('../assets/iban.json')
@@ -122,17 +121,20 @@ angular.module('reg')
           $scope.fileName = fileName;
       }
 
-      $('.dateOfBirth').change(function() {
+      /*$('.dateOfBirth').change(function() {
         if($scope.user.reimbursement.dateOfBirth !== 'undefined'){
-          $('#fileName').attr('disabled', false);
+          if(('.dateOfBirth').val() !== 'undefined'){
+          $scope.disableUpload = false;
           var offset = $scope.dateOfBirth.getTimezoneOffset();
-          var dateWithOffset = new Date($scope.dateOfBirth.getTime() - offset*60*1000);
+          var dateWithOffset = new Date($scope.dateOfBirth.getTime() - offset*60*1000);    
           $scope.user.reimbursement.dateOfBirth = dateWithOffset;
+          }
         }
         else{
-          $('#fileName').attr('disabled', true);
+          $scope.disableUpload = true;
         }
-      });
+      });*/
+
       $('.icon')
       .popup({
         on: 'hover'
@@ -528,6 +530,15 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please enter your ZIP Code.'
+                }
+              ]
+            },
+            nationality: {
+              identifier: 'nationality',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your nationality.'
                 }
               ]
             },

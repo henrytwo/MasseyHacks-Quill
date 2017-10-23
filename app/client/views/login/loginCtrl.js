@@ -15,7 +15,7 @@ angular.module('reg')
       $scope.regIsOpen = Utils.isRegOpen(Settings);
 
       // Start state for login
-      $scope.loginState = 'register';
+      $scope.loginState = 'login';
 
       var quoteIndex = 0;
 
@@ -35,22 +35,6 @@ angular.module('reg')
         resetError();
         AuthService.loginWithPassword(
           $scope.email, $scope.password, onSuccess, onError);
-      };
-
-      $scope.register = function(){
-        // Poor mans form validation
-        // That MIT guy was pretty lazy lol
-        resetError();
-        if ($scope.password === $scope.password_repeat) {
-          if ($scope.nickname == null) {
-            $scope.error = "Please provide a nickname!"
-          } else {
-            AuthService.register(
-              $scope.email, $scope.password, $scope.nickname, onSuccess, onError);
-          }
-        } else {
-          $scope.error = "Passwords don't match."
-        }
       };
 
       $scope.setLoginState = function(state) {

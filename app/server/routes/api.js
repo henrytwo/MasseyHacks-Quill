@@ -128,7 +128,7 @@ module.exports = function(router) {
    * FILE UPLOAD
    */
    
-   router.post('/upload/:filename/:dateofbirth', function(req, res) {
+   router.post('/upload/:filename', function(req, res) {
      var token = getToken(req);
 
      UserController.getByToken(token, function(err, user){
@@ -153,10 +153,8 @@ module.exports = function(router) {
             },
             key: function(req,file,cb) {
                 //get the date right by adding the offset of timezone
-                var date = new Date(req.params.dateofbirth);
-                console.log(date);
                 //set the file name by user information so that if the user uploads a new file, it replaces the old one in S3
-                var filename = user.profile.name.split(' ').join('_') + '_' + date.toISOString().split('T')[0] + '_' + user.id + '_receipts' + '.pdf';
+                var filename = user.profile.name.split(' ').join('_') + '_' + user.id + '_receipts' + '.pdf';
                 cb(null, filename)
             }
           }),
@@ -314,7 +312,7 @@ module.exports = function(router) {
   router.put('/users/:id/reimbursement', isOwnerOrAdmin, function(req, res){
     var reimbursement = sanitize(req.body.reimbursement);
     var id = req.params.id;
-
+    
     UserController.updateReimbursementById(id, reimbursement, defaultResponse(req, res));
   });
 
@@ -439,6 +437,13 @@ module.exports = function(router) {
     UserController.checkOutById(id, user, defaultResponse(req, res));
   });
 
+   /**
+   * Send emails to unsubmitted applicants
+   */
+  router.post('/users/sendlagemails', isAdmin, function(req, res){
+    UserController.sendEmailsToNonCompleteProfiles(defaultResponse(req, res));
+  });
+
 
   // ---------------------------------------------
   // Settings [ADMIN ONLY!]
@@ -510,6 +515,17 @@ module.exports = function(router) {
   router.put('/settings/confirm-by', isAdmin, function(req, res){
     var time = req.body.time;
     SettingsController.updateField('timeConfirm', time, defaultResponse(req, res));
+  });
+
+    /**
+   * Update the TR date.
+   * body: {
+   *   time: Number
+   * }
+   */
+  router.put('/settings/tr-by', isAdmin, function(req, res){
+    var time = req.body.time;
+    SettingsController.updateField('timeTR', time, defaultResponse(req, res));
   });
 
   /**

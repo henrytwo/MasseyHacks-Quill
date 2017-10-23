@@ -76,6 +76,40 @@
   </div>
 </div>
 
+<div class="column">
+    
+  <!-- TR Close -->
+  <div
+    ng-class="{'loading': loading}"
+    class="ui red segment">
+    <div class="ui form">
+
+      <div class="ui header">
+        Close Travel Reimbursement
+      </div>
+
+      <p>
+        Users won't be able to access travel reimbursement form after this anymore.
+      </p>
+
+      <div class="field">
+        <label>
+          Closes: {{ formatDate(settings.timeTR) }}
+        </label>
+        <input type="datetime-local" ng-model="settings.timeTR">
+      </div>
+
+      <div class="ui field">
+        <div
+          class="ui green button"
+          ng-click="updateTRTime()">
+          Update
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 <!-- Waitlist Text Editor -->
 <div
   ng-class="{'loading': loading}"
