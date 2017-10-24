@@ -101,7 +101,7 @@ angular.module('reg')
             phone: {
               identifier: 'phone',
               rules: [{
-                  type: 'regExp[/^$|^[+][0-9]{6,20}$/]',
+                  type: 'regExp[/^$|^[+][ 0-9]{6,20}$/]',
                   prompt: "Please give your phone number with country code in format: +NUMBER You can also leave phone number blank"
                   }
               ]
