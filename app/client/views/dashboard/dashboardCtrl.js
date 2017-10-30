@@ -40,31 +40,37 @@ angular.module('reg')
 
       $scope.dashState = function(status){
         var user = $scope.user;
+        
         switch (status) {
           case 'unverified':
             return !user.verified;
           case 'openAndIncomplete':
             return regIsOpen && user.verified && !user.status.completedProfile;
           case 'openAndSubmitted':
-            return regIsOpen && user.status.completedProfile && !user.status.admitted;
+            return regIsOpen && user.status.completedProfile && !user.status.admitted &&
+            !(user.status.rejected && Settings.showRejection);
           case 'closedAndIncomplete':
-            return !regIsOpen && !user.status.completedProfile && !user.status.admitted;
+            return !regIsOpen && !user.status.completedProfile && !user.status.admitted &&
+            !(user.status.rejected && Settings.showRejection);
           case 'closedAndSubmitted': // Waitlisted State
-            return !regIsOpen && user.status.completedProfile && !user.status.admitted;
+            return !regIsOpen && user.status.completedProfile && !user.status.admitted &&
+            !(user.status.rejected && Settings.showRejection);
           case 'admittedAndCanConfirm':
             return !pastConfirmation &&
               user.status.admitted &&
               !user.status.confirmed &&
-              !user.status.declined;
+              !user.status.declined 
           case 'admittedAndCannotConfirm':
             return pastConfirmation &&
               user.status.admitted &&
               !user.status.confirmed &&
-              !user.status.declined;
+              !user.status.declined; 
           case 'confirmed':
-            return user.status.admitted && user.status.confirmed && !user.status.declined;
+            return user.status.admitted && user.status.confirmed && !user.status.declined; 
           case 'declined':
-            return user.status.declined;
+            return user.status.declined; 
+          case 'reviewed':
+            return user.status.rejected && Settings.showRejection;
         }
         return false;
       };
@@ -108,6 +114,13 @@ angular.module('reg')
                 $scope.user = user;
               });
         });
+      };
+
+      $scope.checkStatus = function() {
+        if(user.status.rejected && Settings.showRejection){
+          return 'Reviewed';
+        }
+        return user.status.name;
       };
 
     }]);

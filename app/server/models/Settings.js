@@ -67,6 +67,10 @@ var schema = new mongoose.Schema({
   schools: {
     type: [String]
   },
+  showRejection: {
+    type: Boolean,
+    default: false
+  },
   reimbursementClass: reimbursementClass,
 
 });

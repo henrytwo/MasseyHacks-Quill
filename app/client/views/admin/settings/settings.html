@@ -75,8 +75,8 @@
 
   </div>
 </div>
-
-<div class="column">
+<div class="ui stackable two column grid">
+  <div class="column">
     
   <!-- TR Close -->
   <div
@@ -108,8 +108,37 @@
       </div>
     </div>
   </div>
+  </div>
 
+  <div class="column">
+    
+  <!-- Show rejection to the participants-->
+  <div
+    ng-class="{'loading': loading}"
+    class="ui red segment">
+    <div class="ui form">
+
+      <div class="ui header">
+        Show rejection to the participants.
+      </div>
+
+      <p>
+        Showing rejection to the participants will be shown in the dasbboard and sidebar will hidden for them.
+        Current status: <strong>{{settings.showRejection}}</strong>
+      </p>
+
+      <div class="ui field">
+        <div
+          class="ui green button"
+          ng-click="showRejection()">
+          Show rejection
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
+
 <!-- Waitlist Text Editor -->
 <div
   ng-class="{'loading': loading}"

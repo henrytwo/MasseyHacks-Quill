@@ -111,6 +111,20 @@ SettingsController.updateReimbClasses = function(reimbClasses, callback){
 };
 
 /**
+ * Update show rejection.
+ * @param  {Boolean}   showRejection
+ */
+SettingsController.showRejection = function(showRejection, callback){
+  Settings
+    .findOneAndUpdate({},{
+      $set: {
+        showRejection: showRejection
+      }
+    }, {new: true})
+    .exec(callback);
+};
+
+/**
  * Get the open and close time for registration.
  * @param  {Function} callback args(err, times : {timeOpen, timeClose})
  */

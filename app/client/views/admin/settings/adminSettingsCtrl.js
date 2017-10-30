@@ -158,4 +158,13 @@ angular.module('reg')
           });
       };
 
+      $scope.showRejection = function() {
+        SettingsService
+          .showRejection(true)
+          .success(function(data){
+            swal("Looks good!", "Rejection will be shown to the participants", "success");
+            updateSettings(data);
+          });
+      };
+
     }]);

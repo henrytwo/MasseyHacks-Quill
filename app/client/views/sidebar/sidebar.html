@@ -11,8 +11,7 @@
     Dashboard
   </div>
 
-  <div ng-show="currentUser.verified">
-
+  <div ng-show="currentUser.verified && !(currentUser.status.rejected && settings.showRejection)">
     <div
       ui-sref-active="active"
       ui-sref="app.application"

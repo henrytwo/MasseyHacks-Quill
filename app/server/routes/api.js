@@ -577,4 +577,17 @@ module.exports = function(router) {
     var reimbClasses = req.body.reimbClasses;
     SettingsController.updateReimbClasses(reimbClasses, defaultResponse(req, res));
   });
+
+  /**
+   * [ADMIN ONLY]
+   * {
+   *   showRejection: Boolean
+   * }
+   * res: Settings
+   *
+   */
+  router.put('/settings/showRejection', isAdmin, function(req, res){
+    var showRejection = req.body.showRejection;
+    SettingsController.showRejection(showRejection, defaultResponse(req, res));
+  });
 };
