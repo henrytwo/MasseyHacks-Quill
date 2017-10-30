@@ -38,4 +38,20 @@ angular.module('reg')
         $scope.showTeamForm = true;
         $scope.showIndividualForm = false;
       };
+
+      $scope.getBestCodingSkills = function(){
+        var skills = "";
+        var prf = currentUser.data.profile;
+        
+        function joinIfNotEmpty(arr){
+          if (arr !== undefined && arr.length > 0) skills = arr.join(", ");
+        };
+
+        joinIfNotEmpty(prf.beginnerLevelTools);
+        joinIfNotEmpty(prf.goodLevelTools);
+        joinIfNotEmpty(prf.greatLevelTools);
+        joinIfNotEmpty(prf.topLevelTools);
+        
+        return skills;
+      };
     }]);

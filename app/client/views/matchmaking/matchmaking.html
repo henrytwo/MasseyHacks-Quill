@@ -51,6 +51,25 @@
                          ng-model="user.nickname">
                 </div>
 
+                <div class="field">
+                  <label> Description </label>
+                  <input type="text"
+                         name="description"
+                         ng-model="user.profile.description">
+                </div>
+
+                <div class="field">
+                  <label> Track </label>
+                  <input type="text"
+                         name="mostInterestingTrack"
+                         ng-model="user.profile.mostInterestingTrack">
+                </div>
+
+                <div class="field">
+                  <label> Major coding skills </label>
+                  <input type="text" value="{{ getBestCodingSkills() }}">
+                </div>
+
                 <div class="field" style="margin-bottom:5px">
                   <button type="submit"
                           class="fluid ui sea-serpent button"
