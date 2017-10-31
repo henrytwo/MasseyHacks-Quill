@@ -17,12 +17,9 @@
       </ul>
     </div>
     <div class="ui stackable page grid">
-            <div class="column">
-                <div class="ui form">
-                     <div id="reader" style="width:400px;height:400px;margin:auto;"></div>
-                </div>
-
-            </div>
+        <div class="column">
+            <div id="reader" style="width:400px;height:400px;margin:auto;"></div>
+        </div>
     </div>
     
     <div class="ui segment">
@@ -86,13 +83,12 @@
                     <th>Unique ID</th>
                     <th>Name</th>
                     <th>E-mail address</th>
-                    <th>Admitted / Confirmed</th>
-                    <th>Checked in</th>
-                    <th></th>
+                    <th>Checked</th>
                     <th>Country</th>
                     <th>City</th>
                     <th>Home Country</th>
                     <th>Track pref.</th>
+                    <th>Admitted / Confirmed</th>
 
                   </tr>
                 </thead>
@@ -110,6 +106,31 @@
                         {{user.profile.name}}
                     </td>
                     <td>{{user.email}}</td>
+
+                    <td
+                      class="right aligned collapsing">
+
+                      <button
+                        ng-click="toggleCheckIn($event, user, $index)"
+                        class="ui circular mini basic green icon button"
+                        style="display:block;margin-left:auto;margin-right:auto;">
+
+                        <i
+                          ng-if="!user.status.checkedIn"
+                          class="flag outline icon"></i>
+
+                        <i
+                          ng-if="user.status.checkedIn"
+                          class="green flag icon"></i>
+
+                      </button>
+
+                    </td>
+                    <td>{{user.profile.travelFromCountry}}</td>
+                    <td>{{user.profile.travelFromCity}}</td>
+                    <td>{{user.profile.homeCountry}}</td>
+                    <td>{{user.profile.mostInterestingTrack}}</td>
+
                     <td
                       class="collapsing">
 
@@ -144,43 +165,6 @@
                         class="red remove circle icon">
                       </i>
                     </td>
-                    
-                    <td
-                      class="collapsing">
-
-                      <!-- Checked In -->
-                      <i
-                        ng-if="user.status.checkedIn"
-                        class="green check circle icon">
-                      </i>
-                      <i
-                        ng-if="!user.status.checkedIn"
-                        class="red remove circle icon">
-                      </i>
-                    </td>
-
-                    <td
-                      class="right aligned collapsing">
-
-                      <button
-                        ng-click="toggleCheckIn($event, user, $index)"
-                        class="ui circular mini basic green icon button">
-
-                        <i
-                          ng-if="!user.status.checkedIn"
-                          class="flag outline icon"></i>
-
-                        <i
-                          ng-if="user.status.checkedIn"
-                          class="green flag icon"></i>
-
-                      </button>
-
-                    </td>
-                    <td>{{user.profile.travelFromCountry}}</td>
-                    <td>{{user.profile.travelFromCity}}</td>
-                    <td>{{user.profile.homeCountry}}</td>
-                    <td>{{user.profile.mostInterestingTrack}}</td>
                   </tr>
                 </tbody>
               </table>
