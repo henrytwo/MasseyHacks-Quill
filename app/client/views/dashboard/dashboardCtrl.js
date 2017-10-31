@@ -40,7 +40,7 @@ angular.module('reg')
 
       $scope.dashState = function(status){
         var user = $scope.user;
-        
+
         switch (status) {
           case 'unverified':
             return !user.verified;
@@ -59,23 +59,23 @@ angular.module('reg')
             return !pastConfirmation &&
               user.status.admitted &&
               !user.status.confirmed &&
-              !user.status.declined 
+              !user.status.declined
           case 'admittedAndCannotConfirm':
             return pastConfirmation &&
               user.status.admitted &&
               !user.status.confirmed &&
-              !user.status.declined; 
+              !user.status.declined;
           case 'confirmed':
-            return user.status.admitted && user.status.confirmed && !user.status.declined; 
+            return user.status.admitted && user.status.confirmed && !user.status.declined;
           case 'declined':
-            return user.status.declined; 
+            return user.status.declined;
           case 'reviewed':
             return user.status.rejected && Settings.showRejection;
         }
         return false;
       };
 
-      $scope.showWaitlist = false; //!regIsOpen && user.status.completedProfile && !user.status.admitted;
+      $scope.showWaitlist = !regIsOpen && user.status.completedProfile && !user.status.admitted;
 
       $scope.resendEmail = function(){
         AuthService
