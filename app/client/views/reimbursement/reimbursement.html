@@ -42,6 +42,8 @@
 
         <div class="divided title">Required Information</div>
 
+        <fieldset ng-disabled="pastTRDeadline">
+
         <div class="field">
           <label> Full Name </label>
           <input type="text"
@@ -929,7 +931,6 @@
 
         <div class="field">
           <button type="submit"
-                  ng-disabled="pastTRDeadline"
                   class="fluid ui sea-serpent button"
                   ng-click="submitForm()">
             Submit

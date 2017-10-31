@@ -483,7 +483,7 @@ UserController.updateReimbursementById = function (id, reimbursement, callback){
 
       if(Date.now() > times.timeTR){
         return callback({
-          message: "You've missed the confirmation deadline."
+          message: "You've missed the TR deadline."
         });
       }
 
