@@ -63,6 +63,68 @@
               </div>
             </form>
           </div>
+
+          <div ng-show="regIsOpen">
+            <div class="ui divider"/>
+
+            <div class="field">
+              <button id="register"
+                      type="submit"
+                      class="fluid ui register button"
+                      ng-click="setLoginState('register')">
+                      Register
+              </button>
+            </div>
+          </div>
+        </div>
+
+    <!-- REGISTER FORM -->
+
+        <div ng-show="loginState === 'register'">
+          <div class="ui login-password form">
+            <div class="ui small negative message"
+                ng-show='error'>
+              {{error}}
+            </div>
+            <form ng-submit="register()">
+              <div class="field">
+                <label class="field-title"> EMAIL</label>
+                <input type="email"
+                       id='email'
+                       placeholder="hacker@hackjunction.com"
+                       ng-model="email">
+              </div>
+              <div class="field">
+                <label class="field-title"> PASSWORD</label>
+                <input type="password"
+                       id='password'
+                       placeholder="Password (at least 6 characters)"
+                       ng-model="password" required>
+              </div>
+              <div class="field">
+                <label class="field-title"> REPEAT PASSWORD</label>
+                <input type="password"
+                       id='password_repeat'
+                       placeholder="Enter password again"
+                       ng-model="password_repeat" required>
+              </div>
+              <div class="field">
+                <label class="field-title"> WHAT SHOULD WE CALL YOU?</label>
+                <input type="text"
+                       id='nickname'
+                       placeholder="Nickname"
+                       ng-model="nickname" required>
+              </div>
+
+              <div class="field">
+                <button id="login-password"
+                        type="submit"
+                        class="fluid ui login button">
+                        Register
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
 
     <!-- FORGOT FORM -->

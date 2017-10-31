@@ -44,6 +44,25 @@ angular.module('reg')
         $scope.loginState = state;
       };
 
+      $scope.register = function(){
+        // Poor mans form validation
+        // That MIT guy was pretty lazy lol
+        resetError();
+        if ($scope.password === $scope.password_repeat) {
+          if ($scope.nickname == null) {
+            $scope.error = "Please provide a nickname!"
+          } 
+          else {
+            if(regIsOpen){
+              AuthService.register(
+                $scope.email, $scope.password, $scope.nickname, onSuccess, onError);
+            }
+          }
+        } else {
+          $scope.error = "Passwords don't match."
+        }
+      };
+
       $scope.sendResetEmail = function() {
         var email = $scope.email;
         AuthService.sendResetEmail(email);
