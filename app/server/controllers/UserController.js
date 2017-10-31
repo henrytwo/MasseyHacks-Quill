@@ -142,6 +142,12 @@ UserController.createUser = function(email, password, nickname, callback) {
     });
   }
 
+  if(!(Date.now() > settings.timeOpen && Date.now() < settings.timeClose)){
+    return callback({
+      message: "Registration deadline has passed"
+    })
+  }
+
   email = email.toLowerCase();
 
   // Check that there isn't a user with this email already.

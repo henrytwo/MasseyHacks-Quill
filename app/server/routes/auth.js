@@ -72,7 +72,6 @@ module.exports = function(router){
       var email = req.body.email;
       var password = req.body.password;
       var nickname = req.body.nickname;
-
       UserController.createUser(email, password, nickname,
         function(err, user){
           if (err){
