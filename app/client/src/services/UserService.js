@@ -108,6 +108,10 @@ angular.module('reg')
         return $http.post(base + 'sendlagemails');
       },
 
+      sendRejectEmails: function() {
+        return $http.post(base + 'sendRejectEmails');
+      },
+
     };
   }
   ]);

@@ -127,7 +127,7 @@ module.exports = function(router) {
    /**
    * FILE UPLOAD
    */
-   
+
    router.post('/upload/:filename', function(req, res) {
      var token = getToken(req);
 
@@ -168,7 +168,7 @@ module.exports = function(router) {
           },
           //Limit the filesize to 2MB
           limits: { fileSize: 2000000 }
-        
+
          }).single('file');
 
         upload(req, res, function(err) {
@@ -312,7 +312,7 @@ module.exports = function(router) {
   router.put('/users/:id/reimbursement', isOwnerOrAdmin, function(req, res){
     var reimbursement = sanitize(req.body.reimbursement);
     var id = req.params.id;
-    
+
     UserController.updateReimbursementById(id, reimbursement, defaultResponse(req, res));
   });
 
@@ -443,6 +443,13 @@ module.exports = function(router) {
   router.post('/users/sendlagemails', isAdmin, function(req, res){
     UserController.sendEmailsToNonCompleteProfiles(defaultResponse(req, res));
   });
+
+  /**
+  * Send emails to rejected applicants
+  */
+ router.post('/users/sendRejectEmails', isAdmin, function(req, res){
+   UserController.sendRejectEmails(defaultResponse(req, res));
+ });
 
 
   // ---------------------------------------------

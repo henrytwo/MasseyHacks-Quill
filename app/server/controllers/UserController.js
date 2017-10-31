@@ -272,15 +272,15 @@ UserController.getPage = function(query, callback){
     statusFilter.push({'status.admitted': 'true'});
     statusFilter.push({'status.confirmed': 'false'});
     statusFilter.push({'status.rejected': 'false'});
-  } 
+  }
   else if(query.filter.confirmed ==='true') {
     statusFilter.push({'status.confirmed': 'true'});
     statusFilter.push({'status.rejected': 'false'});
-  } 
+  }
   else if(query.filter.needsReimbursement === 'true') {
     statusFilter.push({'profile.needsReimbursement': 'true'});
     statusFilter.push({'status.rejected': 'false'});
-  } 
+  }
   else if(query.filter.rejected === 'true')
     statusFilter.push({'status.rejected': 'true'});
   else
@@ -374,7 +374,7 @@ UserController.updateProfileById = function (id, profile, callback){
           Mailer.sendApplicationEmail(user);
         });
       }
-      
+
       User.findOneAndUpdate({
         _id: id,
         verified: true
@@ -417,7 +417,7 @@ UserController.updateConfirmationById = function (id, confirmation, callback){
         });
       }
 
-      
+
         // You can only confirm acceptance if you're admitted and haven't declined.
         User.findOneAndUpdate({
           '_id': id,
@@ -463,7 +463,7 @@ UserController.updateFileNameById = function(id, fileName, callback){
           'reimbursement.fileName': fileName,
           'reimbursement.fileUploaded': true
         }
-      }, 
+      },
         {
           new: true
         },
@@ -486,7 +486,7 @@ UserController.updateReimbursementById = function (id, reimbursement, callback){
           message: "You've missed the confirmation deadline."
         });
       }
-      
+
       User.findById(id, function(err, user){
 
         if(err || !user){
@@ -708,7 +708,7 @@ UserController.createOrJoinTeam = function(id, code, callback){
         new: true
       },
       callback);
-      
+
     });
     });
 };
@@ -756,6 +756,16 @@ UserController.sendEmailsToNonCompleteProfiles = function(callback) {
       return callback(err);
     }
     Mailer.sendLaggerEmails(users);
+    return callback(err);
+  });
+}
+
+UserController.sendRejectEmails = function(callback) {
+  User.find({"status.rejected": true}, 'email nickname', function (err, users) {
+    if (err) {
+      return callback(err);
+    }
+    Mailer.sendRejectEmails(users);
     return callback(err);
   });
 }

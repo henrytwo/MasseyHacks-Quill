@@ -18,11 +18,11 @@ angular.module('reg')
       $scope.sendLaggerEmails = function(){
         swal({
           title: "Are you sure?",
-          text: "This will send an email to every user who has not submitted an application. You might really fuck this up.",
+          text: "This will send an email to every user who has not submitted an application. Are you sure?.",
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",
-          confirmButtonText: "Yes, send those bitches.",
+          confirmButtonText: "Yes, send.",
           closeOnConfirm: false
           }, function(){
             UserService
@@ -32,5 +32,24 @@ angular.module('reg')
             });
           });
       };
+
+      $scope.sendRejectEmails = function(){
+        swal({
+          title: "Are you sure?",
+          text: "This will send an email to every user who has been rejected. Are you sure?.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, send.",
+          closeOnConfirm: false
+          }, function(){
+            UserService
+              .sendRejectEmails()
+              .then(function(){
+                sweetAlert('Your emails have been sent.');
+            });
+          });
+      };
+
 
     }]);
