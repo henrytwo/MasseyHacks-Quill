@@ -141,11 +141,25 @@ UserController.createUser = function(email, password, nickname, callback) {
       message: "Incorrect email format"
     });
   }
-  if(Date.now() > Settings.timeClose){
-    return callback({
-      message: "Registration deadline has passed"
-    })
-  }
+  Settings.getRegistrationTimes(function(err, times){
+    if (err) {
+      callback(err);
+    }
+
+    var now = Date.now();
+
+    if (now < times.timeOpen){
+      return callback({
+        message: "Registration opens in " + moment(times.timeOpen).fromNow() + "!"
+      });
+    }
+
+    if (now > times.timeClose){
+      return callback({
+        message: "Sorry, registration is closed."
+      });
+    }
+  });
 
   email = email.toLowerCase();
 
