@@ -132,6 +132,14 @@ module.exports = function(router) {
      var token = getToken(req);
 
      UserController.getByToken(token, function(err, user){
+      SettingsController.getRegistrationTimes(function(err, times){
+        if (err) {
+          return res.sendStatus(500);
+        }
+        if (Date.now() > times.timeTR){
+          return res.sendStatus(404);
+        }
+      });
 
        if (err) {
          return res.sendStatus(500);
@@ -170,6 +178,8 @@ module.exports = function(router) {
           limits: { fileSize: 2000000 }
 
          }).single('file');
+
+        
 
         upload(req, res, function(err) {
           if(req.fileValidationError){
