@@ -53,7 +53,7 @@ angular.module('reg')
             $scope.error = "Please provide a nickname!"
           } 
           else {
-            if(regIsOpen){
+            if($scope.regIsOpen){
               AuthService.register(
                 $scope.email, $scope.password, $scope.nickname, onSuccess, onError);
             }

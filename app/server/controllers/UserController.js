@@ -141,8 +141,7 @@ UserController.createUser = function(email, password, nickname, callback) {
       message: "Incorrect email format"
     });
   }
-
-  if(!(Date.now() > settings.timeOpen && Date.now() < settings.timeClose)){
+  if(Date.now() > Settings.timeClose){
     return callback({
       message: "Registration deadline has passed"
     })

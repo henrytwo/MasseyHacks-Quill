@@ -25,7 +25,7 @@ angular.module('reg')
           $scope.DASHBOARD[msg] = $scope.DASHBOARD[msg].replace('[CONFIRM_DEADLINE]', Utils.formatTime(user.status.confirmBy));
         }
       }
-
+      
       //icon tooltip popup
       $('.icon')
       .popup({
@@ -74,8 +74,8 @@ angular.module('reg')
         }
         return false;
       };
-
-      $scope.showWaitlist = !regIsOpen && user.status.completedProfile && !user.status.admitted;
+    
+      $scope.showWaitlist = !regIsOpen && user.status.completedProfile && !user.status.admitted && !user.status.rejected;
 
       $scope.resendEmail = function(){
         AuthService
