@@ -152,7 +152,7 @@ module.exports = function(router) {
   */
 
   function generateQR(data){
-    var typeNumber = 4;
+    var typeNumber = 2;
     var errorCorrectionLevel = 'L';
     var qr = qrcode(typeNumber, errorCorrectionLevel);
     qr.addData(data);

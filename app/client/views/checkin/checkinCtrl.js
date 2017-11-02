@@ -32,18 +32,7 @@ angular.module('reg')
     );
     $scope.pages = [];
     $scope.users = [];
-    $scope.selectedUser = {};
-    $scope.selectedUser.sections = generateSections({status: '',
-    confirmation: {
-      dietaryRestrictions: []
-    }, profile: {
-      occupationalStatus: [],
-      bestTools: [],
-      previousJunction: []
-    }, reimbursement: {
-          dateOfBirth: [],
-    }
-    });
+    $scope.sortDate = true;
 
     // Semantic-UI moves modal content into a dimmer at the top level.
     // While this is usually nice, it means that with our routing will generate
@@ -81,7 +70,7 @@ angular.module('reg')
     }
     $scope.filterUsers = function() {
       UserService
-        .getPage($stateParams.page, $stateParams.size, $scope.filter)
+        .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
         .success(function(data){
           updatePage(data);
         });
@@ -155,7 +144,7 @@ angular.module('reg')
     };
 
     UserService
-      .getPage($stateParams.page, $stateParams.size, $stateParams.query, $scope.filter)
+      .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
       .success(function(data){
         updatePage(data);
       });
