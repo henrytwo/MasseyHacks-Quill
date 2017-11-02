@@ -10,6 +10,11 @@
     .header {
       font-size: 1.2em;
     }
+    #placeHolder {
+      width: 410;
+      height: 600;
+      margin: auto;
+    }
     .state {
       text-align: center;
       padding: 12px 24px;
@@ -70,6 +75,11 @@
       margin-bottom: 24px;
     }
   }
+}
+
+img {
+  display: block;
+  margin: 0 auto;
 }
 
 .resend {

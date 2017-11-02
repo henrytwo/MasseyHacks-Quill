@@ -29,7 +29,6 @@ angular.module('reg')
             dateOfBirth: [],
       }
       });
-
       function updatePage(data){
         $scope.users = data.users;
         $scope.currentPage = data.page;

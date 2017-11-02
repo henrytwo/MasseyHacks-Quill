@@ -958,6 +958,37 @@ UserController.checkInById = function(id, user, callback){
 /**
  * [ADMIN ONLY]
  *
+ * Check in a user.
+ * @param  {String}   userId   User id of the user getting checked in.
+ * @param  {String}   user     User checking in this person.
+ * @param  {Function} callback args(err, user)
+ */
+UserController.QRcheckInById = function(id, callback){
+  User.findOne({'id': id, 'status.admitted':true}, function(err, user){
+    if(err) callback(err);
+    else if(user) {
+      if(user.status.checkedIn){
+        return callback("User already checked in!", null)
+      }
+      if(!user.status.confirmed){
+        return callback("User not confirmed!", null)
+      }
+      return callback(err, user)
+      /*user.set({ 'status.checkedIn': true, 'status.checkInTime': Date.now() });
+      user.save(function(err, user){
+        if(err) return callback(err);
+        return callback(err, user);
+      })*/
+    }
+    else {
+      return callback("No user found", null)
+    }
+  })
+};
+
+/**
+ * [ADMIN ONLY]
+ *
  * Check out a user.
  * @param  {String}   userId   User id of the user getting checked out.
  * @param  {String}   user     User checking in this person.

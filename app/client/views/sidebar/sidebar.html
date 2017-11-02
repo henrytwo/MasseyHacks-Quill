@@ -15,7 +15,7 @@
     <div
       ui-sref-active="active"
       ui-sref="app.application"
-      ng-show="!currentUser.status.declined"
+      ng-show="!currentUser.status.declined && !currentUser.volunteer"
       class="item">
       Application
     </div>
@@ -41,6 +41,13 @@
       ng-show="!currentUser.status.declined && currentUser.status.completedProfile"
       class="item">
       Team
+    </div>
+
+    <div ui-sref-active="active"
+      ui-sref="app.checkin"
+      ng-show="currentUser.admin || currentUser.volunteer"
+      class="item">
+      Check In
     </div>
 
     <div

@@ -444,6 +444,12 @@ var schema = new mongoose.Schema({
     default: false,
   },
 
+  volunteer: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+
   timestamp: {
     type: Number,
     required: true,

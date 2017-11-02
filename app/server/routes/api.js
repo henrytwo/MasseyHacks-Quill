@@ -1,7 +1,11 @@
 var UserController = require('../controllers/UserController');
 var SettingsController = require('../controllers/SettingsController');
+<<<<<<< HEAD
 
 var aws = require('aws-sdk');
+=======
+var qrcode = require('qrcode-generator');
+>>>>>>> QR
 var request = require('request');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
@@ -47,6 +51,28 @@ module.exports = function(router) {
 
     });
   }
+
+  function isAdminOrVolunteer(req, res, next){
+    
+        var token = getToken(req);
+    
+        UserController.getByToken(token, function(err, user){
+    
+          if (err) {
+            return res.status(500).send(err);
+          }
+    
+          if (user && (user.admin || user.volunteer)){
+            req.user = user;
+            return next();
+          }
+    
+          return res.status(401).send({
+            message: 'Get outta here, punk!'
+          });
+    
+        });
+      }
 
   /**
    * [Users API Only]
@@ -123,6 +149,26 @@ module.exports = function(router) {
   /**
    *  API!
    */
+
+  /*
+  QR-CODE GENERATION
+  */
+
+  function generateQR(data){
+    var typeNumber = 4;
+    var errorCorrectionLevel = 'L';
+    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    qr.addData(data);
+    qr.make();
+    return qr.createImgTag(8); 
+  }
+
+  router.get('/qr/:id', function(req, res) {
+    var id = req.params.id;
+    res.send(generateQR(id));
+  });
+
+  //Checking in with QR
 
    /**
    * FILE UPLOAD
@@ -435,8 +481,19 @@ module.exports = function(router) {
   router.post('/users/:id/checkin', isAdmin, function(req, res){
     var id = req.params.id;
     var user = req.user;
+    console.log("checked in")
     UserController.checkInById(id, user, defaultResponse(req, res));
   });
+
+  /**
+   * Check in user with QR code. VOLUNTEER OR ADMIN
+   */
+
+  router.post('/users/:id/qrcheck', isAdminOrVolunteer, function(req, res){
+    var id = sanitize(req.params.id);
+    UserController.QRcheckInById(id, defaultResponse(req, res));
+  });
+
 
   /**
    * Check in a user. ADMIN ONLY, DUH

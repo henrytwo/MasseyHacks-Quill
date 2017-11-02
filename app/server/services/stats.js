@@ -391,7 +391,7 @@ setInterval(function() {
       }
       calculateStats(settings);
   });
-}, 300000);
+}, 10000);
 
 
 var Stats = {};
