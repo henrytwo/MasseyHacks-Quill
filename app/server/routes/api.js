@@ -1,11 +1,8 @@
 var UserController = require('../controllers/UserController');
 var SettingsController = require('../controllers/SettingsController');
-<<<<<<< HEAD
 
 var aws = require('aws-sdk');
-=======
 var qrcode = require('qrcode-generator');
->>>>>>> QR
 var request = require('request');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
