@@ -56,7 +56,7 @@ module.exports = function(router) {
     });
   }
 
-  function isVolunteer(req, res, next){
+  function isAdminOrVolunteer(req, res, next){
     
         var token = getToken(req);
     
@@ -66,7 +66,7 @@ module.exports = function(router) {
             return res.status(500).send(err);
           }
     
-          if (user && user.volunteer){
+          if (user && (user.admin || user.volunteer)){
             req.user = user;
             return next();
           }
@@ -436,7 +436,7 @@ module.exports = function(router) {
    * Check in user with QR code. VOLUNTEER OR ADMIN
    */
 
-  router.post('/users/:id/qrcheck', isAdmin, function(req, res){
+  router.post('/users/:id/qrcheck', isAdminOrVolunteer, function(req, res){
     var id = sanitize(req.params.id);
     UserController.QRcheckInById(id, defaultResponse(req, res));
   });
