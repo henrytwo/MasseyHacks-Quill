@@ -544,6 +544,166 @@ angular.module('reg')
         ];
       }
 
+      function generateTRSections(user){
+        return [
+          {
+            name: 'Basic Info',
+            fields: [
+              {
+                name: 'Name',
+                value: user.profile.name
+              },{
+                name: 'Email',
+                value: user.email
+              },{
+                name: 'ID',
+                value: user.id
+              },{
+                name: 'Requested travel reimbursement class',
+                value: user.profile.needsReimbursement && user.profile.AppliedreimbursementClass || 'None'
+              },{
+                name: 'Accepted travel reimbursement',
+                value: user.profile.AcceptedreimbursementClass || 'None'
+              }
+            ]
+          },{
+            name: 'Profile',
+            fields: [
+              {
+                name: 'Phone',
+                value: user.confirmation.phone
+              },{
+                name: 'Travels from Country',
+                value: user.profile.travelFromCountry
+              },{
+                name: 'Travels from City',
+                value: user.profile.travelFromCity
+              },{
+                name: 'Home Country',
+                value: user.profile.homeCountry
+              },
+            ]
+          },{
+            name: 'Reimbursement',
+            fields: [
+              {
+                name: 'Date of birth',
+                value: formatTime(user.reimbursement.dateOfBirth)
+              },{
+                name: 'Nationality',
+                value: user.reimbursement.nationality
+              },{
+                name: 'AddressLine 1',
+                value: user.reimbursement.addressLine1
+              },{
+                name: 'AddressLine 2',
+                value: user.reimbursement.addressLine2
+              },{
+                name: 'City',
+                value: user.reimbursement.city
+              },{
+                name: 'State/Province/Region',
+                value: user.reimbursement.stateProvinceRegion
+              },{
+                name: 'A country Of Bank',
+                value: user.reimbursement.countryOfBank
+              },{
+                name: 'Type of Country',
+                value: user.reimbursement.countryType
+              },{
+                name: 'Name Of the Bank',
+                value: user.reimbursement.nameOfBank
+              },{
+                name: 'Address Of the Bank',
+                value: user.reimbursement.addressOfBank
+              },{
+                name: 'Iban',
+                value: user.reimbursement.iban
+              },{
+                name: 'Account Number',
+                value: user.reimbursement.accountNumber
+              },{
+                name: 'Swift / BIC',
+                value: user.reimbursement.swiftOrBicOrClearingCode
+              },{
+                name: 'Brokerage Info',
+                value: user.reimbursement.brokerageInfo
+              },{
+                name: 'Name, Account owner',
+                value: user.reimbursement.accountOwnerName
+              },{
+                name: 'Birthdate, Account owner',
+                value: formatTime(user.reimbursement.accountOwnerBirthdate)
+              },{
+                name: 'Address 1, Account owner',
+                value: user.reimbursement.accountOwnerA1
+              },{
+                name: 'Address 2, Account owner',
+                value: user.reimbursement.accountOwnerA2
+              },{
+                name: 'ZIP, Account owner',
+                value: user.reimbursement.accountOwnerZIP
+              },{
+                name: 'City, Account owner',
+                value: user.reimbursement.accountOwnerCity
+              },{
+                name: 'Country, Account owner',
+                value: user.reimbursement.accountOwnerCountry
+              },{
+                name: 'Additional',
+                value: user.reimbursement.additional
+              },
+            ]
+          },
+        ];
+      }
+
+      $scope.exportTRCSV = function() {
+        UserService
+        .getAll()
+        .success(function(data){
+          data = data.filter(function(user){
+            return user.status.reimbursementApplied;
+          })
+          var output = "";
+          var titles = generateTRSections(data[0]);
+           for(var i = 0; i < titles.length; i++){
+            for(var j = 0; j < titles[i].fields.length; j++){
+              output += titles[i].fields[j].name + ";";
+            }
+           }
+           output += "\n";
+
+          for (var rows = 0; rows < data.length; rows++){
+            row = generateTRSections(data[rows]);
+            for (var i = 0; i < row.length; i++){
+              for(var j = 0; j < row[i].fields.length;j++){
+                if(!row[i].fields[j].value){
+                  output += ";";
+                  continue;
+                }
+                var field = row[i].fields[j].value;
+                try {
+                  output += field.replace(/(\r\n|\n|\r)/gm," ") + ";";
+                } catch (err){
+                  output += field + ";";
+                }
+              }
+            }
+            output += "\n";
+          }
+
+          var element = document.createElement('a');
+          element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
+          element.setAttribute('download', "base " + new Date().toDateString() + ".csv");
+          element.style.display = 'none';
+          document.body.appendChild(element);
+          element.click();
+          document.body.removeChild(element);
+
+          });
+      }
+
       $scope.selectUser = selectUser;
 
     }]);
