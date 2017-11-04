@@ -292,6 +292,18 @@ module.exports = function(router) {
   /**
    * [OWNER/ADMIN]
    *
+   * PUT - Update a specific user's matchmaking profile.
+   */
+  router.put('/users/:id/matchmaking', isOwnerOrAdmin, function(req, res){
+    var profile = sanitize(req.body.profile);
+    var id = req.params.id;
+
+    UserController.updateMatchmakingProfileById(id, profile , defaultResponse(req, res));
+  });
+
+  /**
+   * [OWNER/ADMIN]
+   *
    * PUT - Update a specific user's confirmation information.
    */
   router.put('/users/:id/confirm', isOwnerOrAdmin, function(req, res){

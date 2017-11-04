@@ -202,6 +202,80 @@ var confirmation = {
   },
 };
 
+var teamMatchmaking = {
+  enrolled: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  enrollmentType: {
+    type: String,
+    enum: ['individual', 'team']
+  },
+  individual: {
+    description: {
+      type: String,
+      min: 0,
+      maxlength: 500,
+      required: false
+    },
+    mostInterestingTrack: {
+      type: String,
+      maxlength: 120,
+      required: false
+    },
+    role: {
+      type: String,
+      min: 0,
+      maxlength: 100,
+      required: false
+    },
+    topChallenges: {
+      type: [String],
+      required: false
+    },
+    slackHandle: {
+      type: String,
+      maxlength: 120,
+      required: false
+    },
+    freeText: {
+      type: String,
+      maxlength: 120,
+      required: false
+    },
+    skills: {
+      type: String,
+      required: false
+    },
+  },
+  team: {
+    mostInterestingTrack: {
+      type: String,
+      maxlength: 120,
+      required: false
+    },
+    topChallenges: {
+      type: [String],
+      required: false
+    },
+    roles: {
+      type: [String],
+      required: false
+    },
+    slackHandle: {
+      type: String,
+      maxlength: 120,
+      required: false
+    },
+    freeText: {
+      type: String,
+      maxlength: 120,
+      required: false
+    },
+  }
+}
+
 var status = {
   /**
    * Whether or not the user's profile has been completed.
@@ -484,6 +558,8 @@ var schema = new mongoose.Schema({
   reimbursement: reimbursement,
 
   status: status,
+
+  teamMatchmaking: teamMatchmaking,
 
 });
 

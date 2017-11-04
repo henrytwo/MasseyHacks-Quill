@@ -41,6 +41,12 @@ angular.module('reg')
         });
       },
 
+      updateMatchmakingProfile: function(id, profile){
+        return $http.put(base + id + '/matchmaking', {
+          profile: profile
+        });
+      },
+
       updateConfirmation: function(id, confirmation){
         return $http.put(base + id + '/confirm', {
           confirmation: confirmation

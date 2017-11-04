@@ -3,6 +3,12 @@
     Team Matchmaking
     <i class="help circle icon link head" data-content="Having a team is not compulsory but hackathons can be a fun experience together with a team! Here you can join/create a team and see your team's status!" data-variation="inverted" data-position="right center"></i>
   </div>
+  <script>
+    // Initialize fancy UI scripts
+  
+      $('.ui.dropdown')
+        .dropdown();
+  </script>  
   <div class="ui stackable centered page grid">
     <div class="column">
       <div
@@ -32,48 +38,134 @@
         <div ng-show="showIndividualForm">
           <div class="ui stackable page grid">
             <div class="column">
-              <div class="ui form error"
+              <div class="ui form individual error"
                     ng-class="{'loading': loading}">
 
                 <div class="divided title">Information about yourself</div>
 
                 <div class="field">
-                  <label> Email </label>
-                  <input type="email"
-                         name="email"
-                         ng-model="user.email">
+                  <label> Description about yourself </label>
+                  <textarea 
+                    ng-model="user.teamMatchmaking.individual.description"
+                    name="individual_description"
+                    id="individual_description">
+                  </textarea>
                 </div>
 
                 <div class="field">
-                  <label> Nickname </label>
-                  <input type="text"
-                         name="nickname"
-                         ng-model="user.nickname">
+                  <label>Which track are you most interested in?</label>
+                  <select
+                    class="ui fluid dropdown"
+                    name="individual_mostInterestingTrack"
+                    id="individual_mostInterestingTrack"
+                    ng-model="user.teamMatchmaking.individual.mostInterestingTrack">
+                    <option value="">Choose a track</option>
+                    <option value="HealthTech">HealthTech</option>
+                    <option value="Logistics">Logistics</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Mobility">Mobility</option>
+                    <option value="Intelligent Buildings">Intelligent Buildings</option>
+                    <option value="Game Jam">Game Jam</option>
+                    <option value="FinTech">FinTech</option>
+                    <option value="Industrial Internet">Industrial Internet</option>
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Big Data">Big Data</option>
+                  </select>
                 </div>
 
                 <div class="field">
-                  <label> Description </label>
-                  <input type="text"
-                         name="description"
-                         ng-model="user.profile.description">
+                  <label>Top 3 challenges you would like to participate in </label>
+                  <select multiple="multiple"
+                    class="ui multiple normal selection dropdown"
+                    name="individual_topChallenges"
+                    id="individual_topChallenges"
+                    ng-model="user.teamMatchmaking.individual.topChallenges">
+                    <option value="">Choose up to 3 challenges</option>
+                    <option value="Student">Student</option>
+                    <option value="Full-Stack Web Developer">Full-Stack Web Developer</option>
+                    <option value="Backend Web Developer">Backend Web Developer</option>
+                    <option value="Frontend Web Developer">Frontend Web Developer</option>
+                    <option value="Mobile Developer">Mobile Developer</option>
+                    <option value="Manager / Executive">Manager / Executive</option>
+                    <option value="Data Scientist">Data Scientist</option>
+                    <option value="Entrepreneur">Entrepreneur</option>
+                    <option value="Analyst">Analyst</option>
+                    <option value="Machine Learning Developer">Machine Learning Developer</option>
+                    <option value="Industrial Design">Industrial Design</option>
+                    <option value="Web Design">Web Design</option>
+                    <option value="Product Design">Product Design</option>
+                    <option value="Other design related">Other design related</option>
+                    <option value="Server Specialist">Server Specialist</option>
+                    <option value="Hardware Technician">Hardware Technician</option>
+                    <option value="Hardware Engineer">Hardware Engineer</option>
+                    <option value="Unemployed">Unemployed</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+        
+
+                <div class="field">
+                  <label>Which of the followings describes your role in a hackathon team the best? </label>
+                  <p style="margin-bottom: 10px";>
+                    This helps teams looking for teammates find the person they need!
+                  </p>
+                  <select
+                    class="ui fluid dropdown"
+                    name="individual_role"
+                    id="individual_role"
+                    ng-model="user.teamMatchmaking.individual.role">
+                    <option value="">Role</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="Full-Stack Developer">Full-Stack Developer</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Ideation">Ideation</option>
+                    <option value="Business Development">Business Development</option>
+                    <option value="Product Development">Product Development</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Hardware">Hardware</option>
+                    <option value="Buzzing around">Buzzing around</option>
+                    <option value="Moral support">Moral support</option>
+                    <option value="I do everything">I do everything</option>
+                    <option value="I work without a team">I work without a team</option>
+                    <option value="Something else">Something else</option>          
+                  </select>
+                </div>
+
+
+
+                <div class="field">
+                  <label> Your slack handle for contacting </label>
+                  <input 
+                  type="text"
+                  id="individual_slack"
+                  name="individual_slack"
+                  ng-model="user.teamMatchmaking.individual.slackHandle">
                 </div>
 
                 <div class="field">
-                  <label> Track </label>
-                  <input type="text"
-                         name="mostInterestingTrack"
-                         ng-model="user.profile.mostInterestingTrack">
+                  <label> Free text / motivation </label>
+                  <textarea ng-model="user.teamMatchmaking.individual.freeText"
+                    name="individual_freetext"
+                    id="individual_freetext">
+                  </textarea>
                 </div>
+        
 
                 <div class="field">
                   <label> Major coding skills </label>
-                  <input type="text" value="{{ getBestCodingSkills() }}">
+                  <input type="text" 
+                    ng-model="user.teamMatchmaking.individual.skills"
+                    name="individual_codingskills"
+                    id="individual_codingskills">
                 </div>
+
+                
 
                 <div class="field" style="margin-bottom:5px">
                   <button type="submit"
                           class="fluid ui sea-serpent button"
-                          ng-click="submitForm()">
+                          ng-click="submitIndividualForm()">
                     Submit
                   </button>
                 </div>
@@ -86,29 +178,111 @@
         <div ng-show="showTeamForm">
           <div class="ui stackable page grid">
             <div class="column">
-              <div class="ui form error"
+              <div class="ui form team error"
                     ng-class="{'loading': loading}">
 
                 <div class="divided title">Information about your team</div>
 
                 <div class="field">
-                  <label> Email </label>
-                  <input type="email"
-                         name="email"
-                         ng-model="user.email">
+                  <label> Team name </label>
+                  <input type="text"
+                         name="team-name"
+                         disabled="disabled"
+                         ng-model="user.teamCode">
                 </div>
 
                 <div class="field">
-                  <label> Nickname </label>
-                  <input type="text"
-                         name="nickname"
-                         ng-model="user.nickname">
+                  <label>Most interesting track as a team?</label>
+                  <select
+                    class="ui fluid dropdown"
+                    name="team_mostInterestingTrack"
+                    id="team_mostInterestingTrack"
+                    ng-model="user.teamMatchmaking.team.mostInterestingTrack">
+                    <option value="">Choose a track</option>
+                    <option value="HealthTech">HealthTech</option>
+                    <option value="Logistics">Logistics</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Mobility">Mobility</option>
+                    <option value="Intelligent Buildings">Intelligent Buildings</option>
+                    <option value="Game Jam">Game Jam</option>
+                    <option value="FinTech">FinTech</option>
+                    <option value="Industrial Internet">Industrial Internet</option>
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Big Data">Big Data</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label>Top 3 challenges your team would like to participate </label>
+                  <select multiple="multiple"
+                    class="ui multiple normal selection dropdown"
+                    name="team_topChallenges"
+                    id="team_topChallenges"
+                    ng-model="user.teamMatchmaking.team.topChallenges">
+                    <option value="">Choose up to 3 challenges</option>
+                    <option value="Student">Student</option>
+                    <option value="Full-Stack Web Developer">Full-Stack Web Developer</option>
+                    <option value="Backend Web Developer">Backend Web Developer</option>
+                    <option value="Frontend Web Developer">Frontend Web Developer</option>
+                    <option value="Mobile Developer">Mobile Developer</option>
+                    <option value="Manager / Executive">Manager / Executive</option>
+                    <option value="Data Scientist">Data Scientist</option>
+                    <option value="Entrepreneur">Entrepreneur</option>
+                    <option value="Analyst">Analyst</option>
+                    <option value="Machine Learning Developer">Machine Learning Developer</option>
+                    <option value="Industrial Design">Industrial Design</option>
+                    <option value="Web Design">Web Design</option>
+                    <option value="Product Design">Product Design</option>
+                    <option value="Other design related">Other design related</option>
+                    <option value="Server Specialist">Server Specialist</option>
+                    <option value="Hardware Technician">Hardware Technician</option>
+                    <option value="Hardware Engineer">Hardware Engineer</option>
+                    <option value="Unemployed">Unemployed</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label>What roles are you looking for to your team? </label>
+                  <select
+                    class="ui fluid select multiple dropdown"
+                    name="team_roles"
+                    id="team_roles"
+                    multiple="multiple"
+                    ng-model="user.teamMatchmaking.team.roles">
+                    <option value="">Role</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="Full-Stack Developer">Full-Stack Developer</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Ideation">Ideation</option>
+                    <option value="Business Development">Business Development</option>
+                    <option value="Product Development">Product Development</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Hardware">Hardware</option>
+                    <option value="Buzzing around">Buzzing around</option>
+                    <option value="Moral support">Moral support</option>
+                    <option value="I do everything">I do everything</option>
+                    <option value="I work without a team">I work without a team</option>
+                    <option value="Something else">Something else</option>          
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label> Captain's slack handle for contacting </label>
+                  <input type="text" ng-model="user.teamMatchmaking.team.slackHandle">
+                </div>
+
+                <div class="field">
+                  <label> Free text about your team </label>
+                  <textarea ng-model="user.teamMatchmaking.team.freeText">
+                  </textarea>
                 </div>
 
                 <div class="field" style="margin-bottom:5px">
                   <button type="submit"
                           class="fluid ui sea-serpent button"
-                          ng-click="submitForm()">
+                          ng-click="submitTeamForm()">
                     Submit
                   </button>
                 </div>

@@ -383,6 +383,27 @@ UserController.updateProfileById = function (id, profile, callback){
   });
 };
 
+UserController.updateMatchmakingProfileById = function (id, profile, callback){
+  
+    // Validate the user profile, and mark the user as profile completed
+    // when successful.    
+    User.findOneAndUpdate({
+      _id: id,
+      verified: true
+    },
+      {
+        $set: {
+          'lastUpdated': Date.now(),
+          'teamMatchmaking': profile,
+          'status.completedProfile': true
+        }
+      },
+      {
+        new: true
+      },
+      callback);
+};
+
 /**
  * Update a user's confirmation object, given an id and a confirmation.
  *
