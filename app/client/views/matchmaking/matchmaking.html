@@ -44,16 +44,21 @@
                 <div class="divided title">Information about yourself</div>
 
                 <div class="field">
-                  <label> Description about yourself </label>
-                  <textarea 
-                    ng-model="user.teamMatchmaking.individual.description"
-                    name="individual_description"
-                    id="individual_description">
-                  </textarea>
+                  <label> Slack handle* </label>
+                  <p style="margin-bottom: 10px;">
+                    Slack handle is your own display name on the official Junction 2017 workspace at 
+                    <a href="https://https://junction2017.slack.com">junction2017.slack.com</a>. 
+                    The Slack handle will be used by other participants to contact you.
+                  </p>
+                  <input 
+                  type="text"
+                  id="individual_slack"
+                  name="individual_slack"
+                  ng-model="user.teamMatchmaking.individual.slackHandle">
                 </div>
 
                 <div class="field">
-                  <label>Which track are you most interested in?</label>
+                  <label> Which track are you most interested in at Junction 2017?* </label>
                   <select
                     class="ui fluid dropdown"
                     name="individual_mostInterestingTrack"
@@ -74,7 +79,36 @@
                 </div>
 
                 <div class="field">
-                  <label>Top 3 challenges you would like to participate in </label>
+                  <label> What describes your role in a hackathon team the best?* </label>
+                  <select
+                    class="ui fluid dropdown"
+                    name="individual_role"
+                    id="individual_role"
+                    ng-model="user.teamMatchmaking.individual.role">
+                    <option value="">Role</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="Full-Stack Developer">Full-Stack Developer</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Ideation">Ideation</option>
+                    <option value="Business Development">Business Development</option>
+                    <option value="Product Development">Product Development</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Hardware">Hardware</option>
+                    <option value="Buzzing around">Buzzing around</option>
+                    <option value="Moral support">Moral support</option>
+                    <option value="I do everything">I do everything</option>
+                    <option value="I work without a team">I work without a team</option>
+                    <option value="Something else">Something else</option>          
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label> Top 3 challenges you are most interested in currently* </label>
+                  <p style="margin-bottom: 10px;">
+                    You can find information about tracks and challenges <a href="https://hackjunction.com/all-tracks">here</a>.<br> 
+                    All challenges are listed <a href="https://docs.google.com/document/d/1D2uYBRvByW_v0qF9lJntYm7voyRCCA3W16m2cXkBax8/edit">here</a>.
+                  </p>
                   <select multiple="multiple"
                     class="ui multiple normal selection dropdown"
                     name="individual_topChallenges"
@@ -102,65 +136,39 @@
                     <option value="Other">Other</option>
                   </select>
                 </div>
-        
 
                 <div class="field">
-                  <label>Which of the followings describes your role in a hackathon team the best? </label>
-                  <p style="margin-bottom: 10px";>
-                    This helps teams looking for teammates find the person they need!
+                  <label> What skills do you have? </label>
+                  <textarea ng-model="user.teamMatchmaking.individual.freeText"
+                    name="individual_freetext"
+                    id="individual_freetext">
+                </textarea>
+                </div>
+
+                <div class="field">
+                  <label> Description about yourself </label>
+                  <p style="margin-bottom: 10px;">
+                    Feel free to tell more about you here.
                   </p>
-                  <select
-                    class="ui fluid dropdown"
-                    name="individual_role"
-                    id="individual_role"
-                    ng-model="user.teamMatchmaking.individual.role">
-                    <option value="">Role</option>
-                    <option value="Frontend Developer">Frontend Developer</option>
-                    <option value="Backend Developer">Backend Developer</option>
-                    <option value="Full-Stack Developer">Full-Stack Developer</option>
-                    <option value="Designer">Designer</option>
-                    <option value="Ideation">Ideation</option>
-                    <option value="Business Development">Business Development</option>
-                    <option value="Product Development">Product Development</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Hardware">Hardware</option>
-                    <option value="Buzzing around">Buzzing around</option>
-                    <option value="Moral support">Moral support</option>
-                    <option value="I do everything">I do everything</option>
-                    <option value="I work without a team">I work without a team</option>
-                    <option value="Something else">Something else</option>          
-                  </select>
-                </div>
-
-
-
-                <div class="field">
-                  <label> Your slack handle for contacting </label>
-                  <input 
-                  type="text"
-                  id="individual_slack"
-                  name="individual_slack"
-                  ng-model="user.teamMatchmaking.individual.slackHandle">
+                  <textarea 
+                    ng-model="user.teamMatchmaking.individual.description"
+                    name="individual_description"
+                    id="individual_description">
+                  </textarea>
                 </div>
 
                 <div class="field">
-                  <label> Free text / motivation </label>
+                  <label> Text to potential teammates </label>
+                  <p style="margin-bottom: 10px;">
+                    Freely tell other people looking for teammates what you want do at Junction 2017. 
+                    It can be ideas you have, your motivation for joining, 
+                    are you here for the fun or for the win? Whatever you want to tell others!
+                  </p>
                   <textarea ng-model="user.teamMatchmaking.individual.freeText"
                     name="individual_freetext"
                     id="individual_freetext">
                   </textarea>
                 </div>
-        
-
-                <div class="field">
-                  <label> Major coding skills </label>
-                  <input type="text" 
-                    ng-model="user.teamMatchmaking.individual.skills"
-                    name="individual_codingskills"
-                    id="individual_codingskills">
-                </div>
-
-                
 
                 <div class="field" style="margin-bottom:5px">
                   <button type="submit"
