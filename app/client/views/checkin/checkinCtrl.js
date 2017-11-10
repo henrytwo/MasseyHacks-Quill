@@ -161,11 +161,9 @@ angular.module('reg')
             name: 'Basic Info',
             fields: [
               {
-                name: 'Rejected',
-                value: user.status.rejected
-              },{
                 name: 'Checked In',
-                value: user.status.checkedIn
+                value: user.status.checkedIn,
+                type: 'boolean'
               },{
                 name: 'Name',
                 value: user.profile.name
@@ -199,13 +197,19 @@ angular.module('reg')
                 name: 'Most interesting track',
                 value: user.profile.mostInterestingTrack
               },
+              {
+                name: 'Applied for accommodation',
+                value: user.profile.applyAccommodation,
+                type: 'boolean'
+              }
             ]
           },{
             name: 'Confirmation',
             fields: [
               {
                 name: 'Shirt Size',
-                value: user.confirmation.shirtSize
+                value: user.confirmation.shirtSize,
+                type: 'string'
               },{
                 name: 'Needs Hardware',
                 value: user.confirmation.needsHardware,
@@ -215,4 +219,5 @@ angular.module('reg')
           },
         ];
       }
+      $scope.selectUser = selectUser;
   }]);

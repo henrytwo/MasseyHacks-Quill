@@ -515,6 +515,14 @@ module.exports = function(router) {
    UserController.sendRejectEmails(defaultResponse(req, res));
  });
 
+ /** 
+  * Send QR emails to confirmed applicants
+ */
+
+ router.post('/users/sendRejectEmails', isAdmin, function(req, res){
+  UserController.sendQREmails(defaultResponse(req, res));
+});
+
 
   // ---------------------------------------------
   // Settings [ADMIN ONLY!]

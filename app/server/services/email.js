@@ -155,6 +155,47 @@ controller.sendRejectEmails = function(users, callback) {
   }
 }
 
+controller.sendQREmails = function(users, callback) {
+  for (var i = 0; i < users.length; i++) {
+    var user = users[i];
+    var options = {
+      to: user.email,
+      subject: "[Junction 2017] - Final decisions for Junction 2017!"
+    };
+
+    var locals = {
+      nickname: user.nickname,
+      dashUrl: ROOT_URL,
+      qr: ''
+    };
+
+    getQRCode = function(id){
+      
+      $http.get('/api/qr/' + id)
+      .then(function(response){
+        locals.qr = response.data;
+      });
+    }
+
+    getQRCode(user.id);
+
+
+
+    console.log('Sending reject email to address ' + user.email);
+    sendOne('email-qr', options, locals, function(err, info){
+      if (err){
+        console.log(err);
+      }
+      if (info){
+        console.log(info.message);
+      }
+      if (callback){
+        callback(err, info);
+      }
+    });
+  }
+}
+
 controller.sendApplicationEmail = function(user, callback) {
   var options = {
     to: user.email,
