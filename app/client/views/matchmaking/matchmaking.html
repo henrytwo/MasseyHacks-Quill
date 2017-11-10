@@ -23,7 +23,7 @@
         </div>
         <div ng-if="user.teamCode"
              class="title">
-          Search for a team members
+          Search for team members
         </div>
         <div>
           <div class="ui divider"></div>
@@ -53,35 +53,16 @@
                   <label> Slack handle* </label>
                   <p style="margin-bottom: 10px;">
                     Slack handle is your own display name on the official Junction 2017 workspace at 
-                    <a href="https://https://junction2017.slack.com">junction2017.slack.com</a>. 
+                    <a href="https://https://junction2017.slack.com">junction2017.slack.com</a>.
                     The Slack handle will be used by other participants to contact you.
+                    If you haven’t joined the Slack workspace, please do so at 
+                    <a href="https://junction-slack-invitation.herokuapp.com" target="_blank">junction-slack-invitation.herokuapp.com</a>. 
                   </p>
                   <input 
                   type="text"
-                  id="individual_slack"
-                  name="individual_slack"
+                  id="individual_slackHandle"
+                  name="individual_slackHandle"
                   ng-model="user.teamMatchmaking.individual.slackHandle">
-                </div>
-
-                <div class="field">
-                  <label> Which track are you most interested in at Junction 2017?* </label>
-                  <select
-                    class="ui fluid dropdown"
-                    name="individual_mostInterestingTrack"
-                    id="individual_mostInterestingTrack"
-                    ng-model="user.teamMatchmaking.individual.mostInterestingTrack">
-                    <option value="">Choose a track</option>
-                    <option value="HealthTech">HealthTech</option>
-                    <option value="Logistics">Logistics</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Mobility">Mobility</option>
-                    <option value="Intelligent Buildings">Intelligent Buildings</option>
-                    <option value="Game Jam">Game Jam</option>
-                    <option value="FinTech">FinTech</option>
-                    <option value="Industrial Internet">Industrial Internet</option>
-                    <option value="Artificial Intelligence">Artificial Intelligence</option>
-                    <option value="Big Data">Big Data</option>
-                  </select>
                 </div>
 
                 <div class="field">
@@ -108,38 +89,75 @@
                     <option value="Something else">Something else</option>          
                   </select>
                 </div>
+                
+                <div class="field">
+                  <label> Which track are you most interested in at Junction 2017?* </label>
+                  <select
+                    class="ui fluid dropdown"
+                    name="individual_mostInterestingTrack"
+                    id="individual_mostInterestingTrack"
+                    ng-model="user.teamMatchmaking.individual.mostInterestingTrack">
+                    <option value="">Choose a track</option>
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Big Data">Big Data</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="FinTech">FinTech</option>
+                    <option value="Game Jam">Game Jam</option>
+                    <option value="HealthTech">HealthTech</option>
+                    <option value="Industrial Internet">Industrial Internet</option>
+                    <option value="Intelligent Buildings">Intelligent Buildings</option>
+                    <option value="Legal Tech">Legal Tech</option>
+                    <option value="Logistics">Logistics</option>
+                    <option value="Mobility">Mobility</option>
+                    <option value="Productivity">Productivity</option>
+                    <option value="Space">Space</option>
+                  </select>
+                </div>
 
                 <div class="field">
                   <label> Top 3 challenges you are most interested in currently* </label>
                   <p style="margin-bottom: 10px;">
-                    You can find information about tracks and challenges <a href="https://hackjunction.com/all-tracks">here</a>.<br> 
-                    All challenges are listed <a href="https://docs.google.com/document/d/1D2uYBRvByW_v0qF9lJntYm7voyRCCA3W16m2cXkBax8/edit">here</a>.
+                    You can find information about tracks and challenges <a href="https://hackjunction.com/all-tracks" target="_blank">here</a>.
                   </p>
                   <select multiple="multiple"
                     class="ui multiple normal selection dropdown"
                     name="individual_topChallenges"
                     id="individual_topChallenges"
                     ng-model="user.teamMatchmaking.individual.topChallenges">
-                    <option value="">Choose up to 3 challenges</option>
-                    <option value="Student">Student</option>
-                    <option value="Full-Stack Web Developer">Full-Stack Web Developer</option>
-                    <option value="Backend Web Developer">Backend Web Developer</option>
-                    <option value="Frontend Web Developer">Frontend Web Developer</option>
-                    <option value="Mobile Developer">Mobile Developer</option>
-                    <option value="Manager / Executive">Manager / Executive</option>
-                    <option value="Data Scientist">Data Scientist</option>
-                    <option value="Entrepreneur">Entrepreneur</option>
-                    <option value="Analyst">Analyst</option>
-                    <option value="Machine Learning Developer">Machine Learning Developer</option>
-                    <option value="Industrial Design">Industrial Design</option>
-                    <option value="Web Design">Web Design</option>
-                    <option value="Product Design">Product Design</option>
-                    <option value="Other design related">Other design related</option>
-                    <option value="Server Specialist">Server Specialist</option>
-                    <option value="Hardware Technician">Hardware Technician</option>
-                    <option value="Hardware Engineer">Hardware Engineer</option>
-                    <option value="Unemployed">Unemployed</option>
-                    <option value="Other">Other</option>
+                    <option value="">Choose a challenge</option>
+                    <option value="Advertise Smartly With AI">Advertise Smartly With AI (Smartly.io)</option>
+                    <option value="Facial Recognition For Everyone (TrueFace.AI)">Facial Recognition For Everyone (TrueFace.AI)</option>
+                    <option value="Robots, Learning Machines (Bitville & Eficode)">Robots, Learning Machines (Bitville & Eficode)</option>
+                    <option value="Summarising News (Nordcloud)">Summarising News (Nordcloud)</option>
+                    <option value="Streetreboot 2 (STARA)">Streetreboot 2 (STARA)</option>
+                    <option value="Microsoft WebVR Challenge (Microsoft)">Microsoft WebVR Challenge (Microsoft)</option>
+                    <option value="Most Creative Use Of the Spotify Platform (Spotify)">Most Creative Use Of the Spotify Platform (Spotify)</option>
+                    <option value="My Perfect Personal Movie Experience (Elisa)">My Perfect Personal Movie Experience (Elisa)</option>
+                    <option value="Play Beautiful (Kamu)">Play Beautiful (Kamu)</option>
+                    <option value="Banking Re-Imagined (Nordea)">Re-Imagined (Nordea)</option>
+                    <option value="Changing The Financial Management Landscape (Procountor)">Changing The Financial Management Landscape (Procountor)</option>
+                    <option value="Hack the Fintech Environment (Holvi)">Hack the Fintech Environment (Holvi)</option>
+                    <option value="Make Finance Fun. Once And For All. (Bankify)">Make Finance Fun. Once And For All. (Bankify)</option>
+                    <option value="Hit The Jackpot! (Veikkaus)">Hit The Jackpot! (Veikkaus)</option>
+                    <option value="Handle With Care (Sitra)">Handle With Care (Sitra)</option>
+                    <option value="Reshaping The Future Of Dental Care (Planmeca)">Reshaping The Future Of Dental Care (Planmeca)</option>
+                    <option value="Track Anything That Moves (Suunto)">Track Anything That Moves (Suunto)</option>
+                    <option value="Cross Platform For Desktop And Embedded (The Qt Company)">Cross Platform For Desktop And Embedded (The Qt Company)</option>
+                    <option value="Smart Services, Sustainable Choices (Outotec)">Smart Services, Sustainable Choices (Outotec)</option>
+                    <option value="Smart Electricity (Fortum)">Smart Electricity (Fortum)</option>
+                    <option value="Store Smarter (Stora Enso & Siili Solutions)">Store Smarter (Stora Enso & Siili Solutions)</option>
+                    <option value="Transform The Way The World Builds! (Trimble)">Transform The Way The World Builds! (Trimble)></option>
+                    <option value="Unleashing IoT In Commercial Buildings (Kone)">Unleashing IoT In Commercial Buildings (Kone)</option>
+                    <option value="Who Needs A Light Switch (Helvar)">Who Needs A Light Switch (Helvar)</option>
+                    <option value="Accessing The Law (Castrén & Snellman)">Accessing The Law (Castrén & Snellman)</option>
+                    <option value="Connected Logistics (Daimler Fleetboard)">Connected Logistics (Daimler Fleetboard)</option>
+                    <option value="Where The #?! Is It? – RFID Helps (Finn-ID)">Where The #?! Is It? – RFID Helps (Finn-ID)</option>
+                    <option value="Brilliant Bus Display (Aalto University)">Brilliant Bus Display (Aalto University)</option>
+                    <option value="Making Transportation Easy (Kyyti)">Making Transportation Easy (Kyyti)</option>
+                    <option value="Revolutionising The Rural Transport (The Ministry of Transport and Communications)">Revolutionising The Rural Transport (The Ministry of Transport and Communications)</option>
+                    <option value="Hack The Job-Abolish The Unemployment (KEHA-keskus)">Hack The Job-Abolish The Unemployment (KEHA-keskus)</option>
+                    <option value="Space Data Enriched Applications (The European Space Agency)">Space Data Enriched Applications (The European Space Agency)</option>
+                    <option value="None">None</option>             
                   </select>
                 </div>
 
@@ -188,7 +206,7 @@
           </div>
         </div>
 
-              <!-- Team form -->
+        <!-- Team form -->
         <div ng-show="user.teamCode">
           <div class="ui stackable page grid">
             <div class="column">

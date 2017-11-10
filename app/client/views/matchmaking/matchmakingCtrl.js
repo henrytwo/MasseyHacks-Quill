@@ -98,6 +98,24 @@ angular.module('reg')
         $('.ui.form.individual').form({
           inline:true,
           fields: {
+            individual_slackHandle: {
+              identifier: 'individual_slackHandle',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter a Slack handle.'
+                }
+              ]
+            },
+            individual_role: {
+              identifier: 'individual_role',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select a description for your role in a hackathon team.'
+                }
+              ]
+            },
             individual_mostInterestingTrack: {
               identifier: 'individual_mostInterestingTrack',
               rules: [
@@ -107,21 +125,12 @@ angular.module('reg')
                 }
               ]
             },
-            individual_description: {
-              identifier: 'individual_description',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please describe yourself a little.'
-                }
-              ]
-            },
             individual_topChallenges: {
-              identifier: 'individual_description',
+              identifier: 'individual_topChallenges',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please add at least one challenge you are interested in.'
+                  prompt: 'Please select at least one challenge.'
                 }
               ]
             },
