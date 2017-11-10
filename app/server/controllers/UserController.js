@@ -789,7 +789,7 @@ UserController.sendRejectEmails = function(callback) {
   });
 }
 
-UserController.sendQREmails = function(callback) {
+/*UserController.sendQREmails = function(callback) {
   User.find({"status.confirmed": true}, 'email nickname', function (err, users) {
     if (err) {
       return callback(err);
@@ -797,7 +797,7 @@ UserController.sendQREmails = function(callback) {
     Mailer.sendQREmails(users);
     return callback(err);
   });
-}
+}*/
 
 /**
  * Password reset email

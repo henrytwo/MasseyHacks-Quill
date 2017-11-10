@@ -115,9 +115,9 @@ angular.module('reg')
       sendRejectEmails: function() {
         return $http.post(base + 'sendRejectEmails');
       },
-      sendQREmails: function() {
+      /*sendQREmails: function() {
         return $http.post(base + 'sendQREmails');
-      },
+      },*/
 
     };
   }

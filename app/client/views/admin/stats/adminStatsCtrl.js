@@ -51,7 +51,7 @@ angular.module('reg')
           });
       };
 
-      $scope.sendQREmails = function(){
+      /*$scope.sendQREmails = function(){
         swal({
           title: "Are you sure?",
           text: "This will send an email to every user who is confirmed, includes QR-code. Are you sure?.",
@@ -67,7 +67,7 @@ angular.module('reg')
                 sweetAlert('Your emails have been sent.');
             });
           });
-      };
+      };*/
 
 
     }]);

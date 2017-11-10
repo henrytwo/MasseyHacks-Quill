@@ -155,7 +155,7 @@ controller.sendRejectEmails = function(users, callback) {
   }
 }
 
-controller.sendQREmails = function(users, callback) {
+/*controller.sendQREmails = function(users, callback) {
   for (var i = 0; i < users.length; i++) {
     var user = users[i];
     var options = {
@@ -194,7 +194,7 @@ controller.sendQREmails = function(users, callback) {
       }
     });
   }
-}
+}*/
 
 controller.sendApplicationEmail = function(user, callback) {
   var options = {

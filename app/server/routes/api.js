@@ -519,9 +519,9 @@ module.exports = function(router) {
   * Send QR emails to confirmed applicants
  */
 
- router.post('/users/sendRejectEmails', isAdmin, function(req, res){
+ /*router.post('/users/sendQREmails', isAdmin, function(req, res){
   UserController.sendQREmails(defaultResponse(req, res));
-});
+});*/
 
 
   // ---------------------------------------------
