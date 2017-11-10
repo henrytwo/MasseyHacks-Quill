@@ -17,25 +17,31 @@
         {{error}}
       </div>
       <div ng-show="showForms">
-        <div class="title">
-          LOL
+        <div ng-if="!user.teamCode"
+             class="title">
+          Search for a team
         </div>
-
+        <div ng-if="user.teamCode"
+             class="title">
+          Search for a team members
+        </div>
         <div>
           <div class="ui divider"></div>
 
-          <button
+          <!--<button
             class="ui fluid sea-serpent button"
+            ng-if="!user.teamCode"
             ng-click="setIndividual()">Searching for team</button>
           <button
             class="ui fluid sea-serpent button"
-            ng-click="setTeam()">Looking for teammates</button>
+            ng-if="user.teamCode"
+            ng-click="setTeam()">Looking for teammates</button>-->
         </div>
         <br>
         <br>
 
         <!-- Individual form -->
-        <div ng-show="showIndividualForm">
+        <div ng-show="!user.teamCode">
           <div class="ui stackable page grid">
             <div class="column">
               <div class="ui form individual error"
@@ -183,7 +189,7 @@
         </div>
 
               <!-- Team form -->
-        <div ng-show="showTeamForm">
+        <div ng-show="user.teamCode">
           <div class="ui stackable page grid">
             <div class="column">
               <div class="ui form team error"

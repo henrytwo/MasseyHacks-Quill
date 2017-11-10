@@ -8,7 +8,7 @@ angular.module('reg')
     'TEAM',
     'Session',
     function($scope, currentUser, settings, Utils, UserService, TEAM, Session){
-
+      
       //icon tooltip popup
       $('.icon')
       .popup({
@@ -20,7 +20,7 @@ angular.module('reg')
 
       $scope.user = currentUser.data;
       console.log(currentUser.data);
-
+      console.log($scope.user.teamCode)
       _setupIndividualForm();
       _setupTeamForm();
       
