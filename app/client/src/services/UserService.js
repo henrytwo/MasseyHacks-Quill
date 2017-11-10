@@ -35,6 +35,10 @@ angular.module('reg')
         );
       },
 
+      getMatchmaking: function() {
+        return $http.get('/api/matchmakingdata')
+      },
+
       updateProfile: function(id, profile){
         return $http.put(base + id + '/profile', {
           profile: profile

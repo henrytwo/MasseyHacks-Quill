@@ -301,6 +301,30 @@ module.exports = function(router) {
     UserController.updateMatchmakingProfileById(id, profile , defaultResponse(req, res));
   });
 
+  /* GET - Update enrolled teams table for enrolled individual */
+
+  router.get('/matchmakingdata', function(req, res){
+    var token = getToken(req);
+
+    UserController.getByToken(token, function(err, user){
+
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      if (user){
+        if(user.teamMatchmaking.enrolled){
+          return UserController.getMatchmaking(user, defaultResponse(req, res));
+        }
+      }
+
+      return res.status(401).send({
+        message: 'Get outta here, punk!'
+      });
+
+    });
+  })
+
   /**
    * [OWNER/ADMIN]
    *

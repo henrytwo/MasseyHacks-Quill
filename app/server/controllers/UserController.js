@@ -256,6 +256,7 @@ UserController.getPage = function(query, callback){
   else {
     findQuery = {};
   }
+  console.log(query.filter)
 
   if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
@@ -304,6 +305,28 @@ UserController.getPage = function(query, callback){
       });
 
     });
+};
+
+UserController.getMatchmaking = function(user, callback){
+  var type;
+  if(user.teamMatchmaking.enrollmentType === 'team'){
+    type = 'individual';
+  }
+  else if(user.teamMatchmaking.enrollmentType === 'individual'){
+    type = 'team';
+  }
+  User
+    .find({
+      'teamMatchmaking.enrolled': 'enrolled',
+      'teamMatchmaking.enrollmentType': type
+      })
+      .exec(function(err, users){
+        if (err || !users){
+          return callback(err);
+        }
+        return callback(null, users)
+
+      })
 };
 
 /**
@@ -675,7 +698,9 @@ UserController.createOrJoinTeam = function(id, code, callback){
       verified: true
     },{
       $set: {
-        teamCode: code
+        teamCode: code,
+        'teamMatchmaking.enrolled': false,
+        'teamMatchmaking.enrollmentType': undefined
       }
     }, {
       new: true
@@ -695,6 +720,13 @@ UserController.leaveTeam = function(id, callback){
     _id: id
   },{
     $set: {
+      'teamMatchmaking.enrolled:': false,
+      'teamMatchmaking.enrollmentType': undefined,
+      'teamMatchmaking.team.mostInterestingTrack': undefined,
+      'teamMatchmaking.team.topChallenges': undefined,
+      'teamMatchmaking.team.roles': undefined,
+      'teamMatchmaking.team.slackHandle': undefined,
+      'teamMatchmaking.team.freeText': undefined,
       teamCode: null
     }
   }, {

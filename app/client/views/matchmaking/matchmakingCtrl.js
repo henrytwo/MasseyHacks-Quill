@@ -1,14 +1,15 @@
 angular.module('reg')
   .controller('MatchmakingCtrl', [
     '$scope',
+    '$stateParams',
     'currentUser',
     'settings',
     'Utils',
     'UserService',
     'TEAM',
     'Session',
-    function($scope, currentUser, settings, Utils, UserService, TEAM, Session){
-      
+    function($scope, $stateParams, currentUser, settings, Utils, UserService, TEAM, Session){
+
       //icon tooltip popup
       $('.icon')
       .popup({
@@ -19,11 +20,23 @@ angular.module('reg')
       $scope.regIsOpen = Utils.isRegOpen(Settings);
 
       $scope.user = currentUser.data;
-      console.log(currentUser.data);
-      console.log($scope.user.teamCode)
       _setupIndividualForm();
       _setupTeamForm();
-      
+
+      //TABLE UPDATING
+      $scope.params = [];
+      $scope.users = [];
+      function updateTable(data){
+        $scope.users = data;
+      }
+      if($scope.user.teamMatchmaking.enrolled){
+        UserService
+          .getMatchmaking()
+          .success(function(data){
+            updateTable(data);
+          });
+      }
+
       $scope.TEAM = TEAM;
 
       $scope.showIndividualForm = false;
