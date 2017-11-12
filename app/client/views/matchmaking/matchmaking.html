@@ -23,6 +23,11 @@
         </div>
         <div>
           <div class="ui divider"></div>
+        <button
+        ng-show="user.teamMatchmaking.enrolled"
+        class="ui fluid sea-serpent button"
+        ng-click="exitSearch()">End the search</button>
+
 
           <!--<button
             class="ui fluid sea-serpent button"
@@ -342,7 +347,7 @@
               <tr>
                 <th>Track</th>
                 <th>Top Challenges</th>
-                <th>Roles</th>
+                <th>Roles In Search</th>
                 <th>Slack Handle</th>
                 <th>Additional</th>
               </tr>

@@ -70,6 +70,25 @@ angular.module('reg')
         $scope.showIndividualForm = false;
       };
 
+      $scope.exitSearch = function(){
+        UserService
+          .exitSearch()
+          .success(function(data){
+            sweetAlert({
+            title: "Search Ended!",
+            text: "You've ended the search for additional team members.",
+            type: "success",
+            confirmButtonColor: "#5ABECF"
+            }, function(){
+              //$state.go('app.dashboard');
+              console.log('success');
+            });
+            })
+            .error(function(res){
+              sweetAlert("Uh oh!", "Something went wrong.", "error");
+            });
+      }
+
       $scope.getBestCodingSkills = function(){
         var skills = "";
         var prf = currentUser.data.profile;

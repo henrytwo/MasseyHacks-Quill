@@ -39,6 +39,10 @@ angular.module('reg')
         return $http.get('/api/matchmakingdata')
       },
 
+      exitSearch: function() {
+        return $http.put('/api/matchmaking/exitSearch')
+      },
+
       updateProfile: function(id, profile){
         return $http.put(base + id + '/profile', {
           profile: profile

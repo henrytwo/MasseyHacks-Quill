@@ -325,6 +325,29 @@ module.exports = function(router) {
     });
   })
 
+  /* PUT - Exit matchmaking search as team / individual */
+
+  router.put('/matchmaking/exitSearch', function(req, res){
+    var token = getToken(req);
+    UserController.getByToken(token, function(err, user){
+      
+            if (err) {
+              return res.status(500).send(err);
+            }
+      
+            if (user){
+              if(user.teamMatchmaking.enrolled){
+                return UserController.exitSearch(user, defaultResponse(req, res));
+              }
+            }
+      
+            return res.status(401).send({
+              message: 'Get outta here, punk!'
+            });
+      
+          });
+  })
+
   /**
    * [OWNER/ADMIN]
    *

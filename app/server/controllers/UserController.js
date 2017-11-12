@@ -329,6 +329,23 @@ UserController.getMatchmaking = function(user, callback){
       })
 };
 
+UserController.exitSearch = function(id, callback) {
+  User.findOneAndUpdate({
+    _id: id,
+    'teamMatchmaking.enrolled': true
+  },
+    {
+      $set: {
+        'teamMatchmaking.enrolled': false,
+        'teamMatchmaking.enrollmentType': ''
+      }
+    },
+    {
+      new: true
+    },
+    callback);
+}
+
 /**
  * Get a user by id.
  * @param  {String}   id       User id
