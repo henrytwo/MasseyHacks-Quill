@@ -342,37 +342,39 @@
         <div id="table-container" class="thirteen wide column" ng-show="user.teamMatchmaking.enrollmentType === 'individual'">
     
           <table
-            class="ui celled selectable compact table">
+            class="ui celled striped compact table">
             <thead>
               <tr>
                 <th>Track</th>
                 <th>Top Challenges</th>
                 <th>Roles In Search</th>
+                <th>Team Size</th>
                 <th>Slack Handle</th>
                 <th>Additional</th>
               </tr>
             </thead>
             <tbody>
               <tr
-                ng-repeat="user in users"
+                ng-repeat="userAndSize in users"
                 ng-class="rowClass(user)">
-                <td>{{user.teamMatchmaking.team.mostInterestingTrack}}</td>
+                <td>{{userAndSize[0].teamMatchmaking.team.mostInterestingTrack}}</td>
                 <td>
-                  <ul>
-                    <li ng-repeat="challenge in user.teamMatchmaking.team.topChallenges">
+                  <ol class="ui list">
+                    <li value="-" ng-repeat="challenge in userAndSize[0].teamMatchmaking.team.topChallenges">
                       {{challenge}}
                     </li>
-                  </ul>
+                  </ol>
                 </td>
                 <td>
-                  <ul>
-                    <li ng-repeat="role in user.teamMatchmaking.team.roles">
+                  <ol class="ui list">
+                    <li value="-" ng-repeat="role in userAndSize[0].teamMatchmaking.team.roles">
                       {{role}}
                     </li>
-                  </ul>
+                  </ol>
                 </td>
-                <td>{{user.teamMatchmaking.team.slackHandle}}</td>
-                <td>{{user.teamMatchmaking.team.freeText}}</td>
+                <td style="text-align:center">{{userAndSize[1]}}</td>
+                <td>{{userAndSize[0].teamMatchmaking.team.slackHandle}}</td>
+                <td>{{userAndSize[0].teamMatchmaking.team.freeText}}</td>
               </tr>
             </tbody>
           </table>
@@ -383,7 +385,7 @@
         <div id="table-container" class="thirteen wide column" ng-show="user.teamMatchmaking.enrollmentType === 'team'">
           
           <table
-            class="ui celled selectable compact table">
+            class="ui celled striped compact table">
             <thead>
               <tr>
                 <th>Description</th>
@@ -404,11 +406,11 @@
                 <td>{{user.teamMatchmaking.individual.role}}</td>
                 <td>{{user.teamMatchmaking.individual.skills}}</td>
                 <td>
-                  <ul>
-                    <li ng-repeat="challenge in user.teamMatchmaking.individual.topChallenges">
+                  <ol class="ui list">
+                    <li value="-" ng-repeat="challenge in user.teamMatchmaking.individual.topChallenges">
                       {{challenge}}
                     </li>
-                  </ul>
+                  </ol>
                 </td>
                 <td>{{user.teamMatchmaking.individual.slackHandle}}</td>
                 <td>{{user.teamMatchmaking.individual.freeText}}</td>

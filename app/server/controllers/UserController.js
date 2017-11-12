@@ -311,11 +311,7 @@ UserController.getMatchmaking = function(user, callback){
   var type;
   if(user.teamMatchmaking.enrollmentType === 'team'){
     type = 'individual';
-  }
-  else if(user.teamMatchmaking.enrollmentType === 'individual'){
-    type = 'team';
-  }
-  User
+    User
     .find({
       'teamMatchmaking.enrolled': 'enrolled',
       'teamMatchmaking.enrollmentType': type
@@ -327,6 +323,33 @@ UserController.getMatchmaking = function(user, callback){
         return callback(null, users)
 
       })
+  }
+  else if(user.teamMatchmaking.enrollmentType === 'individual'){
+    type = 'team';
+
+    User
+    .find({
+      'teamMatchmaking.enrolled': 'enrolled',
+      'teamMatchmaking.enrollmentType': type
+      })
+      .exec(function(err, users){
+        if (err || !users){
+          return callback(err);
+        }
+        var usersProcessed = 0;
+        users.forEach(function(usr, index){
+          User.find({'teamCode': usr.teamCode})
+              .exec(function (err, results) {
+                users[index] = [usr, results.length]
+                usersProcessed += 1;
+                if(usersProcessed === users.length){
+                  return callback(null, users)
+                }
+          });
+        })
+      })
+  }
+
 };
 
 UserController.exitSearch = function(id, callback) {

@@ -34,6 +34,7 @@ angular.module('reg')
           .getMatchmaking()
           .success(function(data){
             updateTable(data);
+            console.log(data)
           });
       }
 
