@@ -308,13 +308,11 @@ UserController.getPage = function(query, callback){
 };
 
 UserController.getMatchmaking = function(user, callback){
-  var type;
   if(user.teamMatchmaking.enrollmentType === 'team'){
-    type = 'individual';
     User
     .find({
       'teamMatchmaking.enrolled': 'enrolled',
-      'teamMatchmaking.enrollmentType': type
+      'teamMatchmaking.enrollmentType': 'individual'
       })
       .exec(function(err, users){
         if (err || !users){
@@ -325,12 +323,10 @@ UserController.getMatchmaking = function(user, callback){
       })
   }
   else if(user.teamMatchmaking.enrollmentType === 'individual'){
-    type = 'team';
-
     User
     .find({
       'teamMatchmaking.enrolled': 'enrolled',
-      'teamMatchmaking.enrollmentType': type
+      'teamMatchmaking.enrollmentType': 'team'
       })
       .exec(function(err, users){
         if (err || !users){
