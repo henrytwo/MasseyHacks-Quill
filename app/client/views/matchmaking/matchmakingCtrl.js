@@ -26,17 +26,42 @@ angular.module('reg')
       //TABLE UPDATING
       $scope.params = [];
       $scope.users = [];
+
       function updateTable(data){
         $scope.users = data;
       }
-      if($scope.user.teamMatchmaking.enrolled){
+
+      //Check if user's team already submitted the form
+      $scope.teamSearching = false;
+
+
+      //Individual can get the teams data
+      if($scope.user.teamMatchmaking.enrollmentType === 'individual'){
         UserService
-          .getMatchmaking()
-          .success(function(data){
-            updateTable(data);
-            console.log(data)
-          });
+        .getMatchmaking()
+        .success(function(data){
+          updateTable(data);
+        })
       }
+
+      else if($scope.user.teamCode){
+        UserService
+        .getTeamSearching()
+        .success(function(result){
+          console.log(result)
+          $scope.teamSearching = result;
+          if(result){
+            UserService
+            .getMatchmaking()
+            .success(function(data){
+              
+              updateTable(data);
+            })
+          }
+        })
+      }
+
+
 
       $scope.TEAM = TEAM;
 

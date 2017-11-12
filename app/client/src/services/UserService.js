@@ -36,11 +36,15 @@ angular.module('reg')
       },
 
       getMatchmaking: function() {
-        return $http.get('/api/matchmakingdata')
+        return $http.get('/api/matchmaking/data')
       },
 
       exitSearch: function() {
         return $http.put('/api/matchmaking/exitSearch')
+      },
+
+      getTeamSearching: function() {
+        return $http.get('/api/matchmaking/teamInSearch')
       },
 
       updateProfile: function(id, profile){

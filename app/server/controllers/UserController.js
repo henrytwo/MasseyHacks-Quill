@@ -308,7 +308,7 @@ UserController.getPage = function(query, callback){
 };
 
 UserController.getMatchmaking = function(user, callback){
-  if(user.teamMatchmaking.enrollmentType === 'team'){
+  if(user.teamMatchmaking.enrollmentType === 'team' || user.teamCode){
     User
     .find({
       'teamMatchmaking.enrolled': 'enrolled',
@@ -347,6 +347,20 @@ UserController.getMatchmaking = function(user, callback){
   }
 
 };
+
+UserController.teamInSearch = function(user, callback){
+  User.find({'teamCode': user.teamCode})
+  .exec(function (err, users) {
+    if (err || !users){
+      return callback(err);
+    }
+    users.forEach(function(u) {
+      if(u.teamMatchmaking.enrolled){
+        return callback(null, true);
+      }
+    })
+});
+}
 
 UserController.exitSearch = function(id, callback) {
   User.findOneAndUpdate({

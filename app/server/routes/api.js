@@ -303,7 +303,7 @@ module.exports = function(router) {
 
   /* GET - Update enrolled teams table for enrolled individual */
 
-  router.get('/matchmakingdata', function(req, res){
+  router.get('/matchmaking/data', function(req, res){
     var token = getToken(req);
 
     UserController.getByToken(token, function(err, user){
@@ -313,9 +313,9 @@ module.exports = function(router) {
       }
 
       if (user){
-        if(user.teamMatchmaking.enrolled){
-          return UserController.getMatchmaking(user, defaultResponse(req, res));
-        }
+        
+        return UserController.getMatchmaking(user, defaultResponse(req, res));
+        
       }
 
       return res.status(401).send({
@@ -339,6 +339,29 @@ module.exports = function(router) {
               if(user.teamMatchmaking.enrolled){
                 return UserController.exitSearch(user, defaultResponse(req, res));
               }
+            }
+      
+            return res.status(401).send({
+              message: 'Get outta here, punk!'
+            });
+      
+          });
+  })
+
+  /* GET - Get user's team status */
+
+  router.get('/matchmaking/teamInSearch', function(req, res){
+    var token = getToken(req);
+    UserController.getByToken(token, function(err, user){
+      
+            if (err) {
+              return res.status(500).send(err);
+            }
+      
+            if (user){
+
+              return UserController.teamInSearch(user, defaultResponse(req, res));
+              
             }
       
             return res.status(401).send({

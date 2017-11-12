@@ -208,7 +208,7 @@
         </div>
 
               <!-- Team form -->
-        <div ng-show="user.teamCode && !user.teamMatchmaking.enrolled">
+        <div ng-show="user.teamCode && !user.teamMatchmaking.enrolled && !teamSearching">
           <div class="ui stackable page grid">
             <div class="column">
               <div class="ui form team error"
@@ -381,8 +381,8 @@
     
         </div>
 
-        <!-- table of teams -->
-        <div id="table-container" class="thirteen wide column" ng-show="user.teamMatchmaking.enrollmentType === 'team'">
+        <!-- table of individuals -->
+        <div id="table-container" class="thirteen wide column" ng-show="user.teamMatchmaking.enrollmentType === 'team' || teamSearching">
           
           <table
             class="ui celled striped compact table">
