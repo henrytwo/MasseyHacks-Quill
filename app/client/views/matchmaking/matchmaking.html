@@ -11,11 +11,7 @@
   </script>  
   <div class="ui stackable centered page grid">
     <div class="column">
-      <div
-        class="ui error message"
-        ng-show="error">
-        {{error}}
-      </div>
+
       <div ng-show="showForms">
         <div ng-if="!user.teamCode"
              class="title">
@@ -163,7 +159,8 @@
 
                 <div class="field">
                   <label> What skills do you have? </label>
-                  <textarea ng-model="user.teamMatchmaking.individual.freeText"
+                  <textarea ng-model="user.teamMatchmaking.individual.skills"
+                    value="user.profile.topLevelTools"
                     name="individual_freetext"
                     id="individual_freetext">
                 </textarea>
@@ -387,6 +384,11 @@
       
       </div>
       </div>
+    </div>
+    <div
+      class="ui error message"
+      ng-show="error">
+      {{error}}
     </div>
   </div>
 </div>
