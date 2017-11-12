@@ -1,7 +1,7 @@
 <div id="matchmaking" class="page">
   <div class="divided title">
     Team Matchmaking
-    <i class="help circle icon link head" data-content="Having a team is not compulsory but hackathons can be a fun experience together with a team! Here you can join/create a team and see your team's status!" data-variation="inverted" data-position="right center"></i>
+    <i class="help circle icon link head" data-content="Having a team is not compulsory but hackathons can be a fun experience together with a team! Here you can find a team / team members!" data-variation="inverted" data-position="right center"></i>
   </div>
   <script>
     // Initialize fancy UI scripts
@@ -160,7 +160,6 @@
                 <div class="field">
                   <label> What skills do you have? </label>
                   <textarea ng-model="user.teamMatchmaking.individual.skills"
-                    value="user.profile.topLevelTools"
                     name="individual_freetext"
                     id="individual_freetext">
                 </textarea>
@@ -320,7 +319,7 @@
           </div>
         </div>
 
-        <!-- table for teams looking for members -->
+        <!-- table of teams -->
         <div id="table-container" class="thirteen wide column" ng-show="user.teamMatchmaking.enrollmentType === 'individual'">
     
           <table
@@ -339,8 +338,20 @@
                 ng-repeat="user in users"
                 ng-class="rowClass(user)">
                 <td>{{user.teamMatchmaking.team.mostInterestingTrack}}</td>
-                <td>{{user.teamMatchmaking.team.topChallenges}}</td>
-                <td>{{user.teamMatchmaking.team.roles}}</td>
+                <td>
+                  <ul>
+                    <li ng-repeat="challenge in user.teamMatchmaking.team.topChallenges">
+                      {{challenge}}
+                    </li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li ng-repeat="role in user.teamMatchmaking.team.roles">
+                      {{role}}
+                    </li>
+                  </ul>
+                </td>
                 <td>{{user.teamMatchmaking.team.slackHandle}}</td>
                 <td>{{user.teamMatchmaking.team.freeText}}</td>
               </tr>
@@ -349,7 +360,7 @@
     
         </div>
 
-        <!-- table of individuals looking for a team -->
+        <!-- table of teams -->
         <div id="table-container" class="thirteen wide column" ng-show="user.teamMatchmaking.enrollmentType === 'team'">
           
           <table
@@ -373,7 +384,13 @@
                 <td>{{user.teamMatchmaking.individual.mostInterestingTrack}}</td>
                 <td>{{user.teamMatchmaking.individual.role}}</td>
                 <td>{{user.teamMatchmaking.individual.skills}}</td>
-                <td>{{user.teamMatchmaking.individual.topChallenges}}</td>
+                <td>
+                  <ul>
+                    <li ng-repeat="challenge in user.teamMatchmaking.individual.topChallenges">
+                      {{challenge}}
+                    </li>
+                  </ul>
+                </td>
                 <td>{{user.teamMatchmaking.individual.slackHandle}}</td>
                 <td>{{user.teamMatchmaking.individual.freeText}}</td>
               </tr>
