@@ -486,9 +486,25 @@ module.exports = function(router) {
    * Check in user with QR code. VOLUNTEER OR ADMIN
    */
 
-  router.post('/users/:id/qrcheck', isAdminOrVolunteer, function(req, res){
+  router.post('/users/:id/qrcheck', function(req, res){
     var id = sanitize(req.params.id);
-    UserController.QRcheckInById(id, defaultResponse(req, res));
+    var token = getToken(req);
+    
+    UserController.getByToken(token, function(err, user){
+
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      if (user && (user.admin || user.volunteer)){
+        UserController.QRcheckInById(id, defaultResponse(req, res));
+      }
+
+      return res.status(401).send({
+        message: 'Get outta here, punk!'
+      });
+
+    });
   });
 
 
