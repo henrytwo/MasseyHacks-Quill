@@ -974,7 +974,7 @@ UserController.checkInById = function(id, user, callback){
  * @param  {Function} callback args(err, user)
  */
 UserController.QRcheckInById = function(id, callback){
-  User.findOne({'id': id, 'status.confirmed':true}, function(err, user){
+  User.findOne({'id': id, 'status.admitted':true}, function(err, user){
     if(err) callback(err);
     else if(user) {
       if(user.status.checkedIn){

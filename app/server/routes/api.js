@@ -59,9 +59,11 @@ module.exports = function(router) {
             return res.status(500).send(err);
           }
     
-          if (user && (user.admin || user.volunteer)){
-            req.user = user;
-            return next();
+          if (user){
+            if(user.admin || user.volunteer){
+              req.user = user;
+              return next();
+            }
           }
     
           return res.status(401).send({
@@ -307,7 +309,7 @@ module.exports = function(router) {
    * GET - Get all users, or a page at a time.
    * ex. Paginate with ?page=0&size=100
    */
-  router.get('/users', isAdmin, function(req, res){
+  router.get('/users', isAdminOrVolunteer, function(req, res){
     var query = req.query;
 
     if (query.page && query.size && query.sort){
@@ -475,7 +477,7 @@ module.exports = function(router) {
   /**
    * Check in a user. ADMIN ONLY, DUH
    */
-  router.post('/users/:id/checkin', isAdmin, function(req, res){
+  router.post('/users/:id/checkin', isAdminOrVolunteer, function(req, res){
     var id = req.params.id;
     var user = req.user;
     console.log("checked in")
@@ -486,32 +488,16 @@ module.exports = function(router) {
    * Check in user with QR code. VOLUNTEER OR ADMIN
    */
 
-  router.post('/users/:id/qrcheck', function(req, res){
+  router.post('/users/:id/qrcheck', isAdminOrVolunteer,function(req, res){
     var id = sanitize(req.params.id);
-    var token = getToken(req);
-    
-    UserController.getByToken(token, function(err, user){
-
-      if (err) {
-        return res.status(500).send(err);
-      }
-
-      if (user && (user.admin || user.volunteer)){
-        UserController.QRcheckInById(id, defaultResponse(req, res));
-      }
-
-      return res.status(401).send({
-        message: 'Get outta here, punk!'
-      });
-
-    });
+    UserController.QRcheckInById(id, defaultResponse(req, res));
   });
 
 
   /**
    * Check in a user. ADMIN ONLY, DUH
    */
-  router.post('/users/:id/checkout', isAdmin, function(req, res){
+  router.post('/users/:id/checkout', isAdminOrVolunteer, function(req, res){
     var id = req.params.id;
     var user = req.user;
     UserController.checkOutById(id, user, defaultResponse(req, res));
