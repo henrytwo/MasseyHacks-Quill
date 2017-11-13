@@ -29,7 +29,6 @@ angular.module('reg')
 
       function updateTable(data){
         $scope.users = data;
-        console.log($scope.users)
       }
       function getMatchMaking(){
         UserService

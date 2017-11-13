@@ -87,6 +87,10 @@
         </div>
 
       </div>
+
+      
+        <a ng-show="user.teamCode" ui-sref="app.matchmaking" class="matchmaking"><button class="ui fluid sea-serpent button">Search for more team members!</button></a>
+        <a ng-show="!user.teamCode" ui-sref="app.matchmaking" class="matchmaking"><button class="ui fluid sea-serpent button">Search for a team or other without a team!</button></a>
     </div>
   </div>
 
