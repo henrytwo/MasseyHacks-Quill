@@ -59,11 +59,14 @@
                     If you haven’t joined the Slack workspace, please do so at 
                     <a href="https://junction-slack-invitation.herokuapp.com" target="_blank">junction-slack-invitation.herokuapp.com</a>. 
                   </p>
-                  <input 
-                  type="text"
-                  id="individual_slackHandle"
-                  name="individual_slackHandle"
-                  ng-model="user.teamMatchmaking.individual.slackHandle">
+                  <div class="ui left icon input">
+                    <input 
+                    type="text"
+                    id="individual_slackHandle"
+                    name="individual_slackHandle"
+                    ng-model="user.teamMatchmaking.individual.slackHandle">
+                    <i class="at icon"></i>
+                  </div>
                 </div>
 
                 <div class="field">
@@ -317,7 +320,10 @@
 
                 <div class="field">
                   <label> Captain's slack handle for contacting </label>
-                  <input type="text" ng-model="user.teamMatchmaking.team.slackHandle">
+                  <div class="ui left icon input">
+                    <input type="text" ng-model="user.teamMatchmaking.team.slackHandle">
+                    <i class="at icon"></i>
+                  </div>
                 </div>
 
                 <div class="field">
@@ -373,7 +379,7 @@
                   </ol>
                 </td>
                 <td style="text-align:center">{{userAndSize[1]}}</td>
-                <td>{{userAndSize[0].teamMatchmaking.team.slackHandle}}</td>
+                <td>@{{userAndSize[0].teamMatchmaking.team.slackHandle}}</td>
                 <td>{{userAndSize[0].teamMatchmaking.team.freeText}}</td>
               </tr>
             </tbody>
@@ -412,7 +418,7 @@
                     </li>
                   </ol>
                 </td>
-                <td>{{user.teamMatchmaking.individual.slackHandle}}</td>
+                <td>@{{user.teamMatchmaking.individual.slackHandle}}</td>
                 <td>{{user.teamMatchmaking.individual.freeText}}</td>
               </tr>
             </tbody>
