@@ -977,9 +977,9 @@ UserController.QRcheckInById = function(id, callback){
   User.findOne({'id': id, 'status.admitted':true}, function(err, user){
     if(err) callback(err);
     else if(user) {
-      if(user.status.checkedIn){
+      /*if(user.status.checkedIn){
         return callback("User already checked in!", null)
-      }
+      }*/
       if(!user.status.confirmed){
         return callback("User not confirmed!", null)
       }
