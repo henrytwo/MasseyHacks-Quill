@@ -68,7 +68,7 @@ angular.module('reg')
         $scope.fieldErrors = null;
         $scope.error = null;
         $('.ui.form.individual').form('validate form');
-        getMatchMaking();
+        // getMatchMaking();
       };
 
       $scope.submitTeamForm = function(){
@@ -208,12 +208,21 @@ angular.module('reg')
         $('.ui.form.team').form({
           inline:true,
           fields: {
+            team_slackHandle: {
+              identifier: 'team_slackHandle',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter a Slack handle.'
+                }
+              ]
+            },
             team_mostInterestingTrack: {
               identifier: 'team_mostInterestingTrack',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please select the track you are most interested in.'
+                  prompt: 'Please select the track your team is most interested in.'
                 }
               ]
             },
@@ -222,16 +231,7 @@ angular.module('reg')
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please add at least one challenge you are interested in.'
-                }
-              ]
-            },
-            team_roles: {
-              identifier: 'team_roles',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please add at least one role.'
+                  prompt: 'Please add at least one challenge your team is interested in.'
                 }
               ]
             },

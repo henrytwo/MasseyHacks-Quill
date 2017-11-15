@@ -226,30 +226,52 @@
                          disabled="disabled"
                          ng-model="user.teamCode">
                 </div>
+                
+                <div class="field">
+                  <label>“Captain’s” Slack handle*</label>
+                  <p style="margin-bottom: 10px;">
+                    Slack handle is your own display name on the official Junction 2017 workspace at 
+                    <a href="https://https://junction2017.slack.com">junction2017.slack.com</a>.
+                    The Slack handle will be used by other participants to contact you.
+                    If you haven’t joined the Slack workspace, please do so at 
+                    <a href="https://junction-slack-invitation.herokuapp.com" target="_blank">junction-slack-invitation.herokuapp.com</a>. 
+                  </p>
+                  <div class="ui left icon input">
+                    <input 
+                    type="text"
+                    id="team_slackHandle"
+                    name="team_slackHandle"
+                    ng-model="user.teamMatchmaking.team.slackHandle">
+                    <i class="at icon"></i>
+                  </div>
+                </div>
 
                 <div class="field">
-                  <label>Most interesting track as a team?</label>
+                  <label>Which track are you most interested in as a team?*</label>
                   <select
                     class="ui fluid dropdown"
                     name="team_mostInterestingTrack"
                     id="team_mostInterestingTrack"
                     ng-model="user.teamMatchmaking.team.mostInterestingTrack">
                     <option value="">Choose a track</option>
-                    <option value="HealthTech">HealthTech</option>
-                    <option value="Logistics">Logistics</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Mobility">Mobility</option>
-                    <option value="Intelligent Buildings">Intelligent Buildings</option>
-                    <option value="Game Jam">Game Jam</option>
-                    <option value="FinTech">FinTech</option>
-                    <option value="Industrial Internet">Industrial Internet</option>
                     <option value="Artificial Intelligence">Artificial Intelligence</option>
                     <option value="Big Data">Big Data</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="FinTech">FinTech</option>
+                    <option value="Game Jam">Game Jam</option>
+                    <option value="HealthTech">HealthTech</option>
+                    <option value="Industrial Internet">Industrial Internet</option>
+                    <option value="Intelligent Buildings">Intelligent Buildings</option>
+                    <option value="Legal Tech">Legal Tech</option>
+                    <option value="Logistics">Logistics</option>
+                    <option value="Mobility">Mobility</option>
+                    <option value="Productivity">Productivity</option>
+                    <option value="Space">Space</option>
                   </select>
                 </div>
 
                 <div class="field">
-                  <label>Top 3 challenges your team would like to participate </label>
+                  <label>Top 3 challenges your team is most interested in currently*</label>
                   <p style="margin-bottom: 10px;">
                       You can find information about tracks and challenges <a href="https://hackjunction.com/all-tracks" target="_blank">here</a>.
                   </p>
@@ -296,7 +318,7 @@
                 </div>
 
                 <div class="field">
-                  <label>What roles are you looking for to your team? </label>
+                  <label>What roles are you looking for your team?</label>
                   <p style="margin-bottom: 10px;">
                     Select all the roles that you think you'll be needing in your team.
                   </p>
@@ -322,21 +344,6 @@
                     <option value="I work without a team">I work without a team</option>
                     <option value="Something else">Something else</option>          
                   </select>
-                </div>
-
-                <div class="field">
-                  <label> Captain's slack handle for contacting </label>
-                  <p style="margin-bottom: 10px;">
-                      Slack handle is your own display name on the official Junction 2017 workspace at 
-                      <a href="https://https://junction2017.slack.com">junction2017.slack.com</a>.
-                      The Slack handle will be used by other participants to contact you.
-                      If you haven’t joined the Slack workspace, please do so at 
-                      <a href="https://junction-slack-invitation.herokuapp.com" target="_blank">junction-slack-invitation.herokuapp.com</a>. 
-                  </p>
-                  <div class="ui left icon input">
-                    <input type="text" ng-model="user.teamMatchmaking.team.slackHandle">
-                    <i class="at icon"></i>
-                  </div>
                 </div>
 
                 <div class="field">
