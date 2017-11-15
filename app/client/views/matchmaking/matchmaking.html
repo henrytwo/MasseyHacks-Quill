@@ -250,6 +250,9 @@
 
                 <div class="field">
                   <label>Top 3 challenges your team would like to participate </label>
+                  <p style="margin-bottom: 10px;">
+                      You can find information about tracks and challenges <a href="https://hackjunction.com/all-tracks" target="_blank">here</a>.
+                  </p>
                   <select multiple="multiple"
                     class="ui multiple normal selection dropdown"
                     name="team_topChallenges"
@@ -294,6 +297,9 @@
 
                 <div class="field">
                   <label>What roles are you looking for to your team? </label>
+                  <p style="margin-bottom: 10px;">
+                    Select all the roles that you think you'll be needing in your team.
+                  </p>
                   <select
                     class="ui fluid select multiple dropdown"
                     name="team_roles"
@@ -320,6 +326,13 @@
 
                 <div class="field">
                   <label> Captain's slack handle for contacting </label>
+                  <p style="margin-bottom: 10px;">
+                      Slack handle is your own display name on the official Junction 2017 workspace at 
+                      <a href="https://https://junction2017.slack.com">junction2017.slack.com</a>.
+                      The Slack handle will be used by other participants to contact you.
+                      If you haven’t joined the Slack workspace, please do so at 
+                      <a href="https://junction-slack-invitation.herokuapp.com" target="_blank">junction-slack-invitation.herokuapp.com</a>. 
+                  </p>
                   <div class="ui left icon input">
                     <input type="text" ng-model="user.teamMatchmaking.team.slackHandle">
                     <i class="at icon"></i>
