@@ -23,7 +23,7 @@ angular.module('reg')
       _setupIndividualForm();
       _setupTeamForm();
 
-      //TABLE UPDATING
+      /*TABLE UPDATING
       $scope.params = [];
       $scope.users = [];
 
@@ -36,26 +36,22 @@ angular.module('reg')
         .success(function(data){
           updateTable(data);
         })
-      }
+      }*/
 
       //Check if user's team already submitted the form
       $scope.teamSearching = false;
       
 
       //Individual can get the teams data
-      if($scope.user.teamMatchmaking.enrollmentType === 'individual'){
+      /*if($scope.user.teamMatchmaking.enrollmentType === 'individual'){
         getMatchMaking();
-      }
+      }*/
 
-      else if($scope.user.teamCode){
+      if($scope.user.teamCode){
         UserService
         .getTeamSearching()
         .success(function(result){
-          console.log(result)
           $scope.teamSearching = result;
-          if(result){
-            getMatchMaking();
-          }
         })
       }
 
@@ -79,7 +75,6 @@ angular.module('reg')
         $scope.fieldErrors = null;
         $scope.error = null;
         $('.ui.form.team').form('validate form');
-        getMatchMaking();
       };
 
 

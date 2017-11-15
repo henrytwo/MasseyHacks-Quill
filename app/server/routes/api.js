@@ -303,8 +303,11 @@ module.exports = function(router) {
 
   /* GET - Update enrolled teams table for enrolled individual */
 
-  router.get('/matchmaking/data', function(req, res){
+  router.get('/matchmaking/data/:type', function(req, res){
     var token = getToken(req);
+    var type = req.params.type
+
+    console.log(type)
 
     UserController.getByToken(token, function(err, user){
 
@@ -314,7 +317,7 @@ module.exports = function(router) {
 
       if (user){
         
-        return UserController.getMatchmaking(user, defaultResponse(req, res));
+        return UserController.getMatchmaking(user, type, defaultResponse(req, res));
         
       }
 

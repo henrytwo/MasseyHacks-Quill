@@ -1,0 +1,44 @@
+<div class="ui segment">
+
+    <div id="table-container" class="thirteen wide column">
+        
+        <table
+        class="ui celled striped compact table">
+        <thead>
+            <tr>
+            <th>Track</th>
+            <th>Top Challenges</th>
+            <th>Roles In Search</th>
+            <th>Team Size</th>
+            <th>Slack Handle</th>
+            <th>Additional</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+            ng-repeat="userAndSize in users"
+            ng-class="rowClass(user)">
+            <td>{{userAndSize[0].teamMatchmaking.team.mostInterestingTrack}}</td>
+            <td>
+                <ol class="ui list">
+                <li value="-" ng-repeat="challenge in userAndSize[0].teamMatchmaking.team.topChallenges">
+                    {{challenge}}
+                </li>
+                </ol>
+            </td>
+            <td>
+                <ol class="ui list">
+                <li value="-" ng-repeat="role in userAndSize[0].teamMatchmaking.team.roles">
+                    {{role}}
+                </li>
+                </ol>
+            </td>
+            <td style="text-align:center">{{userAndSize[1]}}</td>
+            <td>@{{userAndSize[0].teamMatchmaking.team.slackHandle}}</td>
+            <td>{{userAndSize[0].teamMatchmaking.team.freeText}}</td>
+            </tr>
+        </tbody>
+        </table>
+
+    </div>
+</div>

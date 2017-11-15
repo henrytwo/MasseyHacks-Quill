@@ -307,8 +307,8 @@ UserController.getPage = function(query, callback){
     });
 };
 
-UserController.getMatchmaking = function(user, callback){
-  if(user.teamMatchmaking.enrollmentType === 'team' || user.teamCode){
+UserController.getMatchmaking = function(user, type, callback){
+  if(type === 'individuals'){
     User
     .find({
       'teamMatchmaking.enrolled': 'enrolled',
@@ -322,7 +322,7 @@ UserController.getMatchmaking = function(user, callback){
 
       })
   }
-  else if(user.teamMatchmaking.enrollmentType === 'individual'){
+  else if(type === 'teams'){
     User
     .find({
       'teamMatchmaking.enrolled': 'enrolled',
