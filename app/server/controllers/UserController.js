@@ -980,6 +980,9 @@ UserController.QRcheckInById = function(id, callback){
       /*if(user.status.checkedIn){
         return callback("User already checked in!", null)
       }*/
+      if(user.status.rejected){
+        return callback("User is rejected!", null)
+      }
       if(!user.status.confirmed){
         return callback("User not confirmed!", null)
       }

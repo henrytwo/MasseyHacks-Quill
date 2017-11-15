@@ -20,6 +20,9 @@ angular.module('reg')
               /*else if(res === "User already checked in!"){
                 sweetAlert("Again?", "User already checked in!", "error")
               }*/
+              else if(res === "User is rejected!"){
+                sweetAlert("Hey!", "This user is rejected!", "error");                
+              }
               else{
                 sweetAlert("Uh oh!", "User does not exist or isn't admitted!", "error");
               }
