@@ -13,20 +13,26 @@
     <div class="column">
 
       <div ng-show="showForms">
-        <div ng-if="!user.teamCode"
+        <!--<div ng-if="!user.teamCode"
              class="title">
           Search for a team
         </div>
         <div ng-if="user.teamCode"
              class="title">
           Search for team members
+        </div>-->
+
+        <div ng-show="user.teamMatchmaking.enrolled || teamSearching" class="info" style="width:350px;margin:auto;">
+          <h2 style="text-align:center;">Here you can browse:</h2>
+          <ul style="margin:auto;">
+            <li><b>Teams</b> that are looking for new team members</li>
+            <li><b>Individuals</b> that are looking for a team</li>
+          </ul><br/>
+          <p>Contact the team/individual with their <b>Slack Handle</b> in our Junction 2017 Participants Slack!</p>
         </div>
+
         <div>
           <div class="ui divider"></div>
-        <button
-        ng-show="user.teamMatchmaking.enrolled"
-        class="ui fluid sea-serpent button"
-        ng-click="exitSearch()">End the search</button>
 
 
           <!--<button
@@ -382,9 +388,17 @@
               ui-sref-active="active">
               Individuals
             </a>
-          </div>
+        </div>
           <!-- View for admin panel content -->
-          <ui-view ng-show="user.teamMatchmaking.enrolled || teamSearching"></ui-view>
+        <ui-view ng-show="user.teamMatchmaking.enrolled || teamSearching"></ui-view>
+        <button
+        ng-show="user.teamMatchmaking.enrolled"
+        class="ui labeled icon fluid sea-serpent button"
+        style="width:200px;margin:auto;margin-top:30px;"
+        ng-click="exitSearch()">
+          <i class="sign out icon"></i>
+          End the search
+        </button>
       
       </div>
       </div>

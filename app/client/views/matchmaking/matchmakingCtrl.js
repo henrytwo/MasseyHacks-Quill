@@ -132,7 +132,7 @@ angular.module('reg')
         .success(function(data){
           sweetAlert({
             title: "Awesome!",
-            text: "You are now in the team search system.",
+            text: "You are now in listed in the team matchmaking system.",
             type: "success",
             confirmButtonColor: "#5ABECF"
           }, function(){
