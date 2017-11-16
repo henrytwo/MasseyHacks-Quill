@@ -446,7 +446,6 @@ var schema = new mongoose.Schema({
 
   volunteer: {
     type: Boolean,
-    required: true,
     default: false
   },
 
