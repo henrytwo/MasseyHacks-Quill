@@ -19,26 +19,41 @@ angular.module('reg')
     var Settings = settings.data;
 
     $scope.user = currentUser.data;
-
+    $scope.pages = [];
     //TABLE UPDATING
     $scope.params = [];
     $scope.users = [];
 
     function updateTable(data){
-      $scope.users = data;
+      $scope.users = data.users;
+      $scope.currentPage = data.page;
+      $scope.pageSize = data.size;
+
+      var p = [];
+      for (var i = 0; i < data.totalPages; i++){
+        p.push(i);
+      }
+      $scope.pages = p;
     }
-    function getMatchMaking(){
+    function getMatchmakingData(){
       UserService
-      .getMatchmaking('individuals')
+      .getMatchmaking('individuals', $stateParams.page, $stateParams.size, $scope.filter)
       .success(function(data){
         updateTable(data);
       })
+    }
+    $scope.filterMatchmaking = function() {
+      UserService
+        .getMatchmaking('individuals', $stateParams.page, $stateParams.size, $scope.filter)
+        .success(function(data){
+          updateTable(data);
+        });
     }
 
     //Check if user's team already submitted the form
     $scope.teamSearching = false;
 
-    getMatchMaking();
+    getMatchmakingData();
 
 
   }]);

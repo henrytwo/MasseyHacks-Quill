@@ -35,8 +35,15 @@ angular.module('reg')
         );
       },
 
-      getMatchmaking: function(type) {
-        return $http.get('/api/matchmaking/data/' + type)
+      getMatchmaking: function(type, page, size, filter) {
+        return $http.get('/api/matchmaking/data/' + '?' + $.param(
+          {
+            filter: filter,
+            type: type,
+            page: page ? page: 0,
+            size: size ? size : 50
+          })
+        )
       },
 
       exitSearch: function() {

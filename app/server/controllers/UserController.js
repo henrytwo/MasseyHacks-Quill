@@ -307,20 +307,68 @@ UserController.getPage = function(query, callback){
     });
 };
 
-UserController.getMatchmaking = function(user, type, callback){
+UserController.getMatchmaking = function(user, query, callback){
+  var type = query.type;
+  var page = query.page;
+  var text = query.filter.text;
+  var size = parseInt(query.size);
+
+  console.log("boi")
+
+  var textFilter = [];
+  var statusFilter = [];
+
+  var findQuery = {
+      $and: [
+          { $or: textFilter },
+          { $and: statusFilter }
+      ]
+  }
+
   if(type === 'individuals'){
+    
+    if(text !== "undefined") {
+      var re = new RegExp(text, 'i');
+      textFilter.push({ 'teamMatchmaking.individual.mostInterestingTrack': re});
+      textFilter.push({ 'teamMatchmaking.individual.role': re });
+      textFilter.push({ 'teamMatchmaking.individual.slackHandle': re });
+      textFilter.push({ 'teamMatchmaking.individual.skills': re });
+    }
+    else{
+      findQuery = {}
+    }
+
+    statusFilter.push({'teamMatchmaking.enrolled': 'true'});
+    statusFilter.push({'teamMatchmaking.enrollmentType': 'individual'});
+    
+    console.log(findQuery)
+
+    
     User
-    .find({
-      'teamMatchmaking.enrolled': 'enrolled',
-      'teamMatchmaking.enrollmentType': 'individual'
-      })
-      .exec(function(err, users){
-        if (err || !users){
+    .find(findQuery)
+    .skip(page * size)
+    .limit(size)
+    .exec(function(err, users){
+      if (err || !users){
+        return callback(err);
+      }
+      
+      User.count(findQuery)
+      .exec(function(err, count){
+        
+        if (err){
           return callback(err);
         }
-        return callback(null, users)
 
+        return callback(null, {
+          users: users,
+          page: page,
+          size: size,
+          totalPages: Math.ceil(count / size)
+        });
       })
+
+    })
   }
   else if(type === 'teams'){
     User
