@@ -123,15 +123,18 @@ angular.module('reg')
         return user.status.name;
       };
       //QR
-      $scope.getQRCode = function(id){
+      /*$scope.getQRCode = function(id){
         if($scope.user.status.confirmed){
-          $http.get('/api/qr/' + id)
+          $http.get('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + id)
           .then(function(response){
+            console.log(response.data)
             document.getElementById('QRContainer').innerHTML = response.data;
           });
         }
-      };
-      $scope.getQRCode($scope.user.id);      
+      };*/
+
+      $scope.qr = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + $scope.user.id
+      //$scope.getQRCode($scope.user.id);      
       
 
     }]);

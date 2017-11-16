@@ -41,7 +41,9 @@
 
         <div class="ui divider"></div>
 
-        <div id="QRContainer"></div>
+        <div id="QRContainer" ng-show="user.status.confirmed">
+          <img ng-src="{{qr}}">
+        </div>
 
         <p>
           <strong>
