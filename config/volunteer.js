@@ -1,4 +1,4 @@
-VOLUNTEER_EMAIL = process.env.VOLUNTEER_EMAIL;
+/*VOLUNTEER_EMAIL = process.env.VOLUNTEER_EMAIL;
 VOLUNTEER_PASSWORD = process.env.VOLUNTEER_PASS;
 VOLUNTEER_NICKNAME = process.env.VOLUNTEER_NICKNAME;
 
@@ -25,4 +25,4 @@ User
         }
       });
     }
-  });
+  });*/
