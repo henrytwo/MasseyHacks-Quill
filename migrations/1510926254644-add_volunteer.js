@@ -7,10 +7,8 @@ var User = require('../app/server/models/User');
 exports.up = function up (done) {
   this('User').find(function(error, users){
     users.forEach(function(user, i){
-      if(user.volunteer === 'undefined'){
-        user.volunteer = false;
-        user.save();
-      }
+      user.volunteer = false;
+      user.save();  
     })
   })
   done();
