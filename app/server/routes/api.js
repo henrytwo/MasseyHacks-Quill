@@ -355,6 +355,89 @@ module.exports = function(router) {
   /**
    * [OWNER/ADMIN]
    *
+   * PUT - Update a specific user's matchmaking profile.
+   */
+  router.put('/users/:id/matchmaking', isOwnerOrAdmin, function(req, res){
+    var profile = sanitize(req.body.profile);
+    var id = req.params.id;
+
+    UserController.updateMatchmakingProfileById(id, profile , defaultResponse(req, res));
+  });
+
+  /* GET - Update enrolled teams table for enrolled individual */
+
+  router.get('/matchmaking/data', function(req, res){
+    var token = getToken(req);
+    var query = req.query;
+
+    UserController.getByToken(token, function(err, user){
+
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      if (user){
+        
+        return UserController.getMatchmaking(user, query, defaultResponse(req, res));
+        
+      }
+
+      return res.status(401).send({
+        message: 'Get outta here, punk!'
+      });
+
+    });
+  })
+
+  /* PUT - Exit matchmaking search as team / individual */
+
+  router.put('/matchmaking/exitSearch', function(req, res){
+    var token = getToken(req);
+    UserController.getByToken(token, function(err, user){
+      
+            if (err) {
+              return res.status(500).send(err);
+            }
+      
+            if (user){
+              if(user.teamMatchmaking.enrolled){
+                return UserController.exitSearch(user, defaultResponse(req, res));
+              }
+            }
+      
+            return res.status(401).send({
+              message: 'Get outta here, punk!'
+            });
+      
+          });
+  })
+
+  /* GET - Get user's team status */
+
+  router.get('/matchmaking/teamInSearch', function(req, res){
+    var token = getToken(req);
+    UserController.getByToken(token, function(err, user){
+      
+            if (err) {
+              return res.status(500).send(err);
+            }
+      
+            if (user){
+
+              return UserController.teamInSearch(user, defaultResponse(req, res));
+              
+            }
+      
+            return res.status(401).send({
+              message: 'Get outta here, punk!'
+            });
+      
+          });
+  })
+
+  /**
+   * [OWNER/ADMIN]
+   *
    * PUT - Update a specific user's confirmation information.
    */
   router.put('/users/:id/confirm', isOwnerOrAdmin, function(req, res){

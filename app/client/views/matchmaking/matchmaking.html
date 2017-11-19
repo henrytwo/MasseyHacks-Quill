@@ -1,0 +1,411 @@
+<div id="matchmaking" class="page" style="width:100%;">
+  <div class="divided title">
+    Team Matchmaking
+    <i class="help circle icon link head" data-content="Having a team is not compulsory but hackathons can be a fun experience together with a team! Here you can find a team / team members!" data-variation="inverted" data-position="right center"></i>
+  </div>
+  <script>
+    // Initialize fancy UI scripts
+  
+      $('.ui.dropdown')
+        .dropdown();
+  </script>  
+  <div class="ui stackable centered page grid">
+    <div class="column">
+
+      <div ng-show="showForms">
+        <!--<div ng-if="!user.teamCode"
+             class="title">
+          Search for a team
+        </div>
+        <div ng-if="user.teamCode"
+             class="title">
+          Search for team members
+        </div>-->
+
+        <div ng-show="user.teamMatchmaking.enrolled || teamSearching" class="info" style="width:350px;margin:auto;">
+          <h2 style="text-align:center;">Here you can browse:</h2>
+          <ul style="margin:auto;">
+            <li><b>Teams</b> that are looking for new team members</li>
+            <li><b>Individuals</b> that are looking for a team</li>
+          </ul><br/>
+          <div style="text-align:center">
+            <p>Contact the team/individual with their <b>Slack Handle</b> on the Junction 2017 Slack! You can join the workspace <a href="https://join.slack.com/t/junction2017/shared_invite/enQtMjY5MDU4NzEzODYyLTM0NWNhNTZlZTU1MjMyZWViZjlkZWY0MTdhMDhkNDRmZWZkZWU5ZDc3N2ZhYmNiYjEwYTZjZDE2MzdlZDQ3NmQ" target="_blank"><strong>HERE</strong></a></p>
+            <p>When you're done with matchmaking, please press the <b>End matchmaking</b>-button below!</p>
+          </div>
+        </div>
+
+        <!--<div>
+          <div class="ui divider"></div>
+
+
+          button
+            class="ui fluid sea-serpent button"
+            ng-if="!user.teamCode"
+            ng-click="setIndividual()">Searching for team</button>
+          <button
+            class="ui fluid sea-serpent button"
+            ng-if="user.teamCode"
+            ng-click="setTeam()">Looking for teammates</button>
+        </div>-->
+        <br>
+
+        <!-- Individual form -->
+        <div ng-show="!user.teamCode  && !user.teamMatchmaking.enrolled">
+          <div class="ui stackable page grid">
+            <div class="column">
+              <div class="ui form individual error"
+                    ng-class="{'loading': loading}">
+
+                <div class="divided title">Information about yourself</div>
+
+                <div class="field">
+                  <label> Slack handle* </label>
+                  <p style="margin-bottom: 10px;">
+                    Slack handle is your own display name on the official Junction 2017 workspace at 
+                    <a href="https://https://junction2017.slack.com">junction2017.slack.com</a>.
+                    The Slack handle will be used by other participants to contact you.
+                    If you haven’t joined the Slack workspace, please do so at 
+                    <a href="https://junction-slack-invitation.herokuapp.com" target="_blank">junction-slack-invitation.herokuapp.com</a>. 
+                  </p>
+                  <div class="ui left icon input">
+                    <input 
+                    type="text"
+                    id="individual_slackHandle"
+                    name="individual_slackHandle"
+                    ng-model="user.teamMatchmaking.individual.slackHandle">
+                    <i class="at icon"></i>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label> What describes your role in a hackathon team the best?* </label>
+                  <select
+                    class="ui fluid dropdown"
+                    name="individual_role"
+                    id="individual_role"
+                    ng-model="user.teamMatchmaking.individual.role">
+                    <option value="">Role</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="Full-Stack Developer">Full-Stack Developer</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Ideation">Ideation</option>
+                    <option value="Business Development">Business Development</option>
+                    <option value="Product Development">Product Development</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Hardware">Hardware</option>
+                    <option value="Buzzing around">Buzzing around</option>
+                    <option value="Moral support">Moral support</option>
+                    <option value="I do everything">I do everything</option>
+                    <option value="I work without a team">I work without a team</option>
+                    <option value="Something else">Something else</option>          
+                  </select>
+                </div>
+                
+                <div class="field">
+                  <label> Which track are you most interested in at Junction 2017?* </label>
+                  <select
+                    class="ui fluid dropdown"
+                    name="individual_mostInterestingTrack"
+                    id="individual_mostInterestingTrack"
+                    ng-model="user.teamMatchmaking.individual.mostInterestingTrack">
+                    <option value="">Choose a track</option>
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Big Data">Big Data</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="FinTech">FinTech</option>
+                    <option value="Game Jam">Game Jam</option>
+                    <option value="HealthTech">HealthTech</option>
+                    <option value="Industrial Internet">Industrial Internet</option>
+                    <option value="Intelligent Buildings">Intelligent Buildings</option>
+                    <option value="Legal Tech">Legal Tech</option>
+                    <option value="Logistics">Logistics</option>
+                    <option value="Mobility">Mobility</option>
+                    <option value="Productivity">Productivity</option>
+                    <option value="Space">Space</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label> Top 3 challenges you are most interested in currently* </label>
+                  <p style="margin-bottom: 10px;">
+                    You can find information about tracks and challenges <a href="https://hackjunction.com/all-tracks" target="_blank">here</a>.
+                  </p>
+                  <select multiple="multiple"
+                    class="ui multiple normal selection dropdown"
+                    name="individual_topChallenges"
+                    id="individual_topChallenges"
+                    ng-model="user.teamMatchmaking.individual.topChallenges">
+                    <option value="">Choose a challenge</option>
+                    <option value="Advertise Smartly With AI">Advertise Smartly With AI (Smartly.io)</option>
+                    <option value="Facial Recognition For Everyone (TrueFace.AI)">Facial Recognition For Everyone (TrueFace.AI)</option>
+                    <option value="Robots, Learning Machines (Bitville & Eficode)">Robots, Learning Machines (Bitville & Eficode)</option>
+                    <option value="Summarising News (Nordcloud)">Summarising News (Nordcloud)</option>
+                    <option value="Streetreboot 2 (STARA)">Streetreboot 2 (STARA)</option>
+                    <option value="Microsoft WebVR Challenge (Microsoft)">Microsoft WebVR Challenge (Microsoft)</option>
+                    <option value="Most Creative Use Of the Spotify Platform (Spotify)">Most Creative Use Of the Spotify Platform (Spotify)</option>
+                    <option value="My Perfect Personal Movie Experience (Elisa)">My Perfect Personal Movie Experience (Elisa)</option>
+                    <option value="Play Beautiful (Kamu)">Play Beautiful (Kamu)</option>
+                    <option value="Banking Re-Imagined (Nordea)">Re-Imagined (Nordea)</option>
+                    <option value="Changing The Financial Management Landscape (Procountor)">Changing The Financial Management Landscape (Procountor)</option>
+                    <option value="Hack the Fintech Environment (Holvi)">Hack the Fintech Environment (Holvi)</option>
+                    <option value="Make Finance Fun. Once And For All. (Bankify)">Make Finance Fun. Once And For All. (Bankify)</option>
+                    <option value="Hit The Jackpot! (Veikkaus)">Hit The Jackpot! (Veikkaus)</option>
+                    <option value="Handle With Care (Sitra)">Handle With Care (Sitra)</option>
+                    <option value="Reshaping The Future Of Dental Care (Planmeca)">Reshaping The Future Of Dental Care (Planmeca)</option>
+                    <option value="Track Anything That Moves (Suunto)">Track Anything That Moves (Suunto)</option>
+                    <option value="Cross Platform For Desktop And Embedded (The Qt Company)">Cross Platform For Desktop And Embedded (The Qt Company)</option>
+                    <option value="Smart Services, Sustainable Choices (Outotec)">Smart Services, Sustainable Choices (Outotec)</option>
+                    <option value="Smart Electricity (Fortum)">Smart Electricity (Fortum)</option>
+                    <option value="Store Smarter (Stora Enso & Siili Solutions)">Store Smarter (Stora Enso & Siili Solutions)</option>
+                    <option value="Transform The Way The World Builds! (Trimble)">Transform The Way The World Builds! (Trimble)></option>
+                    <option value="Unleashing IoT In Commercial Buildings (Kone)">Unleashing IoT In Commercial Buildings (Kone)</option>
+                    <option value="Who Needs A Light Switch (Helvar)">Who Needs A Light Switch (Helvar)</option>
+                    <option value="Accessing The Law (Castrén & Snellman)">Accessing The Law (Castrén & Snellman)</option>
+                    <option value="Connected Logistics (Daimler Fleetboard)">Connected Logistics (Daimler Fleetboard)</option>
+                    <option value="Where The #?! Is It? – RFID Helps (Finn-ID)">Where The #?! Is It? – RFID Helps (Finn-ID)</option>
+                    <option value="Brilliant Bus Display (Aalto University)">Brilliant Bus Display (Aalto University)</option>
+                    <option value="Making Transportation Easy (Kyyti)">Making Transportation Easy (Kyyti)</option>
+                    <option value="Revolutionising The Rural Transport (The Ministry of Transport and Communications)">Revolutionising The Rural Transport (The Ministry of Transport and Communications)</option>
+                    <option value="Hack The Job-Abolish The Unemployment (KEHA-keskus)">Hack The Job-Abolish The Unemployment (KEHA-keskus)</option>
+                    <option value="Space Data Enriched Applications (The European Space Agency)">Space Data Enriched Applications (The European Space Agency)</option>
+                    <option value="None">None</option>             
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label> What skills do you have? </label>
+                  <textarea ng-model="user.teamMatchmaking.individual.skills"
+                    name="individual_freetext"
+                    id="individual_freetext">
+                </textarea>
+                </div>
+
+                <div class="field">
+                  <label> Description about yourself </label>
+                  <p style="margin-bottom: 10px;">
+                    Feel free to tell more about you here.
+                  </p>
+                  <textarea 
+                    ng-model="user.teamMatchmaking.individual.description"
+                    name="individual_description"
+                    id="individual_description">
+                  </textarea>
+                </div>
+
+                <div class="field">
+                  <label> Text to potential teammates </label>
+                  <p style="margin-bottom: 10px;">
+                    Freely tell other people looking for teammates what you want do at Junction 2017. 
+                    It can be ideas you have, your motivation for joining, 
+                    are you here for the fun or for the win? Whatever you want to tell others!
+                  </p>
+                  <textarea ng-model="user.teamMatchmaking.individual.freeText"
+                    name="individual_freetext"
+                    id="individual_freetext">
+                  </textarea>
+                </div>
+
+                <div class="field" style="margin-bottom:5px">
+                  <button type="submit"
+                          class="fluid ui sea-serpent button"
+                          ng-click="submitIndividualForm()">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+              <!-- Team form -->
+        <div ng-show="user.teamCode && !user.teamMatchmaking.enrolled && !teamSearching">
+          <div class="ui stackable page grid">
+            <div class="column">
+              <div class="ui form team error"
+                    ng-class="{'loading': loading}">
+
+                <div class="divided title">Information about your team</div>
+
+                <div class="field">
+                  <label> Team name </label>
+                  <input type="text"
+                         name="team-name"
+                         disabled="disabled"
+                         ng-model="user.teamCode">
+                </div>
+                
+                <div class="field">
+                  <label>“Captain’s” Slack handle*</label>
+                  <p style="margin-bottom: 10px;">
+                    Slack handle is your own display name on the official Junction 2017 workspace at 
+                    <a href="https://https://junction2017.slack.com">junction2017.slack.com</a>.
+                    The Slack handle will be used by other participants to contact you.
+                    If you haven’t joined the Slack workspace, please do so at 
+                    <a href="https://junction-slack-invitation.herokuapp.com" target="_blank">junction-slack-invitation.herokuapp.com</a>. 
+                  </p>
+                  <div class="ui left icon input">
+                    <input 
+                    type="text"
+                    id="team_slackHandle"
+                    name="team_slackHandle"
+                    ng-model="user.teamMatchmaking.team.slackHandle">
+                    <i class="at icon"></i>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Which track are you most interested in as a team?*</label>
+                  <select
+                    class="ui fluid dropdown"
+                    name="team_mostInterestingTrack"
+                    id="team_mostInterestingTrack"
+                    ng-model="user.teamMatchmaking.team.mostInterestingTrack">
+                    <option value="">Choose a track</option>
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Big Data">Big Data</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="FinTech">FinTech</option>
+                    <option value="Game Jam">Game Jam</option>
+                    <option value="HealthTech">HealthTech</option>
+                    <option value="Industrial Internet">Industrial Internet</option>
+                    <option value="Intelligent Buildings">Intelligent Buildings</option>
+                    <option value="Legal Tech">Legal Tech</option>
+                    <option value="Logistics">Logistics</option>
+                    <option value="Mobility">Mobility</option>
+                    <option value="Productivity">Productivity</option>
+                    <option value="Space">Space</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label>Top 3 challenges your team is most interested in currently*</label>
+                  <p style="margin-bottom: 10px;">
+                      You can find information about tracks and challenges <a href="https://hackjunction.com/all-tracks" target="_blank">here</a>.
+                  </p>
+                  <select multiple="multiple"
+                    class="ui multiple normal selection dropdown"
+                    name="team_topChallenges"
+                    id="team_topChallenges"
+                    ng-model="user.teamMatchmaking.team.topChallenges">
+                    <option value="">Choose up to 3 challenges</option>
+                    <option value="Advertise Smartly With AI">Advertise Smartly With AI (Smartly.io)</option>
+                    <option value="Facial Recognition For Everyone (TrueFace.AI)">Facial Recognition For Everyone (TrueFace.AI)</option>
+                    <option value="Robots, Learning Machines (Bitville & Eficode)">Robots, Learning Machines (Bitville & Eficode)</option>
+                    <option value="Summarising News (Nordcloud)">Summarising News (Nordcloud)</option>
+                    <option value="Streetreboot 2 (STARA)">Streetreboot 2 (STARA)</option>
+                    <option value="Microsoft WebVR Challenge (Microsoft)">Microsoft WebVR Challenge (Microsoft)</option>
+                    <option value="Most Creative Use Of the Spotify Platform (Spotify)">Most Creative Use Of the Spotify Platform (Spotify)</option>
+                    <option value="My Perfect Personal Movie Experience (Elisa)">My Perfect Personal Movie Experience (Elisa)</option>
+                    <option value="Play Beautiful (Kamu)">Play Beautiful (Kamu)</option>
+                    <option value="Banking Re-Imagined (Nordea)">Re-Imagined (Nordea)</option>
+                    <option value="Changing The Financial Management Landscape (Procountor)">Changing The Financial Management Landscape (Procountor)</option>
+                    <option value="Hack the Fintech Environment (Holvi)">Hack the Fintech Environment (Holvi)</option>
+                    <option value="Make Finance Fun. Once And For All. (Bankify)">Make Finance Fun. Once And For All. (Bankify)</option>
+                    <option value="Hit The Jackpot! (Veikkaus)">Hit The Jackpot! (Veikkaus)</option>
+                    <option value="Handle With Care (Sitra)">Handle With Care (Sitra)</option>
+                    <option value="Reshaping The Future Of Dental Care (Planmeca)">Reshaping The Future Of Dental Care (Planmeca)</option>
+                    <option value="Track Anything That Moves (Suunto)">Track Anything That Moves (Suunto)</option>
+                    <option value="Cross Platform For Desktop And Embedded (The Qt Company)">Cross Platform For Desktop And Embedded (The Qt Company)</option>
+                    <option value="Smart Services, Sustainable Choices (Outotec)">Smart Services, Sustainable Choices (Outotec)</option>
+                    <option value="Smart Electricity (Fortum)">Smart Electricity (Fortum)</option>
+                    <option value="Store Smarter (Stora Enso & Siili Solutions)">Store Smarter (Stora Enso & Siili Solutions)</option>
+                    <option value="Transform The Way The World Builds! (Trimble)">Transform The Way The World Builds! (Trimble)></option>
+                    <option value="Unleashing IoT In Commercial Buildings (Kone)">Unleashing IoT In Commercial Buildings (Kone)</option>
+                    <option value="Who Needs A Light Switch (Helvar)">Who Needs A Light Switch (Helvar)</option>
+                    <option value="Accessing The Law (Castrén & Snellman)">Accessing The Law (Castrén & Snellman)</option>
+                    <option value="Connected Logistics (Daimler Fleetboard)">Connected Logistics (Daimler Fleetboard)</option>
+                    <option value="Where The #?! Is It? – RFID Helps (Finn-ID)">Where The #?! Is It? – RFID Helps (Finn-ID)</option>
+                    <option value="Brilliant Bus Display (Aalto University)">Brilliant Bus Display (Aalto University)</option>
+                    <option value="Making Transportation Easy (Kyyti)">Making Transportation Easy (Kyyti)</option>
+                    <option value="Revolutionising The Rural Transport (The Ministry of Transport and Communications)">Revolutionising The Rural Transport (The Ministry of Transport and Communications)</option>
+                    <option value="Hack The Job-Abolish The Unemployment (KEHA-keskus)">Hack The Job-Abolish The Unemployment (KEHA-keskus)</option>
+                    <option value="Space Data Enriched Applications (The European Space Agency)">Space Data Enriched Applications (The European Space Agency)</option>
+                    <option value="None">None</option>  
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label>What roles are you looking for your team?</label>
+                  <p style="margin-bottom: 10px;">
+                    Select all the roles that you think you'll be needing in your team.
+                  </p>
+                  <select
+                    class="ui fluid select multiple dropdown"
+                    name="team_roles"
+                    id="team_roles"
+                    multiple="multiple"
+                    ng-model="user.teamMatchmaking.team.roles">
+                    <option value="">Role</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="Full-Stack Developer">Full-Stack Developer</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Ideation">Ideation</option>
+                    <option value="Business Development">Business Development</option>
+                    <option value="Product Development">Product Development</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Hardware">Hardware</option>
+                    <option value="Buzzing around">Buzzing around</option>
+                    <option value="Moral support">Moral support</option>
+                    <option value="I do everything">I do everything</option>
+                    <option value="I work without a team">I work without a team</option>
+                    <option value="Something else">Something else</option>          
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label> Free text about your team </label>
+                  <textarea ng-model="user.teamMatchmaking.team.freeText">
+                  </textarea>
+                </div>
+
+                <div class="field" style="margin-bottom:5px">
+                  <button type="submit"
+                          class="fluid ui sea-serpent button"
+                          ng-click="submitTeamForm()">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- selection of the tables -->
+        <div class="ui two item menu" ng-show="user.teamMatchmaking.enrolled || teamSearching">
+            <a
+              class="item"
+              ui-sref="app.matchmaking.teams"
+              ui-sref-active="active">
+              Teams
+            </a>
+        
+            <a
+              class="item"
+              ui-sref="app.matchmaking.individuals"
+              ui-sref-active="active">
+              Individuals
+            </a>
+        </div>
+          <!-- View for matchmaking tables -->
+        <ui-view ng-show="user.teamMatchmaking.enrolled || teamSearching"></ui-view>
+        <button
+        ng-show="user.teamMatchmaking.enrolled"
+        class="ui labeled icon fluid sea-serpent button"
+        style="width:250px;margin:auto;margin-top:30px;"
+        ng-click="exitSearch()">
+          <i class="sign out icon"></i>
+          End matchmaking
+        </button>
+      
+      </div>
+      </div>
+    </div>
+    <div
+      class="ui error message"
+      ng-show="error">
+      {{error}}
+    </div>
+  </div>
+</div>

@@ -35,8 +35,33 @@ angular.module('reg')
         );
       },
 
+      getMatchmaking: function(type, page, size, filter) {
+        return $http.get('/api/matchmaking/data/' + '?' + $.param(
+          {
+            filter: filter,
+            type: type,
+            page: page ? page: 0,
+            size: size ? size : 50
+          })
+        )
+      },
+
+      exitSearch: function() {
+        return $http.put('/api/matchmaking/exitSearch')
+      },
+
+      getTeamSearching: function() {
+        return $http.get('/api/matchmaking/teamInSearch')
+      },
+
       updateProfile: function(id, profile){
         return $http.put(base + id + '/profile', {
+          profile: profile
+        });
+      },
+
+      updateMatchmakingProfile: function(id, profile){
+        return $http.put(base + id + '/matchmaking', {
           profile: profile
         });
       },

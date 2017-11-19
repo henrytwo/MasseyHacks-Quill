@@ -1,0 +1,61 @@
+<div class="ui segment" style="width:100%;">
+    <div class="three wide column">
+        <div class="ui header">
+            Search <span style="color:#D7D7D7;"><i>for track, Slack handle, skills..</i></span>
+        </div>
+        <div class="ui form">
+        <div class="field">
+            <div class="ui icon fluid input">
+            <input type="text"
+                    placeholder="Search..."
+                    ng-model="filter.text"
+                    ng-init="filter.text=''"
+                    ng-model-options="{debounce: 300}"
+                    ng-change="filterMatchmaking()">
+                <i class="search icon"></i>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <button
+        ng-repeat="page in pages"
+        ng-class="page == currentPage ? 'active pink' : ''"
+        class="ui icon basic page button">
+            {{page}}
+        </button>
+    </div>
+    <div id="table-container" class="sixteen wide column" style="overflow-x: auto;margin-top:18px;">
+        <table
+            class="ui celled selectable compact users table">
+            <thead>
+            <tr>
+                <th>Slack Handle</th>
+                <th>Track</th>
+                <th>Role</th>
+                <th>Skills</th>
+                <th>Top Challenges</th>
+                <th>Description</th>
+                <th>Additional</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                ng-repeat="user in users"
+                ng-class="rowClass(user)">
+                <td>@{{user.teamMatchmaking.individual.slackHandle}}</td>
+                <td>{{user.teamMatchmaking.individual.mostInterestingTrack}}</td>
+                <td>{{user.teamMatchmaking.individual.role}}</td>
+                <td>{{user.teamMatchmaking.individual.skills}}</td>
+                <td>
+                <ol class="ui list">
+                    <li value="-" ng-repeat="challenge in user.teamMatchmaking.individual.topChallenges">
+                    {{challenge}}
+                    </li>
+                </ol>
+                </td>
+                <td>{{user.teamMatchmaking.individual.description}}</td>
+                <td>{{user.teamMatchmaking.individual.freeText}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

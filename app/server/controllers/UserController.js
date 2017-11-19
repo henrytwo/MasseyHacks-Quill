@@ -276,6 +276,7 @@ UserController.getPage = function(query, callback){
   else {
     findQuery = {};
   }
+  console.log(query.filter)
 
   if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
@@ -334,6 +335,151 @@ UserController.getPage = function(query, callback){
 
     });
 };
+
+UserController.getMatchmaking = function(user, query, callback){
+  var type = query.type;
+  var page = query.page;
+  var text = query.filter.text;
+  var size = parseInt(query.size);
+  
+  var textFilter = [];
+  var statusFilter = [];
+
+  var findQuery = {
+      $and: [
+          { $or: textFilter },
+          { $and: statusFilter }
+      ]
+  }
+
+  if(type === 'individuals'){
+    
+    if(text !== "undefined") {
+      var re = new RegExp(text, 'i');
+      textFilter.push({ 'teamMatchmaking.individual.mostInterestingTrack': re});
+      textFilter.push({ 'teamMatchmaking.individual.role': re });
+      textFilter.push({ 'teamMatchmaking.individual.slackHandle': re });
+      textFilter.push({ 'teamMatchmaking.individual.skills': re });
+    }
+    else{
+      findQuery = {}
+    }
+
+    statusFilter.push({'teamMatchmaking.enrolled': 'true'});
+    statusFilter.push({'teamMatchmaking.enrollmentType': 'individual'});
+
+    User
+    .find(findQuery)
+    .skip(page * size)
+    .limit(size)
+    .exec(function(err, users){
+      if (err || !users){
+        return callback(err);
+      }
+      
+      User.count(findQuery)
+      .exec(function(err, count){
+        
+        if (err){
+          return callback(err);
+        }
+
+        return callback(null, {
+          users: users,
+          page: page,
+          size: size,
+          totalPages: Math.ceil(count / size)
+        });
+      })
+
+    })
+  }
+  else if(type === 'teams'){
+    if(text !== "undefined") {
+      var re = new RegExp(text, 'i');
+      textFilter.push({ 'teamMatchmaking.team.mostInterestingTrack': re});
+      textFilter.push({ 'teamMatchmaking.team.roles': re });
+      textFilter.push({ 'teamMatchmaking.team.slackHandle': re });
+      textFilter.push({ 'teamMatchmaking.team.topChallenges': re });
+    }
+    else{
+      findQuery = {}
+    }
+
+    statusFilter.push({'teamMatchmaking.enrolled': 'true'});
+    statusFilter.push({'teamMatchmaking.enrollmentType': 'team'});
+
+
+    User
+    .find(findQuery)
+      .exec(function(err, users){
+        if (err || !users){
+          return callback(err);
+        }
+        //calculate team size
+        var usersProcessed = 0;
+
+        users.forEach(function(usr, index){
+          User.find({'teamCode': usr.teamCode})
+              .exec(function (err, results) {
+                users[index] = [usr, results.length]
+                usersProcessed += 1;
+                if(usersProcessed === users.length){
+
+                  User.count(findQuery)
+                  .exec(function(err, count){
+                    
+                    if (err){
+                      return callback(err);
+                    }
+            
+                    return callback(null, {
+                      users: users,
+                      page: page,
+                      size: size,
+                      totalPages: Math.ceil(count / size)
+                    });
+                  })
+
+                }
+          });
+        })
+      })
+  }
+
+};
+
+//Check if users team is already in matchmaking search
+UserController.teamInSearch = function(user, callback){
+  User.find({'teamCode': user.teamCode})
+  .exec(function (err, users) {
+    if (err || !users){
+      return callback(err);
+    }
+    users.forEach(function(u) {
+      if(u.teamMatchmaking.enrolled){
+        return callback(null, true);
+      }
+    })
+});
+}
+
+UserController.exitSearch = function(id, callback) {
+  User.findOneAndUpdate({
+    _id: id,
+    'teamMatchmaking.enrolled': true
+  },
+    {
+      $set: {
+        'teamMatchmaking.enrolled': false,
+        'teamMatchmaking.enrollmentType': ''
+      }
+    },
+    {
+      new: true
+    },
+    callback);
+}
 
 /**
  * Get a user by id.
@@ -411,6 +557,27 @@ UserController.updateProfileById = function (id, profile, callback){
         callback);
       });
   });
+};
+
+UserController.updateMatchmakingProfileById = function (id, profile, callback){
+  
+    // Validate the user profile, and mark the user as profile completed
+    // when successful.    
+    User.findOneAndUpdate({
+      _id: id,
+      verified: true
+    },
+      {
+        $set: {
+          'lastUpdated': Date.now(),
+          'teamMatchmaking': profile,
+          'status.completedProfile': true
+        }
+      },
+      {
+        new: true
+      },
+      callback);
 };
 
 /**
@@ -713,22 +880,22 @@ UserController.createOrJoinTeam = function(id, code, callback){
           message: "Team is full."
         });
       }
-
-      // Otherwise, we can add that person to the team.
-      //
+    // Otherwise, we can add that person to the team.
       User.findOneAndUpdate({
         _id: id,
         verified: true
       },{
         $set: {
-          teamCode: codeValidated
-        }
-      }, {
-        new: true
-      },
-      callback);
+          teamCode: code,
+          'teamMatchmaking.enrolled': false,
+          'teamMatchmaking.enrollmentType': undefined
+          }
+        }, {
+          new: true
+        },
+        callback);
 
-    });
+      });
     });
 };
 
@@ -742,6 +909,13 @@ UserController.leaveTeam = function(id, callback){
     _id: id
   },{
     $set: {
+      'teamMatchmaking.enrolled:': false,
+      'teamMatchmaking.enrollmentType': undefined,
+      'teamMatchmaking.team.mostInterestingTrack': undefined,
+      'teamMatchmaking.team.topChallenges': undefined,
+      'teamMatchmaking.team.roles': undefined,
+      'teamMatchmaking.team.slackHandle': undefined,
+      'teamMatchmaking.team.freeText': undefined,
       teamCode: null
     }
   }, {
