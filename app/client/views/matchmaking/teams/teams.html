@@ -1,6 +1,30 @@
 <div class="ui segment">
+    <div class="three wide column">
+        <div class="ui header">
+            Search <span style="color:#D7D7D7;"><i>for track, Slack handle, roles..</i></span>
+        </div>
+        <div class="ui form">
+        <div class="field">
+            <div class="ui icon fluid input">
+            <input type="text"
+                    placeholder="Search..."
+                    ng-model="filter.text"
+                    ng-init="filter.text=''"
+                    ng-model-options="{debounce: 300}"
+                    ng-change="filterMatchmaking()">
+                <i class="search icon"></i>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <button
+        ng-repeat="page in pages"
+        ng-class="page == currentPage ? 'active pink' : ''"
+        class="ui icon basic page button">
+            {{page}}
+        </button>
+    </div>
 
-    <div id="table-container" class="thirteen wide column">
+    <div id="table-container" class="sixteen wide column" style="overflow-x: auto;">
         
         <table
         class="ui celled striped compact table">

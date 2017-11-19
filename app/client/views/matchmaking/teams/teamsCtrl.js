@@ -17,28 +17,39 @@ angular.module('reg')
     });
     // Get the current user's most recent data.
     var Settings = settings.data;
-
+    
     $scope.user = currentUser.data;
-
-    //TABLE UPDATING
-    $scope.params = [];
+    $scope.pages = [];
     $scope.users = [];
 
+    //Update table data
     function updateTable(data){
-      $scope.users = data;
+      $scope.users = data.users;
+      $scope.currentPage = data.page;
+      $scope.pageSize = data.size;
+
+      var p = [];
+      for (var i = 0; i < data.totalPages; i++){
+        p.push(i);
+      }
+      $scope.pages = p;
     }
-    function getMatchMaking(){
+    function getMatchmakingData(){
       UserService
-      .getMatchmaking('teams')
+      .getMatchmaking('teams', $stateParams.page, $stateParams.size, $scope.filter)
       .success(function(data){
         updateTable(data);
       })
     }
+    $scope.filterMatchmaking = function() {
+      UserService
+        .getMatchmaking('teams', $stateParams.page, $stateParams.size, $scope.filter)
+        .success(function(data){
+          updateTable(data);
+        });
+    }
 
-    //Check if user's team already submitted the form
-    $scope.teamSearching = false;
-
-    getMatchMaking();
+    getMatchmakingData();
 
 
   }]);

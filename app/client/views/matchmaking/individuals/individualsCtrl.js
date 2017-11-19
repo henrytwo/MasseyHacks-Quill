@@ -20,10 +20,9 @@ angular.module('reg')
 
     $scope.user = currentUser.data;
     $scope.pages = [];
-    //TABLE UPDATING
-    $scope.params = [];
     $scope.users = [];
 
+    //Update table data
     function updateTable(data){
       $scope.users = data.users;
       $scope.currentPage = data.page;
@@ -49,9 +48,6 @@ angular.module('reg')
           updateTable(data);
         });
     }
-
-    //Check if user's team already submitted the form
-    $scope.teamSearching = false;
 
     getMatchmakingData();
 

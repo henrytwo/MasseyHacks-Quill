@@ -312,9 +312,7 @@ UserController.getMatchmaking = function(user, query, callback){
   var page = query.page;
   var text = query.filter.text;
   var size = parseInt(query.size);
-
-  console.log("boi")
-
+  
   var textFilter = [];
   var statusFilter = [];
 
@@ -340,10 +338,7 @@ UserController.getMatchmaking = function(user, query, callback){
 
     statusFilter.push({'teamMatchmaking.enrolled': 'true'});
     statusFilter.push({'teamMatchmaking.enrollmentType': 'individual'});
-    
-    console.log(findQuery)
 
-    
     User
     .find(findQuery)
     .skip(page * size)
@@ -371,23 +366,52 @@ UserController.getMatchmaking = function(user, query, callback){
     })
   }
   else if(type === 'teams'){
+    if(text !== "undefined") {
+      var re = new RegExp(text, 'i');
+      textFilter.push({ 'teamMatchmaking.team.mostInterestingTrack': re});
+      textFilter.push({ 'teamMatchmaking.team.roles': re });
+      textFilter.push({ 'teamMatchmaking.team.slackHandle': re });
+      textFilter.push({ 'teamMatchmaking.team.topChallenges': re });
+    }
+    else{
+      findQuery = {}
+    }
+
+    statusFilter.push({'teamMatchmaking.enrolled': 'true'});
+    statusFilter.push({'teamMatchmaking.enrollmentType': 'team'});
+
+
     User
-    .find({
-      'teamMatchmaking.enrolled': 'enrolled',
-      'teamMatchmaking.enrollmentType': 'team'
-      })
+    .find(findQuery)
       .exec(function(err, users){
         if (err || !users){
           return callback(err);
         }
+        //calculate team size
         var usersProcessed = 0;
+
         users.forEach(function(usr, index){
           User.find({'teamCode': usr.teamCode})
               .exec(function (err, results) {
                 users[index] = [usr, results.length]
                 usersProcessed += 1;
                 if(usersProcessed === users.length){
-                  return callback(null, users)
+
+                  User.count(findQuery)
+                  .exec(function(err, count){
+                    
+                    if (err){
+                      return callback(err);
+                    }
+            
+                    return callback(null, {
+                      users: users,
+                      page: page,
+                      size: size,
+                      totalPages: Math.ceil(count / size)
+                    });
+                  })
+
                 }
           });
         })
@@ -396,6 +420,7 @@ UserController.getMatchmaking = function(user, query, callback){
 
 };
 
+//Check if users team is already in matchmaking search
 UserController.teamInSearch = function(user, callback){
   User.find({'teamCode': user.teamCode})
   .exec(function (err, users) {
