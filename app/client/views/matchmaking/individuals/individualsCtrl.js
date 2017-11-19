@@ -24,7 +24,9 @@ angular.module('reg')
 
     //Update table data
     function updateTable(data){
-      $scope.users = data.users;
+      $scope.users = data.users.filter(function(user){
+        return user.id !== $scope.user.id;
+      });
       $scope.currentPage = data.page;
       $scope.pageSize = data.size;
 
