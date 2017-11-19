@@ -48,7 +48,6 @@
             ng-click="setTeam()">Looking for teammates</button>
         </div>-->
         <br>
-        <br>
 
         <!-- Individual form -->
         <div ng-show="!user.teamCode  && !user.teamMatchmaking.enrolled">
@@ -373,10 +372,7 @@
           </div>
         </div>
 
-        <!-- table of teams -->
-        
-
-        <!-- table of individuals -->
+        <!-- selection of the tables -->
         <div class="ui two item menu" ng-show="user.teamMatchmaking.enrolled || teamSearching">
             <a
               class="item"
@@ -392,7 +388,7 @@
               Individuals
             </a>
         </div>
-          <!-- View for admin panel content -->
+          <!-- View for matchmaking tables -->
         <ui-view ng-show="user.teamMatchmaking.enrolled || teamSearching"></ui-view>
         <button
         ng-show="user.teamMatchmaking.enrolled"
