@@ -725,7 +725,8 @@ UserController.declineById = function (id, callback){
       $set: {
         'lastUpdated': Date.now(),
         'status.confirmed': false,
-        'status.declined': true
+        'status.declined': true,
+        'teamCode': null
       }
     }, {
       new: true
