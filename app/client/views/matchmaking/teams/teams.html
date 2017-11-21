@@ -25,9 +25,40 @@
     </div>
 
     <div id="table-container" class="sixteen wide column" style="overflow-x: auto;margin-top:18px;">
-        
+        <div class="ui long user modal">
+            <i class="close icon"></i>
+            <div class="content">
+    
+              <div>
+                <div class="ui header">
+                  Slack Handle:
+                  <div
+                    class="ui label">
+                    @{{selectedUser.teamMatchmaking.individual.slackHandle}}
+                  </div>
+                </div>
+              </div>
+    
+              <div ng-repeat="section in selectedUser.sections">
+                <div class="ui divider"></div>
+    
+                <h3> {{section.title}} </h3>
+    
+                <p ng-repeat="field in section.fields">
+                  <strong> {{field.name}}: </strong>
+                  
+                  <span ng-if="field.type == null">
+                    {{field.value}}
+                  </span>
+                </p>
+    
+              </div>
+    
+            </div>
+    
+          </div>
         <table
-        class="ui celled striped compact table">
+        class="ui celled selectable striped compact table">
         <thead>
             <tr>
             <th>Slack Handle</th>
@@ -41,6 +72,7 @@
         <tbody>
             <tr
             ng-repeat="userAndSize in users"
+            ng-click="selectUser(userAndSize)"
             ng-class="rowClass(user)">
             <td>@{{userAndSize[0].teamMatchmaking.team.slackHandle}}</td>            
             <td>{{userAndSize[0].teamMatchmaking.team.mostInterestingTrack}}</td>
@@ -59,7 +91,7 @@
                 </ol>
             </td>
             <td style="text-align:center">{{userAndSize[1]}}</td>
-            <td style="max-width:200px;">{{userAndSize[0].teamMatchmaking.team.freeText}}</td>
+            <td>Click to view</td>
             </tr>
         </tbody>
         </table>
