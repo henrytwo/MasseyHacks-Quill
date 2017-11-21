@@ -97,18 +97,40 @@ angular.module('reg')
               .checkIn(user._id)
               .success(function(user){
                 $scope.users[index] = user;
-                swal("Accepted", user.profile.name + ' has been checked in.', "success");
+                swal("Check!", user.profile.name + ' has been checked in.', "success");
               });
           }
         );
-      } else {
-        UserService
-          .checkOut(user._id)
-          .success(function(user){
-            $scope.users[index] = user;
-            swal("Accepted", user.profile.name + ' has been checked out.', "success");
+      } 
+      else {
+        swal({
+          title: "Whoa, wait a minute!",
+          text: "You are about to check out " + user.profile.name + "!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, check them out.",
+          closeOnConfirm: false
+          }, 
+          function(){
+            swal({
+              title: "Are you ABSOLUTELY SURE?",
+              text: "You are about to CHECK OUT " + user.profile.name + "!",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes, CHECK OUT.",
+              closeOnConfirm: false
+              }, function(){
+              UserService
+                .checkOut(user._id)
+                .success(function(user){
+                  $scope.users[index] = user;
+                  swal("Checked out", user.profile.name + ' has been checked out.', "success");
+            })
           });
-      }
+      })}
+    
     };
 
     function selectUser(user){
@@ -204,6 +226,15 @@ angular.module('reg')
                 name: 'Applied for accommodation',
                 value: user.profile.applyAccommodation,
                 type: 'boolean'
+              },
+              {
+                name: 'Applied for travel reimbursement',
+                value: user.status.reimbursementApplied,
+                type: 'boolean'
+              },
+              {
+                name: 'Admitted reimbursement class',
+                value: user.profile.AcceptedreimbursementClass || 'None'
               }
             ]
           },{

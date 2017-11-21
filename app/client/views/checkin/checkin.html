@@ -113,7 +113,7 @@
                     
                   </div>
                 <table
-                class="ui celled selectable compact users table">
+                class="ui celled selectable compact users table" style="overflow-x: auto;">
                 <thead>
                   <tr>
                     <th>Unique ID</th>
@@ -122,6 +122,7 @@
                     <th>Checked</th>
                     <th>Team</th>
                     <th>Accom.</th>
+                    <th>Reimbursement</th>
                     <th>A / C</th>
 
                   </tr>
@@ -177,6 +178,25 @@
                         style="display:block;margin-left:auto;margin-right:auto;">
                       </i>
                     </td>
+
+                    <!-- Reimbursement -->
+
+                    <td
+                    class="collapsing">
+
+                      <i
+                        ng-if="user.status.reimbursementApplied"
+                        class="green check circle icon"
+                        style="display:block;margin-left:auto;margin-right:auto;">
+                      </i>
+                      <i
+                        ng-if="!user.status.reimbursementApplied"
+                        class="red remove circle icon"
+                        style="display:block;margin-left:auto;margin-right:auto;">
+                      </i>
+                    </td>
+
+                    <!-- A/C -->
 
                     <td
                       class="collapsing">
