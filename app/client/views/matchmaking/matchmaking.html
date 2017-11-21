@@ -371,33 +371,6 @@
             </div>
           </div>
         </div>
-
-        <!-- selection of the tables -->
-        <div class="ui two item menu" ng-show="user.teamMatchmaking.enrolled || teamSearching">
-            <a
-              class="item"
-              ui-sref="app.matchmaking.teams"
-              ui-sref-active="active">
-              Teams
-            </a>
-        
-            <a
-              class="item"
-              ui-sref="app.matchmaking.individuals"
-              ui-sref-active="active">
-              Individuals
-            </a>
-        </div>
-          <!-- View for matchmaking tables -->
-        <ui-view ng-show="user.teamMatchmaking.enrolled || teamSearching"></ui-view>
-        <button
-        ng-show="user.teamMatchmaking.enrolled"
-        class="ui labeled icon fluid sea-serpent button"
-        style="width:250px;margin:auto;margin-top:30px;"
-        ng-click="exitSearch()">
-          <i class="sign out icon"></i>
-          End matchmaking
-        </button>
       
       </div>
       </div>
@@ -408,4 +381,31 @@
       {{error}}
     </div>
   </div>
+
+    <!-- selection of the tables -->
+    <div class="ui two item menu" ng-show="user.teamMatchmaking.enrolled || teamSearching">
+        <a
+          class="item"
+          ui-sref="app.matchmaking.teams"
+          ui-sref-active="active">
+          Teams
+        </a>
+    
+        <a
+          class="item"
+          ui-sref="app.matchmaking.individuals"
+          ui-sref-active="active">
+          Individuals
+        </a>
+    </div>
+      <!-- View for matchmaking tables -->
+    <ui-view ng-show="user.teamMatchmaking.enrolled || teamSearching"></ui-view>
+    <button
+    ng-show="user.teamMatchmaking.enrolled"
+    class="ui labeled icon fluid sea-serpent button"
+    style="width:250px;margin:auto;margin-top:30px;"
+    ng-click="exitSearch()">
+      <i class="sign out icon"></i>
+      End matchmaking
+    </button>
 </div>
