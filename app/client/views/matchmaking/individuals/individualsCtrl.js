@@ -56,7 +56,7 @@ angular.module('reg')
 
     //User selection
 
-    $scope.selectUser = function(user){
+    $scope.selectIndividual = function(user){
       $scope.selectedUser = user;
       $scope.selectedUser.sections = generateSections(user);
       $('.long.user.modal')

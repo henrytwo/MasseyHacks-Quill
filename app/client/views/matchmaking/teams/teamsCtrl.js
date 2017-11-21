@@ -56,7 +56,7 @@ angular.module('reg')
 
     //User selection
 
-    $scope.selectUser = function(user){
+    $scope.selectTeamlead = function(user){
       $scope.selectedUser = user;
       $scope.selectedUser.sections = generateSections(user);
       $('.long.user.modal')
@@ -86,41 +86,6 @@ angular.module('reg')
               name: 'Additional',
               value: user.teamMatchmaking.individual.freeText
             }
-          ]
-        }
-      ];
-    }
-
-    $scope.selectUser = function(user){
-      $scope.selectedUser = user;
-      $scope.selectedUser.sections = generateSections(user);
-      $('.long.user.modal')
-        .modal('show');
-    }
-
-    function generateSections(user){
-      return [
-
-        {
-          name: 'Team Matchmaking',
-          fields: [
-            {
-              name: 'Track',
-              value: user[0].teamMatchmaking.team.mostInterestingTrack
-            },{
-              name: 'Roles',
-              value: user[0].teamMatchmaking.team.roles.join(', ')
-            },{
-              name: 'Top Challenges',
-              value: user[0].teamMatchmaking.team.topChallenges.join(', ')
-            },{
-              name: 'Team Size',
-              value: user[1]
-            },{
-              name: 'Additional',
-              value: user[0].teamMatchmaking.team.freeText
-            }
-            
           ]
         }
       ];
