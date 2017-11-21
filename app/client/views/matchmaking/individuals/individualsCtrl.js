@@ -15,6 +15,14 @@ angular.module('reg')
     .popup({
       on: 'hover'
     });
+    // Semantic-UI moves modal content into a dimmer at the top level.
+    // While this is usually nice, it means that with our routing will generate
+    // multiple modals if you change state. Kill the top level dimmer node on initial load
+    // to prevent this.
+    $('.ui.dimmer').remove();
+    // Populate the size of the modal for when it appears, with an arbitrary user.
+    $scope.selectedUser = {};
+
     // Get the current user's most recent data.
     var Settings = settings.data;
 
@@ -59,7 +67,7 @@ angular.module('reg')
     $scope.selectIndividual = function(user){
       $scope.selectedUser = user;
       $scope.selectedUser.sections = generateSections(user);
-      $('.long.user.modal')
+      $('.long.individual.modal')
         .modal('show');
     }
 

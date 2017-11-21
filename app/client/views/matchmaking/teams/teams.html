@@ -72,7 +72,7 @@
         <tbody>
             <tr
             ng-repeat="userAndSize in users"
-            ng-click="selectTeamlead(userAndSize)"
+            ng-click="selectUser(userAndSize)"
             ng-class="rowClass(user)">
             <td>@{{userAndSize[0].teamMatchmaking.team.slackHandle}}</td>            
             <td>{{userAndSize[0].teamMatchmaking.team.mostInterestingTrack}}</td>
