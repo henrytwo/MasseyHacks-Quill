@@ -23,7 +23,7 @@
             {{page}}
         </button>
     </div>
-    <div id="table-container" class="sixteen wide column">
+    <div id="table-container" class="sixteen wide column" style="overflow-x: auto;margin-top:18px;">
         <div class="ui long user modal">
             <i class="close icon"></i>
             <div class="content">
@@ -56,10 +56,9 @@
             </div>
     
           </div>
-    </div>
         
         <table
-            class="ui celled selectable compact users table" style="overflow-x: auto;margin-top:18px;">
+            class="ui celled selectable compact users table">
             <thead>
             <tr>
                 <th>Slack Handle</th>
@@ -72,7 +71,7 @@
             </thead>
             <tbody>
             <tr
-                ng-click="selectIndividual(user)"
+                ng-click="selectUser(user)"
                 ng-repeat="user in users"
                 ng-class="rowClass(user)">
                 <td>@{{user.teamMatchmaking.individual.slackHandle}}</td>
@@ -90,4 +89,5 @@
             </tr>
             </tbody>
         </table>
+    </div>
 </div>

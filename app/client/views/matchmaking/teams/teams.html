@@ -24,7 +24,7 @@
         </button>
     </div>
 
-    <div id="table-container" class="sixteen wide column">
+    <div id="table-container" class="sixteen wide column" style="overflow-x: auto;margin-top:18px;">
         <div class="ui long user modal">
             <i class="close icon"></i>
             <div class="content">
@@ -57,43 +57,44 @@
             </div>
     
           </div>
-     </div>
         <table
-        class="ui celled selectable striped compact table" style="overflow-x: auto;margin-top:18px;">
-            <thead>
-                <tr>
-                <th>Slack Handle</th>
-                <th>Track</th>
-                <th>Roles In Search</th>
-                <th>Top Challenges</th>
-                <th>Team Size</th>
-                <th>Additional</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr
-                ng-repeat="userAndSize in users"
-                ng-click="selectTeamlead(userAndSize)"
-                ng-class="rowClass(user)">
-                <td>@{{userAndSize[0].teamMatchmaking.team.slackHandle}}</td>            
-                <td>{{userAndSize[0].teamMatchmaking.team.mostInterestingTrack}}</td>
-                <td>
-                    <ol class="ui list">
-                        <li value="-" ng-repeat="role in userAndSize[0].teamMatchmaking.team.roles">
-                            {{role}}
-                        </li>
-                    </ol>
-                </td>
-                <td>
-                    <ol class="ui list">
-                    <li value="-" ng-repeat="challenge in userAndSize[0].teamMatchmaking.team.topChallenges">
-                        {{challenge}}
+        class="ui celled selectable striped compact table">
+        <thead>
+            <tr>
+            <th>Slack Handle</th>
+            <th>Track</th>
+            <th>Roles In Search</th>
+            <th>Top Challenges</th>
+            <th>Team Size</th>
+            <th>Additional</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+            ng-repeat="userAndSize in users"
+            ng-click="selectUser(userAndSize)"
+            ng-class="rowClass(user)">
+            <td>@{{userAndSize[0].teamMatchmaking.team.slackHandle}}</td>            
+            <td>{{userAndSize[0].teamMatchmaking.team.mostInterestingTrack}}</td>
+            <td>
+                <ol class="ui list">
+                    <li value="-" ng-repeat="role in userAndSize[0].teamMatchmaking.team.roles">
+                        {{role}}
                     </li>
-                    </ol>
-                </td>
-                <td style="text-align:center">{{userAndSize[1]}}</td>
-                <td>Click to view</td>
-                </tr>
-            </tbody>
+                </ol>
+            </td>
+            <td>
+                <ol class="ui list">
+                <li value="-" ng-repeat="challenge in userAndSize[0].teamMatchmaking.team.topChallenges">
+                    {{challenge}}
+                </li>
+                </ol>
+            </td>
+            <td style="text-align:center">{{userAndSize[1]}}</td>
+            <td>Click to view</td>
+            </tr>
+        </tbody>
         </table>
+
+    </div>
 </div>
