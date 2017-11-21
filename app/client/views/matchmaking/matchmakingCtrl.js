@@ -226,6 +226,15 @@ angular.module('reg')
                 }
               ]
             },
+            team_roles: {
+              identifier: 'team_roles',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please add at least one role that you need in your team.'
+                }
+              ]
+            },
             team_topChallenges: {
               identifier: 'team_topChallenges',
               rules: [
