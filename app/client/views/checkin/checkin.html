@@ -100,6 +100,7 @@
             
                     </div>
                     <div class="actions">
+                      <span ng-show="selectedUser.status.checkedIn"><b>This user is already checked in!</b></span>
                       <button
                         class="ui positive button"
                         ng-click="checkInUser($event, selectedUser, $index)">

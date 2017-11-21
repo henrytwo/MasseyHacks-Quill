@@ -57,44 +57,43 @@
             </div>
     
           </div>
+     </div>
         <table
         class="ui celled selectable striped compact table">
-        <thead>
-            <tr>
-            <th>Slack Handle</th>
-            <th>Track</th>
-            <th>Roles In Search</th>
-            <th>Top Challenges</th>
-            <th>Team Size</th>
-            <th>Additional</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr
-            ng-repeat="userAndSize in users"
-            ng-click="selectUser(userAndSize)"
-            ng-class="rowClass(user)">
-            <td>@{{userAndSize[0].teamMatchmaking.team.slackHandle}}</td>            
-            <td>{{userAndSize[0].teamMatchmaking.team.mostInterestingTrack}}</td>
-            <td>
-                <ol class="ui list">
-                    <li value="-" ng-repeat="role in userAndSize[0].teamMatchmaking.team.roles">
-                        {{role}}
+            <thead>
+                <tr>
+                <th>Slack Handle</th>
+                <th>Track</th>
+                <th>Roles In Search</th>
+                <th>Top Challenges</th>
+                <th>Team Size</th>
+                <th>Additional</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                ng-repeat="userAndSize in users"
+                ng-click="selectUser(userAndSize)"
+                ng-class="rowClass(user)">
+                <td>@{{userAndSize[0].teamMatchmaking.team.slackHandle}}</td>            
+                <td>{{userAndSize[0].teamMatchmaking.team.mostInterestingTrack}}</td>
+                <td>
+                    <ol class="ui list">
+                        <li value="-" ng-repeat="role in userAndSize[0].teamMatchmaking.team.roles">
+                            {{role}}
+                        </li>
+                    </ol>
+                </td>
+                <td>
+                    <ol class="ui list">
+                    <li value="-" ng-repeat="challenge in userAndSize[0].teamMatchmaking.team.topChallenges">
+                        {{challenge}}
                     </li>
-                </ol>
-            </td>
-            <td>
-                <ol class="ui list">
-                <li value="-" ng-repeat="challenge in userAndSize[0].teamMatchmaking.team.topChallenges">
-                    {{challenge}}
-                </li>
-                </ol>
-            </td>
-            <td style="text-align:center">{{userAndSize[1]}}</td>
-            <td>Click to view</td>
-            </tr>
-        </tbody>
+                    </ol>
+                </td>
+                <td style="text-align:center">{{userAndSize[1]}}</td>
+                <td>Click to view</td>
+                </tr>
+            </tbody>
         </table>
-
-    </div>
 </div>
