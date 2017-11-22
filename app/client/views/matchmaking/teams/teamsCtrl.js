@@ -34,7 +34,7 @@ angular.module('reg')
     function updateTable(data){
       //filter out the user himself
       $scope.users = data.users.filter(function(user){
-        return user[0].id !== $scope.user.id
+        return user.id !== $scope.user.id
       });
       $scope.currentPage = data.page;
       $scope.pageSize = data.size;
@@ -80,19 +80,16 @@ angular.module('reg')
           fields: [
             {
               name: 'Track',
-              value: user[0].teamMatchmaking.team.mostInterestingTrack
+              value: user.teamMatchmaking.team.mostInterestingTrack
             },{
               name: 'Roles',
-              value: user[0].teamMatchmaking.team.roles.join(', ')
+              value: user.teamMatchmaking.team.roles.join(', ')
             },{
               name: 'Top Challenges',
-              value: user[0].teamMatchmaking.team.topChallenges.join(', ')
-            },{
-              name: 'Team Size',
-              value: user[1]
+              value: user.teamMatchmaking.team.topChallenges.join(', ')
             },{
               name: 'Additional',
-              value: user[0].teamMatchmaking.team.freeText
+              value: user.teamMatchmaking.team.freeText
             }
             
           ]

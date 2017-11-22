@@ -419,31 +419,31 @@ UserController.getMatchmaking = function(user, query, callback){
         //calculate team size
         var usersProcessed = 0;
 
-        users.forEach(function(usr, index){
+        /*users.forEach(function(usr, index){
           User.find({'teamCode': usr.teamCode})
               .exec(function (err, results) {
                 users[index] = [usr, results.length]
                 usersProcessed += 1;
                 if(usersProcessed === users.length){
-
-                  User.count(findQuery)
-                  .exec(function(err, count){
-                    
-                    if (err){
-                      return callback(err);
-                    }
+                  */
+          User.count(findQuery)
+          .exec(function(err, count){
             
-                    return callback(null, {
-                      users: users,
-                      page: page,
-                      size: size,
-                      totalPages: Math.ceil(count / size)
-                    });
-                  })
-
+            if (err){
+              return callback(err);
+            }
+    
+            return callback(null, {
+              users: users,
+              page: page,
+              size: size,
+              totalPages: Math.ceil(count / size)
+            });
+          })
+/*
                 }
           });
-        })
+        })*/
       })
   }
 
@@ -456,11 +456,18 @@ UserController.teamInSearch = function(user, callback){
     if (err || !users){
       return callback(err);
     }
+    var size = users.length;
+    var count = 0;
     users.forEach(function(u) {
       if(u.teamMatchmaking.enrolled){
         return callback(null, true);
       }
+      count += 1;
+      if(count === size){
+        return callback(null, false);
+      }
     })
+    
 });
 }
 
