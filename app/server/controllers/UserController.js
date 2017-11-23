@@ -385,7 +385,7 @@ UserController.getMatchmaking = function(user, query, callback){
         }
 
         return callback(null, {
-          users: users,
+          users: users.map(user => user.teamMatchmaking),
           page: page,
           size: size,
           totalPages: Math.ceil(count / size)
@@ -434,7 +434,7 @@ UserController.getMatchmaking = function(user, query, callback){
             }
     
             return callback(null, {
-              users: users,
+              users: users.map(user => user.teamMatchmaking),
               page: page,
               size: size,
               totalPages: Math.ceil(count / size)

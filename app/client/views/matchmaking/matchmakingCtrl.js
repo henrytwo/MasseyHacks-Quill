@@ -64,7 +64,6 @@ angular.module('reg')
       $scope.showForms = true;
 
       $scope.submitIndividualForm = function(){
-        console.log($scope.user.teamMatchmaking);
         $scope.fieldErrors = null;
         $scope.error = null;
         $('.ui.form.individual').form('validate form');

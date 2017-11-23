@@ -80,16 +80,16 @@ angular.module('reg')
           fields: [
             {
               name: 'Track',
-              value: user.teamMatchmaking.team.mostInterestingTrack
+              value: user.team.mostInterestingTrack
             },{
               name: 'Roles',
-              value: user.teamMatchmaking.team.roles.join(', ')
+              value: user.team.roles.join(', ')
             },{
               name: 'Top Challenges',
-              value: user.teamMatchmaking.team.topChallenges.join(', ')
+              value: user.team.topChallenges.join(', ')
             },{
               name: 'Additional',
-              value: user.teamMatchmaking.team.freeText
+              value: user.team.freeText
             }
             
           ]

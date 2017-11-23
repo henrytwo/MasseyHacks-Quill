@@ -33,7 +33,7 @@
                   Slack Handle:
                   <div
                     class="ui label">
-                    @{{selectedUser.teamMatchmaking.individual.slackHandle}}
+                    @{{selectedUser.individual.slackHandle}}
                   </div>
                 </div>
               </div>
@@ -74,13 +74,13 @@
                 ng-click="selectIndividual(user)"
                 ng-repeat="user in users"
                 ng-class="rowClass(user)">
-                <td>@{{user.teamMatchmaking.individual.slackHandle}}</td>
-                <td>{{user.teamMatchmaking.individual.mostInterestingTrack}}</td>
-                <td>{{user.teamMatchmaking.individual.role}}</td>
-                <td>{{user.teamMatchmaking.individual.skills}}</td>
+                <td>@{{user.individual.slackHandle}}</td>
+                <td>{{user.individual.mostInterestingTrack}}</td>
+                <td>{{user.individual.role}}</td>
+                <td>{{user.individual.skills}}</td>
                 <td>
                 <ol class="ui list">
-                    <li value="-" ng-repeat="challenge in user.teamMatchmaking.individual.topChallenges">
+                    <li value="-" ng-repeat="challenge in user.individual.topChallenges">
                     {{challenge}}
                     </li>
                 </ol>
