@@ -22,6 +22,11 @@ function endsWith(s, test){
   return test.indexOf(s, test.length - s.length) !== -1;
 }
 
+//Escape special chars
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
 /**
  * Determine whether or not a user can register.
  * @param  {String}   email    Email of the user
@@ -260,7 +265,7 @@ UserController.getPage = function(query, callback){
   }
 
   if(typeof query.filter.text != "undefined") {
-    var re = new RegExp(text, 'i');
+    var re = new RegExp(escapeRegExp(text), 'i');
     textFilter.push({ email: re });
     textFilter.push({ 'profile.name': re });
     textFilter.push({ 'teamCode': re });
@@ -339,7 +344,7 @@ UserController.getPage = function(query, callback){
 UserController.getMatchmaking = function(user, query, callback){
   var type = query.type;
   var page = query.page;
-  var text = query.filter.text;
+  var text = query.filter.text;  
   var size = parseInt(query.size);
   
   var textFilter = [];
@@ -354,15 +359,18 @@ UserController.getMatchmaking = function(user, query, callback){
 
   if(type === 'individuals'){
     
-    if(text !== "undefined") {
-      var re = new RegExp(text, 'i');
+    if(text !== undefined) {
+      var re = new RegExp(escapeRegExp(text), 'i');
       textFilter.push({ 'teamMatchmaking.individual.mostInterestingTrack': re});
       textFilter.push({ 'teamMatchmaking.individual.role': re });
       textFilter.push({ 'teamMatchmaking.individual.slackHandle': re });
       textFilter.push({ 'teamMatchmaking.individual.skills': re });
     }
     else{
-      findQuery = {}
+      findQuery = {
+        'teamMatchmaking.enrolled': 'true',
+        'teamMatchmaking.enrollmentType': 'individual'
+      }
     }
 
     statusFilter.push({'teamMatchmaking.enrolled': 'true'});
@@ -395,15 +403,18 @@ UserController.getMatchmaking = function(user, query, callback){
     })
   }
   else if(type === 'teams'){
-    if(text !== "undefined") {
-      var re = new RegExp(text, 'i');
+    if(text !== undefined) {
+      var re = new RegExp(escapeRegExp(text), 'i');
       textFilter.push({ 'teamMatchmaking.team.mostInterestingTrack': re});
       textFilter.push({ 'teamMatchmaking.team.roles': re });
       textFilter.push({ 'teamMatchmaking.team.slackHandle': re });
       textFilter.push({ 'teamMatchmaking.team.topChallenges': re });
     }
     else{
-      findQuery = {}
+      findQuery = {
+        'teamMatchmaking.enrolled': 'true',
+        'teamMatchmaking.enrollmentType': 'team'
+      }
     }
 
     statusFilter.push({'teamMatchmaking.enrolled': 'true'});
