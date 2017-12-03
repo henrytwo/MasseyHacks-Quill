@@ -542,6 +542,15 @@ angular.module('reg')
                 }
               ]
             },
+            countryOfLiving: {
+              identifier: 'countryOfLiving',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your country of living.'
+                }
+              ]
+            },
             countryOfBank: {
               identifier: 'countryOfBank',
               rules: [

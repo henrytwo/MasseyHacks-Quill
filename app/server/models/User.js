@@ -362,6 +362,10 @@ var reimbursement = {
      maxlength: 40,
      default: ''
    },
+   countryOfLiving: {
+     type: String,
+     maxlength: 70,
+   },
    accountOwnerName : {
      type: String,
      maxlength: 50,
