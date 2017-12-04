@@ -29,7 +29,6 @@ angular.module('reg')
       $scope.user = currentUser.data;
       $scope.generalCheck = $scope.user.status.reimbursementApplied;
       $scope.user.reimbursement.dateOfBirth = new Date($scope.user.reimbursement.dateOfBirth);
-
       $scope.pastTRDeadline = (Date.now() > Settings.data.timeTR);
       $scope.fileSelected = false;
       $scope.isSEPA = false;
