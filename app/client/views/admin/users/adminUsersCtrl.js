@@ -626,6 +626,9 @@ angular.module('reg')
                 name: 'Account Number',
                 value: user.reimbursement.accountNumber
               },{
+                name: 'BBAN',
+                value: user.reimbursement.bban
+              },{
                 name: 'Swift / BIC',
                 value: user.reimbursement.swiftOrBic
               },{
