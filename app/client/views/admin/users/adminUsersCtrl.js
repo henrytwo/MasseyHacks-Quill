@@ -510,7 +510,10 @@ angular.module('reg')
                 value: user.reimbursement.accountNumber
               },{
                 name: 'Swift / BIC',
-                value: user.reimbursement.swiftOrBicOrClearingCode
+                value: user.reimbursement.swiftOrBic
+              },{
+                name: 'Clearing Code',
+                value: user.reimbursement.clearingCode
               },{
                 name: 'Brokerage Info',
                 value: user.reimbursement.brokerageInfo
@@ -624,7 +627,10 @@ angular.module('reg')
                 value: user.reimbursement.accountNumber
               },{
                 name: 'Swift / BIC',
-                value: user.reimbursement.swiftOrBicOrClearingCode
+                value: user.reimbursement.swiftOrBic
+              },{
+                name: 'Clearing Code',
+                value: user.reimbursement.clearingCode
               },{
                 name: 'Brokerage Info',
                 value: user.reimbursement.brokerageInfo
