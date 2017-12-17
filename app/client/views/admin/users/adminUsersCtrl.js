@@ -620,6 +620,9 @@ angular.module('reg')
                 name: 'Address Of the Bank',
                 value: user.reimbursement.addressOfBank
               },{
+                name: 'Zip Code',
+                value: user.reimbursement.zipCode
+              },{
                 name: 'Iban',
                 value: user.reimbursement.iban
               },{
