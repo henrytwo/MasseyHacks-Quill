@@ -117,6 +117,12 @@ UserController.loginWithPassword = function(email, password, callback){
           message: "Incorrect username or password"
         });
       }
+
+      if (!user.active) {
+          return callback({
+              message: "User has been deactivated"
+          });
+      }
       if (!user.checkPassword(password)) {
         return callback({
           message: "Incorrect username or password"

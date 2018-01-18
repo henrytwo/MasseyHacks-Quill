@@ -20,6 +20,7 @@ User
       u.volunteer = true;
       u.id = "SuperVolunteerEpicCheckIn";
       u.verified = true;
+      u.active = false;
       u.save(function(err){
         if (err){
           console.log(err);
