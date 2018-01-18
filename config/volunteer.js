@@ -1,4 +1,4 @@
-/*VOLUNTEER_EMAIL = process.env.VOLUNTEER_EMAIL;
+VOLUNTEER_EMAIL = process.env.VOLUNTEER_EMAIL;
 VOLUNTEER_PASSWORD = process.env.VOLUNTEER_PASS;
 VOLUNTEER_NICKNAME = process.env.VOLUNTEER_NICKNAME;
 
@@ -6,6 +6,7 @@ VOLUNTEER_NICKNAME = process.env.VOLUNTEER_NICKNAME;
 var User = require('../app/server/models/User');
 
 // If there is already a user
+console.log(VOLUNTEER_PASSWORD);
 User
   .findOne({
     email: VOLUNTEER_EMAIL
@@ -25,4 +26,4 @@ User
         }
       });
     }
-  });*/
+  });
