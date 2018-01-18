@@ -1,6 +1,3 @@
-var quotes;
-
-
 angular.module('reg')
   .controller('LoginCtrl', [
     '$scope',
@@ -16,8 +13,6 @@ angular.module('reg')
 
       // Start state for login
       $scope.loginState = 'login';
-
-      var quoteIndex = 0;
 
       function onSuccess() {
         $state.go('app.dashboard');
@@ -76,43 +71,9 @@ angular.module('reg')
 
     }
   ]);
-$.getJSON('../assets/quotes.json').done(function(data){
-      quotes = data;
-});
 function fdIn() {
   $("#login").hide();
   $(document).ready(function () {
     $('#login').fadeIn(1000);
   });
-}
-function randomQuote(){
-  var keys = Object.keys(quotes)
-  var randomKey = keys[Math.floor(Math.random() * keys.length)];
-  var ranQuote = quotes[randomKey].quote;
-  quoteIndex = quotes[randomKey].id;
-  document.getElementById("quote").innerHTML = ranQuote;
-}
-
-function switchQuote(direction){
-
-  if(direction == "left"){
-    if(quoteIndex == 0){
-      quoteIndex = quotes.length - 1;
-      document.getElementById("quote").innerHTML = quotes[quoteIndex].quote;
-    }
-    else {
-      quoteIndex = quoteIndex - 1;
-      document.getElementById("quote").innerHTML = quotes[quoteIndex].quote;
-    }
-  }
-  else {
-    if(quoteIndex >= (quotes.length - 1)){
-      quoteIndex = 1;
-      document.getElementById("quote").innerHTML = quotes[quoteIndex].quote;
-    }
-    else {
-      quoteIndex = quoteIndex + 1;
-      document.getElementById("quote").innerHTML = quotes[quoteIndex].quote;
-    }
-  }
 }

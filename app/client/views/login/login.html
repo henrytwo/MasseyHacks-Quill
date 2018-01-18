@@ -3,12 +3,16 @@
     <div class="content">
       <script>fdIn()</script>
 
-      <div class="ui segment form">
+      <div class="ui segment form" style="top: 50vh; transform: translateY(-50%);">
 
     <!-- LOGIN FORM -->
 
         <div ng-show="loginState === 'login'">
           <div class="ui login-password form">
+            <div style="margin-bottom: 30px; margin-top: 30px">
+              <img src="../assets/images/logo_slim.svg" style="min-width: 90px; width: 55%;">
+            </div>
+
             <div class="ui small negative message"
                 ng-show='error'>
               {{error}}
@@ -18,7 +22,7 @@
                 <label class="field-title"> EMAIL</label>
                 <input type="email"
                        id='email'
-                       placeholder="hacker@hackjunction.com"
+                       placeholder="hacker@hackermail.io"
                        ng-model="email">
               </div>
               <div class="field">
@@ -56,6 +60,10 @@
 
         <div ng-show="loginState === 'register'">
           <div class="ui login-password form">
+            <div style="margin-bottom: 30px; margin-top: 30px">
+              <img src="../assets/images/logo_slim.svg" style="min-width: 90px; width: 55%;">
+            </div>
+
             <div class="ui small negative message"
                 ng-show='error'>
               {{error}}
@@ -65,7 +73,7 @@
                 <label class="field-title"> EMAIL</label>
                 <input type="email"
                        id='email'
-                       placeholder="hacker@hackjunction.com"
+                       placeholder="hacker@hackermail.io"
                        ng-model="email">
               </div>
               <div class="field">
@@ -82,6 +90,7 @@
                        placeholder="Enter password again"
                        ng-model="password_repeat" required>
               </div>
+
               <div class="field">
                 <label class="field-title"> WHAT SHOULD WE CALL YOU?</label>
                 <input type="text"
