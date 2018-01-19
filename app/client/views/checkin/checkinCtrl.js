@@ -4,35 +4,46 @@ angular.module('reg')
   '$stateParams',
   'UserService',
   function($scope, $stateParams, UserService){
-    $('#reader').html5_qrcode(function(data){
-          //Change the input fields value and send post request to the backend
-          $('#qrInput').attr("value", data);
-          $scope.filterUsers();
-          UserService
-            .QRcheckIn(data)
-            .success(function(user){
-              selectUser(user);
-            })
-            .error(function(res){
-              if(res === "User not confirmed!"){
-                sweetAlert("Hey!", "This user did not confirm they are coming!", "error");
-              }
-              /*else if(res === "User already checked in!"){
-                sweetAlert("Again?", "User already checked in!", "error")
-              }*/
-              else if(res === "User is rejected!"){
-                sweetAlert("Hey!", "This user is rejected!", "error");                
-              }
-              else{
-                sweetAlert("Uh oh!", "User does not exist or isn't admitted!", "error");
-              }
-            });
-        },
-      function(error){
-      }, function(videoError){
-        //the video stream could be opened
-      }
-    );
+
+      var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+
+      scanner.addListener('scan', function(content, image){
+              var data = "";
+              //Change the input fields value and send post request to the backend
+              $('#qrInput').attr("value", data);
+              $scope.filterUsers();
+              UserService
+                  .QRcheckIn(data)
+                  .success(function(user){
+                      selectUser(user);
+                  })
+                  .error(function(res){
+                      if(res === "User not confirmed!"){
+                          sweetAlert("Hey!", "This user did not confirm they are coming!", "error");
+                      }
+                      /*else if(res === "User already checked in!"){
+                        sweetAlert("Again?", "User already checked in!", "error")
+                      }*/
+                      else if(res === "User is rejected!"){
+                          sweetAlert("Hey!", "This user is rejected!", "error");
+                      }
+                      else{
+                          sweetAlert("Uh oh!", "User does not exist or isn't admitted!", "error");
+                      }
+                  });
+          });
+
+      Instascan.Camera.getCameras().then(function (cameras) {
+          if (cameras.length > 0) {
+              scanner.start(cameras[0]);
+          } else {
+              console.error('No cameras found.');
+          }
+      }).catch(function (e) {
+          console.error(e);
+      });
+
+
     $scope.pages = [];
     $scope.users = [];
     $scope.sortDate = true;
