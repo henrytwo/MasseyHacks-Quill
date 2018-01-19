@@ -164,6 +164,17 @@ angular.module('reg')
           requireAdmin: true
         }
       })
+      .state('app.owner', {
+          views: {
+              '': {
+                  templateUrl: "views/owner/owner.html",
+                  controller: 'OwnerSettingsCtrl'
+              }
+          },
+          data: {
+              requireOwner: true
+          }
+      })
       .state('app.checkin', {
         url: '/checkin',
         templateUrl: 'views/checkin/checkin.html',
@@ -267,6 +278,7 @@ angular.module('reg')
         var requireLogin = toState.data.requireLogin;
         var requireAdmin = toState.data.requireAdmin;
         var requireVolunteer = toState.data.requireVolunteer;
+        var requireOwner = toState.data.requireOwner;
         var requireVerified = toState.data.requireVerified;
         var requireApplied = toState.data.requireApplied;
         var requireAdmitted = toState.data.requireAdmitted;

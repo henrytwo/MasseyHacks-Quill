@@ -24,7 +24,7 @@ angular.module('reg')
       }, profile: {
         occupationalStatus: [],
         bestTools: [],
-        previousJunction: []
+        previousMasseyHacks: []
       }, reimbursement: {
             dateOfBirth: [],
       }
@@ -435,8 +435,8 @@ angular.module('reg')
                 name: 'Special Needs',
                 value: user.confirmation.specialNeeds || 'None'
               },{
-                name: 'Previous Junctions',
-                value: user.profile.previousJunction.join(', ')
+                name: 'Previous MasseyHackss',
+                value: user.profile.previousMasseyHacks.join(', ')
               },{
                 name: 'Secret code',
                 value: user.profile.secret

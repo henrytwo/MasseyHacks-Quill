@@ -50,7 +50,7 @@ angular.module('reg')
     }, profile: {
       occupationalStatus: [],
       bestTools: [],
-      previousJunction: []
+      previousMasseyHacks: []
     }, reimbursement: {
           dateOfBirth: [],
     }

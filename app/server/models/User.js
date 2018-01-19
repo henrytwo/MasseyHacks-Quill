@@ -149,7 +149,7 @@ var profile = {
         }
     },
 
-    previousJunction: {
+    previousMasseyHacks: {
         type: [String]
     },
 
@@ -514,6 +514,12 @@ var schema = new mongoose.Schema({
         type: String,
         required: true,
         select: false
+    },
+
+    owner: {
+        type: Boolean,
+        required: true,
+        default: false,
     },
 
     admin: {

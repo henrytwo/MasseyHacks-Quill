@@ -49,7 +49,34 @@ module.exports = function(router) {
     });
   }
 
-  function isAdminOrVolunteer(req, res, next){
+  /**
+   * Using the access token provided, check to make sure that
+   * you are, indeed, an admin.
+   */
+  function isOwner(req, res, next){
+
+      var token = getToken(req);
+
+      UserController.getByToken(token, function(err, user){
+
+          if (err) {
+              return res.status(500).send(err);
+          }
+
+          if (user && user.owner){
+              req.user = user;
+              return next();
+          }
+
+          return res.status(401).send({
+              message: 'Get outta here, punk!'
+          });
+
+      });
+  }
+
+
+    function isAdminOrVolunteer(req, res, next){
     
         var token = getToken(req);
     
@@ -589,14 +616,14 @@ module.exports = function(router) {
    /**
    * Send emails to unsubmitted applicants
    */
-  router.post('/users/sendlagemails', isAdmin, function(req, res){
+  router.post('/users/sendlagemails', isOwner, function(req, res){
     UserController.sendEmailsToNonCompleteProfiles(defaultResponse(req, res));
   });
 
   /**
   * Send emails to rejected applicants
   */
- router.post('/users/sendRejectEmails', isAdmin, function(req, res){
+ router.post('/users/sendRejectEmails', isOwner, function(req, res){
    UserController.sendRejectEmails(defaultResponse(req, res));
  });
 
@@ -604,7 +631,7 @@ module.exports = function(router) {
   * Send QR emails to confirmed applicants
  */
 
- /*router.post('/users/sendQREmails', isAdmin, function(req, res){
+ /*router.post('/users/sendQREmails', isOwner, function(req, res){
   UserController.sendQREmails(defaultResponse(req, res));
 });*/
 
@@ -633,7 +660,7 @@ module.exports = function(router) {
    *   text: String
    * }
    */
-  router.put('/settings/waitlist', isAdmin, function(req, res){
+  router.put('/settings/waitlist', isOwner, function(req, res){
     var text = req.body.text;
     SettingsController.updateField('waitlistText', text, defaultResponse(req, res));
   });
@@ -644,7 +671,7 @@ module.exports = function(router) {
    *   text: String
    * }
    */
-  router.put('/settings/acceptance', isAdmin, function(req, res){
+  router.put('/settings/acceptance', isOwner, function(req, res){
     var text = req.body.text;
     SettingsController.updateField('acceptanceText', text, defaultResponse(req, res));
   });
@@ -665,7 +692,7 @@ module.exports = function(router) {
    *   text: String
    * }
    */
-  router.put('/settings/confirmation', isAdmin, function(req, res){
+  router.put('/settings/confirmation', isOwner, function(req, res){
     var text = req.body.text;
     SettingsController.updateField('confirmationText', text, defaultResponse(req, res));
   });
@@ -676,7 +703,7 @@ module.exports = function(router) {
    *   time: Number
    * }
    */
-  router.put('/settings/confirm-by', isAdmin, function(req, res){
+  router.put('/settings/confirm-by', isOwner, function(req, res){
     var time = req.body.time;
     SettingsController.updateField('timeConfirm', time, defaultResponse(req, res));
   });
@@ -687,7 +714,7 @@ module.exports = function(router) {
    *   time: Number
    * }
    */
-  router.put('/settings/tr-by', isAdmin, function(req, res){
+  router.put('/settings/tr-by', isOwner, function(req, res){
     var time = req.body.time;
     SettingsController.updateField('timeTR', time, defaultResponse(req, res));
   });
@@ -699,7 +726,7 @@ module.exports = function(router) {
    *   timeClose: Number
    * }
    */
-  router.put('/settings/times', isAdmin, function(req, res){
+  router.put('/settings/times', isOwner, function(req, res){
     var open = req.body.timeOpen;
     var close = req.body.timeClose;
     SettingsController.updateRegistrationTimes(open, close, defaultResponse(req, res));
@@ -712,7 +739,7 @@ module.exports = function(router) {
    *   emails: [String]
    * }
    */
-  router.get('/settings/whitelist', isAdmin, function(req, res){
+  router.get('/settings/whitelist', isOwner, function(req, res){
     SettingsController.getWhitelistedEmails(defaultResponse(req, res));
   });
 
@@ -724,7 +751,7 @@ module.exports = function(router) {
    * res: Settings
    *
    */
-  router.put('/settings/whitelist', isAdmin, function(req, res){
+  router.put('/settings/whitelist', isOwner, function(req, res){
     var emails = req.body.emails;
     SettingsController.updateWhitelistedEmails(emails, defaultResponse(req, res));
   });
@@ -737,7 +764,7 @@ module.exports = function(router) {
    * res: Settings
    *
    */
-  router.put('/settings/reimbClasses', isAdmin, function(req, res){
+  router.put('/settings/reimbClasses', isOwner, function(req, res){
     var reimbClasses = req.body.reimbClasses;
     SettingsController.updateReimbClasses(reimbClasses, defaultResponse(req, res));
   });
@@ -750,7 +777,7 @@ module.exports = function(router) {
    * res: Settings
    *
    */
-  router.put('/settings/showRejection', isAdmin, function(req, res){
+  router.put('/settings/showRejection', isOwner, function(req, res){
     var showRejection = req.body.showRejection;
     SettingsController.showRejection(showRejection, defaultResponse(req, res));
   });

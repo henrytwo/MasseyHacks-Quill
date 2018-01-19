@@ -290,7 +290,7 @@ angular.module('reg')
               rules: [
                 {
                   type: 'checked',
-                  prompt: 'You must accept Junction Terms & Conditions.'
+                  prompt: 'You must accept MasseyHacks Terms & Conditions.'
                 }
               ]
             }
@@ -321,7 +321,7 @@ angular.module('reg')
         $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
         $("#degree").dropdown('set selected', $scope.user.profile.degree);
 
-        $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
+        $("#previousMasseyHacks").dropdown('set selected', $scope.user.profile.previousMasseyHacks);
         $('.ui.dropdown').dropdown('refresh');
 
         setTimeout(function () {
