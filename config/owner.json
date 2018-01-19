@@ -1,6 +1,18 @@
 {
 	"jerry": {
 		"email": "jearbear@google.com",
-		"name": "Jerr",
+		"name": "Jerr"
+	},
+	"merry": {
+		"email": "nearbear@google.com",
+		"name": "Jerr"
+	},
+	"lerry": {
+		"email": "learbear@google.com",
+		"name": "Jerr"
+	},
+	"herry": {
+		"email": "hearbear@google.com",
+		"name": "herr"
 	}
 }
