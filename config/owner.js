@@ -10,7 +10,7 @@ for(var key in owners) {
 
     owner_email    = owners[key]['email'];
     owner_name     = owners[key]['name'];
-    owner_nickname = owners[key]['nickname'];
+    owner_nickname = key;
     owner_password = "JerrBear37485" + owner_nickname;
 
     console.log("Adding: " + owner_email);
