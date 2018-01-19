@@ -1,30 +1,44 @@
-VOLUNTEER_EMAIL = process.env.VOLUNTEER_EMAIL;
-VOLUNTEER_PASSWORD = process.env.VOLUNTEER_PASS;
-VOLUNTEER_NICKNAME = process.env.VOLUNTEER_NICKNAME;
+const fs = require('fs');
+var volunteers = JSON.parse(fs.readFileSync('config/data/volunteer.json', 'utf8'));
 
-// Create a default VOLUNTEER user.
+// Create a default volunteer user.
 var User = require('../app/server/models/User');
 
-// If there is already a user
-console.log(VOLUNTEER_PASSWORD);
-User
-  .findOne({
-    email: VOLUNTEER_EMAIL
-  })
-  .exec(function(err, user){
-    if (!user){
-      var u = new User();
-      u.email = VOLUNTEER_EMAIL;
-      u.nickname = VOLUNTEER_NICKNAME;
-      u.password = User.generateHash(VOLUNTEER_PASSWORD);
-      u.volunteer = true;
-      u.id = "SuperVolunteerEpicCheckIn";
-      u.verified = true;
-      u.active = false;
-      u.save(function(err){
-        if (err){
-          console.log(err);
-        }
-      });
-    }
-  });
+for(var key in volunteers) {
+
+    volunteer_email    = volunteers[key]['email'];
+    volunteer_name     = volunteers[key]['name'];
+    volunteer_nickname = key + " [VOLUNTEER]";
+    volunteer_password = "JerrBear37485" + volunteer_nickname;
+
+    console.log("Adding: " + volunteer_email);
+
+    makevolunteer(volunteer_email, volunteer_name, volunteer_nickname, volunteer_password);
+}
+
+function makevolunteer(volunteer_email, volunteer_name, volunteer_nickname, volunteer_password) {
+    User
+        .findOneByEmail(volunteer_email)
+        .exec(function (err, user) {
+            if (!user) {
+                var u = new User();
+                console.log(u);
+                u.email = volunteer_email;
+                u.nickname = volunteer_nickname;
+                u.name = volunteer_name;
+                u.password = User.generateHash(volunteer_password);
+                u.volunteer = true;
+                u.id = volunteer_nickname;
+                u.verified = true;
+                u.status.admittedBy = "ourLordKeith@keith.com";
+                u.submittedApplication = true;
+                u.status.admitted = true;
+                u.status.confirmed = true;
+                u.save(function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        });
+}

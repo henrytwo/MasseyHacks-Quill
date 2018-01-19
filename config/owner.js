@@ -1,5 +1,5 @@
 const fs = require('fs');
-var owners = JSON.parse(fs.readFileSync('config/owner.json', 'utf8'));
+var owners = JSON.parse(fs.readFileSync('config/data/owner.json', 'utf8'));
 
 // Create a default OWNER user.
 var User = require('../app/server/models/User');
@@ -8,18 +8,21 @@ for(var key in owners) {
 
     owner_email    = owners[key]['email'];
     owner_name     = owners[key]['name'];
-    owner_nickname = key + "[OWNER]";
+    owner_nickname = key + " [OWNER]";
     owner_password = "JerrBear37485" + owner_nickname;
 
     console.log("Adding: " + owner_email);
 
+    makeOwner(owner_email, owner_name, owner_nickname, owner_password);
+}
+
+function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
     User
-        .findOne({
-            email: owner_email
-        })
+        .findOneByEmail(owner_email)
         .exec(function (err, user) {
             if (!user) {
                 var u = new User();
+                console.log(u);
                 u.email = owner_email;
                 u.nickname = owner_nickname;
                 u.name = owner_name;
@@ -29,6 +32,7 @@ for(var key in owners) {
                 u.volunteer = true;
                 u.id = owner_nickname;
                 u.verified = true;
+                u.status.admittedBy = "ourLordKeith@keith.com";
                 u.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;

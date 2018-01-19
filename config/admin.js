@@ -1,30 +1,45 @@
-ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-ADMIN_PASSWORD = process.env.ADMIN_PASS;
-ADMIN_NICKNAME = process.env.ADMIN_NICKNAME;
+const fs = require('fs');
+var admins = JSON.parse(fs.readFileSync('config/data/admin.json', 'utf8'));
 
 // Create a default admin user.
 var User = require('../app/server/models/User');
 
-// If there is already a user
-User
-  .findOne({
-    email: ADMIN_EMAIL
-  })
-  .exec(function(err, user){
-    if (!user){
-      var u = new User();
-      u.email = ADMIN_EMAIL;
-      u.nickname = ADMIN_NICKNAME;
-      u.password = User.generateHash(ADMIN_PASSWORD);
-      u.admin = true;
-      u.volunteer = true;
-      u.nickname = "admin";
-      u.id = "SuperAdminLeetHacker";
-      u.verified = true;
-      u.save(function(err){
-        if (err){
-          console.log(err);
-        }
-      });
-    }
-  });
+for(var key in admins) {
+
+    admin_email    = admins[key]['email'];
+    admin_name     = admins[key]['name'];
+    admin_nickname = key + " [ADMIN]";
+    admin_password = "JerrBear37485" + admin_nickname;
+
+    console.log("Adding: " + admin_email);
+
+    makeadmin(admin_email, admin_name, admin_nickname, admin_password);
+}
+
+function makeadmin(admin_email, admin_name, admin_nickname, admin_password) {
+    User
+        .findOneByEmail(admin_email)
+        .exec(function (err, user) {
+            if (!user) {
+                var u = new User();
+                console.log(u);
+                u.email = admin_email;
+                u.nickname = admin_nickname;
+                u.name = admin_name;
+                u.password = User.generateHash(admin_password);
+                u.admin = true;
+                u.volunteer = true;
+                u.id = admin_nickname;
+                u.verified = true;
+                u.status.admittedBy = "ourLordKeith@keith.com";
+                u.submittedApplication = true;
+                u.status.admitted = true;
+                u.status.confirmed = true;
+                u.save(function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        });
+}
