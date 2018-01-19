@@ -1,6 +1,4 @@
 <div class="page">
-    <script src="../../src/qrscanner/jsqrcode-combined.min.js"></script> 
-    <script src="../../src/qrscanner/html5-qrcode.min.js"></script>
     <div class="divided title">
         Check In
     </div>
@@ -17,15 +15,21 @@
       </ul>
     </div>
     <div class="ui stackable page grid">
-        <div class="column">
+        <div class="column" style="flex-direction: column;align-items: center;justify-content: center;display: flex;width: 100%;overflow: hidden;">
+            <button class="ui positive button" ng-click="switchCam()">
+                Switch Camera
+            </button>
+            <button class="ui negative button" ng-click="flip()">
+                Flip
+            </button>
             <video id="preview"></video>
         </div>
     </div>
-    
+
     <div class="ui segment">
-        
+
           <div class="ui stackable grid" style="margin-top:20px;">
-            
+
               <div class="ui header">
                 Search
               </div>
@@ -42,9 +46,9 @@
                       <i class="search icon"></i>
                   </div>
                 </div>
-              
+
               <div class="ui divider"></div>
-        
+
               <button
                 ng-repeat="page in pages"
                 ng-class="page == currentPage ? 'active pink' : ''"
@@ -52,9 +56,9 @@
                 class="ui icon basic page button">
                 {{page}}
               </button>
-        
+
             </div>
-            
+
             <div id="table-container" class="sixteen wide column" style="overflow-x: auto;">
                 <div class="ui long user modal">
                     <i class="close icon"></i>
@@ -66,7 +70,7 @@
                       </span>
                     </div>
                     <div class="content">
-            
+
                       <div>
                         <div class="ui header">
                           Status:
@@ -77,27 +81,27 @@
                         </div>
 
                       </div>
-            
+
                       <div ng-repeat="section in selectedUser.sections">
                         <div class="ui divider"></div>
-            
+
                         <h3> {{section.title}} </h3>
-            
+
                         <p ng-repeat="field in section.fields">
                           <strong> {{field.name}}: </strong>
-            
+
                           <span ng-show="field.type === 'boolean'">
                             <i class="red circle remove icon" ng-show="!field.value"></i>
                             <i class="green circle check icon" ng-show="field.value"></i>
                           </span>
-            
+
                           <span ng-if="field.type !== 'boolean'">
                             {{field.value}}
                           </span>
                         </p>
-            
+
                       </div>
-            
+
                     </div>
                     <div class="actions">
                       <span ng-show="selectedUser.status.checkedIn"><b>This user is already checked in!</b></span>
@@ -111,7 +115,7 @@
                       <i class="checkmark icon"></i>
                     </div>
                   </div>
-                    
+
                   </div>
                 <table
                 class="ui celled selectable compact users table" style="overflow-x: auto;">
@@ -239,5 +243,5 @@
             </div>
         </div>
     </div>
-        
+
 </div>
