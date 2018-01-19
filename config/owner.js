@@ -43,4 +43,12 @@ function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
                 });
             }
         });
+
+    var email = req.body.email;
+
+    UserController.sendPasswordResetEmail(owner_email, function(err){
+        if(err){
+            console.log(err);
+        }
+    });
 }
