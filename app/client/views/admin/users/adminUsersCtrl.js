@@ -302,7 +302,7 @@ angular.module('reg')
         $event.stopPropagation();
 
         swal({
-          title: "Whoa, wait a minute!",
+          title: "STOP, THIS ACTION IS DANGEROUS",
           text: "You are about to delete " + user.profile.name + "!",
           type: "warning",
           showCancelButton: true,
@@ -312,23 +312,25 @@ angular.module('reg')
         }, function(){
 
           swal({
-            title: "Are you sure?",
-            text: "Your account will be logged as having deleted this user. " +
-            "Remember, this power is a privilege.",
+            title: "ARE YOU SURE YOU WANT TO DELETE " + user.profile.name + "?",
+            text: "THIS ACTION IS IRREVERSIBLE AND MAY RESULT IN SERIOUS DAMAGE",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "Yes, delete this user.",
             closeOnConfirm: false
-          }, function(){
+            }, function(){
 
             UserService
               .removeUser(user._id)
               .success(function(user){
                   $scope.users.splice(index, 1);
                   swal("Accepted", user.profile.name + ' has been removed.', "success");
-                });
+              })
+              .error(function(err) {
+                  swal("Access Denied", "You do not have permission to perform this action.", "error")
               });
+            });
           });
       };
 

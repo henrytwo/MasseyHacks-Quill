@@ -27,8 +27,10 @@ angular.module('reg')
           }, function(){
             UserService
               .sendLaggerEmails()
-              .then(function(){
+              .success(function(){
                 sweetAlert('Your emails have been sent.');
+            }).error(function(err) {
+                swal("Access Denied", "You do not have permission to perform this action.", "error")
             });
           });
       };
@@ -45,8 +47,10 @@ angular.module('reg')
           }, function(){
             UserService
               .sendRejectEmails()
-              .then(function(){
+              .success(function(){
                 sweetAlert('Your emails have been sent.');
+            }).error(function(err) {
+                swal("Access Denied", "You do not have permission to perform this action.", "error")
             });
           });
       };
