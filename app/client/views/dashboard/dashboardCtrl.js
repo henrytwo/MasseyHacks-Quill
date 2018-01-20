@@ -133,7 +133,7 @@ angular.module('reg')
         }
       };*/
 
-      $scope.qr = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + $scope.user.id
+      $scope.qr = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&ecc=H&data=' + $scope.user.id
       //$scope.getQRCode($scope.user.id);      
       
 
