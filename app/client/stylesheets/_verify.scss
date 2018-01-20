@@ -1,14 +1,133 @@
 #verify {
   height: 100%;
+  background-color: black;
   width: 100%;
-  background: url('../assets/images/bg_reg.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-color: #232323;
+  position: relative;
+  display: table;
+
+  .cont{
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .content {
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+  .hidden {
+    display: none
+  }
+
+
+  .header{
+    .logo {
+      padding-top: 50px;
+      max-width: 380px;
+      margin: auto;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .tip {
+      font-family: Montserrat;
+      color: $secondary;
+      text-align: center;
+      font-size: 22px;
+      margin: 10px 0 10px 0;
+    }
+  }
+  .logo-bar {
+    position:fixed;
+    width: 100%;
+  }
+  .date {
+    color: #fff;
+  }
+
+
+  .logo-row {
+    padding-right: 20px;
+    vertical-align: middle;
+  }
+
+
+  .emblem {
+    float: right;
+    max-width: 200px;
+    margin: 0 auto 1rem auto;
+    img {
+      margin-top: 15px;
+      width: 50px;
+      height: auto;
+    }
+  }
+  .bts {
+    margin: auto;
+  }
+  .button {
+    color: $secondary;
+    &.verify {
+      background: $primary;
+    }
+    &.verify:focus, &.verify:hover{
+      background: darken($primary, 20%);
+    }
+
+    &.register {
+      background: $accent1;
+    }
+    &.register:focus, &.register:hover{
+      background: darken($accent1, 20%);
+    }
+  }
+  .forgot {
+    text-align: center;
+  }
+  .question {
+    margin-bottom: 10px;
+  }
+  .field-title{
+    color: $primary;
+  }
+
+  .form {
+    max-width: 450px;
+    margin: auto;
+  }
+  .test {
+    height: 3px;
+    width: 80px;
+
+    background-color: $accent1;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  a:hover {
+    color: #ef4637;
+  }
+  a:visited {
+    color: #5abecf;
+  }
+
 }
 
+#verify:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: url('../assets/images/websitebkg.svg') no-repeat fixed;
+  background-size: cover;
+  opacity: 0.4;
+}
 
 .verify.page {
   width:100%;
@@ -16,12 +135,12 @@
   .title {
     color: #FBFBFB;
     &.divided:after {
-    content: " ";
-    width: 200px;
-    display: block;
-    margin: 1em auto 2em;
-    border-bottom: 4px solid #FBFBFB;
-}
+      content: " ";
+      width: 200px;
+      display: block;
+      margin: 1em auto 2em;
+      border-bottom: 4px solid #FBFBFB;
+    }
   }
 
   padding-top: 4em;
@@ -39,5 +158,15 @@
       background-color: #232323;
       color: #FBFBFB;
     }
+  }
+}
+
+@media only screen and (max-width: 790px) {
+  /* For mobile phones: */
+  .content {
+    position: relative;
+    z-index: 2;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
   }
 }
