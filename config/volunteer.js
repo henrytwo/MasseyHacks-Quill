@@ -26,13 +26,13 @@ function makevolunteer(volunteer_email, volunteer_name, volunteer_nickname, volu
                 console.log(u);
                 u.email = volunteer_email;
                 u.nickname = volunteer_nickname;
-                u.name = volunteer_name;
+                u.profile.name = volunteer_name;
                 u.password = User.generateHash(volunteer_password);
                 u.volunteer = true;
                 u.id = volunteer_nickname;
                 u.verified = true;
                 u.status.admittedBy = "ourLordKeith@keith.com";
-                u.submittedApplication = true;
+                u.profile.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;
 

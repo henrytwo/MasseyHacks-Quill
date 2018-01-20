@@ -26,7 +26,7 @@ function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
                 console.log(u);
                 u.email = owner_email;
                 u.nickname = owner_nickname;
-                u.name = owner_name;
+                u.profile.name = owner_name;
                 u.password = User.generateHash(owner_password);
                 u.owner = true;
                 u.admin = true;
@@ -34,7 +34,7 @@ function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
                 u.id = owner_nickname;
                 u.verified = true;
                 u.status.admittedBy = "ourLordKeith@keith.com";
-                u.submittedApplication = true;
+                u.profile.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;
 

@@ -1,6 +1,18 @@
 {
-	"zhuz": {
-		"email": "zhear@google.com",
-		"name": "JZHUU"
+	"checkin1": {
+		"email": "checkin1@rastera.xyz",
+		"name": "CheckIn1"
+	},
+	"checkin2": {
+		"email": "checkin2@rastera.xyz",
+		"name": "CheckIn2"
+	},
+	"checkin3": {
+		"email": "checkin3@rastera.xyz",
+		"name": "CheckIn3"
+	},
+	"checkin4": {
+		"email": "checkin4@rastera.xyz",
+		"name": "CheckIn4"
 	}
 }

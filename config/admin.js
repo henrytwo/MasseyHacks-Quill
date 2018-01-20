@@ -26,14 +26,14 @@ function makeadmin(admin_email, admin_name, admin_nickname, admin_password) {
                 console.log(u);
                 u.email = admin_email;
                 u.nickname = admin_nickname;
-                u.name = admin_name;
+                u.profile.name = admin_name;
                 u.password = User.generateHash(admin_password);
                 u.admin = true;
                 u.volunteer = true;
                 u.id = admin_nickname;
                 u.verified = true;
                 u.status.admittedBy = "ourLordKeith@keith.com";
-                u.submittedApplication = true;
+                u.profile.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;
 

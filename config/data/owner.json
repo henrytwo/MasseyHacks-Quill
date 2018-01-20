@@ -1,18 +1,18 @@
 {
 	"jerry": {
-		"email": "jearbear@google.com",
-		"name": "Jerr"
+		"email": "jerry@masseyhacks.ca",
+		"name": "Jerry Chen"
 	},
-	"merry": {
-		"email": "nearbear@google.com",
-		"name": "Jerr"
+	"doris": {
+		"email": "doris@masseyhacks.ca",
+		"name": "Doris Chang"
 	},
-	"lerry": {
-		"email": "learbear@google.com",
-		"name": "Jerr"
+	"henry": {
+		"email": "henry@masseyhacks.ca",
+		"name": "Henry Tu"
 	},
-	"herry": {
-		"email": "hearbear@google.com",
-		"name": "herr"
+	"ryan": {
+		"email": "ryan@masseyhacks.ca",
+		"name": "Ryan Zhang"
 	}
 }

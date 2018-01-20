@@ -1,10 +1,62 @@
 {
-	"rahhma": {
-		"email": "rahhhma@google.com",
-		"name": "RAHHHMAA GILLAN"
+	"hamza": {
+		"email": "hamza@masseyhacks.ca",
+		"name": "Hamza Sayed-Ali"
 	},
-	"jchinny": {
-		"email": "emchennyjenn@google.com",
-		"name": "Jennchen"
+	"minya": {
+		"email": "minya@masseyhacks.ca",
+		"name": "Minya Bai"
+	},
+	"eric": {
+		"email": "eric@masseyhacks.ca",
+		"name": "Eric Yu"
+	},
+	"rahma": {
+		"email": "rahma@masseyhacks.ca",
+		"name": "Rahma Gillan"
+	},
+	"erik": {
+		"email": "erik@masseyhacks.ca",
+		"name": "Erik Yzeiri"
+	},
+	"you": {
+		"email": "you@masseyhacks.ca",
+		"name": "You Zhou"
+	},
+	"anita": {
+		"email": "anita@masseyhacks.ca",
+		"name": "Anita Hu"
+	},
+	"tiffany": {
+		"email": "tiffany@masseyhacks.ca",
+		"name": "Tiffany Lin"
+	},
+	"jenny": {
+		"email": "jenny@masseyhacks.ca",
+		"name": "Jenny chen"
+	},
+	"keith": {
+		"email": "keith@masseyhacks.ca",
+		"name": "Keith Wong"
+	},
+	"tailai": {
+		"email": "tailai@masseyhacks.ca",
+		"name": "Tailai Wang"
+	},
+	"albert": {
+		"email": "albert@masseyhacks.ca",
+		"name": "Albert Zhan"
+	},
+	"qin": {
+		"email": "qin@masseyhacks.ca",
+		"name": "Qin Liu"
+	},
+	"noor": {
+		"email": "noor@masseyhacks.ca",
+		"name": "Noor Nasri"
+	},
+	"aaron": {
+		"email": "aaron@masseyhacks.ca",
+		"name": "Aaron Li"
 	}
 }
