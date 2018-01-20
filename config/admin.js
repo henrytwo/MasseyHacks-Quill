@@ -3,6 +3,7 @@ var admins = JSON.parse(fs.readFileSync('config/data/admin.json', 'utf8'));
 
 // Create a default admin user.
 var User = require('../app/server/models/User');
+var Mailer = require('../app/server/services/email');
 
 for(var key in admins) {
 
@@ -35,6 +36,13 @@ function makeadmin(admin_email, admin_name, admin_nickname, admin_password) {
                 u.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;
+
+                var token = u.generateTempAuthToken();
+                var callback = '';
+                Mailer.sendPasswordResetEmail(u, token, callback);
+
+                console.log(callback);
+
                 u.save(function (err) {
                     if (err) {
                         console.log(err);

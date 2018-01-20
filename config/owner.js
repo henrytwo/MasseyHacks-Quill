@@ -3,6 +3,7 @@ var owners = JSON.parse(fs.readFileSync('config/data/owner.json', 'utf8'));
 
 // Create a default OWNER user.
 var User = require('../app/server/models/User');
+var Mailer = require('../app/server/services/email');
 
 for(var key in owners) {
 
@@ -36,6 +37,13 @@ function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
                 u.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;
+
+                var token = u.generateTempAuthToken();
+                var callback = '';
+                Mailer.sendPasswordResetEmail(u, token, callback);
+
+                console.log(callback);
+
                 u.save(function (err) {
                     if (err) {
                         console.log(err);
@@ -44,11 +52,4 @@ function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
             }
         });
 
-    var email = req.body.email;
-
-    UserController.sendPasswordResetEmail(owner_email, function(err){
-        if(err){
-            console.log(err);
-        }
-    });
 }

@@ -3,6 +3,7 @@ var volunteers = JSON.parse(fs.readFileSync('config/data/volunteer.json', 'utf8'
 
 // Create a default volunteer user.
 var User = require('../app/server/models/User');
+var Mailer = require('../app/server/services/email');
 
 for(var key in volunteers) {
 
@@ -34,6 +35,13 @@ function makevolunteer(volunteer_email, volunteer_name, volunteer_nickname, volu
                 u.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;
+
+                var token = u.generateTempAuthToken();
+                var callback = '';
+                Mailer.sendPasswordResetEmail(u, token, callback);
+
+                console.log(callback);
+
                 u.save(function (err) {
                     if (err) {
                         console.log(err);

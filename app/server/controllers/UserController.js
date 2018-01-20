@@ -1086,7 +1086,8 @@ UserController.resetPassword = function(token, password, callback){
         _id: id
       },{
         $set: {
-          password: User.generateHash(password)
+          password: User.generateHash(password),
+          passwordLastUpdated: Date.now()
         }
       }, function(err, user){
         if (err || !user){

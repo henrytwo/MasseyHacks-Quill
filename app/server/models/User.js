@@ -13,6 +13,12 @@ var profile = {
         maxlength: 100,
     },
 
+    lastname: {
+        type: String,
+        min: 1,
+        maxlength: 100,
+    },
+
     age: {
         type: Number,
         min: 18,
@@ -172,6 +178,13 @@ var profile = {
         enum: {
             values: 'Spaces Tabs'.split(' ')
         }
+    },
+
+    applicationApprove: {
+        type: [String]
+    },
+    applicationReject: {
+        type: [String]
     },
 
     conduct: Boolean,
@@ -547,6 +560,11 @@ var schema = new mongoose.Schema({
     },
 
     lastUpdated: {
+        type: Number,
+        default: Date.now(),
+    },
+
+    passwordlastUpdated: {
         type: Number,
         default: Date.now(),
     },
