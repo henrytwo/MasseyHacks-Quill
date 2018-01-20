@@ -16,15 +16,20 @@
     </div>
     <div class="ui stackable page grid">
         <div class="column" style="flex-direction: column;align-items: center;justify-content: center;display: flex;width: 100%;overflow: hidden;">
+            <div class="center-block text-center btn-group">
+                <button class="ui positive button" ng-click="switchCam()" style="width: 150px; height: 50px; padding: 0;">
+                    Switch Camera
+                </button>
+                <button class="ui negative button" ng-click="flip()" style="width: 150px; height: 50px; padding: 0;">
+                    Flip
+                </button>
+            </div>
 
-            <button class="ui positive button" ng-click="switchCam()" style="width: 150px; height: 50px">
-                Switch Camera
-            </button>
-            <button class="ui negative button" ng-click="flip()" style="width: 150px; height: 50px">
-                Flip
-            </button>
+            <br>
+            <div style="border-color: black; border-width: 1px; border-style: solid;">
+                <video id="preview"></video>
+            </div>
 
-            <video id="preview"></video>
         </div>
     </div>
 
