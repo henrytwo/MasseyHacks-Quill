@@ -297,6 +297,13 @@
 
               </button>
 
+              <button
+                ng-click="removeUser($event, user, $index)"
+                class="ui circular mini basic icon button">
+
+                <i class="remove user icon"></i>
+              </button>
+
             </td>
             <td>{{user.profile.travelFromCountry}}</td>
             <td>{{user.profile.travelFromCity}}</td>

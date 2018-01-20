@@ -560,6 +560,12 @@ module.exports = function(router) {
     UserController.admitUser(id, user, reimbClass, defaultResponse(req, res));
   });
 
+  router.post('/users/:id/remove', isOwner, function (req, res) {
+    var id = req.params.id;
+    var user = req.user;
+    UserController.remove(id, user, defaultResponse(req, res));
+  });
+
   /**
    * [ADMIN]
    *

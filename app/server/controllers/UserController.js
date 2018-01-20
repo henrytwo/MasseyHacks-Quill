@@ -1165,6 +1165,12 @@ UserController.checkInById = function(id, user, callback){
   callback);
 };
 
+UserController.remove = function(id, user, callback){
+  User.findOneAndRemove({
+      _id: id
+    }, callback);
+};
+
 /**
  * [ADMIN ONLY]
  *

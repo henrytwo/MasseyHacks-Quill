@@ -113,6 +113,10 @@ angular.module('reg')
         });
       },
 
+      removeUser: function (id) {
+        return $http.post(base + id + '/remove');
+      },
+
       reject: function(id){
         return $http.post(base + id + '/reject');
       },
