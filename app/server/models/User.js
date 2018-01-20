@@ -566,7 +566,7 @@ var schema = new mongoose.Schema({
 
     passwordlastUpdated: {
         type: Number,
-        default: Date.now(),
+        default: -1,
     },
 
     teamCode: {

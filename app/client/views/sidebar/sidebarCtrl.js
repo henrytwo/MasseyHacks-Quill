@@ -17,7 +17,18 @@ angular.module('reg')
       $scope.pastConfirmation = Utils.isAfter(user.status.confirmBy);
 
       $scope.logout = function(){
-        AuthService.logout();
+          swal({
+                  title: "Just to be safe",
+                  text: "Are you sure you want to logout?",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#DD6B55",
+                  confirmButtonText: "Logout"
+              },
+              function () {
+                  AuthService.logout();
+              }
+          );
       };
 
       $scope.showSidebar = false;
