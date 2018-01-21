@@ -117,6 +117,14 @@ angular.module('reg')
         return $http.post(base + id + '/remove');
       },
 
+      voteAdmitUser: function (id) {
+          return $http.post(base + id + '/voteAdmitUser');
+      },
+
+      voteRejectUser: function (id) {
+          return $http.post(base + id + '/voteRejectUser');
+      },
+
       reject: function(id){
         return $http.post(base + id + '/reject');
       },

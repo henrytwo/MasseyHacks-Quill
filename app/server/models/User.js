@@ -180,7 +180,7 @@ var profile = {
         }
     },
 
-    applicationApprove: {
+    applicationAdmit: {
         type: [String]
     },
     applicationReject: {

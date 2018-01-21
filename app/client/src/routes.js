@@ -296,6 +296,11 @@ angular.module('reg')
           $state.go('login');
         }
 
+        if (requireOwner && !Session.getUser().owner) {
+            event.preventDefault();
+            $state.go('app.dashboard');
+        }
+
         if (requireAdmin && !Session.getUser().admin) {
           event.preventDefault();
           $state.go('app.dashboard');

@@ -45,7 +45,7 @@
         </div>
 
         <div class="field">
-          <label> Nickname </label>
+          <label> Username </label>
           <input type="text"
                  name="nickname"
                  disabled="disabled"
@@ -82,16 +82,28 @@
             </select>
         </div>
 
+        <br>
+
         <div class="field">
-          <label> What city are you travelling from? *</label>
-          <input type="text"
-                 name="travelFromCity"
-                 ng-model="user.profile.travelFromCity">
+          <label>What is your ethnic background?</label>
+          <select
+                  class="ui fluid dropdown"
+                  id="race"
+                  name="race"
+                  ng-model="user.profile.race">
+            <option value="">Race</option>
+            <option value="W">White</option>
+            <option value="B">Black</option>
+            <option value="NA">Native</option>
+            <option value="A">Asian or Pacific Islander</option>
+            <option value="H">Hispanic</option>
+            <option value="O">Other</option>
+            <option value="N">I prefer not to answer</option>
+          </select>
         </div>
 
         <br>
 
-        </div>
         <div class="field">
           <label>What gender do you identify as? *</label>
           <select
@@ -125,15 +137,26 @@
           </div>
         </div>
 
-        <br>
+      <div class="field">
+        <label> What city are you travelling from? *</label>
+        <input type="text"
+               name="travelFromCity"
+               ng-model="user.profile.travelFromCity">
+      </div>
+
+      <div class="field">
+        <label> What is your phone number?</label>
+        <input type="text"
+               name="travelFromCity"
+               ng-model="user.profile.travelFromCity">
+      </div>
+
+      <br>
         <br>
         <div class="divided title">Travel & Accommodation</div>
-        <div class="field">
-          <label> Do you need travel reimbursement? </label>
-          <p style="margin-bottom: 10px;">
-            Applicants travelling from outside of Greater-Essex region can apply for travel reimbursement.
-          </p>
-
+          <div class="ui checkbox">
+          <input type="checkbox" id="travelreimburse" ng-model="user.profile.travelreimburse">
+            <label><h5>Do you need travel reimbursement? *</h5></label>
         </div>
 
         <br>
@@ -142,17 +165,21 @@
 
         <div class="ui checkbox">
           <input type="checkbox" id="hackathonxp" ng-model="user.profile.hackathonxp">
-          <label for="termsAndCond"><h5>Have you been to a hackathon before?</h5></label>
+          <label for="termsAndCond"><h5>Have you been to a hackathon before? *</h5></label>
         </div>
 
+        <br>
+
         <div class="field" ng-show="hackathonxp">
-          <label>Which hackathons have you attended? * </label>
+          <label>Which hackathons have you attended? *</label>
           <textarea ng-model="user.profile.hackathonxpnames">
           </textarea>
         </div>
 
+        <br>
+
         <div class="field">
-          <label>How did you find out about us?</label>
+          <label>How did you find out about us? *</label>
           <select
                   class="ui fluid dropdown"
                   name="findOut"
@@ -166,12 +193,23 @@
 
         <div class="field">
           <label>
-              Why do you want to come to MasseyHacks IV and why should we choose you?
+            Describe a project you're most proud of *
+          </label>
+          <p style="margin-bottom: 10px";>
+            It doesn't have to relate to programming!
+          </p>
+          <textarea ng-model="user.profile.proudessay">
+        </textarea>
+        </div>
+
+        <div class="field">
+          <label>
+              What do you hope to gain from MasseyHacks IV? *
           </label>
           <p style="margin-bottom: 10px";>
             Tell us a bit about your motivation for coming to MasseyHacks IV.
           </p>
-          <textarea ng-model="user.profile.essay">
+          <textarea ng-model="user.profile.gainessay">
           </textarea>
         </div>
 
@@ -192,6 +230,14 @@
                  name="github"
                  placeholder="https://github.com/junction-hacker"
                  ng-model="user.profile.github">
+        </div>
+
+        <div class="field">
+          <label> Link to your Devpost profile </label>
+          <input type="text"
+                 name="github"
+                 placeholder="https://devpost.com/junction-hacker"
+                 ng-model="user.profile.devpost">
         </div>
 
         <br><br>

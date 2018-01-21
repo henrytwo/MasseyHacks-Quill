@@ -334,7 +334,58 @@ angular.module('reg')
           });
       };
 
-      function generateSections(user){
+      $scope.voteAdmitUser = function($event, user, index) {
+            $event.stopPropagation();
+
+            swal({
+                title: "Confirm Vote",
+                text: "Vote to ADMIT " + user.profile.name + "?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, vote to admit.",
+                closeOnConfirm: false
+            }, function(){
+
+              UserService
+                  .voteAdmitUser(user._id)
+                  .success(function(user){
+                      swal("Accepted", "Voted to admit " + user.profile.name , "success");
+                  })
+                  .error(function(err) {
+                      swal("Error", "Action could not be performed.", "error")
+                  });
+
+            });
+        };
+
+        $scope.voteRejectUser = function($event, user, index) {
+            $event.stopPropagation();
+
+            swal({
+                title: "Confirm Vote",
+                text: "Vote to REJECT " + user.profile.name + "?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, vote to reject.",
+                closeOnConfirm: false
+            }, function(){
+
+                UserService
+                    .voteRejectUser(user._id)
+                    .success(function(user){
+                        swal("Accepted", "Voted to reject " + user.profile.name , "success");
+                    })
+                    .error(function(err) {
+                        swal("Error", "Action could not be performed.", "error")
+                    });
+
+            });
+        };
+
+
+        function generateSections(user){
         return [
           {
             name: 'Basic Info',

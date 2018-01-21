@@ -1102,6 +1102,69 @@ UserController.resetPassword = function(token, password, callback){
   });
 };
 
+
+/**
+ * [ADMIN ONLY]
+ *
+ * Vote to admit a user.
+ * @param  {String}   userId      User id of the admit
+ * @param  {String}   user        User doing the admitting
+ * @param  (String)   reimbClass  Users accepted reimbursement class/amount
+ * @param  {Function} callback args(err, user)
+ */
+UserController.voteRejectUser = function(id, user, callback){
+    User
+        .findOneAndUpdate({
+                '_id': id,
+                'verified': true,
+                'status.rejected': false,
+                'status.admitted': false
+            },{
+                $push: {
+                    'profile.applicationReject': user.email
+                }
+            }, {
+                new: true
+            },
+            function(err, user) {
+                if (err || !user) {
+                    return callback(err);
+                }
+                return callback(err, user);
+            });
+};
+
+/**
+ * [ADMIN ONLY]
+ *
+ * Vote to reject a user.
+ * @param  {String}   userId      User id of the admit
+ * @param  {String}   user        User doing the admitting
+ * @param  (String)   reimbClass  Users accepted reimbursement class/amount
+ * @param  {Function} callback args(err, user)
+ */
+UserController.voteAdmitUser = function(id, user, callback){
+    User
+        .findOneAndUpdate({
+                '_id': id,
+                'verified': true,
+                'status.rejected': false,
+                'status.admitted': false
+            },{
+                $push: {
+                    'profile.applicationAdmit': user.email
+                }
+            }, {
+                new: true
+            },
+            function(err, user) {
+                if (err || !user) {
+                    return callback(err);
+                }
+                return callback(err, user);
+            });
+};
+
 /**
  * [ADMIN ONLY]
  *

@@ -299,13 +299,14 @@ module.exports = function(router) {
        var i = 0;
        while (i < schools.length) {
          var school = schools[i];
+         console.log(school.toLowerCase() + " " + query.toLowerCase());
          if (school.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
            results.push({
              "name": school,
              "id": school
            });
          }
-         if (results.length > 50) {
+         if (results.length > 300) {
            break;
          }
          i++;
@@ -566,7 +567,19 @@ module.exports = function(router) {
     UserController.remove(id, user, defaultResponse(req, res));
   });
 
-  /**
+  router.post('/users/:id/voteAdmitUser', isAdmin, function (req, res) {
+      var id = req.params.id;
+      var user = req.user;
+      UserController.voteAdmitUser(id, user, defaultResponse(req, res));
+  });
+
+  router.post('/users/:id/voteRejectUser', isAdmin, function (req, res) {
+      var id = req.params.id;
+      var user = req.user;
+      UserController.voteRejectUser(id, user, defaultResponse(req, res));
+  });
+
+    /**
    * [ADMIN]
    *
    * POST - Reject participant.
