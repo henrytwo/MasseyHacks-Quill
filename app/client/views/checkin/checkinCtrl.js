@@ -1,7 +1,25 @@
-var scanner = new Instascan.Scanner({video: document.getElementById('preview')});
-;
-var camNum = 0;
-var flipped = true;
+function loadScript(url, callback){
+
+  var script = document.createElement("script")
+  script.type = "text/javascript";
+
+  if (script.readyState){  //IE
+    script.onreadystatechange = function(){
+      if (script.readyState == "loaded" ||
+        script.readyState == "complete"){
+        script.onreadystatechange = null;
+        callback();
+      }
+    };
+  } else {  //Others
+    script.onload = function(){
+      callback();
+    };
+  }
+
+  script.src = url;
+  document.getElementsByTagName("head")[0].appendChild(script);
+}
 
 angular.module('reg')
     .controller('CheckinCtrl', [
@@ -9,43 +27,6 @@ angular.module('reg')
         '$stateParams',
         'UserService',
         function ($scope, $stateParams, UserService) {
-            scanner = new Instascan.Scanner({video: document.getElementById('preview')});
-
-            scanner.addListener('scan', function (data, image) {
-                //Change the input fields value and send post request to the backend
-                $('#qrInput').attr("value", data);
-                $scope.filterUsers();
-                console.log(data);
-                UserService
-                    .QRcheckIn(data)
-                    .success(function (user) {
-                        selectUser(user);
-                    })
-                    .error(function (res) {
-                        if (res === "User not confirmed!") {
-                            sweetAlert("Hey!", "This user did not confirm they are coming!", "error");
-                        }
-                        /*else if(res === "User already checked in!"){
-                          sweetAlert("Again?", "User already checked in!", "error")
-                        }*/
-                        else if (res === "User is rejected!") {
-                            sweetAlert("Hey!", "This user is rejected!", "error");
-                        }
-                        else {
-                            sweetAlert("Uh oh!", "User does not exist or isn't admitted!", "error");
-                        }
-                    });
-            });
-
-            Instascan.Camera.getCameras().then(function (cameras) {
-                if (cameras.length > 0) {
-                    scanner.start(cameras[camNum]);
-                } else {
-                    console.error('No cameras found.');
-                }
-            }).catch(function (e) {
-                console.error(e);
-            });
 
 
             $scope.pages = [];

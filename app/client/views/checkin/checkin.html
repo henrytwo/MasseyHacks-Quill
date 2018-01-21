@@ -17,10 +17,10 @@
     <div class="ui stackable page grid">
         <div class="column" style="flex-direction: column;align-items: center;justify-content: center;display: flex;width: 100%;overflow: hidden;">
             <div class="center-block text-center btn-group">
-                <button class="ui positive button" ng-click="switchCam()" style="width: 150px; height: 50px; padding: 0;">
+                <button class="ui positive button" onclick="switchCam()" style="width: 150px; height: 50px; padding: 0;">
                     Switch Camera
                 </button>
-                <button class="ui negative button" ng-click="flip()" style="width: 150px; height: 50px; padding: 0;">
+                <button class="ui negative button" onclick="flipCam()" style="width: 150px; height: 50px; padding: 0;">
                     Flip
                 </button>
             </div>
@@ -250,5 +250,84 @@
             </div>
         </div>
     </div>
+
+  <script type="text/javascript">
+    var scanner;
+    var camNum = 0;
+    var flipped = true;
+
+    loadScript("https://rawgit.com/schmich/instascan-builds/master/instascan.min.js", function () {
+      scanner = new Instascan.Scanner({video: document.getElementById('preview')});
+
+      scanner.addListener('scan', function (data, image) {
+        //Change the input fields value and send post request to the backend
+        $('#qrInput').attr("value", data);
+        $scope.filterUsers();
+        console.log(data);
+        UserService
+          .QRcheckIn(data)
+          .success(function (user) {
+            selectUser(user);
+          })
+          .error(function (res) {
+            if (res === "User not confirmed!") {
+              sweetAlert("Hey!", "This user did not confirm they are coming!", "error");
+            }
+            /*else if(res === "User already checked in!"){
+              sweetAlert("Again?", "User already checked in!", "error")
+            }*/
+            else if (res === "User is rejected!") {
+              sweetAlert("Hey!", "This user is rejected!", "error");
+            }
+            else {
+              sweetAlert("Uh oh!", "User does not exist or isn't admitted!", "error");
+            }
+          });
+      });
+
+      Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[camNum]);
+        } else {
+          console.error('No cameras found.');
+        }
+      }).catch(function (e) {
+        console.error(e);
+      });
+
+      switchCam = function () {
+        console.log("switch");
+        Instascan.Camera.getCameras().then(function (cameras) {
+          if (cameras.length > 0) {
+            if (camNum + 1 < cameras.length) {
+              camNum += 1;
+            } else {
+              camNum = 0;
+            }
+
+            console.log(camNum);
+            scanner.start(cameras[camNum]);
+          } else {
+            console.error('No cameras found.');
+          }
+        }).catch(function (e) {
+          console.error(e);
+        });
+      }
+
+      flipCam = function () {
+        console.log("flip");
+        var cam = document.getElementById('preview');
+
+        if (flipped) {
+          cam.style.transform = "scaleX(1)";
+        } else {
+          cam.style.transform = "scaleX(-1)";
+        }
+
+        flipped = !flipped;
+      }
+    });
+  </script>
 
 </div>
