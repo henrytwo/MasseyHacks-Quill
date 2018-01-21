@@ -258,8 +258,7 @@ angular.module('reg')
         }
         $scope.fieldErrors = null;
         $scope.error = null;
-        $scope.user.profile.name = $scope.user.profilefirst.name + " " + $scope.user.profile.lastname;
+        $scope.user.profile.name = $scope.user.profile.firstname + " " + $scope.user.profile.lastname;
         $('.ui.form').form('validate form');
       };
-}])
-});
+}]);
