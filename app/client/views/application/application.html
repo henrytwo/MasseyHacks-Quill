@@ -21,7 +21,7 @@
         },
         fields: {
           name  : 'name', // displayed dropdown
-          value : 'id'         // actual dropdown value
+          value : 'id'    // actual dropdown value
         }
       });
 
@@ -37,7 +37,7 @@
         <fieldset ng-disabled="regIsClosed">
 
         <div class="field">
-          <label> Email </label>
+          <label> Email *</label>
           <input type="email"
                  name="email"
                  disabled="disabled"
@@ -45,7 +45,7 @@
         </div>
 
         <div class="field">
-          <label> Username </label>
+          <label> Username *</label>
           <input type="text"
                  name="nickname"
                  disabled="disabled"
@@ -56,14 +56,14 @@
         <div class="field">
           <label> First Name * </label>
           <input type="text"
-                 name="name"
-                 ng-model="user.profile.name">
+                 name="firstname"
+                 ng-model="user.profile.firstname">
         </div>
 
         <div class="field">
          <label> Last Name * </label>
          <input type="text"
-                name="name"
+                name="lastname"
                 ng-model="user.profile.lastname">
         </div>
 
@@ -82,29 +82,9 @@
             </select>
         </div>
 
-        <br>
+       <br>
 
-        <div class="field">
-          <label>What is your ethnic background?</label>
-          <select
-                  class="ui fluid dropdown"
-                  id="race"
-                  name="race"
-                  ng-model="user.profile.race">
-            <option value="">Race</option>
-            <option value="W">White</option>
-            <option value="B">Black</option>
-            <option value="NA">Native</option>
-            <option value="A">Asian or Pacific Islander</option>
-            <option value="H">Hispanic</option>
-            <option value="O">Other</option>
-            <option value="N">I prefer not to answer</option>
-          </select>
-        </div>
-
-        <br>
-
-        <div class="field">
+       <div class="field">
           <label>What gender do you identify as? *</label>
           <select
             class="ui fluid dropdown"
@@ -119,12 +99,34 @@
           </select>
         </div>
 
+        <br>
+
+        <div class="field">
+          <label>What is your ethnic background? *</label>
+          <select
+                  class="ui fluid dropdown"
+                  id="ethnicity"
+                  name="ethnicity"
+                  ng-model="user.profile.ethnicity">
+            <option value="">Race</option>
+            <option value="W">White</option>
+            <option value="B">Black</option>
+            <option value="NA">Native</option>
+            <option value="A">Asian or Pacific Islander</option>
+            <option value="H">Hispanic</option>
+            <option value="O">Other</option>
+            <option value="N">I prefer not to answer</option>
+          </select>
+        </div>
+
+        <br>
+
         <div class="field">
           <label> School Information </label>
         </div>
         <div class="indent">
           <div class="field" id="schoolField">
-            <label> Which school are you from? </label>
+            <label> Which school are you from? *</label>
             <p style="margin-bottom: 10px;">
             Please type in the school you are enrolled at.
             </p>
@@ -140,22 +142,64 @@
       <div class="field">
         <label> What city are you travelling from? *</label>
         <input type="text"
-               name="travelFromCity"
-               ng-model="user.profile.travelFromCity">
+               name="departing"
+               ng-model="user.profile.departing">
       </div>
 
       <div class="field">
         <label> What is your phone number?</label>
         <input type="text"
-               name="travelFromCity"
-               ng-model="user.profile.travelFromCity">
+               name="phone"
+               ng-model="user.profile.phone">
+      </div>
+
+      <div class="field">
+        <label> Dietary Restrictions *</label>
+
+        <p>
+          If your restrictions are not included here, please let us know in the additional notes at the bottom.
+        </p>
+        <p>
+          We'll make sure you get fed :)
+        </p>
+
+      </div>
+
+      <div class="inline fields">
+        <div class="field"
+             ng-repeat="(key, value) in dietaryRestrictions">
+
+          <div class="ui checkbox">
+            <input type="checkbox" ng-model="dietaryRestrictions[key]" />
+            <label>{{key}}</label>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="field">
+        <label> T-shirt size *</label>
+        <p>
+          Prepping for some FREE swag ;)
+        </p>
+
+        <select
+          class="ui fluid dropdown"
+          name="shirtsize"
+          ng-model="user.profile.shirtsize"
+          required>
+          <option value="">Shirt Size</option>
+          <option value="S">Small</option>
+          <option value="M">Medium</option>
+          <option value="L">Large</option>
+        </select>
       </div>
 
       <br>
         <br>
         <div class="divided title">Travel & Accommodation</div>
           <div class="ui checkbox">
-          <input type="checkbox" id="travelreimburse" ng-model="user.profile.travelreimburse">
+          <input type="checkbox" id="travelreimbursement" ng-model="user.profile.travelreimbursement">
             <label><h5>Do you need travel reimbursement? *</h5></label>
         </div>
 
@@ -164,15 +208,16 @@
         <div class="divided title">Experience</div>
 
         <div class="ui checkbox">
-          <input type="checkbox" id="hackathonxp" ng-model="user.profile.hackathonxp">
-          <label for="termsAndCond"><h5>Have you been to a hackathon before? *</h5></label>
+          <input type="checkbox" id="firsthackathon" ng-model="user.profile.firsthackathon">
+          <label for="firsthackathon"><h5>Have you been to a hackathon before? *</h5></label>
         </div>
 
         <br>
+        <br>
 
-        <div class="field" ng-show="hackathonxp">
+        <div class="field" ng-show="user.profile.firsthackathon">
           <label>Which hackathons have you attended? *</label>
-          <textarea ng-model="user.profile.hackathonxpnames">
+          <textarea ng-model="user.profile.pasthackathon">
           </textarea>
         </div>
 
@@ -182,12 +227,14 @@
           <label>How did you find out about us? *</label>
           <select
                   class="ui fluid dropdown"
-                  name="findOut"
-                  id="findOut"
-                  ng-model="user.profile.spacesOrTabs">
+                  name="findout"
+                  id="findout"
+                  ng-model="user.profile.findout">
             <option value="">How?</option>
             <option value="mlh">MLH</option>
             <option value="facebook">Facebook</option>
+            <option value="mouth">Word of mouth</option>
+            <option value="other">Other</option>
           </select>
         </div>
 
@@ -198,7 +245,7 @@
           <p style="margin-bottom: 10px";>
             It doesn't have to relate to programming!
           </p>
-          <textarea ng-model="user.profile.proudessay">
+          <textarea ng-model="user.profile.essayproject">
         </textarea>
         </div>
 
@@ -209,7 +256,7 @@
           <p style="margin-bottom: 10px";>
             Tell us a bit about your motivation for coming to MasseyHacks IV.
           </p>
-          <textarea ng-model="user.profile.gainessay">
+          <textarea ng-model="user.profile.essaygain">
           </textarea>
         </div>
 
@@ -220,15 +267,15 @@
           <label> Link to your portfolio </label>
           <input type="text"
                  name="github"
-                 placeholder="https://mycoolportfoliowebsite.hacker"
-                 ng-model="user.profile.portfolio">
+                 placeholder="https://hacker.io"
+                 ng-model="user.profile.site">
         </div>
 
         <div class="field">
           <label> Link to your GitHub profile </label>
           <input type="text"
                  name="github"
-                 placeholder="https://github.com/junction-hacker"
+                 placeholder="https://github.com/hacker"
                  ng-model="user.profile.github">
         </div>
 
@@ -236,7 +283,7 @@
           <label> Link to your Devpost profile </label>
           <input type="text"
                  name="github"
-                 placeholder="https://devpost.com/junction-hacker"
+                 placeholder="https://devpost.com/hacker"
                  ng-model="user.profile.devpost">
         </div>
 
@@ -287,7 +334,7 @@
         </div>
         <div class="ui checkbox">
             <input type="checkbox" id="termsAndCond" ng-model="user.profile.termsAndCond">
-            <label for="termsAndCond"><h5>I agree with MasseyHacks Terms and Conditions, which can be found
+            <label for="termsAndCond"><h5>I agree with MLH Terms and Conditions, which can be found
               <a href="https://masseyhacks.com/terms/" target="_blank">here</a>*</h5></label>
         </div>
         <br>
@@ -300,7 +347,7 @@
             <li>{{ i }}</li>
           </div>
         </ul>
-        </div>
+      </div>
 
         <div class="field" style="margin-bottom:5px" ng-hide="regIsClosed">
           <button type="submit"

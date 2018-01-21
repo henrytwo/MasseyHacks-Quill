@@ -28,13 +28,28 @@ angular.module('reg')
         on: 'hover'
       });
 
-      var languages = ['AngularJS', 'Assembly', 'Bash', 'C', 'C#', 'C++', 'Clojure',
-                       'CoffeeScript', 'CSS', 'Excel', 'Go', 'Groovy', 'Haskell', 'HTML',
-                       'Java', 'JavaScript', 'Kotlin', 'Lua', 'Matlab', 'Node.js',
-                       'Objective-C', 'Perl', 'PHP', 'PowerPoint', 'Python', 'Qt', 'R', 'React',
-                       'Ruby', 'Scala', 'SQL', 'Swift', 'TypeScript', 'VBA', 'VB.NET',
-                       'Visual Basic 6', '.NET Core', 'Other'];
-      $scope.programmingLanguages = languages;
+      // -------------------------------
+      // All this just for dietary restriction checkboxes fml
+
+      var dietaryRestrictions = {
+          'Vegetarian': false,
+          'Vegan': false,
+          'Halal': false,
+          'Kosher': false,
+          'Nut Allergy': false,
+          'Gluten Free':false,
+      };
+
+      if (user.profile.dietaryRestrictions){
+          user.profile.dietaryRestrictions.forEach(function(restriction){
+              if (restriction in dietaryRestrictions){
+                  dietaryRestrictions[restriction] = true;
+              }
+          });
+      }
+
+      $scope.dietaryRestrictions = dietaryRestrictions;
+
       // Populate the school dropdown
       _setupForm();
 

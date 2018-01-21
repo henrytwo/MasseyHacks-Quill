@@ -97,7 +97,7 @@ angular.module('reg')
                 .checkIn(user._id)
                 .success(function(user){
                   $scope.users[index] = user;
-                  swal("Accepted", user.profile.name + ' has been checked in.', "success");
+                  swal("Action Performed", user.profile.name + ' has been checked in.', "success");
                 });
             }
           );
@@ -106,7 +106,7 @@ angular.module('reg')
             .checkOut(user._id)
             .success(function(user){
               $scope.users[index] = user;
-              swal("Accepted", user.profile.name + ' has been checked out.', "success");
+              swal("Action Performed", user.profile.name + ' has been checked out.', "success");
             });
         }
       };
@@ -139,7 +139,7 @@ angular.module('reg')
                       }
                       else
                         $scope.users[index] = user;
-                    swal("Accepted", user.profile.name + ' has been rejected.', "success");
+                    swal("Action Performed", user.profile.name + ' has been rejected.', "success");
                     }
                   else
                     swal("Could not be rejected", 'User cannot be rejected if its not verified or it is admitted', "error");
@@ -160,7 +160,7 @@ angular.module('reg')
                 }
                 else
                  $scope.users[index] = user;
-              swal("Accepted", user.profile.name + ' has been unrejected.', "success");
+              swal("Action Performed", user.profile.name + ' has been unrejected.', "success");
             });
         }
       };
@@ -217,7 +217,7 @@ angular.module('reg')
                         }
                         else
                           $scope.users[index] = user;
-                          swal("Accepted", user.profile.name + ' has been admitted.', "success");
+                          swal("Action Performed", user.profile.name + ' has been admitted.', "success");
                     }
                     else
                       swal("Could not be accepted", 'User cannot be accepted if the user is rejected. Please remove rejection', "error");
@@ -325,7 +325,7 @@ angular.module('reg')
               .removeUser(user._id)
               .success(function(user){
                   $scope.users.splice(index, 1);
-                  swal("Accepted", user.profile.name + ' has been removed.', "success");
+                  swal("Action Performed", user.profile.name + ' has been removed.', "success");
               })
               .error(function(err) {
                   swal("Access Denied", "You do not have permission to perform this action.", "error")
@@ -350,7 +350,7 @@ angular.module('reg')
               UserService
                   .voteAdmitUser(user._id)
                   .success(function(user){
-                      swal("Accepted", "Voted to admit " + user.profile.name , "success");
+                      swal("Action Performed", "Voted to admit " + user.profile.name , "success");
                   })
                   .error(function(err) {
                       swal("Error", "Action could not be performed.", "error")
@@ -375,7 +375,7 @@ angular.module('reg')
                 UserService
                     .voteRejectUser(user._id)
                     .success(function(user){
-                        swal("Accepted", "Voted to reject " + user.profile.name , "success");
+                        swal("Action Performed", "Voted to reject " + user.profile.name , "success");
                     })
                     .error(function(err) {
                         swal("Error", "Action could not be performed.", "error")
