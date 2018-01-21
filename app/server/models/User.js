@@ -7,7 +7,18 @@ JWT_SECRET = process.env.JWT_SECRET;
 var profile = {
 
     // Basic info
+    submittedApplication: {
+        type: Boolean,
+        default: false
+    },
+
     name: {
+        type: String,
+        min: 1,
+        maxlength: 200,
+    },
+
+    firstname: {
         type: String,
         min: 1,
         maxlength: 100,
@@ -19,65 +30,11 @@ var profile = {
         maxlength: 100,
     },
 
-    age: {
-        type: Number,
-        min: 18,
-        max: 65,
-    },
-
-    submittedApplication: {
-        type: Boolean,
-        default: false
-    },
-
-    travelFromCountry: {
+    grade: {
         type: String,
-        min: 4,
-        maxlength: 120,
-    },
-
-    travelFromCity: {
-        type: String,
-        min: 2,
-        maxlength: 120,
-    },
-
-    homeCountry: {
-        type: String,
-        min: 4,
-        maxlength: 120,
-    },
-
-    school: {
-        type: String,
-        min: 1,
-        maxlength: 150,
-    },
-
-    graduationYear: {
-        type: Number,
-    },
-
-    major: {
-        type: String,
-        maxlength: 100
-    },
-
-    degree: {
-        type: String,
-        maxlength: 100,
-    },
-
-    description: {
-        type: String,
-        min: 0,
-        maxlength: 300
-    },
-
-    essay: {
-        type: String,
-        min: 0,
-        maxlength: 1500
+        enum: {
+            values: '9 10 11 12'.split(' ')
+        }
     },
 
     gender: {
@@ -87,28 +44,47 @@ var profile = {
         }
     },
 
+    ethnicity: {
+        type: String,
+        enum: {
+            values: 'B NA A H O N'.split(' ')
+        }
+    },
+
+    phone: {
+        type: String,
+        maxlength: 20,
+    },
+
+    diet: {
+        type: [String],
+    },
+
+    shirtsize: {
+        type: String,
+        enum: {
+            values: 'S M L'.split(' ')
+        }
+    },
+
+    school: {
+        type: String,
+        maxlength: 50,
+    },
+
+    departing: {
+        type: String,
+        maxlength: 50,
+    },
+
     needsReimbursement: Boolean,
-    applyAccommodation: Boolean,
 
-    AppliedreimbursementClass: {
-        type: String,
-        enum: ['Finland', 'Baltics', 'Nordic', 'Europe', 'Outside Europe']
-    },
-    AcceptedreimbursementClass: {
-        type: String,
-    },
-
-    mostInterestingTrack: {
-        type: String,
-        maxlength: 120,
-    },
-
-    portfolio: {
+    site: {
         type: String,
         min: 5,
         maxlength: 240,
     },
-    linkedin: {
+    devpost: {
         type: String,
         min: 5,
         maxlength: 240,
@@ -119,49 +95,14 @@ var profile = {
         maxlength: 240,
     },
 
-    // Multiple choice
-    occupationalStatus: {
-        type: [String],
-        maxlength: 150
-    },
-
-    // Tools
-    topLevelTools: {
-        type: [String]
-    },
-    greatLevelTools: {
-        type: [String]
-    },
-    goodLevelTools: {
-        type: [String]
-    },
-    beginnerLevelTools: {
-        type: [String]
-    },
-
-    codingExperience: {
+    essayproject: {
         type: String,
-        enum: {
-            values: 'None,1,1-2,3-5,5+'.split(',')
-        }
+        maxlength: 500,
     },
 
-    jobOpportunities: String,
-
-    howManyHackathons: {
+    essaygain: {
         type: String,
-        enum: {
-            values: 'None,1,2-5,5-10,10+'.split(',')
-        }
-    },
-
-    previousMasseyHacks: {
-        type: [String]
-    },
-
-    secret: {
-        type: String,
-        maxlength: 100,
+        maxlength: 500,
     },
 
     freeComment: {
@@ -169,22 +110,11 @@ var profile = {
         maxlength: 500,
     },
 
-    operatingSystem: {
-        type: String
-    },
-
     spacesOrTabs: {
         type: String,
         enum: {
             values: 'Spaces Tabs'.split(' ')
         }
-    },
-
-    applicationAdmit: {
-        type: [String]
-    },
-    applicationReject: {
-        type: [String]
     },
 
     conduct: Boolean,
@@ -609,6 +539,14 @@ var schema = new mongoose.Schema({
     status: status,
 
     teamMatchmaking: teamMatchmaking,
+
+    applicationAdmit: {
+        type: [String]
+    },
+
+    applicationReject: {
+        type: [String]
+    },
 
 });
 

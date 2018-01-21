@@ -1121,7 +1121,7 @@ UserController.voteRejectUser = function(id, user, callback){
                 'status.admitted': false
             },{
                 $push: {
-                    'profile.applicationReject': user.email
+                    'applicationReject': user.email
                 }
             }, {
                 new: true
@@ -1152,7 +1152,7 @@ UserController.voteAdmitUser = function(id, user, callback){
                 'status.admitted': false
             },{
                 $push: {
-                    'profile.applicationAdmit': user.email
+                    'applicationAdmit': user.email
                 }
             }, {
                 new: true

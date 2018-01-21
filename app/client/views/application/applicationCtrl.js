@@ -28,28 +28,6 @@ angular.module('reg')
         on: 'hover'
       });
 
-      // -------------------------------
-      // All this just for dietary restriction checkboxes fml
-
-      var dietaryRestrictions = {
-          'Vegetarian': false,
-          'Vegan': false,
-          'Halal': false,
-          'Kosher': false,
-          'Nut Allergy': false,
-          'Gluten Free':false,
-      };
-
-      if (user.profile.dietaryRestrictions){
-          user.profile.dietaryRestrictions.forEach(function(restriction){
-              if (restriction in dietaryRestrictions){
-                  dietaryRestrictions[restriction] = true;
-              }
-          });
-      }
-
-      $scope.dietaryRestrictions = dietaryRestrictions;
-
       // Populate the school dropdown
       _setupForm();
 
@@ -77,12 +55,6 @@ angular.module('reg')
           .error(function(res){
             sweetAlert("Uh oh!", "Something went wrong.", "error");
           });
-      }
-      $scope.getReimbursementClass = function(homeCountry) {
-        // User needs reimbursement
-        if($scope.user.profile.needsReimbursement) {
-          $scope.user.profile.AppliedreimbursementClass = reimbClasses[homeCountry].Class;
-          }
       }
 
       function _updateTeam(e) {
@@ -118,35 +90,35 @@ angular.module('reg')
         $('.ui.form').form({
           inline:true,
           fields: {
-            name: {
-              identifier: 'name',
+            firstname: {
+              identifier: 'firstname',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please enter your name.'
+                  prompt: 'Please enter your first name.'
                 }
               ]
             },
-            age: {
-              identifier: 'age',
+            lastname: {
+              identifier: 'lastname',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please enter your age.'
-                },
+                  prompt: 'Please enter your last name.'
+                }
+              ]
+            },
+            grade: {
+              identifier: 'grade',
+              rules: [
                 {
-                  type: 'integer[13..1000]',
-                  prompt: 'You must be at least 13 to attend.'
-                },
-                {
-                  type: 'integer[0..99]',
-                  prompt: 'You must be under 100 years old to attend.'
+                  type: 'empty',
+                  prompt: 'Please enter your grade.'
                 }
               ]
             },
             school: {
               identifier: 'school',
-              depends: 'hasSchool',
               rules: [
                 {
                   type: 'empty',
@@ -154,131 +126,31 @@ angular.module('reg')
                 }
               ]
             },
-            graduationYear: {
-              identifier: 'graduationYear',
-              depends: 'hasSchool',
+            phone: {
+              identifier: 'phone',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please enter your graduationYear.'
-                },
-                {
-                  type: 'integer[2017..2040]',
-                  prompt: 'Your graduation year should be something sensible.'
-                },
-              ]
-            },
-            degree: {
-              identifier: 'degree',
-              depends: 'hasSchool',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your degree.'
+                  prompt: 'Please enter your phone number.'
                 }
               ]
             },
-            major: {
-              identifier: 'major',
-              depends: 'hasSchool',
+            departing: {
+              identifier: 'departing',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please enter your major.'
+                  prompt: 'Please enter your departing location.'
                 }
               ]
             },
-            travelFromCountry: {
-              identifier: 'travelFromCountry',
+            pasthackathon: {
+              identifier: 'pasthackathon',
+              depends: 'firsthackathon',
               rules: [
                 {
                   type: 'empty',
-                  prompt: 'Please select the country you are travelling from.'
-                }
-              ]
-            },
-            travelFromCity: {
-              identifier: 'travelFromCity',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select the city you are travelling from.'
-                }
-              ]
-            },
-            homeCountry: {
-              identifier: 'homeCountry',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select your home country.'
-                }
-              ]
-            },
-            jobOpportunities: {
-              identifier: 'jobOpportunities',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select if you are interested in job opportunities.'
-                }
-              ]
-            },
-            codingExperience: {
-              identifier: 'codingExperience',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select your coding experience.'
-                }
-              ]
-            },
-            bestTools: {
-              identifier: 'bestTools',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select your best tools.'
-                }
-              ]
-            },
-            howManyHackathons: {
-              identifier: 'howManyHackathons',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select how many hackathons you have attended.'
-                }
-              ]
-            },
-            description: {
-              identifier: 'description',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select your role in a hackathon team.'
-                }
-              ]
-            },
-            mostInterestingTrack: {
-              identifier: 'mostInterestingTrack',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select the most interesting track for you.'
-                }
-              ]
-            },
-            occupationalStatus: {
-              identifier: 'occupationalStatus',
-              rules: [
-                {
-                  type: 'maxCount[2]',
-                  prompt: 'Please select at most 2.'
-                },
-                {
-                type: 'empty',
-                prompt: 'Please select your occupational status.'
+                  prompt: 'Please enter your past hackathon experience(s).'
                 }
               ]
             },
@@ -288,6 +160,33 @@ angular.module('reg')
                 {
                   type: 'empty',
                   prompt: 'Please select a gender.'
+                }
+              ]
+            },
+            ethnicity: {
+              identifier: 'ethnicity',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select an ethnicity.'
+                }
+              ]
+            },
+            shirt: {
+              identifier: 'shirt',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your shirt size.'
+                }
+              ]
+            },
+            methodofdiscovery: {
+              identifier: 'methodofdiscovery',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please tell us about how you learned about MasseyHacks IV.'
                 }
               ]
             },
@@ -305,7 +204,7 @@ angular.module('reg')
               rules: [
                 {
                   type: 'checked',
-                  prompt: 'You must accept MasseyHacks Terms & Conditions.'
+                  prompt: 'You must accept MLH Terms & Conditions.'
                 }
               ]
             }
@@ -336,7 +235,7 @@ angular.module('reg')
         $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
         $("#degree").dropdown('set selected', $scope.user.profile.degree);
 
-        $("#previousMasseyHacks").dropdown('set selected', $scope.user.profile.previousMasseyHacks);
+        $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
         $('.ui.dropdown').dropdown('refresh');
 
         setTimeout(function () {
@@ -354,48 +253,13 @@ angular.module('reg')
       }
 
       $scope.submitForm = function(){
-        if (!$scope.schoolChecked) {
-          $scope.user.profile.school = null;
-          $scope.user.profile.graduationYear = null;
-          $scope.user.profile.degree = null;
-          $scope.user.profile.major = null;
+        if (!$scope.user.profile.firsthackathon) {
+          $scope.user.profile.pasthackathon = null;
         }
         $scope.fieldErrors = null;
         $scope.error = null;
+        $scope.user.profile.name = $scope.user.profilefirst.name + " " + $scope.user.profile.lastname;
         $('.ui.form').form('validate form');
       };
 }])
-.filter('exclude', function () {
-  return function (items, languages, dropdownIdentifier) {
-
-    var selectedLanguages = [];
-    selectedLanguages.push($(".ui.toptools.dropdown").dropdown('get value'));
-    selectedLanguages.push($(".ui.greattools.dropdown").dropdown('get value'));
-    selectedLanguages.push($(".ui.goodtools.dropdown").dropdown('get value'));
-    selectedLanguages.push($(".ui.beginnerTools.dropdown").dropdown('get value'));
-    selectedLanguages = [].concat.apply([], selectedLanguages);
-    // Strip the unnecessary 'string:' substring
-    selectedLanguages = stripLanguageSubstrings(selectedLanguages);
-    var callerLanguages = $(dropdownIdentifier).dropdown('get value');
-    callerLanguages = [].concat.apply([], callerLanguages);
-    callerLanguages = stripLanguageSubstrings(callerLanguages);
-
-    // Finally, remove the selected languages from dropdown options
-    var remaining = languages.filter( function( el ) {
-      return !selectedLanguages.includes( el ) || callerLanguages.includes(el);
-    } );
-    return remaining;
-  };
 });
-
-function findSelectedValues() {
-  return selectedLanguages;
-}
-
-function stripLanguageSubstrings(langs) {
-  langs.forEach(function(part, index, theArray) {
-    theArray[index] = theArray[index].replace("string:", "");
-  });
-
-  return langs;
-}

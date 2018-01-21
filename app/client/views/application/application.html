@@ -185,8 +185,8 @@
 
         <select
           class="ui fluid dropdown"
-          name="shirtsize"
-          ng-model="user.profile.shirtsize"
+          name="shirt"
+          ng-model="user.profile.shirt"
           required>
           <option value="">Shirt Size</option>
           <option value="S">Small</option>
@@ -227,9 +227,9 @@
           <label>How did you find out about us? *</label>
           <select
                   class="ui fluid dropdown"
-                  name="findout"
-                  id="findout"
-                  ng-model="user.profile.findout">
+                  name="methodofdiscovery"
+                  id="methodofdiscovery"
+                  ng-model="user.profile.methodofdiscovery">
             <option value="">How?</option>
             <option value="mlh">MLH</option>
             <option value="facebook">Facebook</option>
@@ -245,7 +245,7 @@
           <p style="margin-bottom: 10px";>
             It doesn't have to relate to programming!
           </p>
-          <textarea ng-model="user.profile.essayproject">
+          <textarea id="essayproject" name="essayproject" ng-model="user.profile.essayproject">
         </textarea>
         </div>
 
@@ -256,7 +256,7 @@
           <p style="margin-bottom: 10px";>
             Tell us a bit about your motivation for coming to MasseyHacks IV.
           </p>
-          <textarea ng-model="user.profile.essaygain">
+          <textarea name="essaygain" id="essaygain" ng-model="user.profile.essaygain">
           </textarea>
         </div>
 
@@ -328,12 +328,12 @@
         </div>
 
         <div class="ui checkbox" style="margin-bottom:5px">
-            <input type="checkbox" id="conduct" ng-model="user.profile.conduct">
+            <input type="checkbox" name="conduct" id="conduct" ng-model="user.profile.conduct">
             <label for="conduct"><h5>I agree with <a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">MLH Code of Conduct</a> and
               <a href="https://github.com/MLH/mlh-policies/blob/master/data-sharing.md" target="_blank">MLH Data Sharing Provision</a>*</h5></label>
         </div>
         <div class="ui checkbox">
-            <input type="checkbox" id="termsAndCond" ng-model="user.profile.termsAndCond">
+            <input type="checkbox" name="termsAndCond" id="termsAndCond" ng-model="user.profile.termsAndCond">
             <label for="termsAndCond"><h5>I agree with MLH Terms and Conditions, which can be found
               <a href="https://masseyhacks.com/terms/" target="_blank">here</a>*</h5></label>
         </div>
