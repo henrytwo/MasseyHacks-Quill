@@ -135,6 +135,9 @@ UserController.loginWithPassword = function(email, password, callback){
       var u = user.toJSON();
 
       delete u.password;
+      delete u.salt;
+      delete u.applicationAdmit;
+      delete u.applicationReject;
 
       return callback(null, token, u);
   });
