@@ -160,7 +160,7 @@ function calculateStats(settings){
 
 
   User
-    .find({})
+    .find({"admin": false,"owner":false,"volunteer":false})
     .exec(function(err, users){
       if (err || !users){
         throw err;

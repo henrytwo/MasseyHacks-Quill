@@ -91,6 +91,8 @@ angular.module('reg')
                     return user.status.admitted !== false;
                 }).filter(function (user) {
                     return user.status.declined !== true;
+                }).filter(function (user) {
+                    return user.admin !== true && user.volunteer !== true && user.owner !== true;
                 });
                 $scope.currentPage = data.page;
                 $scope.pageSize = data.size;
