@@ -110,6 +110,11 @@ var profile = {
         maxlength: 500,
     },
 
+    pasthackathon: {
+        type: String,
+        maxlength: 500,
+    },
+
     spacesOrTabs: {
         type: String,
         enum: {
@@ -118,7 +123,8 @@ var profile = {
     },
 
     conduct: Boolean,
-    termsAndCond: Boolean
+    termsAndCond: Boolean,
+    firsthackathon: Boolean
 
 };
 
@@ -494,9 +500,9 @@ var schema = new mongoose.Schema({
         default: Date.now(),
     },
 
-    passwordlastUpdated: {
+    passwordLastUpdated: {
         type: Number,
-        default: -1,
+        default: Date.now(),
     },
 
     teamCode: {

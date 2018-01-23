@@ -1,5 +1,5 @@
 angular.module('reg')
-  .controller('ApplicationCtrl', [
+    .controller('ApplicationCtrl', [
     '$scope',
     '$rootScope',
     '$state',
@@ -16,7 +16,7 @@ angular.module('reg')
       $scope.user = currentUser.data;
 
       if ($scope.user.profile.school == null) {
-          $scope.schoolChecked = false;
+        $scope.schoolChecked = false;
       } else {
         $scope.schoolChecked = true;
       }
@@ -223,27 +223,13 @@ angular.module('reg')
 
         // Set selected multiselect items
         $("#spacesOrTabs").dropdown('set selected', $scope.user.profile.spacesOrTabs);
-        $("#operatingSystem").dropdown('set selected', $scope.user.profile.operatingSystem);
-        $("#jobOpportunities").dropdown('set selected', $scope.user.profile.jobOpportunities);
-        $("#description").dropdown('set selected', $scope.user.profile.description);
-        $("#howManyHackathons").dropdown('set selected', $scope.user.profile.howManyHackathons);
-        $("#codingExperience").dropdown('set selected', $scope.user.profile.codingExperience);
-        $("#mostInterestingTrack").dropdown('set selected', $scope.user.profile.mostInterestingTrack);
         $("#gender").dropdown('set selected', $scope.user.profile.gender);
-        $("#homeCountry").dropdown('set selected', $scope.user.profile.homeCountry);
-        $("#travelFromCountry").dropdown('set selected', $scope.user.profile.travelFromCountry);
-        $("#occupationalStatus").dropdown('set selected', $scope.user.profile.occupationalStatus);
-        $("#degree").dropdown('set selected', $scope.user.profile.degree);
 
         $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
         $('.ui.dropdown').dropdown('refresh');
 
         setTimeout(function () {
           $(".ui.search.dropdown").dropdown('set selected', $scope.user.profile.school);
-          $(".ui.toptools.dropdown").dropdown('set selected', $scope.user.profile.topLevelTools);
-          $("#greatLevelTools").dropdown('set selected', $scope.user.profile.greatLevelTools);
-          $("#goodLevelTools").dropdown('set selected', $scope.user.profile.goodLevelTools);
-          $("#beginnerLevelTools").dropdown('set selected', $scope.user.profile.beginnerLevelTools);
 
           if ($scope.regIsClosed) {
             $('.ui.dropdown').addClass("disabled");
