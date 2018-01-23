@@ -208,14 +208,14 @@
         <div class="divided title">Experience</div>
 
         <div class="ui checkbox">
-          <input type="checkbox" id="firsthackathon" ng-model="user.profile.firsthackathon">
-          <label for="firsthackathon"><h5>Have you been to a hackathon before? *</h5></label>
+          <input type="checkbox" id="hackathonxp" ng-model="user.profile.hackathonxp">
+          <label for="hackathonxp"><h5>Have you been to a hackathon before? *</h5></label>
         </div>
 
         <br>
         <br>
 
-        <div class="field" ng-show="user.profile.firsthackathon">
+        <div class="field" ng-show="user.profile.hackathonxp">
           <label>Which hackathons have you attended? *</label>
           <textarea ng-model="user.profile.pasthackathon">
           </textarea>

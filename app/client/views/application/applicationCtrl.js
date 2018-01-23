@@ -146,7 +146,7 @@ angular.module('reg')
             },
             pasthackathon: {
               identifier: 'pasthackathon',
-              depends: 'firsthackathon',
+              depends: 'hackathonxp',
               rules: [
                 {
                   type: 'empty',
@@ -224,8 +224,11 @@ angular.module('reg')
         // Set selected multiselect items
         $("#spacesOrTabs").dropdown('set selected', $scope.user.profile.spacesOrTabs);
         $("#gender").dropdown('set selected', $scope.user.profile.gender);
+        $("#grade").dropdown('set selected', $scope.user.profile.grade);
+        $("#ethnicity").dropdown('set selected', $scope.user.profile.ethnicity);
+        $("#shirt").dropdown('set selected', $scope.user.profile.shirt);
+        $("#methodofdiscovery").dropdown('set selected', $scope.user.profile.methodofdiscovery);
 
-        $("#previousJunction").dropdown('set selected', $scope.user.profile.previousJunction);
         $('.ui.dropdown').dropdown('refresh');
 
         setTimeout(function () {
@@ -239,7 +242,7 @@ angular.module('reg')
       }
 
       $scope.submitForm = function(){
-        if (!$scope.user.profile.firsthackathon) {
+        if (!$scope.user.profile.hackathonxp) {
           $scope.user.profile.pasthackathon = null;
         }
         $scope.fieldErrors = null;

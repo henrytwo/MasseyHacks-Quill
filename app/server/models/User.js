@@ -60,7 +60,7 @@ var profile = {
         type: [String],
     },
 
-    shirtsize: {
+    shirt: {
         type: String,
         enum: {
             values: 'S M L'.split(' ')
@@ -122,9 +122,17 @@ var profile = {
         }
     },
 
+    methodofdiscovery: {
+        type: String,
+        enum: {
+            values: 'mlh facebook mouth other'.split(' ')
+        }
+    },
+
     conduct: Boolean,
     termsAndCond: Boolean,
-    firsthackathon: Boolean
+    travelreimbursement: Boolean,
+    hackathonxp: Boolean
 
 };
 

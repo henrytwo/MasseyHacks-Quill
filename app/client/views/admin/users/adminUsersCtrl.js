@@ -17,7 +17,7 @@ angular.module('reg')
       // to prevent this.
       $('.ui.dimmer').remove();
       // Populate the size of the modal for when it appears, with an arbitrary user.
-      $scope.selectedUser = {};
+      $scope.selectedUser = {};/*
       $scope.selectedUser.sections = generateSections({status: '',
       confirmation: {
         dietaryRestrictions: []
@@ -28,7 +28,7 @@ angular.module('reg')
       }, reimbursement: {
             dateOfBirth: [],
       }
-      });
+      });*/
       function updatePage(data){
         $scope.users = data.users;
         $scope.currentPage = data.page;
