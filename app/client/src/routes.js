@@ -202,7 +202,11 @@ angular.module('reg')
         }
       })
 
-
+      .state('app.admin.review', {
+        url: "/admin/review",
+        templateUrl: "views/admin/review/review.html",
+        controller: 'AdminReviewCtrl'
+      })
       .state('app.admin.stats', {
         url: "/admin",
         templateUrl: "views/admin/stats/stats.html",
@@ -225,11 +229,6 @@ angular.module('reg')
             return UserService.get($stateParams.id);
           }
         }
-      })
-      .state('app.admin.settings', {
-        url: "/admin/settings",
-        templateUrl: "views/admin/settings/settings.html",
-        controller: 'AdminSettingsCtrl',
       })
       .state('reset', {
         url: "/reset/:token",

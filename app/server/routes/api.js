@@ -553,7 +553,7 @@ module.exports = function(router) {
    *
    * Also attaches the user who did the admitting, for liabaility.
    */
-  router.post('/users/:id/admit', isAdmin, function(req, res){
+  router.post('/users/:id/admit', isOwner, function(req, res){
     // Accept the hacker. Admin only
     var id = req.params.id;
     var reimbClass = req.body.reimbClass;
@@ -584,7 +584,7 @@ module.exports = function(router) {
    *
    * POST - Reject participant.
    */
-  router.post('/users/:id/reject', isAdmin, function(req, res){
+  router.post('/users/:id/reject', isOwner, function(req, res){
     var confirmation = req.body.confirmation;
     var id = req.params.id;
 
@@ -596,7 +596,7 @@ module.exports = function(router) {
    *
    * POST - Unreject participant.
    */
-  router.post('/users/:id/unreject', isAdmin, function(req, res){
+  router.post('/users/:id/unreject', isOwner, function(req, res){
     var confirmation = req.body.confirmation;
     var id = req.params.id;
 
