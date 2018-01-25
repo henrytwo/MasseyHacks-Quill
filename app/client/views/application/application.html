@@ -168,10 +168,10 @@
 
       <div class="inline fields">
         <div class="field"
-             ng-repeat="(key, value) in dietaryRestrictions">
+             ng-repeat="(key, value) in diet">
 
           <div class="ui checkbox">
-            <input type="checkbox" ng-model="dietaryRestrictions[key]" />
+            <input type="checkbox" ng-model="diet[key]" />
             <label>{{key}}</label>
           </div>
 
@@ -349,6 +349,8 @@
         </ul>
       </div>
 
+        <b>You can edit your application after submitting, but you risk losing your place in queue!
+
         <div class="field" style="margin-bottom:5px" ng-hide="regIsClosed">
           <button type="submit"
                   class="fluid ui sea-serpent button"
@@ -357,7 +359,6 @@
           </button>
         </div>
         By submitting your application to MasseyHacks, you agree to have your registration information shared with partners.
-
         </fieldset>
       </div>
     </div>

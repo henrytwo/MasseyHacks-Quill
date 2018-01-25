@@ -32,6 +32,28 @@ angular.module('reg')
               reimbClasses = data;
       });
 
+        // -------------------------------
+        // All this just for dietary restriction checkboxes fml
+
+        var diet = {
+            'Vegetarian': false,
+            'Vegan': false,
+            'Halal': false,
+            'Kosher': false,
+            'Nut Allergy': false,
+            'Gluten Free':false,
+        };
+
+        if ($scope.user.profile.diet){
+            $scope.user.profile.diet.forEach(function(restriction){
+                if (restriction in diet){
+                    diet[restriction] = true;
+                }
+            });
+        }
+
+        $scope.diet = diet;
+
       function _updateUser(e){
         // Update user profile
         UserService

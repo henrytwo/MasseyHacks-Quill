@@ -136,6 +136,7 @@ UserController.loginWithPassword = function(email, password, callback){
 
       delete u.password;
       delete u.salt;
+      delete u.log;
       delete u.applicationAdmit;
       delete u.applicationReject;
 

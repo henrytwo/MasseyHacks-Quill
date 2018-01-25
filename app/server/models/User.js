@@ -559,6 +559,10 @@ var schema = new mongoose.Schema({
 
     teamMatchmaking: teamMatchmaking,
 
+    log: {
+        type: [String]
+    },
+
     applicationAdmit: {
         type: [String]
     },
