@@ -3,6 +3,7 @@ var User = require('../models/User');
 var Settings = require('../models/Settings');
 var Mailer = require('../services/email');
 var Stats = require('../services/stats');
+var AutoRemove = require('../services/autoRemove');
 
 var validator = require('validator');
 var csvValidation = require('../services/csvValidation').csvValidation;
