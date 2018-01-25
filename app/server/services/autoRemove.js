@@ -14,9 +14,9 @@ function removeUnverifiedUser(){
             }
 
             async.each(users, function (user, callback) {
-                if (now - user.timestamp > 100){
+                if (now - user.timestamp > 172800000){
                     console.log("Removing " + user.email);
-                    User.findOneAndRemove({"email":user.email});
+                    User.findOneAndRemove({"id":user.id}, callback);
                 }
             })
         })
@@ -24,6 +24,6 @@ function removeUnverifiedUser(){
 
 setInterval(function() {
     removeUnverifiedUser();
-}, 6000000);
+}, 3600000);
 
 module.exports = removeUnverifiedUser;
