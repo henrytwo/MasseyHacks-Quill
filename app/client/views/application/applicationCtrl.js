@@ -14,12 +14,6 @@ angular.module('reg')
 
       // Set up the user
       $scope.user = currentUser.data;
-
-      if ($scope.user.profile.school == null) {
-        $scope.schoolChecked = false;
-      } else {
-        $scope.schoolChecked = true;
-      }
       var originalTeamCode = $scope.user.teamCode;
 
       //icon tooltip popup

@@ -14,7 +14,7 @@
       .dropdown({
         allowAdditions: true,
         fullTextSearch: true,
-        minCharacters: 3,
+        minCharacters: 0,
         forceSelection: true,
         apiSettings: {
           url: '/api/search/school/{query}'
@@ -86,6 +86,7 @@
 
        <div class="field">
           <label>What gender do you identify as? *</label>
+         <p>This information is used for statistical purposes and will not influence your application.</p>
           <select
             class="ui fluid dropdown"
             id="gender"
@@ -103,18 +104,19 @@
 
         <div class="field">
           <label>What is your ethnic background? *</label>
+          <p>This information is used for statistical purposes and will not influence your application.</p>
           <select
                   class="ui fluid dropdown"
                   id="ethnicity"
                   name="ethnicity"
                   ng-model="user.profile.ethnicity">
             <option value="">Race</option>
-            <option value="W">White</option>
-            <option value="B">Black</option>
+            <option value="W">White / Caucasian</option>
+            <option value="B">Black / African American</option>
             <option value="NA">Native</option>
             <option value="A">Asian or Pacific Islander</option>
             <option value="H">Hispanic</option>
-            <option value="O">Other</option>
+            <option value="O">Other / Multiple</option>
             <option value="N">I prefer not to answer</option>
           </select>
         </div>
@@ -124,20 +126,19 @@
         <div class="field">
           <label> School Information </label>
         </div>
-        <div class="indent">
-          <div class="field" id="schoolField">
-            <label> Which school are you from? *</label>
-            <p style="margin-bottom: 10px;">
-            Please type in the school you are enrolled at.
-            </p>
-            <select class="ui fluid school search dropdown"
-                   name="school"
-                   id="school"
-                   ng-model="user.profile.school">
-                   <option value="">Select School</option>
-            </select>
-          </div>
-        </div>
+
+      <div class="field" id="schoolField">
+        <label> Which school are you from? *</label>
+        <p style="margin-bottom: 10px;">
+        Please type in the school you are enrolled at.
+        </p>
+        <select class="ui fluid school search dropdown"
+               name="school"
+               id="school"
+               ng-model="user.profile.school">
+               <option value="">Select School</option>
+        </select>
+      </div>
 
       <div class="field">
         <label> What city are you travelling from? *</label>
@@ -215,13 +216,15 @@
         <br>
         <br>
 
-        <div class="field" ng-show="user.profile.hackathonxp">
-          <label>Which hackathons have you attended? *</label>
-          <textarea ng-model="user.profile.pasthackathon">
-          </textarea>
+        <div class="indent">
+          <div class="field" ng-show="user.profile.hackathonxp">
+            <label>Which hackathons have you attended? *</label>
+            <textarea ng-model="user.profile.pasthackathon">
+            </textarea>
+          </div>
         </div>
 
-        <br>
+          <br>
 
         <div class="field">
           <label>How did you find out about us? *</label>
@@ -253,9 +256,6 @@
           <label>
               What do you hope to gain from MasseyHacks IV? *
           </label>
-          <p style="margin-bottom: 10px";>
-            Tell us a bit about your motivation for coming to MasseyHacks IV.
-          </p>
           <textarea name="essaygain" id="essaygain" ng-model="user.profile.essaygain">
           </textarea>
         </div>

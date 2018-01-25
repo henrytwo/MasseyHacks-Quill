@@ -243,6 +243,11 @@ var status = {
         required: true,
         default: false,
     },
+    waitlisted: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     admitted: {
         type: Boolean,
         required: true,
