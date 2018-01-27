@@ -9,44 +9,58 @@
 
       <div class="ui form">
 
-          <div class="field">
-            <label> Do you have any special needs or disabilities you want us to know about? </label>
-            <input type="text"
-                   name="specialNeeds"
-                   ng-model="user.confirmation.specialNeeds">
+        <div class="field">
+          <label> Do you have any special needs or disabilities you want us to know about? </label>
+          <input type="text"
+                 name="specialNeeds"
+                 ng-model="user.confirmation.specialNeeds">
+        </div>
+
+        <br>
+        <br>
+
+
+        <div id="field">
+          <div id="drop-area">
+            <form class="my-form">
+              <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+              <input type="file" id="fileElem" multiple accept="image/*" ng-change="handleFiles(this.files)">
+              <label class="button" for="fileElem">Select some files</label>
+              <div id="gallery"></div>
+            </form>
           </div>
 
-          <br>
-          <br>
+        </div>
 
-          <div class="divided title">everything else</div>
 
-          <div class="field">
-            <label>
-              Additional Notes
-            </label>
-            <p>
-              If there's anything else you need to let us know, tell us here!
-            </p>
-            <textarea
-              ng-model="user.confirmation.notes"></textarea>
-          </div>
-          <div class="ui small negative message"
-              ng-show='error'>
-              {{error}} <br>
-            <ul>
-              <div data-ng-repeat="i in fieldErrors">
-                <li>{{ i }}</li>
-              </div>
-            </ul>
-          </div>
-          <div class="field" ng-hide="regIsClosed">
-            <button type="submit"
-                    class="fluid ui sea-serpent button"
-                    ng-click="submitForm()">
-              Submit
-            </button>
-          </div>
+        <div class="divided title">everything else</div>
+
+        <div class="field">
+          <label>
+            Additional Notes
+          </label>
+          <p>
+            If there's anything else you need to let us know, tell us here!
+          </p>
+          <textarea
+            ng-model="user.confirmation.notes"></textarea>
+        </div>
+        <div class="ui small negative message"
+            ng-show='error'>
+            {{error}} <br>
+          <ul>
+            <div data-ng-repeat="i in fieldErrors">
+              <li>{{ i }}</li>
+            </div>
+          </ul>
+        </div>
+        <div class="field" ng-hide="regIsClosed">
+          <button type="submit"
+                  class="fluid ui sea-serpent button"
+                  ng-click="submitForm()">
+            Submit
+          </button>
+        </div>
 
         </fieldset>
       </div>
