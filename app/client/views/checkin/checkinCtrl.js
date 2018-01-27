@@ -21,6 +21,11 @@ function loadScript(url, callback){
   document.getElementsByTagName("head")[0].appendChild(script);
 }
 
+var scanner;
+var camNum = 0;
+var flipped = true;
+
+
 angular.module('reg')
     .controller('CheckinCtrl', [
         '$scope',
@@ -28,6 +33,46 @@ angular.module('reg')
         'UserService',
         function ($scope, $stateParams, UserService) {
 
+            loadScript("https://rawgit.com/schmich/instascan-builds/master/instascan.min.js", function () {
+                scanner = new Instascan.Scanner({video: document.getElementById('preview')});
+
+                scanner.addListener('scan', function (data, image) {
+                    //Change the input fields value and send post request to the backend
+                    $scope.filterUsers();
+                    $('#qrInput').attr("value", data);
+                    $scope.filterUsers();
+                    console.log(data);
+                    UserService
+                        .QRcheckIn(data)
+                        .success(function (user) {
+                            selectUser(user);
+                        })
+                        .error(function (res) {
+                            if (res === "User not confirmed!") {
+                                sweetAlert("Hey!", "This user did not confirm they are coming!", "error");
+                            }
+                            /*else if(res === "User already checked in!"){
+                              sweetAlert("Again?", "User already checked in!", "error")
+                            }*/
+                            else if (res === "User is rejected!") {
+                                sweetAlert("Hey!", "This user is rejected!", "error");
+                            }
+                            else {
+                                sweetAlert("Uh oh!", "User does not exist or isn't admitted!", "error");
+                            }
+                        });
+                });
+
+                Instascan.Camera.getCameras().then(function (cameras) {
+                    if (cameras.length > 0) {
+                        scanner.start(cameras[camNum]);
+                    } else {
+                        console.error('No cameras found.');
+                    }
+                }).catch(function (e) {
+                    console.error(e);
+                });
+            });
 
             $scope.pages = [];
             $scope.users = [];
@@ -84,32 +129,6 @@ angular.module('reg')
                 }
 
                 flipped = !flipped;
-            }
-
-            function Scan(data, img) {
-                //Change the input fields value and send post request to the backend
-                $('#qrInput').attr("value", data);
-                $scope.filterUsers();
-                console.log(data);
-                UserService
-                    .QRcheckIn(data)
-                    .success(function (user) {
-                        selectUser(user);
-                    })
-                    .error(function (res) {
-                        if (res === "User not confirmed!") {
-                            sweetAlert("Hey!", "This user did not confirm they are coming!", "error");
-                        }
-                        /*else if(res === "User already checked in!"){
-                          sweetAlert("Again?", "User already checked in!", "error")
-                        }*/
-                        else if (res === "User is rejected!") {
-                            sweetAlert("Hey!", "This user is rejected!", "error");
-                        }
-                        else {
-                            sweetAlert("Uh oh!", "User does not exist or isn't admitted!", "error");
-                        }
-                    });
             }
 
             function updatePage(data) {
