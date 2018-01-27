@@ -17,6 +17,33 @@ angular.module('reg')
 
       $scope.formatTime = Utils.formatTime;
 
+      $scope.dropArea = document.getElementById('drop-area');
+
+      $scope.dropArea.addEventListener('dragenter', preventDefaults, false);
+      $scope.dropArea.addEventListener('dragover', preventDefaults, false);
+      $scope.dropArea.addEventListener('dragleave', preventDefaults, false);
+      $scope.dropArea.addEventListener('drop', preventDefaults, false);
+
+      function preventDefaults (e) {
+        e.preventDefault();
+        e.stopPropagation()
+      }
+
+      $scope.dropArea.addEventListener('dragenter', highlight, false);
+      $scope.dropArea.addEventListener('dragover', highlight, false);
+      $scope.dropArea.addEventListener('dragleave', unhighlight, false);
+      $scope.dropArea.addEventListener('drop', unhighlight, false);
+
+      function highlight(e) {
+        $scope.dropArea.classList.add('highlight');
+      }
+
+      function unhighlight(e) {
+        $scope.dropArea.classList.remove('highlight');
+      }
+
+      $scope.dropArea.addEventListener('drop', handleDrop, false);
+
       $scope.classAmount;
 
       SettingsService
@@ -30,6 +57,40 @@ angular.module('reg')
       .popup({
         on: 'hover'
       });
+
+      function handleDrop(e) {
+        var dt = e.dataTransfer;
+        var files = dt.files;
+
+        $scope.handleFiles(files);
+
+      }
+
+      $scope.handleFiles = function (files) {
+        console.log()
+        uploadFile(files[0]);
+        previewFile(files[0]);
+      }
+
+      function uploadFile(file) {
+        var url = 'YOUR URL HERE';
+        var formData = new FormData();
+
+        formData.append('file', file);
+
+        console.log(formData);
+
+      }
+
+      function previewFile(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function() {
+          var img = document.createElement('img');
+          img.src = reader.result;
+          document.getElementById('gallery').appendChild(img);
+        }
+      }
 
       // -------------------------------
 
