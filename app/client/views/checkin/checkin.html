@@ -262,7 +262,6 @@
       scanner.addListener('scan', function (data, image) {
         //Change the input fields value and send post request to the backend
         $('#qrInput').attr("value", data);
-        $scope.filterUsers();
         console.log(data);
         UserService
           .QRcheckIn(data)
