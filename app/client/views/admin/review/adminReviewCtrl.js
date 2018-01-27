@@ -30,7 +30,9 @@ angular.module('reg')
       }
       });*/
       function updatePage(data){
-        $scope.users = data.users;
+        $scope.users = data.users.filter(function (user) {
+            return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true;
+        });
         $scope.currentPage = data.page;
         $scope.pageSize = data.size;
 

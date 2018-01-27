@@ -9,89 +9,6 @@
 
       <div class="ui form">
 
-        <div class="divided title">Additional Information</div>
-
-          <div class="field">
-            <label> Dietary Restrictions </label>
-
-            <p>
-              If your restrictions are not included here, please let us know in the additional notes at the bottom.
-            </p>
-            <p>
-              We'll make sure you get fed :)
-            </p>
-
-          </div>
-
-          <div class="inline fields">
-            <div class="field"
-              ng-repeat="(key, value) in dietaryRestrictions">
-
-              <div class="ui checkbox">
-                <input type="checkbox" ng-model="dietaryRestrictions[key]" />
-                <label>{{key}}</label>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="field">
-            <label> T-shirt size </label>
-            <p>
-              Let's get you some FREE swag ;)
-            </p>
-            <p>
-              Keep in mind that t-shirts are unisex model which means they might be slightly larger than normal!
-            </p>
-            
-            <select
-              name="shirt"
-              ng-model="user.confirmation.shirtSize"
-              required>
-              <option value="">Shirt Size</option>
-              <option value="XS">Unisex X-Small</option>
-              <option value="S">Unisex Small</option>
-              <option value="M">Unisex Medium</option>
-              <option value="L">Unisex Large</option>
-              <option value="XL">Unisex X-Large</option>
-              <option value="XXL">Unisex XX-Large</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label>
-              Will you be needing hardware?
-            </label>
-            <div class="ui checkbox">
-              <input type="checkbox" ng-model="user.confirmation.wantsHardware">
-              <label> Yes, I would like to use hardware in my hack. </label>
-            </div>
-          </div>
-
-          <div class="indent">
-            <div
-              class="field"
-              ng-show="user.confirmation.wantsHardware">
-              <label>
-                What kind of hardware would be useful for you?
-              </label>
-              <p>
-                We will have a hardware checkout, and we'll try our best to provide things that would be useful to you - however, we can't guarantee everything. We will publish a list of available hardware closer to the day of the event.
-              </p>
-              <input type="text" ng-model="user.confirmation.hardware">
-            </div>
-          </div>
-
-          <div class="field">
-            <label> Your phone number </label>
-            <p>
-              In case we need to contact you
-            </p>
-            <input type="text"
-                   name="phone"
-                   ng-model="user.confirmation.phone">
-          </div>
-
           <div class="field">
             <label> Do you have any special needs or disabilities you want us to know about? </label>
             <input type="text"
@@ -99,43 +16,8 @@
                    ng-model="user.confirmation.specialNeeds">
           </div>
 
-
           <br>
           <br>
-
-          <div ng-show="user.profile.applyAccommodation">
-            <div class="divided title">Accommodation</div>
-
-            <p>
-              If you are coming from outside Helsinki region we can offer you free accommodation. More information about this will come closer to the event.
-            </p>
-            <p>
-              Accommodation will be in school classrooms and it's recommended to bring your own sleeping bag, mattress and pillow.
-            </p>
-          </div>
-
-          <br>
-          <br>
-
-          <div
-            ng-show="user.profile.needsReimbursement">
-          <div class="divided title">Travel</div>
-          <div class="field">
-            <span ng-show="classAmount !=='Rejected'">
-            <p>
-              As a reminder, the maximum reimbursement are as follows:
-            </p>
-              <p>You will be granted <strong>{{classAmount}}€</strong> for travelling to MasseyHacks IV!</p>
-              <p>To receive this reimbursement, please go the Travel Reimbursement tab and fill in the necessary information. The reimbursement will be granted after the event.</p>
-            </span>
-            <span ng-show="classAmount =='Rejected'">
-              <p>We have run out of travel reimbursements. Due to this you will not be granted any travel reimbursements.</p>
-            </span>
-          </div>
-          </div>
-
-          <br>
-
 
           <div class="divided title">everything else</div>
 

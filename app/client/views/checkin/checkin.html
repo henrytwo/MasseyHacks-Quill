@@ -133,8 +133,6 @@
                     <th>E-mail address</th>
                     <th>Checked</th>
                     <th>Team</th>
-                    <th>Accom.</th>
-                    <th>Reimbursement</th>
                     <th>A / C</th>
 
                   </tr>
@@ -174,39 +172,6 @@
 
                     </td>
                     <td>{{user.teamCode}}</td>
-
-                    <!-- Accommodation -->
-                    <td
-                    class="collapsing">
-
-                      <i
-                        ng-if="user.profile.applyAccommodation"
-                        class="green check circle icon"
-                        style="display:block;margin-left:auto;margin-right:auto;">
-                      </i>
-                      <i
-                        ng-if="!user.profile.applyAccommodation"
-                        class="red remove circle icon"
-                        style="display:block;margin-left:auto;margin-right:auto;">
-                      </i>
-                    </td>
-
-                    <!-- Reimbursement -->
-
-                    <td
-                    class="collapsing">
-
-                      <i
-                        ng-if="user.status.reimbursementApplied"
-                        class="green check circle icon"
-                        style="display:block;margin-left:auto;margin-right:auto;">
-                      </i>
-                      <i
-                        ng-if="!user.status.reimbursementApplied"
-                        class="red remove circle icon"
-                        style="display:block;margin-left:auto;margin-right:auto;">
-                      </i>
-                    </td>
 
                     <!-- A/C -->
 

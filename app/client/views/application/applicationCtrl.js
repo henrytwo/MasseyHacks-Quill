@@ -55,6 +55,16 @@ angular.module('reg')
         $scope.diet = diet;
 
       function _updateUser(e){
+
+        // Get the dietary restrictions as an array
+        var drs = [];
+        Object.keys($scope.user.profile.diet).forEach(function(key){
+            if ($scope.user.profile.diet[key]){
+                drs.push(key);
+            }
+        });
+        $scope.user.profile.diet = drs;
+
         // Update user profile
         UserService
           .updateProfile(Session.getUserId(), $scope.user.profile)

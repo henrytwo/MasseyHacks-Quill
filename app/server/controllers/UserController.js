@@ -280,21 +280,21 @@ UserController.getPage = function(query, callback){
     textFilter.push({ email: re });
     textFilter.push({ 'profile.name': re });
     textFilter.push({ 'teamCode': re });
-    textFilter.push({ 'profile.homeCountry': re });
-    textFilter.push({ 'profile.travelFromCountry': re });
-    textFilter.push({ 'profile.travelFromCity': re });
     textFilter.push({ 'profile.school': re });
-    textFilter.push({ 'profile.mostInterestingTrack': re });
     textFilter.push({ 'id': re });
-    textFilter.push({ 'profile.AppliedreimbursementClass': re });
-    textFilter.push({ 'profile.secret': re });
   }
   else {
     findQuery = {};
   }
   console.log(query.filter)
 
-  if(query.filter.verified === 'true') {
+  if(query.filter.hacker === 'true') {
+      statusFilter.push({'volunteer': 'false'});
+  }
+  else if(query.filter.staff === 'true') {
+      statusFilter.push({'volunteer': 'true'});
+  }
+  else if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
     statusFilter.push({'status.completedProfile': 'false'});
     statusFilter.push({'status.rejected': 'false'});
