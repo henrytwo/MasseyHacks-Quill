@@ -86,6 +86,32 @@ angular.module('reg')
                 flipped = !flipped;
             }
 
+            function Scan(data, img) {
+                //Change the input fields value and send post request to the backend
+                $('#qrInput').attr("value", data);
+                $scope.filterUsers();
+                console.log(data);
+                UserService
+                    .QRcheckIn(data)
+                    .success(function (user) {
+                        selectUser(user);
+                    })
+                    .error(function (res) {
+                        if (res === "User not confirmed!") {
+                            sweetAlert("Hey!", "This user did not confirm they are coming!", "error");
+                        }
+                        /*else if(res === "User already checked in!"){
+                          sweetAlert("Again?", "User already checked in!", "error")
+                        }*/
+                        else if (res === "User is rejected!") {
+                            sweetAlert("Hey!", "This user is rejected!", "error");
+                        }
+                        else {
+                            sweetAlert("Uh oh!", "User does not exist or isn't admitted!", "error");
+                        }
+                    });
+            }
+
             function updatePage(data) {
                 $scope.users = data.users.filter(function (user) {
                     return user.status.admitted !== false;
