@@ -430,9 +430,13 @@ angular.module('reg')
               },{
                 name: 'Name',
                 value: user.profile.name
-              },{
+              }
+              ,{
                 name: 'Email',
                 value: user.email
+              },{
+                name: 'Phone',
+                value: user.phone
               },{
                 name: 'ID',
                 value: user.id
@@ -440,8 +444,12 @@ angular.module('reg')
                 name: 'Team',
                 value: user.teamCode || 'None'
               },{
-                name: 'Requested travel reimbursement class',
-                value: user.profile.needsReimbursement
+                name: 'Requested travel reimbursement',
+                value: user.profile.needsReimbursement || 'False'
+              }
+              ,{
+                name: 'Departing from',
+                value: user.profile.departing
               }
             ]
           },{
@@ -453,6 +461,21 @@ angular.module('reg')
               },{
                 name: 'School',
                 value: user.profile.school
+              },{
+                name: 'Grade',
+                value: user.profile.grade
+              },{
+                name: 'Ethinicity',
+                value: user.profile.ethnicity
+              },{
+                name: 'Dietary Restrictions',
+                value: user.profile.diet
+              },{
+                name: 'Shirt Size',
+                value: user.profile.shirt
+              },{
+                name: 'Hackathon Experience',
+                value: user.profile.pasthackathon || 'N/A'
               }
             ]
           },{
@@ -469,9 +492,22 @@ angular.module('reg')
               {
                 name: 'Github',
                 value: user.profile.github
-              }, {
-                    name: 'Free comment',
-                    value: user.profile.freeComment
+              },
+              {
+                name: 'Method of Discovery',
+                value: user.profile.methodofdiscovery
+              },
+              {
+                name: 'Describe a project you\'re most proud of',
+                value: user.profile.essayproject
+              },
+              {
+                name: 'What do you hope to gain from MasseyHacks IV?',
+                value: user.profile.essaygain
+              },
+              {
+                name: 'Free comment',
+                value: user.profile.freeComment
               }
               ,{
                 name: 'Spaces or Tabs',

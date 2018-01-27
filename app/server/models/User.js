@@ -138,25 +138,7 @@ var profile = {
 
 // Only after confirmed
 var confirmation = {
-    dietaryRestrictions: [String],
-    specialNeeds: {
-        type: String,
-        maxlength: 500,
-    },
-    shirtSize: {
-        type: String,
-        enum: {
-            values: 'XS S M L XL XXL'.split(' ')
-        }
-    },
-    wantsHardware: Boolean,
-    hardware: String,
-    notes: String,
-    phone: {
-        type: String,
-        min: 0,
-        maxlength: 20,
-    },
+    notes: String
 };
 
 var teamMatchmaking = {
