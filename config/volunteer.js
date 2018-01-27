@@ -31,7 +31,7 @@ function makevolunteer(volunteer_email, volunteer_name, volunteer_nickname, volu
                 u.volunteer = true;
                 u.id = volunteer_nickname;
                 u.verified = true;
-                u.status.admittedBy = "ourLordKeith@keith.com";
+                u.status.admittedBy = "MasseyHacks Account Authority";
                 u.profile.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;

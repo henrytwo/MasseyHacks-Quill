@@ -57,11 +57,6 @@ angular.module('reg')
         return $http.put(base + 'reimbClasses', {
           reimbClasses: reimbClasses
         });
-      },
-      showRejection: function(showRejection){
-        return $http.put(base + 'showRejection', {
-          showRejection: showRejection
-        });
       }
     };
 

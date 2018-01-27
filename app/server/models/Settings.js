@@ -9,28 +9,65 @@ var validator = require('validator');
  *
  * @type {mongoose}
  */
-var reimbursementClass = {
-  Finland: {
-    type: Number,
-    default: 20
-  },
-  Baltics: {
-    type: Number,
-    default: 50
-  },
-  Nordic: {
-    type: Number,
-    default: 50
-  },
-  Europe: {
-    type: Number,
-    default: 75
-  },
-  Outside: {
-    type: Number,
-    default: 150
-  },
-};
+var wave1 = {
+    timeOpen: {
+        type: Number,
+        default: 0
+    },
+    timeClose: {
+        type: Number,
+        default: Date.now() + 31104000000 // Add a year from now.
+    },
+    timeConfirm: {
+        type: Number,
+        default: 604800000 // Date of confirmation
+    }
+}
+
+var wave2 = {
+    timeOpen: {
+        type: Number,
+        default: 0
+    },
+    timeClose: {
+        type: Number,
+        default: Date.now() + 31104000000 // Add a year from now.
+    },
+    timeConfirm: {
+        type: Number,
+        default: 604800000 // Date of confirmation
+    }
+}
+
+var wave3 = {
+    timeOpen: {
+        type: Number,
+        default: 0
+    },
+    timeClose: {
+        type: Number,
+        default: Date.now() + 31104000000 // Add a year from now.
+    },
+    timeConfirm: {
+        type: Number,
+        default: 604800000 // Date of confirmation
+    }
+}
+
+var wave4 = {
+    timeOpen: {
+        type: Number,
+        default: 0
+    },
+    timeClose: {
+        type: Number,
+        default: Date.now() + 31104000000 // Add a year from now.
+    },
+    timeConfirm: {
+        type: Number,
+        default: 604800000 // Date of confirmation
+    }
+}
 
 var schema = new mongoose.Schema({
   status: String,
@@ -41,19 +78,6 @@ var schema = new mongoose.Schema({
   timeClose: {
     type: Number,
     default: Date.now() + 31104000000 // Add a year from now.
-  },
-  timeConfirm: {
-    type: Number,
-    default: 604800000 // Date of confirmation
-  },
-  timeTR: {
-    type: Number,
-    default: Date.now() + 31104000000 // Add a year from now.
-  },
-  whitelistedEmails: {
-    type: [String],
-    select: false,
-    default: ['.edu'],
   },
   waitlistText: {
     type: String
@@ -67,12 +91,10 @@ var schema = new mongoose.Schema({
   schools: {
     type: [String]
   },
-  showRejection: {
-    type: Boolean,
-    default: false
-  },
-  reimbursementClass: reimbursementClass,
-
+  wave1: wave1,
+  wave2: wave2,
+  wave3: wave3,
+  wave4: wave4
 });
 
 /**

@@ -32,7 +32,7 @@ function makeadmin(admin_email, admin_name, admin_nickname, admin_password) {
                 u.volunteer = true;
                 u.id = admin_nickname;
                 u.verified = true;
-                u.status.admittedBy = "ourLordKeith@keith.com";
+                u.status.admittedBy = "MasseyHacks Account Authority";
                 u.profile.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;

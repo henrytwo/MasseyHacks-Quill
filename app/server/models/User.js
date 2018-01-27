@@ -138,7 +138,8 @@ var profile = {
 
 // Only after confirmed
 var confirmation = {
-    notes: String
+    notes: {type: String,
+    default: ""}
 };
 
 var teamMatchmaking = {
@@ -236,12 +237,7 @@ var status = {
         default: false,
     },
     admittedBy: {
-        type: String,
-        validate: [
-            validator.isEmail,
-            'Invalid Email',
-        ],
-        select: false
+        type: String
     },
     confirmed: {
         type: Boolean,
@@ -433,6 +429,10 @@ var reimbursement = {
 // define the schema for our admin model
 var schema = new mongoose.Schema({
 
+    wave: {
+        type: Number
+    },
+
     email: {
         type: String,
         required: true,
@@ -550,6 +550,10 @@ var schema = new mongoose.Schema({
     },
 
     applicationReject: {
+        type: [String]
+    },
+
+    votedBy: {
         type: [String]
     },
 

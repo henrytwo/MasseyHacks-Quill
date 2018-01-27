@@ -43,71 +43,46 @@
           </div>
         </div>
       </div>
-
-    </div>
-    <div class="column">
-
-      <!-- Confirmation Date -->
-      <div
-              ng-class="{'loading': loading}"
-              class="ui orange segment">
-        <div class="ui form">
-
-          <div class="ui header">
-            Confirmation Date
-          </div>
-
-          <p>
-            Any users that are accepted will have to confirm by the date selected.
-          </p>
-
-          <div class="field">
-            <label>
-              Confirm By: {{ formatDate(settings.timeConfirm) }}
-            </label>
-            <input type="datetime-local" ng-model="settings.timeConfirm">
-          </div>
-
-          <div class="ui field">
-            <div
-                    class="ui green button"
-                    ng-click="updateConfirmationTime()">
-              Update
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
+
   <div class="ui stackable two column grid">
     <div class="column">
 
-      <!-- TR Close -->
       <div
               ng-class="{'loading': loading}"
               class="ui red segment">
         <div class="ui form">
 
           <div class="ui header">
-            Close Travel Reimbursement
+            Wave 1 Bracket
           </div>
-
-          <p>
-            Users won't be able to access travel reimbursement form after this anymore.
-          </p>
 
           <div class="field">
             <label>
-              Closes: {{ formatDate(settings.timeTR) }}
+              Opens: {{ formatDate(settings.wave1.timeOpen) }}
             </label>
-            <input type="datetime-local" ng-model="settings.timeTR">
+            <input type="datetime-local" ng-model="settings.wave1.timeOpen">
+          </div>
+
+          <div class="field">
+            <label>
+              Closes: {{ formatDate(settings.wave1.timeClose) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave1.timeClose">
+          </div>
+
+          <div class="field">
+            <label>
+              Confirm by: {{ formatDate(settings.wave1.timeConfirm) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave1.timeClose">
           </div>
 
           <div class="ui field">
             <div
-                    class="ui green button"
-                    ng-click="updateTRTime()">
+              class="ui green button"
+              ng-click="updateWave1()">
               Update
             </div>
           </div>
@@ -117,31 +92,133 @@
 
     <div class="column">
 
-      <!-- Show rejection to the participants-->
       <div
               ng-class="{'loading': loading}"
               class="ui red segment">
         <div class="ui form">
 
           <div class="ui header">
-            Show rejection to the participants.
+            Wave 2 Bracket
           </div>
 
-          <p>
-            Showing rejection to the participants will be shown in the dasbboard and sidebar will hidden for them.
-            Current status: <strong>{{settings.showRejection}}</strong>
-          </p>
+          <div class="field">
+            <label>
+              Opens: {{ formatDate(settings.wave2.timeOpen) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave2.timeOpen">
+          </div>
+
+          <div class="field">
+            <label>
+              Closes: {{ formatDate(settings.wave2.timeClose) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave2.timeClose">
+          </div>
+
+          <div class="field">
+            <label>
+              Confirm by: {{ formatDate(settings.wave2.timeConfirm) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave2.timeClose">
+          </div>
 
           <div class="ui field">
             <div
                     class="ui green button"
-                    ng-click="showRejection()">
-              Show rejection
+                    ng-click="updateWave1()">
+              Update
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="column">
+
+      <div
+              ng-class="{'loading': loading}"
+              class="ui red segment">
+        <div class="ui form">
+
+          <div class="ui header">
+            Wave 3 Bracket
+          </div>
+
+          <div class="field">
+            <label>
+              Opens: {{ formatDate(settings.wave3.timeOpen) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave3.timeOpen">
+          </div>
+
+          <div class="field">
+            <label>
+              Closes: {{ formatDate(settings.wave3.timeClose) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave3.timeClose">
+          </div>
+
+          <div class="field">
+            <label>
+              Confirm by: {{ formatDate(settings.wave3.timeConfirm) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave3.timeClose">
+          </div>
+
+          <div class="ui field">
+            <div
+                    class="ui green button"
+                    ng-click="updateWave1()">
+              Update
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+
+      <div
+              ng-class="{'loading': loading}"
+              class="ui red segment">
+        <div class="ui form">
+
+          <div class="ui header">
+            Wave 4 Bracket
+          </div>
+
+          <div class="field">
+            <label>
+              Opens: {{ formatDate(settings.wave4.timeOpen) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave4.timeOpen">
+          </div>
+
+          <div class="field">
+            <label>
+              Closes: {{ formatDate(settings.wave4.timeClose) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave4.timeClose">
+          </div>
+
+          <div class="field">
+            <label>
+              Confirm by: {{ formatDate(settings.wave4.timeConfirm) }}
+            </label>
+            <input type="datetime-local" ng-model="settings.wave4.timeClose">
+          </div>
+
+          <div class="ui field">
+            <div
+                    class="ui green button"
+                    ng-click="updateWave1()">
+              Update
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Waitlist Text Editor -->
@@ -247,60 +324,6 @@
                 ng-bind-html="markdownPreview(settings.confirmationText)">
         </div>
       </div>
-    </div>
-  </div>
-
-  <div
-          ng-class="{'loading': loading}"
-          class="ui orange segment">
-    <div class="ui header">
-      Travel reimbursement classes
-    </div>
-    <div class="ui stackable two column grid">
-      <div class="column">
-        <div class="ui form">
-
-          <div class="field">
-            <label>
-              Finland
-            </label>
-            <input ng-model="settings.reimbursementClass.Finland">
-          </div>
-          <div class="field">
-            <label>
-              Baltics
-            </label>
-            <input ng-model="settings.reimbursementClass.Baltics">
-          </div>
-          <div class="field">
-            <label>
-              Nordic
-            </label>
-            <input ng-model="settings.reimbursementClass.Nordic">
-          </div>
-          <div class="field">
-            <label>
-              Europe
-            </label>
-            <input ng-model="settings.reimbursementClass.Europe">
-          </div>
-          <div class="field">
-            <label>
-              Outside Europe
-            </label>
-            <input ng-model="settings.reimbursementClass.Outside">
-          </div>
-
-          <div class="field">
-            <div
-                    class="ui green button"
-                    ng-click="updateReimbClasses()">
-              Update
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 

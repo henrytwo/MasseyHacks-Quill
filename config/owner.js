@@ -33,7 +33,7 @@ function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
                 u.volunteer = true;
                 u.id = owner_nickname;
                 u.verified = true;
-                u.status.admittedBy = "ourLordKeith@keith.com";
+                u.status.admittedBy = "MasseyHacks Account Authority";
                 u.profile.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;

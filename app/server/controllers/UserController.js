@@ -1128,7 +1128,8 @@ UserController.voteRejectUser = function(id, user, callback){
                 'applicationReject' : {$nin : [user.email]}
             },{
                 $push: {
-                    'applicationReject': user.email
+                    'applicationReject': user.email,
+                    'votedBy': user.email
                 }
             }, {
                 new: true
@@ -1161,7 +1162,8 @@ UserController.voteAdmitUser = function(id, user, callback){
                 'applicationReject' : {$nin : [user.email]}
             },{
                 $push: {
-                    'applicationAdmit': user.email
+                    'applicationAdmit': user.email,
+                    'votedBy': user.email
                 }
             }, {
                 new: true
