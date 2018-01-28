@@ -68,7 +68,7 @@ gulp.task('watch', ['js', 'sass'], function () {
 gulp.task('server', ['watch'], function(){
   nodemon({
     script: 'app.js',
-    env: { 'NODE_ENV': process.env.NODE_ENV || 'DEV' },
+    env: { 'NODE_ENV': process.env.NODE_ENV || 'DEV'},
     watch: [
       'app/server'
     ]

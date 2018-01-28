@@ -341,7 +341,6 @@ module.exports = function(router) {
     var query = req.query;
 
     if (query.page && query.size && query.sort){
-
       UserController.getPage(query, defaultResponse(req, res));
 
     } else {

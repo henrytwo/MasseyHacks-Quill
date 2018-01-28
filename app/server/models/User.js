@@ -138,8 +138,10 @@ var profile = {
 
 // Only after confirmed
 var confirmation = {
-    notes: {type: String,
-    default: ""}
+    notes: {
+        type: String,
+        default: ""
+    }
 };
 
 var teamMatchmaking = {
@@ -237,7 +239,8 @@ var status = {
         default: false,
     },
     admittedBy: {
-        type: String
+        type: String,
+        select: false
     },
     confirmed: {
         type: Boolean,
