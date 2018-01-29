@@ -102,11 +102,7 @@ var schema = new mongoose.Schema({
   participants : {
     type: Number,
     default: 300
-  },
-    showState: {
-      type: Boolean,
-        default: true
-    }
+  }
 });
 
 /**

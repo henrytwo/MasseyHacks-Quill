@@ -12,7 +12,7 @@ angular.module('reg')
       $scope.pages = [];
       $scope.users = [];
       // to know when to filter by date
-      $scope.sortDate = true;
+      $scope.sortDate = false;
 
       // Semantic-UI moves modal content into a dimmer at the top level.
       // While this is usually nice, it means that with our routing will generate
