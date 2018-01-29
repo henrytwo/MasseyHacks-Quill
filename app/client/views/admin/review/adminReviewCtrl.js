@@ -1,10 +1,13 @@
 angular.module('reg')
   .controller('AdminReviewCtrl',[
+    'currentUser',
     '$scope',
     '$state',
     '$stateParams',
     'UserService',
-    function($scope, $state, $stateParams, UserService){
+    function(currentUser, $scope, $state, $stateParams, UserService){
+
+      var adminUser = currentUser.data;
 
       $scope.pages = [];
       $scope.users = [];
@@ -29,9 +32,10 @@ angular.module('reg')
             dateOfBirth: [],
       }
       });*/
+
       function updatePage(data){
         $scope.users = data.users.filter(function (user) {
-            return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true;
+            return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.votedBy.indexOf(adminUser.email) === -1;
         });
         $scope.currentPage = data.page;
         $scope.pageSize = data.size;
@@ -67,7 +71,7 @@ angular.module('reg')
       }
 
       $scope.goToPage = function(page){
-        $state.go('app.admin.users', {
+        $state.go('app.admin.review', {
           page: page,
           size: $stateParams.size || 50
         });
@@ -76,7 +80,7 @@ angular.module('reg')
       $scope.goUser = function($event, user){
         $event.stopPropagation();
 
-        $state.go('app.admin.user', {
+        $state.go('app.admin.review', {
           id: user._id
         });
       };
@@ -140,7 +144,7 @@ angular.module('reg')
                         }
                       }
                       else
-                        $scope.users[index] = user;
+                        $scope.users.splice(index, 1);
                     swal("Action Performed", user.profile.name + ' has been rejected.', "success");
                     }
                   else
@@ -224,7 +228,7 @@ angular.module('reg')
                           }
                         }
                         else
-                          $scope.users[index] = user;
+                          $scope.users.splice(index, 1);
                           swal("Action Performed", user.profile.name + ' has been admitted.', "success");
                     }
                     else
@@ -362,6 +366,7 @@ angular.module('reg')
                   .voteAdmitUser(user._id)
                   .success(function(user){
                       if (user != "") {
+                          $scope.users.splice(index, 1);
                           swal("Action Performed", "Voted to admit " + user.profile.name, "success");
                       }
                       else {
@@ -392,6 +397,7 @@ angular.module('reg')
                     .voteRejectUser(user._id)
                     .success(function(user){
                         if (user != "") {
+                            $scope.users.splice(index, 1);
                             swal("Action Performed", "Voted to reject " + user.profile.name, "success");
                         }
                         else {
@@ -407,376 +413,90 @@ angular.module('reg')
 
 
         function generateSections(user){
-        return [
-          {
-            name: 'Basic Info',
-            fields: [
-              {
-                name: 'Created On',
-                value: formatTime(user.timestamp)
-              },{
-                name: 'Last Updated',
-                value: formatTime(user.lastUpdated)
-              },{
-                name: 'Confirm By',
-                value: formatTime(user.status.confirmBy) || 'N/A'
-              },{
-                name: 'Status',
-                value: user.status.name
-              },{
-                name: 'Rejected',
-                value: user.status.rejected
-              },{
-                name: 'Checked In',
-                value: formatTime(user.status.checkInTime) || 'N/A'
-              },{
-                name: 'Name',
-                value: user.profile.name
-              },{
-                name: 'Email',
-                value: user.email
-              },{
-                name: 'ID',
-                value: user.id
-              },{
-                name: 'Team',
-                value: user.teamCode || 'None'
-              },{
-                name: 'Requested travel reimbursement class',
-                value: user.profile.needsReimbursement && user.profile.AppliedreimbursementClass || 'None'
-              },{
-                name: 'Accepted travel reimbursement',
-                value: user.profile.AcceptedreimbursementClass || 'None'
-              }
-            ]
-          },{
-            name: 'Profile',
-            fields: [
-              {
-                name: 'Age',
-                value: user.profile.age
-              },{
-                name: 'Gender',
-                value: user.profile.gender
-              },{
-                name: 'Phone',
-                value: user.confirmation.phone
-              },{
-                name: 'School',
-                value: user.profile.school
-              },{
-                name: 'Graduation Year',
-                value: user.profile.graduationYear
-              },{
-                name: 'Major',
-                value: user.profile.major
-              },{
-                name: 'Degree',
-                value: user.profile.degree
-              },{
-                name: 'Travels from Country',
-                value: user.profile.travelFromCountry
-              },{
-                name: 'Travels from City',
-                value: user.profile.travelFromCity
-              },{
-                name: 'Home Country',
-                value: user.profile.homeCountry
-              },{
-                name: 'Team role',
-                value: user.profile.description
-              },{
-                name: 'Needs Travel Reimbursement',
-                value: user.profile.needsReimbursement,
-                type: 'boolean'
-              },{
-                name: 'Needs Accommodation',
-                value: user.profile.applyAccommodation,
-                type: 'boolean'
-              },{
-                name: 'Most interesting track',
-                value: user.profile.mostInterestingTrack
-              },{
-                name: 'Occupational status',
-                value: user.profile.occupationalStatus.join(', ')
-              },{
-                name: 'Top level tools',
-                value: user.profile.topLevelTools
-              },{
-                name: 'Great level tools',
-                value: user.profile.greatLevelTools
-              },{
-                name: 'Good level tools',
-                value: user.profile.goodLevelTools
-              },{
-                name: 'Beginner level tools',
-                value: user.profile.beginnerLevelTools
-              },{
-                name: 'Coding experience',
-                value: user.profile.codingExperience
-              },{
-                name: 'Hackathons visited',
-                value: user.profile.howManyHackathons
-              },{
-                name: 'Motivation',
-                value: user.profile.essay
-              },
-            ]
-          },{
-            name: 'Additional',
-            fields: [
-              {
-                name: 'Portfolio',
-                value: user.profile.portfolio
-              },
-              {
-                name: 'Linkedin',
-                value: user.profile.linkedin
-              },
-              {
-                name: 'Github',
-                value: user.profile.github
-              },{
-                name: 'Interest in job opportunities',
-                value: user.profile.jobOpportunities
-              },{
-                name: 'Special Needs',
-                value: user.confirmation.specialNeeds || 'None'
-              },{
-                name: 'Previous MasseyHackss',
-                value: user.profile.previousMasseyHacks.join(', ')
-              },{
-                name: 'Secret code',
-                value: user.profile.secret
-              },{
-                name: 'Free comment',
-                value: user.profile.freeComment
-              },{
-                name: 'OS',
-                value: user.profile.operatingSystem
-              },{
-                name: 'Spaces or Tabs',
-                value: user.profile.spacesOrTabs
-              },
-            ]
-          },{
-            name: 'Confirmation',
-            fields: [
-              {
-                name: 'Dietary Restrictions',
-                value: user.confirmation.dietaryRestrictions.join(', ')
-              },{
-                name: 'Shirt Size',
-                value: user.confirmation.shirtSize
-              },{
-                name: 'Needs Hardware',
-                value: user.confirmation.needsHardware,
-                type: 'boolean'
-              },{
-                name: 'Hardware Requested',
-                value: user.confirmation.hardware
-              },{
-                name: 'Additional notes',
-                value: user.confirmation.notes
-              }
-            ]
-          },{
-            name: 'Reimbursement',
-            fields: [
-              {
-                name: 'Date of birth',
-                value: formatTime(user.reimbursement.dateOfBirth)
-              },{
-                name: 'AddressLine 1',
-                value: user.reimbursement.addressLine1
-              },{
-                name: 'AddressLine 2',
-                value: user.reimbursement.addressLine2
-              },{
-                name: 'City',
-                value: user.reimbursement.city
-              },{
-                name: 'State/Province/Region',
-                value: user.reimbursement.stateProvinceRegion
-              },{
-                name: 'A country Of Bank',
-                value: user.reimbursement.countryOfBank
-              },{
-                name: 'Type of Country',
-                value: user.reimbursement.countryType
-              },{
-                name: 'Name Of the Bank',
-                value: user.reimbursement.nameOfBank
-              },{
-                name: 'Address Of the Bank',
-                value: user.reimbursement.addressOfBank
-              },{
-                name: 'Iban',
-                value: user.reimbursement.iban
-              },{
-                name: 'Account Number',
-                value: user.reimbursement.accountNumber
-              },{
-                name: 'Swift / BIC',
-                value: user.reimbursement.swiftOrBic
-              },{
-                name: 'Clearing Code',
-                value: user.reimbursement.clearingCode
-              },{
-                name: 'Brokerage Info',
-                value: user.reimbursement.brokerageInfo
-              },{
-                name: 'Name, Account owner',
-                value: user.reimbursement.accountOwnerName
-              },{
-                name: 'Birthdate, Account owner',
-                value: formatTime(user.reimbursement.accountOwnerBirthdate)
-              },{
-                name: 'Address 1, Account owner',
-                value: user.reimbursement.accountOwnerA1
-              },{
-                name: 'Address 2, Account owner',
-                value: user.reimbursement.accountOwnerA2
-              },{
-                name: 'ZIP, Account owner',
-                value: user.reimbursement.accountOwnerZIP
-              },{
-                name: 'City, Account owner',
-                value: user.reimbursement.accountOwnerCity
-              },{
-                name: 'Country, Account owner',
-                value: user.reimbursement.accountOwnerCountry
-              },{
-                name: 'Additional',
-                value: user.reimbursement.additional
-              },
-            ]
-          },
-        ];
-      }
-
-      function generateTRSections(user){
-        return [
-          {
-            name: 'Basic Info',
-            fields: [
-              {
-                name: 'Name',
-                value: user.profile.name
-              },{
-                name: 'Email',
-                value: user.email
-              },{
-                name: 'ID',
-                value: user.id
-              },{
-                name: 'Requested travel reimbursement class',
-                value: user.profile.needsReimbursement && user.profile.AppliedreimbursementClass || 'None'
-              },{
-                name: 'Accepted travel reimbursement',
-                value: user.profile.AcceptedreimbursementClass || 'None'
-              }
-            ]
-          },{
-            name: 'Profile',
-            fields: [
-              {
-                name: 'Phone',
-                value: user.confirmation.phone
-              },{
-                name: 'Travels from Country',
-                value: user.profile.travelFromCountry
-              },{
-                name: 'Travels from City',
-                value: user.profile.travelFromCity
-              },{
-                name: 'Home Country',
-                value: user.profile.homeCountry
-              },
-            ]
-          },{
-            name: 'Reimbursement',
-            fields: [
-              {
-                name: 'Date of birth',
-                value: formatTime(user.reimbursement.dateOfBirth)
-              },{
-                name: 'Nationality',
-                value: user.reimbursement.nationality
-              },{
-                name: 'AddressLine 1',
-                value: user.reimbursement.addressLine1
-              },{
-                name: 'AddressLine 2',
-                value: user.reimbursement.addressLine2
-              },{
-                name: 'City',
-                value: user.reimbursement.city
-              },{
-                name: 'State/Province/Region',
-                value: user.reimbursement.stateProvinceRegion
-              },{
-                name: 'A country Of Bank',
-                value: user.reimbursement.countryOfBank
-              },{
-                name: 'Type of Country',
-                value: user.reimbursement.countryType
-              },{
-                name: 'Name Of the Bank',
-                value: user.reimbursement.nameOfBank
-              },{
-                name: 'Address Of the Bank',
-                value: user.reimbursement.addressOfBank
-              },{
-                name: 'Zip Code',
-                value: user.reimbursement.zipCode
-              },{
-                name: 'Iban',
-                value: user.reimbursement.iban
-              },{
-                name: 'Account Number',
-                value: user.reimbursement.accountNumber
-              },{
-                name: 'BBAN',
-                value: user.reimbursement.bban
-              },{
-                name: 'Swift / BIC',
-                value: user.reimbursement.swiftOrBic
-              },{
-                name: 'Clearing Code',
-                value: user.reimbursement.clearingCode
-              },{
-                name: 'Brokerage Info',
-                value: user.reimbursement.brokerageInfo
-              },{
-                name: 'Name, Account owner',
-                value: user.reimbursement.accountOwnerName
-              },{
-                name: 'Birthdate, Account owner',
-                value: formatTime(user.reimbursement.accountOwnerBirthdate)
-              },{
-                name: 'Address 1, Account owner',
-                value: user.reimbursement.accountOwnerA1
-              },{
-                name: 'Address 2, Account owner',
-                value: user.reimbursement.accountOwnerA2
-              },{
-                name: 'ZIP, Account owner',
-                value: user.reimbursement.accountOwnerZIP
-              },{
-                name: 'City, Account owner',
-                value: user.reimbursement.accountOwnerCity
-              },{
-                name: 'Country, Account owner',
-                value: user.reimbursement.accountOwnerCountry
-              },{
-                name: 'Additional',
-                value: user.reimbursement.additional
-              },
-            ]
-          },
-        ];
-      }
+            return [
+                {
+                    name: 'Basic Info',
+                    fields: [
+                        {
+                            name: 'Created On',
+                            value: formatTime(user.timestamp)
+                        },{
+                            name: 'Last Updated',
+                            value: formatTime(user.lastUpdated)
+                        },{
+                            name: 'Confirm By',
+                            value: formatTime(user.status.confirmBy) || 'N/A'
+                        },{
+                            name: 'Status',
+                            value: user.status.name
+                        },{
+                            name: 'Team',
+                            value: user.teamCode || 'None'
+                        },{
+                            name: 'Requested travel reimbursement',
+                            value: user.profile.needsReimbursement || 'False'
+                        }
+                        ,{
+                            name: 'Departing from',
+                            value: user.profile.departing
+                        }
+                    ]
+                },{
+                    name: 'Profile',
+                    fields: [
+                        {
+                            name: 'Gender',
+                            value: user.profile.gender
+                        },{
+                            name: 'School',
+                            value: user.profile.school
+                        },{
+                            name: 'Grade',
+                            value: user.profile.grade
+                        },{
+                            name: 'Hackathon Experience',
+                            value: user.profile.pasthackathon || 'N/A'
+                        }
+                    ]
+                },{
+                    name: 'Additional',
+                    fields: [
+                        {
+                            name: 'Website',
+                            value: user.profile.site
+                        },
+                        {
+                            name: 'Devpost',
+                            value: user.profile.devpost
+                        },
+                        {
+                            name: 'Github',
+                            value: user.profile.github
+                        },
+                        {
+                            name: 'Method of Discovery',
+                            value: user.profile.methodofdiscovery
+                        },
+                        {
+                            name: 'Describe a project you\'re most proud of',
+                            value: user.profile.essayproject
+                        },
+                        {
+                            name: 'What do you hope to gain from MasseyHacks IV?',
+                            value: user.profile.essaygain
+                        },
+                        {
+                            name: 'Free comment',
+                            value: user.profile.freeComment
+                        }
+                        ,{
+                            name: 'Spaces or Tabs',
+                            value: user.profile.spacesOrTabs
+                        },
+                    ]
+                }
+            ];
+        }
 
       $scope.exportTRCSV = function() {
         UserService

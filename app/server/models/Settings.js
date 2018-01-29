@@ -98,7 +98,11 @@ var schema = new mongoose.Schema({
   wave1: wave1,
   wave2: wave2,
   wave3: wave3,
-  wave4: wave4
+  wave4: wave4,
+  participants : {
+    type: Number,
+    default: 300
+  }
 });
 
 /**

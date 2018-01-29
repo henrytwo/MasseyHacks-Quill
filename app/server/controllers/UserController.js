@@ -332,14 +332,12 @@ UserController.getPage = function(query, callback){
     .limit(size)
     .exec(function (err, users){
       if (err || !users){
-          console.log(err);
         return callback(err);
       }
 
       User.count(findQuery).exec(function(err, count){
 
         if (err){
-            console.log(err);
           return callback(err);
         }
 

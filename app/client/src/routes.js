@@ -205,7 +205,12 @@ angular.module('reg')
       .state('app.admin.review', {
         url: "/admin/review",
         templateUrl: "views/admin/review/review.html",
-        controller: 'AdminReviewCtrl'
+        controller: 'AdminReviewCtrl',
+        resolve: {
+          currentUser: function(UserService){
+              return UserService.getCurrentUser();
+          }
+        }
       })
       .state('app.admin.stats', {
         url: "/admin",
