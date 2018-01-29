@@ -612,6 +612,25 @@ module.exports = function(router) {
   });
 
   /**
+   * Activate a user. OWNER ONLY, DUH
+   */
+  router.post('/users/:id/activate', isOwner, function(req, res){
+    var id = req.params.id;
+    var user = req.user;
+    UserController.activateById(id, user, defaultResponse(req, res));
+  });
+
+  /**
+   * Deactivate a user. OWNER ONLY, DUH
+   */
+  router.post('/users/:id/deactivate', isOwner, function(req, res){
+    var id = req.params.id;
+    var user = req.user;
+    console.log('deactivate')
+    UserController.deactivateById(id, user, defaultResponse(req, res));
+  });
+
+  /**
    * Check in user with QR code. VOLUNTEER OR ADMIN
    */
 
