@@ -107,10 +107,8 @@ angular.module('reg')
         return $http.get(base + 'stats');
       },
 
-      admitUser: function(id, reimbClass){
-        return $http.post(base + id + '/admit', {
-          reimbClass: reimbClass
-        });
+      admitUser: function(id){
+        return $http.post(base + id + '/admit');
       },
 
       removeUser: function (id) {

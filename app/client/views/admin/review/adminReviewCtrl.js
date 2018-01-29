@@ -176,7 +176,7 @@ angular.module('reg')
               }, function(){
 
                 UserService
-                  .admitUser(user._id, Class)
+                  .admitUser(user._id)
                   .success(function(user){
                     if(user != ""){// User cannot be found if user is rejected
                       if(index == null){ //we don't have index because acceptUser has been called in pop-up

@@ -1196,11 +1196,8 @@ UserController.voteAdmitUser = function(id, user, callback){
  * @param  (String)   reimbClass  Users accepted reimbursement class/amount
  * @param  {Function} callback args(err, user)
  */
-UserController.admitUser = function(id, user, reimbClass, callback){
-  // ReimbClass was not set
-  if(reimbClass == null) {
-    reimbClass = "None";
-  }
+UserController.admitUser = function(id, user, callback){
+
   Settings.getRegistrationTimes(function(err, times){
     User
       .findOneAndUpdate({

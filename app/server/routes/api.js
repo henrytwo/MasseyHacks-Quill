@@ -555,9 +555,8 @@ module.exports = function(router) {
   router.post('/users/:id/admit', isOwner, function(req, res){
     // Accept the hacker. Admin only
     var id = req.params.id;
-    var reimbClass = req.body.reimbClass;
     var user = req.user;
-    UserController.admitUser(id, user, reimbClass, defaultResponse(req, res));
+    UserController.admitUser(id, user, defaultResponse(req, res));
   });
 
   router.post('/users/:id/remove', isOwner, function (req, res) {
