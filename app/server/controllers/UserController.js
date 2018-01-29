@@ -82,7 +82,15 @@ function generateID(i){
  */
 UserController.loginWithToken = function(token, callback){
   User.getByToken(token, function(err, user){
-    return callback(err, token, user);
+    var u = user.toJSON();
+
+    delete u.password;
+    delete u.salt;
+    delete u.log;
+    delete u.applicationAdmit;
+    delete u.applicationReject;
+
+    return callback(err, token, u);
   });
 };
 
@@ -141,7 +149,7 @@ UserController.loginWithPassword = function(email, password, callback){
       delete u.applicationAdmit;
       delete u.applicationReject;
 
-      return callback(null, token, u);
+      callback(null, token, u);
   });
 };
 
