@@ -82,6 +82,9 @@ function generateID(i){
  */
 UserController.loginWithToken = function(token, callback){
   User.getByToken(token, function(err, user){
+    if (!user) {
+      return callback(err, token, user);
+    }
     var u = user.toJSON();
 
     delete u.password;
