@@ -93,3 +93,12 @@ img {
   background-color: #232323 !important;
   color: #FBFBFB;
 }
+
+#confetti{
+  height: 100%;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 0;
+}
