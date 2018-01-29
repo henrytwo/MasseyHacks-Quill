@@ -80,32 +80,6 @@
 
         </div>
         <div class="actions">
-          <div class="field"
-               ng-if="selectedUser.profile.needsReimbursement">
-            <label>
-              Choose reimbursement class for the participant. Participant requested class:
-              <strong>{{selectedUser.profile.AppliedreimbursementClass}}</strong>
-            </label>
-            <select
-                    class="ui fluid dropdown"
-                    id="class"
-                    name="class"
-                    ng-model="selectedUser.Class">
-              <option value="">Reimbursement class</option>
-              <option value="Finland">Finland</option>
-              <option value="Baltics">Baltics</option>
-              <option value="Nordic">Nord</option>
-              <option value="Europe">Europe</option>Outside Europe
-              <option value="Outside Europe">Outside Europe</option>
-              <option value="Special">Special amount</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-            <input class="ui fluid input"
-                   placeholder="Special amount"
-                   ng-if="selectedUser.Class=='Special'"
-                   ng-model="selectedUser.SpecialClass">
-
-          </div>
           <button
                   class="ui negative button"
                   ng-click="voteRejectUser($event, selectedUser, $index)">

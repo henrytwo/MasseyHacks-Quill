@@ -545,15 +545,18 @@ var schema = new mongoose.Schema({
     teamMatchmaking: teamMatchmaking,
 
     log: {
-        type: [String]
+        type: [String],
+        select: false
     },
 
     applicationAdmit: {
-        type: [String]
+        type: [String],
+        select: false
     },
 
     applicationReject: {
-        type: [String]
+        type: [String],
+        select: false
     },
 
     votedBy: {
