@@ -85,45 +85,13 @@ angular.module('reg')
         });
       };
 
-      $scope.toggleCheckIn = function($event, user, index) {
-        $event.stopPropagation();
-
-        if (!user.status.checkedIn){
-          swal({
-            title: "Whoa, wait a minute!",
-            text: "You are about to check in " + user.profile.name + "!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, check them in.",
-            closeOnConfirm: false
-            },
-            function(){
-              UserService
-                .checkIn(user._id)
-                .success(function(user){
-                  $scope.users[index] = user;
-                  swal("Action Performed", user.profile.name + ' has been checked in.', "success");
-                });
-            }
-          );
-        } else {
-          UserService
-            .checkOut(user._id)
-            .success(function(user){
-              $scope.users[index] = user;
-              swal("Action Performed", user.profile.name + ' has been checked out.', "success");
-            });
-        }
-      };
-
       $scope.toggleReject = function($event, user, index) {
         $event.stopPropagation();
 
         if (!user.status.rejected){
           swal({
             title: "Whoa, wait a minute! [FORCE ACTION]",
-            text: "You are about to reject " + user.profile.name + "!",
+            text: "You are about to reject this user!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -145,7 +113,7 @@ angular.module('reg')
                       }
                       else
                         $scope.users.splice(index, 1);
-                    swal("Action Performed", user.profile.name + ' has been rejected.', "success");
+                    swal("Action Performed", 'This user has been rejected.', "success");
                     }
                   else
                     swal("Could not be rejected", 'User cannot be rejected if its not verified or it is admitted', "error");
@@ -169,7 +137,7 @@ angular.module('reg')
                 }
                 else
                  $scope.users[index] = user;
-              swal("Action Performed", user.profile.name + ' has been unrejected.', "success");
+              swal("Action Performed", 'This user has been unrejected.', "success");
             })
             .error(function(err) {
                 swal("Access Denied", "You do not have permission to perform this action.", "error")
@@ -196,7 +164,7 @@ angular.module('reg')
 
         swal({
           title: "Whoa, wait a minute! [FORCE ACTION]",
-          text: "You are about to accept " + user.profile.name + "!",
+          text: "You are about to accept this user!",
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",
@@ -229,7 +197,7 @@ angular.module('reg')
                         }
                         else
                           $scope.users.splice(index, 1);
-                          swal("Action Performed", user.profile.name + ' has been admitted.', "success");
+                          swal("Action Performed", 'This user has been admitted.', "success");
                     }
                     else
                       swal("Could not be accepted", 'User cannot be accepted if the user is rejected. Please remove rejection.', "error");
@@ -318,7 +286,7 @@ angular.module('reg')
 
         swal({
           title: "STOP, THIS ACTION IS DANGEROUS",
-          text: "You are about to delete " + user.profile.name + "!",
+          text: "You are about to delete this user!",
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",
@@ -327,7 +295,7 @@ angular.module('reg')
         }, function(){
 
           swal({
-            title: "ARE YOU SURE YOU WANT TO DELETE " + user.profile.name + "?",
+            title: "[FINAL CHECK]\nARE YOU SURE YOU WANT TO DELETE " + user.profile.name + "?",
             text: "THIS ACTION IS IRREVERSIBLE AND MAY RESULT IN SERIOUS DAMAGE",
             type: "warning",
             showCancelButton: true,
@@ -354,7 +322,7 @@ angular.module('reg')
 
             swal({
                 title: "Confirm Vote [ADMIT]",
-                text: "Vote to ADMIT " + user.profile.name + "?\nYou CANNOT undo this decision.",
+                text: "Vote to ADMIT this user?\nYou CANNOT undo this decision.",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -367,7 +335,7 @@ angular.module('reg')
                   .success(function(user){
                       if (user != "") {
                           $scope.users.splice(index, 1);
-                          swal("Action Performed", "Voted to admit " + user.profile.name, "success");
+                          swal("Action Performed", "Voted successfully", "success");
                       }
                       else {
                           swal("Error", "Action could not be performed.\nYou cannot vote on a user if status is locked!\nAdditionally, you cannot vote more than once!", "error");
@@ -385,7 +353,7 @@ angular.module('reg')
 
             swal({
                 title: "Confirm Vote [REJECT]",
-                text: "Vote to REJECT " + user.profile.name + "?\nYou CANNOT undo this decision.",
+                text: "Vote to REJECT?\nYou CANNOT undo this decision.",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -398,7 +366,7 @@ angular.module('reg')
                     .success(function(user){
                         if (user != "") {
                             $scope.users.splice(index, 1);
-                            swal("Action Performed", "Voted to reject " + user.profile.name, "success");
+                            swal("Action Performed", "Voted to reject", "success");
                         }
                         else {
                             swal("Error", "Action could not be performed.\nYou cannot vote on a user if status is locked!\nAdditionally, you cannot vote more than once!", "error");
