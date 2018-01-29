@@ -509,6 +509,9 @@ schema.statics.getByToken = function (token, callback) {
 schema.statics.validateProfile = function (profile, cb) {
     return cb(!(
         profile.firstname.length > 0 &&
+        profile.essaygain.length <= 500 &&
+        profile.essayproject.length <= 500 &&
+        profile.freeComment.length <= 500 &&
         profile.conduct &&
         profile.termsAndCond &&
         ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1

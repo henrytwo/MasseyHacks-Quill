@@ -248,7 +248,7 @@
           <p style="margin-bottom: 10px";>
             It doesn't have to relate to programming!
           </p>
-          <textarea id="essayproject" name="essayproject" ng-model="user.profile.essayproject">
+          <textarea id="essayproject" name="essayproject" ng-model="user.profile.essayproject" maxlength="500">
         </textarea>
         </div>
 
@@ -256,7 +256,7 @@
           <label>
               What do you hope to gain from MasseyHacks IV? *
           </label>
-          <textarea name="essaygain" id="essaygain" ng-model="user.profile.essaygain">
+          <textarea name="essaygain" id="essaygain" ng-model="user.profile.essaygain" maxlength="500">
           </textarea>
         </div>
 
@@ -323,7 +323,7 @@
               Free comment
           </label>
           <p>If there’s anything else you would like to say, this is the place to do it.</p>
-          <textarea ng-model="user.profile.freeComment">
+          <textarea ng-model="user.profile.freeComment" maxlength="500">
           </textarea>
         </div>
 
