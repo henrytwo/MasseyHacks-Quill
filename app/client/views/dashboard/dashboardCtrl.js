@@ -422,6 +422,10 @@ angular.module('reg')
           this.Side = function(x1, y1, x2, y2, x3, y3) {
             return ((x1 - x2) * (y3 - y2) - (y1 - y2) * (x3 - x2));
           }
+
+          this.onScreen = function() {
+            return this.position.y > ConfettiRibbon.bounds.y + this.particleDist * this.particleCount;
+          }
         }
         ConfettiRibbon.bounds = new Vector2(0, 0);
         confetti = {};
@@ -439,7 +443,7 @@ angular.module('reg')
           var rpDist = 8.0;
           var rpThick = 8.0;
           var confettiRibbons = new Array();
-          var reset = true;
+          this.reset = true;
           ConfettiRibbon.bounds = new Vector2(canvas.width, canvas.height);
           for (i = 0; i < confettiRibbonCount; i++) {
             confettiRibbons[i] = new ConfettiRibbon(Math.random() * canvas.width, -Math.random() * canvas.height * 2, rpCount, rpDist, rpThick, 45, 1, 0.05);
@@ -469,13 +473,36 @@ angular.module('reg')
           this.update = function() {
             var i = 0;
             context.clearRect(0, 0, canvas.width, canvas.height);
+
+            var clearParticles = [];
             for (i = 0; i < confettiPaperCount; i++) {
-              confettiPapers[i].Update(dt, reset);
+              confettiPapers[i].Update(dt, this.reset);
               confettiPapers[i].Draw(context);
+
+              if (confettiPapers[i].pos.y > ConfettiPaper.bounds.y && !this.reset) {
+                clearParticles.push(i);
+              }
             }
+
+            for (i = 0; i < clearParticles.length; i++) {
+              confettiPapers.slice(clearParticles[i]-i, 1);
+              confettiPaperCount -= 1;
+            }
+
+            clearParticles = [];
+
             for (i = 0; i < confettiRibbonCount; i++) {
-              confettiRibbons[i].Update(dt, reset);
+              confettiRibbons[i].Update(dt, this.reset);
               confettiRibbons[i].Draw(context);
+
+              if (confettiRibbons[i].onScreen() && !this.reset) {
+                clearParticles.push(i);
+              }
+            }
+
+            for (i = 0; i < clearParticles.length; i++) {
+              confettiRibbons.slice(clearParticles[i]-i, 1);
+              confettiRibbonCount -= 1;
             }
           }
         }
