@@ -131,7 +131,6 @@ var profile = {
 
     conduct: Boolean,
     termsAndCond: Boolean,
-    travelreimbursement: Boolean,
     hackathonxp: Boolean
 
 };
@@ -247,11 +246,6 @@ var status = {
         required: true,
         default: false,
     },
-    reimbursementApplied: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
     declined: {
         type: Boolean,
         required: true,
@@ -272,161 +266,6 @@ var status = {
     },
     confirmBy: {
         type: Number
-    },
-    reimbursementGiven: {
-        type: Boolean,
-        default: false
-    }
-};
-var reimbursement = {
-    dateOfBirth: {
-        type: String,
-        default: '',
-        maxlength: 100
-    },
-    addressLine1: {
-        type: String,
-        maxlength: 30
-    },
-    addressLine2: {
-        type: String,
-        maxlength: 30
-    },
-    stateProvinceRegion: {
-        type: String,
-        maxlength: 20
-    },
-    city: {
-        type: String,
-        maxlength: 30
-    },
-    nationality: {
-        type: String,
-        maxlength: 40,
-        default: ''
-    },
-    countryOfLiving: {
-        type: String,
-        maxlength: 70,
-    },
-    accountOwnerName: {
-        type: String,
-        maxlength: 50,
-        default: ''
-    },
-    accountOwnerBirthdate: {
-        type: String,
-        maxlength: 30,
-        default: ''
-    },
-    accountOwnerA1: {
-        type: String,
-        maxlength: 30,
-        default: ''
-    },
-    accountOwnerA2: {
-        type: String,
-        maxlength: 30,
-        default: ''
-    },
-    accountOwnerZIP: {
-        type: String,
-        maxlength: 20,
-        default: ''
-    },
-    accountOwnerCity: {
-        type: String,
-        maxlength: 30,
-        default: ''
-    },
-    accountOwnerRegion: {
-        type: String,
-        maxlength: 30,
-        default: ''
-    },
-    accountOwnerCountry: {
-        type: String,
-        maxlength: 30,
-        default: ''
-    },
-    countryOfBank: {
-        type: String,
-        maxlength: 30
-    },
-    countryType: {
-        type: String,
-        maxlength: 30
-    },
-    nameOfBank: {
-        type: String,
-        maxlength: 60
-    },
-    cityOfBank: {
-        type: String,
-        maxlength: 30
-    },
-    addressOfBank: {
-        type: String,
-        default: '',
-        maxlength: 50
-    },
-    fileName: {
-        type: String
-    },
-    fileUploaded: {
-        type: Boolean,
-        default: false
-    },
-    zipCode: {
-        type: String,
-        default: '',
-        maxlength: 10
-    },
-    zipCodeOfBank: {
-        type: String,
-        default: '',
-        maxlength: 10
-    },
-    iban: {
-        type: String,
-        default: '',
-        maxlength: 32
-    },
-    bban: {
-        type: String,
-        default: '',
-        maxlength: 32
-    },
-    receiptPurposeCode: {
-        type: String,
-        default: '',
-        maxlength: 5
-    },
-    accountNumber: {
-        type: String,
-        default: '',
-        maxlength: 30
-    },
-    swiftOrBic: {
-        type: String,
-        default: '',
-        maxlength: 11
-    },
-    clearingCode: {
-        type: String,
-        default: '',
-        maxlength: 30
-    },
-    brokerageInfo: {
-        type: String,
-        default: '',
-        maxlength: 200
-
-    },
-    additional: {
-        type: String,
-        default: '',
-        maxlength: 200
     }
 };
 // define the schema for our admin model
@@ -537,8 +376,6 @@ var schema = new mongoose.Schema({
      * Extension of the user model, but can only be edited after acceptance.
      */
     confirmation: confirmation,
-
-    reimbursement: reimbursement,
 
     status: status,
 

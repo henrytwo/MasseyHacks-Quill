@@ -90,7 +90,7 @@ angular.module('reg')
 
         if (!user.status.rejected){
           swal({
-            title: "Whoa, wait a minute! [FORCE ACTION]",
+            title: "Whoa, wait a minute!\n[FORCE ACTION]",
             text: "You are about to reject this user!",
             type: "warning",
             showCancelButton: true,
@@ -113,7 +113,13 @@ angular.module('reg')
                       }
                       else
                         $scope.users.splice(index, 1);
-                    swal("Action Performed", 'This user has been rejected.', "success");
+                        swal("Action Performed", 'This user has been rejected.', "success");
+                        if ($scope.users.length > 0) {
+                           selectUser($scope.users[0]);
+                        } else {
+                            $('.long.user.modal').modal('hide');
+                              swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
+                        }
                     }
                   else
                     swal("Could not be rejected", 'User cannot be rejected if its not verified or it is admitted', "error");
@@ -148,22 +154,8 @@ angular.module('reg')
       $scope.acceptUser = function($event, user, index) {
         $event.stopPropagation();
 
-        if (user.Class == null && user.profile.needsReimbursement){
-          swal("Could not be accepted", 'Please select travel reimbursement class', "error");
-          return;
-        }
-        else if(user.profile.needsReimbursement && user.Class === "Special" && user.SpecialClass != parseInt(user.SpecialClass,10)) {
-          swal("Could not be accepted", 'Special class input needs to be integer', "error");
-          return;
-        }
-        var Class;
-        if (user.Class === 'Special')
-          Class = user.SpecialClass;
-        else
-          Class = user.Class;
-
         swal({
-          title: "Whoa, wait a minute! [FORCE ACTION]",
+          title: "Whoa, wait a minute!\n[FORCE ACTION]",
           text: "You are about to accept this user!",
           type: "warning",
           showCancelButton: true,
@@ -198,6 +190,13 @@ angular.module('reg')
                         else
                           $scope.users.splice(index, 1);
                           swal("Action Performed", 'This user has been admitted.', "success");
+                          if ($scope.users.length > 0) {
+                              selectUser($scope.users[0]);
+                          }
+                          else {
+                              $('.long.user.modal').modal('hide');
+                              swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
+                          }
                     }
                     else
                       swal("Could not be accepted", 'User cannot be accepted if the user is rejected. Please remove rejection.', "error");
@@ -231,10 +230,16 @@ angular.module('reg')
       };
 
       function selectUser(user){
-        $scope.selectedUser = user;
-        $scope.selectedUser.sections = generateSections(user);
-        $('.long.user.modal')
-          .modal('show');
+          if (user !== null) {
+              $scope.selectedUser = user;
+              $scope.selectedUser.sections = generateSections(user);
+              $('.long.user.modal')
+                  .modal('show');
+
+          }
+          else {
+              swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
+          }
       }
 
        $scope.exportCSV = function() {
@@ -336,6 +341,13 @@ angular.module('reg')
                       if (user != "") {
                           $scope.users.splice(index, 1);
                           swal("Action Performed", "Voted successfully", "success");
+                          if ($scope.users.length > 0) {
+                              selectUser($scope.users[0]);
+                          }
+                          else {
+                              $('.long.user.modal').modal('hide');
+                              swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
+                          }
                       }
                       else {
                           swal("Error", "Action could not be performed.\nYou cannot vote on a user if status is locked!\nAdditionally, you cannot vote more than once!", "error");
@@ -367,6 +379,13 @@ angular.module('reg')
                         if (user != "") {
                             $scope.users.splice(index, 1);
                             swal("Action Performed", "Voted to reject", "success");
+                            if ($scope.users.length > 0) {
+                                selectUser($scope.users[0]);
+                            }
+                            else {
+                                $('.long.user.modal').modal('hide');
+                                swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
+                            }
                         }
                         else {
                             swal("Error", "Action could not be performed.\nYou cannot vote on a user if status is locked!\nAdditionally, you cannot vote more than once!", "error");
@@ -413,9 +432,6 @@ angular.module('reg')
                     name: 'Profile',
                     fields: [
                         {
-                            name: 'Gender',
-                            value: user.profile.gender
-                        },{
                             name: 'School',
                             value: user.profile.school
                         },{

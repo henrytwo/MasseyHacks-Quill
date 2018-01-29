@@ -1,6 +1,22 @@
 <div class="ui segment">
 
-  <div class="ui stackable">
+    <button
+            class="ui positive button"
+            ng-click="selectUser(users.length > 0 ? users[0] : null)">
+        Start reviewing!
+    </button>
+
+    [{{users.length}} application(s) remaining]
+
+    <br>
+    <br>
+
+  <div class="ui checkbox">
+    <input type="checkbox" id="showAdvanced" ng-model="showAdvanced">
+    <label for="showAdvanced"><h5>Advanced Application Review (Warning, spoils identity of applicants)</h5></label>
+  </div>
+
+  <div class="ui stackable" ng-show="showAdvanced">
     <div>
       <div class="ui header" style="padding-top: 20px">
         Search
@@ -41,7 +57,7 @@
       <div class="ui long user modal">
         <i class="close icon"></i>
         <div class="header">
-          Application Review
+          MasseyHacks Application Review <br>[{{users.length}} application(s) remaining]
         </div>
         <div class="content">
 
@@ -54,7 +70,8 @@
               </div>
             </div>
             <p>
-              <strong> Admitted by: </strong> {{selectedUser.status.admittedBy ? selectedUser.status.admittedBy : 'N/A'}}
+              <strong> Admitted by: </strong> {{selectedUser.status.admittedBy ? selectedUser.status.admittedBy : 'N/A'}} <br>
+              <strong> Reviewed by: </strong> {{selectedUser.votedBy}}
             </p>
           </div>
 
