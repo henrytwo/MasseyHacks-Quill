@@ -111,6 +111,42 @@ angular.module('reg')
         }
       };
 
+      $scope.toggleActivate = function($event, user, index) {
+        $event.stopPropagation();
+
+        if (user.active){
+          swal({
+              title: "Whoa, wait a minute!",
+              text: "You are about to deactivate " + user.profile.name + "!",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes, deactivate.",
+              closeOnConfirm: false
+            },
+            function(){
+              UserService
+                .deactivate(user._id)
+                .success(function(user){
+                  $scope.users[index] = user;
+                  swal("Action Performed", user.profile.name + ' has been deactivated.', "success");
+                }).error(function(err) {
+                swal("Access Denied", "You do not have permission to perform this action.", "error")
+              });
+            }
+          );
+        } else {
+          UserService
+            .activate(user._id)
+            .success(function(user){
+              $scope.users[index] = user;
+              swal("Action Performed", user.profile.name + ' has been activated.', "success");
+            }).error(function(err) {
+            swal("Access Denied", "You do not have permission to perform this action.", "error")
+          });
+        }
+      };
+
       $scope.toggleReject = function($event, user, index) {
         $event.stopPropagation();
 

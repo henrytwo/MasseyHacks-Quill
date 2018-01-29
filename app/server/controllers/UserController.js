@@ -82,8 +82,8 @@ function generateID(i){
  */
 UserController.loginWithToken = function(token, callback){
   User.getByToken(token, function(err, user){
-    if (!user) {
-      return callback(err, token, user);
+    if (!user || !user.active) {
+      return callback(err, token, null);
     }
     var u = user.toJSON();
 
@@ -1244,6 +1244,32 @@ UserController.checkInById = function(id, user, callback){
     new: true
   },
   callback);
+};
+
+UserController.activateById = function(id, user, callback){
+  User.findOneAndUpdate({
+      _id: id
+    },{
+      $set: {
+        'active': true
+      }
+    }, {
+      new: true
+    },
+    callback);
+};
+
+UserController.deactivateById = function(id, user, callback){
+  User.findOneAndUpdate({
+      _id: id
+    },{
+      $set: {
+        'active': false
+      }
+    }, {
+      new: true
+    },
+    callback);
 };
 
 UserController.remove = function(id, user, callback){

@@ -288,6 +288,20 @@
                 <i class="remove user icon"></i>
               </button>
 
+              <button
+                ng-click="toggleActivate($event, user, $index)"
+                class="ui circular mini basic green icon button">
+
+                <i
+                  ng-if="!user.active"
+                  class="red user icon"></i>
+
+                <i
+                  ng-if="user.active"
+                  class="green user icon"></i>
+
+              </button>
+
             </td>
 
             <td
