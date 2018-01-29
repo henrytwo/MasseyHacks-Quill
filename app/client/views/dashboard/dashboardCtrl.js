@@ -42,6 +42,8 @@ angular.module('reg')
       $scope.dashState = function(status){
         var user = $scope.user;
 
+        console.log(status);
+
         switch (status) {
           case 'unverified':
             return !user.verified;
@@ -49,29 +51,29 @@ angular.module('reg')
             return regIsOpen && user.verified && !user.status.completedProfile;
           case 'openAndSubmitted':
             return regIsOpen && user.status.completedProfile && !user.status.admitted &&
-            !(user.status.rejected && Settings.showRejection);
+            !(user.status.rejected && Settings.showState);
           case 'closedAndIncomplete':
             return !regIsOpen && !user.status.completedProfile && !user.status.admitted &&
-            !(user.status.rejected && Settings.showRejection);
+            !(user.status.rejected) && Settings.showState;
           case 'closedAndSubmitted': // Waitlisted State
             return !regIsOpen && user.status.completedProfile && !user.status.admitted &&
-            !(user.status.rejected && Settings.showRejection);
+            !(user.status.rejected) && Settings.showState;
           case 'admittedAndCanConfirm':
             return !pastConfirmation &&
               user.status.admitted &&
               !user.status.confirmed &&
-              !user.status.declined
+              !user.status.declined && Settings.showState;
           case 'admittedAndCannotConfirm':
             return pastConfirmation &&
               user.status.admitted &&
               !user.status.confirmed &&
-              !user.status.declined;
+              !user.status.declined && Settings.showState && Settings.showState;
           case 'confirmed':
-            return user.status.admitted && user.status.confirmed && !user.status.declined;
+            return user.status.admitted && user.status.confirmed && !user.status.declined && Settings.showState;
           case 'declined':
             return user.status.declined;
           case 'reviewed':
-            return user.status.rejected && Settings.showRejection;
+            return user.status.rejected && Settings.showState;
         }
         return false;
       };

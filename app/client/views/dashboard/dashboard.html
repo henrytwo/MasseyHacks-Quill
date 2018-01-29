@@ -93,8 +93,9 @@
             {{ DASHBOARD.INCOMPLETE }}
           </p>
           <p>
-            Awesome to see you register to MasseyHacks IV! Next, fill in the application form to apply for the world’s most exciting hackathon :)
-            We look forward to reading your application!
+            It seems like your application is incomplete.
+            We encourage you to complete your application in order to increase your chances of acceptance.
+            We are eager to review your application and spots are limited so finish it quick!
           </p>
           <div class="ui complete-button button"
                ui-sref="app.application">
@@ -110,8 +111,7 @@
             Thanks for submitting your application!
             <br>
             <br>
-            Your application has successfully been submitted and we are hard at work reviewing it. We will let you know during one of our acceptance waves if you have been accepted to attend MasseyHacks IV.
-            <br>
+            Your application has successfully been submitted and we are hard at work reviewing it. We will let you know during one of our acceptance waves if you have been accepted to attend MasseyHacks IV. If you are not accepted during the first acceptance wave after your submission, don’t worry as your application is automatically considered for our next wave.             <br>
             <br>
             Meanwhile you can still edit your information and check your status on the Dashboard.
             <strong>
@@ -186,12 +186,6 @@
             </h4>
           </div>
 
-          <div
-            class="markdown"
-            ng-bind-html="acceptanceText">
-            <p ng-show="user.profile.needsReimbursement">You will be granted <strong>{{classAmount}} € </strong>for the travel reimbursements.</p>
-          </div>
-
           <div class="markdown">
             <h4>
                 {{ DASHBOARD.ADMITTED_AND_CAN_CONFIRM }}
@@ -236,8 +230,6 @@
             <h4>
                 {{ DASHBOARD.CONFIRMED_NOT_PAST_TITLE }}
             </h4>
-            <p ng-show="user.profile.needsReimbursement">You will be granted <strong>{{classAmount}} € </strong>for the travel reimbursements.</p>
-            For check-in at the event, please be prepared to show us your Unique ID: <strong>{{user.id}}</strong>!
           </div>
 
           <div
@@ -262,7 +254,8 @@
           ng-if="dashState('declined')">
 
           <p>
-            {{ DASHBOARD.DECLINED }}
+            We're sorry to hear that you won't be able to make it to MasseyHacks IV! :(
+            Maybe next year! We hope you see you again soon.
           </p>
         </div>
 
@@ -270,15 +263,10 @@
           class="description"
           ng-if="dashState('reviewed')">
 
-          <p>Thank you so much for applying to MasseyHacks IV! Unfortunately, we’re not able to invite every applicant to participate. 😞</p>
+          <p>Due to overwhelming amounts of applications, we were unable to secure you a spot at MasseyHacks IV. 😞</p>
+          <p>Despite this, we encourage you to apply again next year.</p>
+          <p>We appreciate your interest in wanting to be a part of MasseyHacks IV!</p>
 
-          <p>We’re sorry to inform that you didn’t get selected to participate in MasseyHacks this year.</p>
-
-          <p>Making the final decisions was very difficult due to the large amount of high-quality applications. This year we had applications from over 70 countries and more than 110 nationalities represented. </p>
-
-          <p>We are honoured to have you apply and would love to see you attending future events of MasseyHacks. </p>
-
-          <p>Also, look out for applications to MasseyHacks 2018 next year by liking and following our <a href="https://www.facebook.com/masseyhacks/" target="_blank">Facebook page! 🖖</a></p>
         </div>
 
       </div>
