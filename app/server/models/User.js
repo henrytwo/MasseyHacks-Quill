@@ -326,6 +326,11 @@ var schema = new mongoose.Schema({
         default: true
     },
 
+    advancedState: {
+        type: Boolean,
+        default: false
+    },
+
     timestamp: {
         type: Number,
         required: true,
