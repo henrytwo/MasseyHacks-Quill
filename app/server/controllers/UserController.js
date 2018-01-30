@@ -1146,9 +1146,39 @@ UserController.voteRejectUser = function(id, user, callback){
                 new: true
             },
             function(err, user) {
+
                 if (err || !user) {
                     return callback(err);
                 }
+
+                if (user.votedBy.length >= 5 && user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
+                    user.status.admitted = true;
+                    user.status.rejected = false;
+                    user.status.admittedBy = "MasseyHacks Account Authority";
+                    console.log("Admitted user");
+                }
+                else {
+                    user.status.admitted = false;
+                    user.status.rejected = true;
+                    console.log("Rejected user");
+                }
+
+                User.findOneAndUpdate({
+                        '_id': id,
+                        'verified': true,
+                        'status.rejected': false,
+                        'status.admitted': false,
+                    },
+                    {
+                        $set: {
+                            'status': user.status
+                        }
+                    },
+                    {
+                        new: true
+                    },
+                    callback);
+
                 return callback(err, user);
             });
 };
@@ -1163,6 +1193,7 @@ UserController.voteRejectUser = function(id, user, callback){
  * @param  {Function} callback args(err, user)
  */
 UserController.voteAdmitUser = function(id, user, callback){
+
     User
         .findOneAndUpdate({
                 '_id': id,
@@ -1174,15 +1205,46 @@ UserController.voteAdmitUser = function(id, user, callback){
             },{
                 $push: {
                     'applicationAdmit': user.email,
-                    'votedBy': user.email
+                    'votedBy': user.email,
                 }
             }, {
                 new: true
             },
             function(err, user) {
+
                 if (err || !user) {
                     return callback(err);
                 }
+
+                if (user.votedBy.length >= 5 && user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
+                    user.status.admitted = true;
+                    user.status.rejected = false;
+                    user.status.admittedBy = "MasseyHacks Account Authority";
+                    console.log("Admitted user");
+                }
+                else {
+                    user.status.admitted = false;
+                    user.status.rejected = true;
+                    console.log("Rejected user");
+                }
+
+
+                User.findOneAndUpdate({
+                        '_id': id,
+                        'verified': true,
+                        'status.rejected': false,
+                        'status.admitted': false,
+                    },
+                    {
+                        $set: {
+                            'status': user.status
+                        }
+                    },
+                    {
+                        new: true
+                    },
+                    callback);
+
                 return callback(err, user);
             });
 };

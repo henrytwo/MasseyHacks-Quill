@@ -151,6 +151,7 @@
         class="ui celled selectable compact users table">
         <thead>
           <tr>
+            <th>Votes</th>
             <th>Name</th>
             <th>V/S/A/C</th>
             <th></th>
@@ -172,6 +173,9 @@
             ng-repeat="user in users"
             ng-class="rowClass(user)">
 
+            <td>
+              <b>{{user.votedBy.length}}/5</b>
+            </td>
             <td>
                 {{user.profile.name}}
             </td>

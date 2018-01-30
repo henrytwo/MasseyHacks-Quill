@@ -237,7 +237,7 @@ var status = {
         required: true,
         default: false,
     },
-    admittedBy: {
+   actionBy: {
         type: String,
         select: false
     },
@@ -393,12 +393,10 @@ var schema = new mongoose.Schema({
 
     applicationAdmit: {
         type: [String],
-        select: false
     },
 
     applicationReject: {
         type: [String],
-        select: false
     },
 
     votedBy: {

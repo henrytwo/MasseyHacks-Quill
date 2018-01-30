@@ -153,7 +153,7 @@ angular.module('reg')
 
         if (!user.status.rejected){
           swal({
-            title: "Whoa, wait a minute! [FORCE ACTION]",
+            title: "Whoa, wait a minute!\n[FORCE ACTION]",
             text: "You are about to reject " + user.profile.name + "!",
             type: "warning",
             showCancelButton: true,
@@ -212,7 +212,7 @@ angular.module('reg')
         $event.stopPropagation();
 
         swal({
-          title: "Whoa, wait a minute! [FORCE ACTION]",
+          title: "Whoa, wait a minute!\n[FORCE ACTION]",
           text: "You are about to accept " + user.profile.name + "!",
           type: "warning",
           showCancelButton: true,
