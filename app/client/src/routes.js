@@ -223,7 +223,12 @@ angular.module('reg')
           '&size' +
           '&query',
         templateUrl: "views/admin/users/users.html",
-        controller: 'AdminUsersCtrl'
+        controller: 'AdminUsersCtrl',
+        resolve: {
+            currentUser: function(UserService){
+                return UserService.getCurrentUser();
+            }
+        }
       })
       .state('app.admin.user', {
         url: "/admin/users/:id",

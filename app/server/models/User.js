@@ -237,7 +237,7 @@ var status = {
         required: true,
         default: false,
     },
-   actionBy: {
+   admittedBy: {
         type: String,
         select: false
     },

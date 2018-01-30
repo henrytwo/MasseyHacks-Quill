@@ -1151,16 +1151,18 @@ UserController.voteRejectUser = function(id, user, callback){
                     return callback(err);
                 }
 
-                if (user.votedBy.length >= 5 && user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
-                    user.status.admitted = true;
-                    user.status.rejected = false;
-                    user.status.admittedBy = "MasseyHacks Account Authority";
-                    console.log("Admitted user");
-                }
-                else {
-                    user.status.admitted = false;
-                    user.status.rejected = true;
-                    console.log("Rejected user");
+                if (user.votedBy.length >= 5) {
+                    if (user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
+                        user.status.admitted = true;
+                        user.status.rejected = false;
+                        user.status.admittedBy = "MasseyHacks Account Authority";
+                        console.log("Admitted user");
+                    }
+                    else {
+                        user.status.admitted = false;
+                        user.status.rejected = true;
+                        console.log("Rejected user");
+                    }
                 }
 
                 User.findOneAndUpdate({
@@ -1177,9 +1179,9 @@ UserController.voteRejectUser = function(id, user, callback){
                     {
                         new: true
                     },
-                    callback);
-
-                return callback(err, user);
+                    function(err, user) {
+                        return callback(err, user);
+                    });
             });
 };
 
@@ -1216,18 +1218,19 @@ UserController.voteAdmitUser = function(id, user, callback){
                     return callback(err);
                 }
 
-                if (user.votedBy.length >= 5 && user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
-                    user.status.admitted = true;
-                    user.status.rejected = false;
-                    user.status.admittedBy = "MasseyHacks Account Authority";
-                    console.log("Admitted user");
+                if (user.votedBy.length >= 5) {
+                    if (user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
+                        user.status.admitted = true;
+                        user.status.rejected = false;
+                        user.status.admittedBy = "MasseyHacks Account Authority";
+                        console.log("Admitted user");
+                    }
+                    else {
+                        user.status.admitted = false;
+                        user.status.rejected = true;
+                        console.log("Rejected user");
+                    }
                 }
-                else {
-                    user.status.admitted = false;
-                    user.status.rejected = true;
-                    console.log("Rejected user");
-                }
-
 
                 User.findOneAndUpdate({
                         '_id': id,
@@ -1243,9 +1246,9 @@ UserController.voteAdmitUser = function(id, user, callback){
                     {
                         new: true
                     },
-                    callback);
-
-                return callback(err, user);
+                    function(err, user) {
+                        return callback(err, user);
+                    });
             });
 };
 

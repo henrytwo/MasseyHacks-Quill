@@ -1,10 +1,13 @@
 angular.module('reg')
   .controller('AdminUsersCtrl',[
+    'currentUser',
     '$scope',
     '$state',
     '$stateParams',
     'UserService',
-    function($scope, $state, $stateParams, UserService){
+    function(currentUser, $scope, $state, $stateParams, UserService){
+
+      $scope.adminUser = currentUser.data;
 
       $scope.pages = [];
       $scope.users = [];
@@ -383,6 +386,7 @@ angular.module('reg')
                   .voteAdmitUser(user._id)
                   .success(function(user){
                       if (user != "") {
+                          $scope.users[index] = user;
                           swal("Action Performed", "Voted to admit " + user.profile.name, "success");
                       }
                       else {
@@ -413,6 +417,7 @@ angular.module('reg')
                     .voteRejectUser(user._id)
                     .success(function(user){
                         if (user != "") {
+                            $scope.users[index] = user;
                             swal("Action Performed", "Voted to reject " + user.profile.name, "success");
                         }
                         else {
