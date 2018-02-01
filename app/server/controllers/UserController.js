@@ -1161,7 +1161,7 @@ UserController.voteRejectUser = function(id, user, callback){
                     if (user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
                         user.status.admitted = true;
                         user.status.rejected = false;
-                        user.status.admittedBy = "MasseyHacks Account Authority";
+                        user.status.admittedBy = "MasseyHacks Admission Authority";
                         console.log("Admitted user");
                     }
                     else {
@@ -1228,7 +1228,7 @@ UserController.voteAdmitUser = function(id, user, callback){
                     if (user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
                         user.status.admitted = true;
                         user.status.rejected = false;
-                        user.status.admittedBy = "MasseyHacks Account Authority";
+                        user.status.admittedBy = "MasseyHacks Admission Authority";
                         console.log("Admitted user");
                     }
                     else {

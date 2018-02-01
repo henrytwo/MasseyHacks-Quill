@@ -135,7 +135,8 @@
         <select class="ui fluid school search dropdown"
                name="school"
                id="school"
-               ng-model="user.profile.school">
+               ng-model="user.profile.school"
+               maxlength="50">
                <option value="">Select School</option>
         </select>
       </div>
@@ -187,6 +188,7 @@
         <select
           class="ui fluid dropdown"
           name="shirt"
+          id="shirt"
           ng-model="user.profile.shirt"
           required>
           <option value="">Shirt Size</option>
@@ -297,7 +299,7 @@
             Remember that the team name is Case Sensitive and all teammates have to apply <strong>separately with the same team name</strong>!
             Having a team is not compulsory at all for attending.
             <br>
-            NOTE that to compete for prizes at MasseyHacks IV, your team can be max. 5 members!
+            NOTE that to compete for prizes at MasseyHacks IV, your team can be max. 4 members!
           </p>
           <input type="text"
                  name="teamCode"

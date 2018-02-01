@@ -246,6 +246,11 @@ var status = {
         required: true,
         default: false,
     },
+    waiver: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     declined: {
         type: Boolean,
         required: true,
@@ -515,6 +520,7 @@ schema.statics.validateProfile = function (profile, cb) {
         profile.essaygain.length <= 500 &&
         profile.essayproject.length <= 500 &&
         profile.freeComment.length <= 500 &&
+        profile.school.length <= 50 &&
         profile.conduct &&
         profile.termsAndCond &&
         ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1
