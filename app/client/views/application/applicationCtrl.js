@@ -15,6 +15,7 @@ angular.module('reg')
       // Set up the user
       $scope.user = currentUser.data;
       var originalTeamCode = $scope.user.teamCode;
+      var oldSchool = '';
 
       //icon tooltip popup
       $('.icon')
@@ -44,13 +45,11 @@ angular.module('reg')
             'Gluten Free':false,
         };
 
-        if ($scope.user.profile.diet){
-            $scope.user.profile.diet.forEach(function(restriction){
-                if (restriction in diet){
-                    diet[restriction] = true;
-                }
-            });
-        }
+        $scope.user.profile.diet.forEach(function(restriction){
+            if (restriction in diet){
+                diet[restriction] = true;
+            }
+        });
 
         $scope.diet = diet;
 
@@ -58,8 +57,8 @@ angular.module('reg')
 
         // Get the dietary restrictions as an array
         var drs = [];
-        Object.keys($scope.user.profile.diet).forEach(function(key){
-            if ($scope.user.profile.diet[key]){
+        Object.keys($scope.diet).forEach(function(key){
+            if ($scope.diet[key]){
                 drs.push(key);
             }
         });
@@ -258,6 +257,11 @@ angular.module('reg')
         $('.ui.dropdown').dropdown('refresh');
 
         setTimeout(function () {
+
+          if ($scope.user.profile.school !== null) {
+            oldSchool = $scope.user.profile.school;
+          }
+
           $(".ui.search.dropdown").dropdown('set selected', $scope.user.profile.school);
 
           if ($scope.regIsClosed) {
@@ -268,12 +272,20 @@ angular.module('reg')
       }
 
       $scope.submitForm = function(){
+
+        console.log($scope.user.profile.school);
+
+        if (($scope.user.profile.school == null || $scope.user.profile.school.length == 0) && oldSchool !== null) {
+          $scope.user.profile.school = oldSchool;
+        }
+
         if (!$scope.user.profile.hackathonxp) {
           $scope.user.profile.pasthackathon = null;
         }
         $scope.fieldErrors = null;
         $scope.error = null;
         $scope.user.profile.name = $scope.user.profile.firstname + " " + $scope.user.profile.lastname;
+
         $('.ui.form').form('validate form');
       };
 }]);

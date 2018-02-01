@@ -81,55 +81,285 @@
       </div>
 
       <div class="field">
-        <label> Email </label>
-        <input type="email"
-               name="email"
-               disabled="disabled"
-               ng-model="selectedUser.email">
-      </div>
-
-      <div class="field">
-        <label> Full Name </label>
+        <label> Username *</label>
         <input type="text"
-               name="name"
-               ng-model="selectedUser.profile.name">
+               name="nickname"
+               ng-model="selectedUser.nickname">
       </div>
 
-      <div class="field" ng-show="autoFilledSchool">
-        <label> School </label>
-        <input class="ui input"
-               disabled="disabled"
-               ng-show="autoFilledSchool"
-               ng-model="selectedUser.profile.school">
-      </div>
 
-      <div class="field" ng-show="!autoFilledSchool">
-        <label> School </label>
-        <input class="ui input"
-               name="school"
-               ng-model="selectedUser.profile.school">
+      <div class="field">
+        <label> First Name * </label>
+        <input type="text"
+               name="firstname"
+               ng-model="selectedUser.profile.firstname">
       </div>
 
       <div class="field">
-        <label>Gender</label>
+        <label> Last Name * </label>
+        <input type="text"
+               name="lastname"
+               ng-model="selectedUser.profile.lastname">
+      </div>
+
+      <div class="field">
+        <label>What grade are you in? *</label>
         <select
-          name="gender"
-          ng-model="selectedUser.profile.gender">
+                class="ui fluid dropdown"
+                id="grade"
+                name="grade"
+                ng-model="selectedUser.profile.grade">
+          <option value="">Grade</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+
+      <br>
+
+      <div class="field">
+        <label>What gender do you identify as? *</label>
+        <p>This information is used for statistical purposes and will not influence your application.</p>
+        <select
+                class="ui fluid dropdown"
+                id="gender"
+                name="gender"
+                ng-model="selectedUser.profile.gender">
           <option value="">Gender</option>
           <option value="M">Male</option>
           <option value="F">Female</option>
           <option value="O">Other</option>
-          <option value="N">I prefer not to answer.</option>
+          <option value="N">I prefer not to answer</option>
+        </select>
+      </div>
+
+      <br>
+
+      <div class="field">
+        <label>What is your ethnic background? *</label>
+        <p>This information is used for statistical purposes and will not influence your application.</p>
+        <select
+                class="ui fluid dropdown"
+                id="ethnicity"
+                name="ethnicity"
+                ng-model="selectedUser.profile.ethnicity">
+          <option value="">Race</option>
+          <option value="W">White / Caucasian</option>
+          <option value="B">Black / African American</option>
+          <option value="NA">Native</option>
+          <option value="A">Asian or Pacific Islander</option>
+          <option value="H">Hispanic</option>
+          <option value="O">Other / Multiple</option>
+          <option value="N">I prefer not to answer</option>
+        </select>
+      </div>
+
+      <br>
+
+      <div class="field">
+        <label> School Information </label>
+      </div>
+
+      <div class="field" id="schoolField">
+        <label> Which school are you from? *</label>
+        <p style="margin-bottom: 10px;">
+          Please type in the school you are enrolled at.
+        </p>
+        <select class="ui fluid school search dropdown"
+                name="school"
+                id="school"
+                ng-model="selectedUser.profile.school">
+          <option value="">Select School</option>
         </select>
       </div>
 
       <div class="field">
-        <div
-          ng-click="updateProfile()"
-          class="ui positive right labeled icon button">
-          Update Profile
-          <i class="checkmark icon"></i>
+        <label> What city are you travelling from? *</label>
+        <input type="text"
+               name="departing"
+               ng-model="selectedUser.profile.departing">
+      </div>
+
+      <div class="field">
+        <label> What is your phone number?</label>
+        <input type="text"
+               name="phone"
+               ng-model="selectedUser.profile.phone">
+      </div>
+
+      <div class="field">
+        <label> Dietary Restrictions *</label>
+
+        <p>
+          If your restrictions are not included here, please let us know in the additional notes at the bottom.
+        </p>
+        <p>
+          We'll make sure you get fed :)
+        </p>
+
+      </div>
+
+      <div class="inline fields">
+        <div class="field"
+             ng-repeat="(key, value) in diet">
+
+          <div class="ui checkbox">
+            <input type="checkbox" ng-model="diet[key]" />
+            <label>{{key}}</label>
+          </div>
+
         </div>
+      </div>
+
+      <div class="field">
+        <label> T-shirt size *</label>
+        <p>
+          Prepping for some FREE swag ;)
+        </p>
+
+        <select
+                class="ui fluid dropdown"
+                name="shirt"
+                ng-model="selectedUser.profile.shirt"
+                required>
+          <option value="">Shirt Size</option>
+          <option value="S">Small</option>
+          <option value="M">Medium</option>
+          <option value="L">Large</option>
+        </select>
+      </div>
+
+      <br>
+      <br>
+      <div class="divided title">Travel & Accommodation</div>
+      <div class="ui checkbox">
+        <input type="checkbox" id="needsReimbursement" ng-model="selectedUser.profile.needsReimbursement">
+        <label><h5>Do you need travel reimbursement? *</h5></label>
+      </div>
+
+      <br>
+      <br>
+      <div class="divided title">Experience</div>
+
+      <div class="ui checkbox">
+        <input type="checkbox" id="hackathonxp" ng-model="selectedUser.profile.hackathonxp">
+        <label for="hackathonxp"><h5>Have you been to a hackathon before? *</h5></label>
+      </div>
+
+      <br>
+      <br>
+
+      <div class="indent">
+        <div class="field" ng-show="selectedUser.profile.hackathonxp">
+          <label>Which hackathons have you attended? *</label>
+          <textarea ng-model="selectedUser.profile.pasthackathon">
+            </textarea>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="field">
+        <label>How did you find out about us? *</label>
+        <select
+                class="ui fluid dropdown"
+                name="methodofdiscovery"
+                id="methodofdiscovery"
+                ng-model="selectedUser.profile.methodofdiscovery">
+          <option value="">How?</option>
+          <option value="mlh">MLH</option>
+          <option value="facebook">Facebook</option>
+          <option value="mouth">Word of mouth</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>
+          Describe a project you're most proud of *
+        </label>
+        <p style="margin-bottom: 10px";>
+          It doesn't have to relate to programming!
+        </p>
+        <textarea id="essayproject" name="essayproject" ng-model="selectedUser.profile.essayproject" maxlength="500">
+        </textarea>
+      </div>
+
+      <div class="field">
+        <label>
+          What do you hope to gain from MasseyHacks IV? *
+        </label>
+        <textarea name="essaygain" id="essaygain" ng-model="selectedUser.profile.essaygain" maxlength="500">
+          </textarea>
+      </div>
+
+      <br><br>
+      <div class="divided title">Links about you</div>
+      <p>Show us what we can find about you on the web! These fields are not mandatory, just a chance to get to know you better :).</p>
+      <div class="field">
+        <label> Link to your portfolio </label>
+        <input type="text"
+               name="github"
+               placeholder="https://hacker.io"
+               ng-model="selectedUser.profile.site">
+      </div>
+
+      <div class="field">
+        <label> Link to your GitHub profile </label>
+        <input type="text"
+               name="github"
+               placeholder="https://github.com/hacker"
+               ng-model="selectedUser.profile.github">
+      </div>
+
+      <div class="field">
+        <label> Link to your Devpost profile </label>
+        <input type="text"
+               name="github"
+               placeholder="https://devpost.com/hacker"
+               ng-model="selectedUser.profile.devpost">
+      </div>
+
+      <br><br>
+      <div class="divided title">Final questions</div>
+
+      <div class="field">
+        <label>
+          If you have already formed a team for MasseyHacks IV, please name it with a unique string. </label>
+        <p style="margin-bottom: 10px;">
+          Remember that the team name is Case Sensitive and all teammates have to apply <strong>separately with the same team name</strong>!
+          Having a team is not compulsory at all for attending.
+          <br>
+          NOTE that to compete for prizes at MasseyHacks IV, your team can be max. 5 members!
+        </p>
+        <input type="text"
+               name="teamCode"
+               placeholder="cAsE SENsiTiVE"
+               ng-model="selectedUser.teamCode">
+      </div>
+
+      <div class="field">
+        <label>And finally… Spaces or tabs?</label>
+        <select
+                class="ui fluid dropdown"
+                name="spacesOrTabs"
+                id="spacesOrTabs"
+                ng-model="selectedUser.profile.spacesOrTabs">
+          <option value="">Choose wisely</option>
+          <option value="Spaces">Spaces</option>
+          <option value="Tabs">Tabs</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>
+          Free comment
+        </label>
+        <p>If there’s anything else you would like to say, this is the place to do it.</p>
+        <textarea ng-model="selectedUser.profile.freeComment" maxlength="500">
+          </textarea>
       </div>
 
     </fieldset>
@@ -146,182 +376,28 @@
       </div>
 
       <div class="field">
-        <label> Phone </label>
-        <input type="tel" ng-model="selectedUser.confirmation.phoneNumber" />
-      </div>
-
-      <div class="field">
-        <label> Dietary Restrictions </label>
-        <input
-          type="text" ng-model="selectedUser.confirmation.dietaryRestrictions" />
-      </div>
-
-      <div class="field">
-        <label> Shirt Size </label>
-        <input type="text" ng-model="selectedUser.profile.shirtSize" />
-      </div>
-
-      <div class="field">
-        <label> Github </label>
-        <input type="url" ng-model="selectedUser.profile.github" />
-      </div>
-
-      <div class="field">
-        <label> Website </label>
-        <input type="url" ng-model="selectedUser.profile.website" />
-      </div>
-
-      <div class="field">
-        <label> Resume </label>
-        <input type="url" ng-model="selectedUser.profile.resume" />
-      </div>
-
-      <div class="ui divider"></div>
-
-      <div class="field">
         <label>
-          Needs Hardware
+          Additional Notes
         </label>
-        <div class="ui checkbox">
-          <input type="checkbox" ng-model="selectedUser.confirmation.wantsHardware">
-          <label> Yup, I need hardware </label>
+        <p>
+          If there's anything else you need to let us know, tell us here!
+        </p>
+        <textarea
+                ng-model="selectedUser.confirmation.notes"></textarea>
+      </div>
+
+      <div class="ui checkbox">
+        <input type="checkbox" id="waiver" ng-model="selectedUser.status.waiver">
+        <label><h5>Waiver signed</h5></label>
+      </div>
+
+      <div class="field">
+        <div
+                ng-click="updateProfile()"
+                class="ui positive right labeled icon button">
+          Update Profile
+          <i class="checkmark icon"></i>
         </div>
-      </div>
-
-      <div class="field">
-        <label>
-        Hardware
-        </label>
-        <input type="text" ng-model="selectedUser.confirmation.hardware">
-      </div>
-
-      <div class="ui divider"></div>
-
-      <div class="ui header">
-        Hosting
-      </div>
-
-      <div class="field">
-        <strong> Gender Neutral </strong>
-        <i
-          ng-if="selectedUser.confirmation.genderNeutral"
-          class="green check circle icon">
-        </i>
-        <i
-          ng-if="!selectedUser.confirmation.genderNeutral"
-          class="red remove circle icon">
-        </i>
-      </div>
-
-      <div class="field">
-        <strong> Cat Friendly </strong>
-        <i
-          ng-if="selectedUser.confirmation.catFriendly"
-          class="green check circle icon">
-        </i>
-        <i
-          ng-if="!selectedUser.confirmation.catFriendly"
-          class="red remove circle icon">
-        </i>
-      </div>
-
-      <div class="field">
-        <strong> Smoking Friendly </strong>
-        <i
-          ng-if="selectedUser.confirmation.smokingFriendly"
-          class="green check circle icon">
-        </i>
-        <i
-          ng-if="!selectedUser.confirmation.smokingFriendly"
-          class="red remove circle icon">
-        </i>
-      </div>
-
-      <div class="field">
-        <label> Hosting Notes </label>
-        <textarea ng-model="selectedUser.confirmation.hostNotes"></textarea>
-      </div>
-
-      <div class="ui divider"></div>
-
-      <div class="ui header">
-        Travel
-      </div>
-
-      <div class="field">
-        <strong> Needs Reimbursement</strong>
-        <i
-          ng-if="selectedUser.confirmation.needsReimbursement"
-          class="green check circle icon">
-        </i>
-        <i
-          ng-if="!selectedUser.confirmation.needsReimbursement"
-          class="red remove circle icon">
-        </i>
-      </div>
-
-      <div class="field">
-        <label>Full Name</label>
-        <input type="text"
-               name="name"
-               ng-model="selectedUser.confirmation.address.name">
-      </div>
-
-      <div class="field">
-        <label> Address Line 1 - Street address, P.O. box, company name, c/o </label>
-        <input
-          type="text"
-          name="addressLine1"
-          ng-model="selectedUser.confirmation.address.line1">
-      </div>
-
-      <div class="field">
-        <label> Address Line 2 - Apartment, suite, unit, building, floor, etc. </label>
-        <input
-          type="text"
-          name="addressLine2"
-          ng-model="selectedUser.confirmation.address.line2">
-      </div>
-
-      <div class="four fields">
-        <div class="field">
-          <label> City </label>
-          <input
-            type="text"
-            name="city"
-            ng-model="selectedUser.confirmation.address.city">
-        </div>
-        <div class="field">
-          <label> State/Province/Region </label>
-          <input
-            type="text"
-            name="state"
-            ng-model="selectedUser.confirmation.address.state">
-        </div>
-        <div class="field">
-          <label> ZIP </label>
-          <input
-            type="text"
-            name="zip"
-            ng-model="selectedUser.confirmation.address.zip">
-        </div>
-        <div class="field">
-          <label> Country </label>
-          <input
-            type="text"
-            name="country"
-            ng-model="selectedUser.confirmation.address.country">
-        </div>
-      </div>
-
-      <div class="field">
-        <label> Receipt </label>
-        <input type="url" ng-model="selectedUser.confirmation.receipt" />
-      </div>
-
-      <div class="field">
-        <label> Additional Notes </label>
-        <textarea ng-model="selectedUser.confirmation.notes"></textarea>
       </div>
 
     </fieldset>

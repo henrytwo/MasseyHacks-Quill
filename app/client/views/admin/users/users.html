@@ -148,12 +148,12 @@
       </div>
 
       <table
-        class="ui celled selectable compact users table">
+              class="ui celled selectable compact users table">
         <thead>
           <tr>
             <th>Votes</th>
             <th>Name</th>
-            <th>V/S/A/C</th>
+            <th>V/S/A/C/W</th>
             <th></th>
             <th>Edit</th>
             <th>City</th>
@@ -231,6 +231,20 @@
               <i
                 ng-if="user.status.admitted && user.status.declined"
                 class="red remove circle icon">
+              </i>
+
+              <!-- Waiver -->
+              <i
+                ng-if="!user.status.confirmed"
+                class="circle thin icon">
+              </i>
+              <i
+                ng-if="user.status.admitted && user.status.confirmed && user.status.waiver"
+                class="green check circle icon">
+              </i>
+              <i
+                ng-if="user.status.admitted && user.status.confirmed && !user.status.waiver"
+                class="question icon">
               </i>
             </td>
 

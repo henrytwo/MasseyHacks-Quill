@@ -2,7 +2,7 @@
 
     <button
             class="ui positive button"
-            ng-click="selectUser(users.length > 0 ? users[0] : null)">
+            ng-click="review(users)">
         Start reviewing!
     </button>
 
@@ -133,7 +133,6 @@
           <th>Name</th>
           <th>V/S/A/C</th>
           <th></th>
-          <th>Edit</th>
           <th>City</th>
           <th>Need Reimbursement</th>
           <th>Email</th>
@@ -267,15 +266,6 @@
               <i class="remove user icon"></i>
             </button>
 
-          </td>
-
-          <td
-                  class="collapsing">
-            <button
-                    ng-click="goUser($event, user)"
-                    class="ui circular mini basic icon button">
-              <i class="linkify icon"></i>
-            </button>
           </td>
 
           <td>{{user.profile.departing}}</td>

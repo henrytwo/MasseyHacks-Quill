@@ -230,7 +230,7 @@ angular.module('reg')
       };
 
       function selectUser(user){
-          if (user !== null) {
+          if (user != null) {
               $scope.selectedUser = user;
               $scope.selectedUser.sections = generateSections(user);
               $('.long.user.modal')
@@ -529,5 +529,21 @@ angular.module('reg')
       }
 
       $scope.selectUser = selectUser;
+      $scope.review = review;
+
+      function review(users) {
+            swal({
+                title: "Notice",
+                text: "All votes are final and are immediately taken into consideration. The next application will be displayed immediately after the previous is processed.\n\nRemember that this power is a privilege.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "I accept",
+                closeOnConfirm: true
+            },
+            function() {
+                selectUser(users.length > 0 ? users[0] : null);
+            });
+      }
 
     }]);
