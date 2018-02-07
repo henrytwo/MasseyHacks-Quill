@@ -481,6 +481,10 @@ module.exports = function(router) {
     UserController.updateReimbursementById(id, reimbursement, defaultResponse(req, res));
   });
 
+  router.get('/users/:id/wave', isOwnerOrAdmin, function(req, res) {
+    SettingsController.getWave(defaultResponse(req, res))
+  });
+
   /**
    * [OWNER/ADMIN]
    *

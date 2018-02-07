@@ -103,6 +103,10 @@ angular.module('reg')
       // Admin Only
       // -------------------------
 
+      getWave: function() {
+        return $http.get(base + Session.getUserId() + '/wave');
+      },
+
       getStats: function(){
         return $http.get(base + 'stats');
       },

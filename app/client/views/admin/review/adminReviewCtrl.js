@@ -13,6 +13,7 @@ angular.module('reg')
       $scope.users = [];
       // to know when to filter by date
       $scope.sortDate = false;
+      getWave();
 
       // Semantic-UI moves modal content into a dimmer at the top level.
       // While this is usually nice, it means that with our routing will generate
@@ -33,9 +34,16 @@ angular.module('reg')
       }
       });*/
 
+      function getWave() {
+        UserService.getWave().success(function(data){
+          $scope.wave = data;
+          console.log($scope.wave)
+        });
+      }
+
       function updatePage(data){
         $scope.users = data.users.filter(function (user) {
-            return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.votedBy.indexOf(adminUser.email) === -1;
+            return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.votedBy.indexOf(adminUser.email) === -1 && user.wave === $scope.wave;
         });
         $scope.currentPage = data.page;
         $scope.pageSize = data.size;

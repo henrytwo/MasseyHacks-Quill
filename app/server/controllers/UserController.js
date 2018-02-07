@@ -549,6 +549,7 @@ UserController.updateProfileById = function (id, profile, callback){
 
   // Validate the user profile, and mark the user as profile completed
   // when successful.
+  console.log(profile);
   csvValidation(profile, function(profileValidated){
     User.validateProfile(profile, function(err){
       if (err){
@@ -588,21 +589,24 @@ UserController.updateProfileById = function (id, profile, callback){
         });
       }
 
-      User.findOneAndUpdate({
-        _id: id,
-        verified: true
-      },
-        {
-          $set: {
-            'lastUpdated': Date.now(),
-            'profile': profileValidated,
-            'status.completedProfile': true
-          }
-        },
-        {
-          new: true
-        },
-        callback);
+      Settings.getCurrentWave(function (err, currentWave) {
+        User.findOneAndUpdate({
+            _id: id,
+            verified: true
+          },
+          {
+            $set: {
+              'wave':currentWave,
+              'lastUpdated': Date.now(),
+              'profile': profileValidated,
+              'status.completedProfile': true
+            }
+          },
+          {
+            new: true
+          },
+          callback);
+      });
       });
   });
 };
