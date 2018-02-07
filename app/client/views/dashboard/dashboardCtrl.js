@@ -474,7 +474,6 @@ angular.module('reg')
           this.update = function() {
             var i = 0;
             context.clearRect(0, 0, canvas.width, canvas.height);
-
             var clearParticles = [];
             for (i = 0; i < confettiPaperCount; i++) {
               confettiPapers[i].Update(dt, this.reset);
@@ -505,6 +504,10 @@ angular.module('reg')
               confettiRibbons.slice(clearParticles[i]-i, 1);
               confettiRibbonCount -= 1;
             }
+
+            if (confettiPaperCount === 0 && confettiRibbonCount == 0) {
+              this.stop();
+            }
           }
         }
         var confetti = new confetti.Context('confetti');
@@ -516,7 +519,7 @@ angular.module('reg')
         return confetti;
       }
 
-      if (user.status.admitted){
+      if (user.status.admitted && !user.status.rejected && !user.status.declined && $scope.dashState('admittedAndCannotConfirm')){
         $scope.cf = confettiActivate();
 
         $scope.timer = setInterval(function () {

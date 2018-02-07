@@ -85,19 +85,7 @@ UserController.loginWithToken = function(token, callback){
     if (!user || !user.active) {
       return callback(err, token, null);
     }
-    var u = user.toJSON();
-
-    delete u.password;
-    delete u.salt;
-    delete u.log;
-    delete u.applicationAdmit;
-    delete u.applicationReject;
-    delete u.votedBy;
-
-    if (!user.status.statusReleased) {
-      u.anonymousStatus.completedProfile = u.status.completedProfile;
-      u.status = u.anonymousStatus;
-    }
+    var u = removeSensitive(user);
 
     return callback(err, token, u);
   });
@@ -150,23 +138,29 @@ UserController.loginWithPassword = function(email, password, callback){
       // yo dope nice login here's a token for your troubles
       var token = user.generateAuthToken();
 
-      var u = user.toJSON();
+      var u = removeSensitive(user);
 
-      delete u.password;
-      delete u.salt;
-      delete u.log;
-      delete u.applicationAdmit;
-      delete u.applicationReject;
-      delete u.votedBy;
-
-      if (!user.status.statusReleased) {
-          u.anonymousStatus.completedProfile = u.status.completedProfile;
-          u.status = u.anonymousStatus;
-      }
-
-      callback(null, token, u);
+      return callback(null, token, u);
   });
 };
+
+var removeSensitive = function(user) {
+  var u = user.toJSON();
+
+  delete u.password;
+  delete u.salt;
+  delete u.log;
+  delete u.applicationAdmit;
+  delete u.applicationReject;
+
+  if (!u.advancedState) {
+    u.status.confirmed = false;
+    u.status.rejected = false;
+    u.status.admitted = false;
+  }
+
+  return u
+}
 
 /**
  * Create a new user given an email and a password.
@@ -539,27 +533,7 @@ UserController.exitSearch = function(id, callback) {
  * @param  {Function} callback args(err, user)
  */
 UserController.getById = function (id, callback){
-    console.log("Dank meme");
-  User.findById(id, function (err, user) {
-      var u = user.toJSON();
-
-      delete u.password;
-      delete u.salt;
-      delete u.log;
-      delete u.applicationAdmit;
-      delete u.applicationReject;
-      delete u.votedBy;
-
-      if (!user.status.statusReleased) {
-          u.anonymousStatus.completedProfile = user.toJSON().status.completedProfile;
-          u.status = u.anonymousStatus;
-      }
-
-      console.log(u);
-      console.log(user);
-
-      return callback(err, u);
-  }) ;
+  User.findById(id, callback);
 };
 
 /**
