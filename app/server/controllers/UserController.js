@@ -159,6 +159,8 @@ var removeSensitive = function(user) {
         u.status = u.anonymousStatus;
     }
 
+    console.log(u);
+
   return u
 }
 
