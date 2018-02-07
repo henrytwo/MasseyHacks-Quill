@@ -271,8 +271,75 @@ var status = {
     },
     confirmBy: {
         type: Number
+    },
+    statusReleased: {
+        type: Boolean,
+        default: false
     }
 };
+
+
+var anonymousStatus = {
+    /**
+     * Whether or not the user's profile has been completed.
+     * @type {Object}
+     */
+    completedProfile: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    waitlisted: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    admitted: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    admittedBy: {
+        type: String,
+        select: false
+    },
+    confirmed: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    waiver: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    declined: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    rejected: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    checkedIn: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    checkInTime: {
+        type: Number,
+    },
+    confirmBy: {
+        type: Number
+    },
+    statusReleased: {
+        type: Boolean,
+        default: false
+    }
+};
+
 // define the schema for our admin model
 var schema = new mongoose.Schema({
 
@@ -388,6 +455,7 @@ var schema = new mongoose.Schema({
     confirmation: confirmation,
 
     status: status,
+    anonymousStatus: anonymousStatus,
 
     teamMatchmaking: teamMatchmaking,
 
@@ -537,19 +605,23 @@ schema.statics.validateProfile = function (profile, cb) {
  */
 schema.virtual('status.name').get(function () {
 
-    if (this.status.checkedIn) {
+    if (this.status.checkedIn && this.status.statusReleased) {
         return 'checked in';
     }
 
-    if (this.status.declined) {
+    if (this.status.declined && this.status.statusReleased) {
         return "declined";
     }
 
-    if (this.status.confirmed) {
+    if (this.status.waitlisted && this.status.statusReleased) {
+        return "waitlisted";
+    }
+
+    if (this.status.confirmed && this.status.statusReleased) {
         return "confirmed";
     }
 
-    if (this.status.admitted) {
+    if (this.status.admitted && this.status.statusReleased) {
         return "admitted";
     }
     if (this.status.completedProfile) {

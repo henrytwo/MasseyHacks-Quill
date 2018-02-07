@@ -18,6 +18,8 @@ angular.module('reg')
       $scope.classAmount = Utils.getAcceptedreimbAmount(user, Settings);
       $scope.DASHBOARD = DASHBOARD;
 
+      console.log(user);
+
       for (var msg in $scope.DASHBOARD) {
         if ($scope.DASHBOARD[msg].includes('[APP_DEADLINE]')) {
           $scope.DASHBOARD[msg] = $scope.DASHBOARD[msg].replace('[APP_DEADLINE]', Utils.formatTime(Settings.timeClose));
@@ -42,22 +44,19 @@ angular.module('reg')
       $scope.dashState = function(status){
         var user = $scope.user;
 
-        console.log(status);
-
         switch (status) {
           case 'unverified':
             return !user.verified;
           case 'openAndIncomplete':
             return regIsOpen && user.verified && !user.status.completedProfile;
-          case 'openAndSubmitted':
-            return regIsOpen && user.status.completedProfile && !user.status.admitted &&
+          case 'submitted':
+            return user.status.completedProfile && !user.status.admitted &&
             !(user.status.rejected);
           case 'closedAndIncomplete':
             return !regIsOpen && !user.status.completedProfile && !user.status.admitted &&
             !(user.status.rejected);
-          case 'closedAndSubmitted': // Waitlisted State
-            return !regIsOpen && user.status.completedProfile && !user.status.admitted &&
-            !(user.status.rejected);
+          case 'waitlisted': // Waitlisted State [no ur bad mit]
+            return user.status.completedProfile && !user.status.admitted && !(user.status.rejected) && user.status.waitlisted;
           case 'admittedAndCanConfirm':
             return !pastConfirmation &&
               user.status.admitted &&
@@ -119,7 +118,7 @@ angular.module('reg')
       };
 
       $scope.checkStatus = function() {
-        if(user.status.rejected && Settings.showRejection){
+        if(user.status.rejected){
           return 'Reviewed';
         }
         return user.status.name;

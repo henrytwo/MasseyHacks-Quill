@@ -92,6 +92,12 @@ UserController.loginWithToken = function(token, callback){
     delete u.log;
     delete u.applicationAdmit;
     delete u.applicationReject;
+    delete u.votedBy;
+
+    if (!user.status.statusReleased) {
+      u.anonymousStatus.completedProfile = u.status.completedProfile;
+      u.status = u.anonymousStatus;
+    }
 
     return callback(err, token, u);
   });
@@ -151,6 +157,12 @@ UserController.loginWithPassword = function(email, password, callback){
       delete u.log;
       delete u.applicationAdmit;
       delete u.applicationReject;
+      delete u.votedBy;
+
+      if (!user.status.statusReleased) {
+          u.anonymousStatus.completedProfile = u.status.completedProfile;
+          u.status = u.anonymousStatus;
+      }
 
       callback(null, token, u);
   });
@@ -527,7 +539,27 @@ UserController.exitSearch = function(id, callback) {
  * @param  {Function} callback args(err, user)
  */
 UserController.getById = function (id, callback){
-  User.findById(id, callback);
+    console.log("Dank meme");
+  User.findById(id, function (err, user) {
+      var u = user.toJSON();
+
+      delete u.password;
+      delete u.salt;
+      delete u.log;
+      delete u.applicationAdmit;
+      delete u.applicationReject;
+      delete u.votedBy;
+
+      if (!user.status.statusReleased) {
+          u.anonymousStatus.completedProfile = user.toJSON().status.completedProfile;
+          u.status = u.anonymousStatus;
+      }
+
+      console.log(u);
+      console.log(user);
+
+      return callback(err, u);
+  }) ;
 };
 
 /**
