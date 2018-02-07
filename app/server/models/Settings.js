@@ -22,7 +22,7 @@ var wave1 = {
         type: Number,
         default: 604800000 // Date of confirmation
     }
-}
+};
 
 var wave2 = {
     timeOpen: {
@@ -37,7 +37,7 @@ var wave2 = {
         type: Number,
         default: 604800000 // Date of confirmation
     }
-}
+};
 
 var wave3 = {
     timeOpen: {
@@ -52,7 +52,7 @@ var wave3 = {
         type: Number,
         default: 604800000 // Date of confirmation
     }
-}
+};
 
 var wave4 = {
     timeOpen: {
@@ -67,7 +67,7 @@ var wave4 = {
         type: Number,
         default: 604800000 // Date of confirmation
     }
-}
+};
 
 var schema = new mongoose.Schema({
   status: String,
@@ -150,5 +150,22 @@ schema.statics.getPublicSettings = function(callback){
     .findOne({})
     .exec(callback);
 };
+
+schema.statics.getCurrentWave = function (callback) {
+  this.findOne({})
+    .exec(function(err, setting) {
+      if (setting.wave1.timeClose >= Date.now()) {
+        return callback(false,1);
+      } else if (setting.wave2.timeClose >= Date.now()) {
+        return callback(false,2);
+      } else if (setting.wave3.timeClose >= Date.now()) {
+        return callback(false,3);
+      } else if (setting.wave4.timeClose >= Date.now()) {
+        return callback(false,4);
+      } else {
+        return callback(false, 'inf');
+      }
+    });
+}
 
 module.exports = mongoose.model('Settings', schema);

@@ -2,6 +2,10 @@ var Settings = require('../models/Settings');
 
 var SettingsController = {};
 
+SettingsController.getWave = function(callback){
+  Settings.getCurrentWave(callback);
+}
+
 /**
  * Update any field in the settings.
  * @param  {String}   field    Name of the field

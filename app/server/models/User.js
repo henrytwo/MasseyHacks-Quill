@@ -108,6 +108,7 @@ var profile = {
     freeComment: {
         type: String,
         maxlength: 500,
+        default: ''
     },
 
     pasthackathon: {
