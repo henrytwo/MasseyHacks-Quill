@@ -147,17 +147,17 @@ UserController.loginWithPassword = function(email, password, callback){
 var removeSensitive = function(user) {
   var u = user.toJSON();
 
-  delete u.password;
-  delete u.salt;
-  delete u.log;
-  delete u.applicationAdmit;
-  delete u.applicationReject;
+    delete u.password;
+    delete u.salt;
+    delete u.log;
+    delete u.applicationAdmit;
+    delete u.applicationReject;
+    delete u.votedBy;
 
-  if (!u.advancedState) {
-    u.status.confirmed = false;
-    u.status.rejected = false;
-    u.status.admitted = false;
-  }
+    if (!user.status.statusReleased) {
+        u.anonymousStatus.completedProfile = u.status.completedProfile;
+        u.status = u.anonymousStatus;
+    }
 
   return u
 }
