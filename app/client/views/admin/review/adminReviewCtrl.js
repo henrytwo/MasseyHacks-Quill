@@ -241,9 +241,6 @@ angular.module('reg')
           if (user != null) {
               $scope.selectedUser = user;
               $scope.selectedUser.sections = generateSections(user);
-              $('.long.user.modal')
-                  .modal('show');
-
           }
           else {
               swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
@@ -540,6 +537,8 @@ angular.module('reg')
       $scope.review = review;
 
       function review(users) {
+            selectUser(users.length > 0 ? users[0] : null);
+            $('.long.user.modal').modal('hide');
             swal({
                 title: "Notice",
                 text: "All votes are final and are immediately taken into consideration. The next application will be displayed immediately after the previous is processed.\n\nRemember that this power is a privilege.",
@@ -550,7 +549,7 @@ angular.module('reg')
                 closeOnConfirm: true
             },
             function() {
-                selectUser(users.length > 0 ? users[0] : null);
+                $('.long.user.modal').modal('show');
             });
       }
 
