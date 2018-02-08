@@ -80,7 +80,8 @@ angular.module('reg')
       }
 
       $scope.submitForm = function(){
-         $scope.fieldErrors = null;
+
+        $scope.fieldErrors = null;
         $scope.error = null;
         $('.ui.form').form('validate form');
       };

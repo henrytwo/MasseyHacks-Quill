@@ -138,6 +138,14 @@ var profile = {
 
 // Only after confirmed
 var confirmation = {
+    coming: {
+        type: Boolean,
+        requited: true
+    },
+    bus: {
+        type: Boolean,
+        requited: true
+    },
     notes: {
         type: String,
         default: ""
@@ -280,66 +288,6 @@ var status = {
 };
 
 
-var anonymousStatus = {
-    /**
-     * Whether or not the user's profile has been completed.
-     * @type {Object}
-     */
-    completedProfile: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
-    waitlisted: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
-    admitted: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
-    admittedBy: {
-        type: String,
-        select: false
-    },
-    confirmed: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
-    waiver: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
-    declined: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
-    rejected: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
-    checkedIn: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
-    checkInTime: {
-        type: Number,
-    },
-    confirmBy: {
-        type: Number
-    },
-    statusReleased: {
-        type: Boolean,
-        default: false
-    }
-};
 
 // define the schema for our admin model
 var schema = new mongoose.Schema({
@@ -456,7 +404,6 @@ var schema = new mongoose.Schema({
     confirmation: confirmation,
 
     status: status,
-    anonymousStatus: anonymousStatus,
 
     teamMatchmaking: teamMatchmaking,
 

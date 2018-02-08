@@ -9,9 +9,16 @@
 
       <div class="ui form">
 
-        <br>
 
         <div class="divided title">everything else</div>
+
+        <div class="ui checkbox">
+          <input type="checkbox" id="bus" ng-model="user.confirmation.bus">
+          <label for="bus"><h5>Are you coming on the Toronto-Waterloo bus? *</h5></label>
+        </div>
+
+        <br>
+        <br>
 
         <div class="field">
           <label>
@@ -23,6 +30,7 @@
           <textarea
             ng-model="user.confirmation.notes"></textarea>
         </div>
+
         <div class="ui small negative message"
             ng-show='error'>
             {{error}} <br>

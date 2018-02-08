@@ -155,8 +155,10 @@ var removeSensitive = function(user) {
     delete u.votedBy;
 
     if (!user.status.statusReleased) {
-        u.anonymousStatus.completedProfile = u.status.completedProfile;
-        u.status = u.anonymousStatus;
+        u.status.admitted = false;
+        u.status.declined = false;
+        u.status.rejected = false;
+        u.status.waitlisted = false;
     }
 
     console.log(u);
@@ -535,7 +537,9 @@ UserController.exitSearch = function(id, callback) {
  * @param  {Function} callback args(err, user)
  */
 UserController.getById = function (id, callback){
-  User.findById(id, callback);
+  User.findById(id, function(err, user) {
+    return callback(false, removeSensitive(user));
+  });
 };
 
 /**

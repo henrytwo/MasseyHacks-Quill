@@ -26,7 +26,7 @@ angular.module('reg')
       // Populate the school dropdown
       _setupForm();
 
-      $scope.regIsClosed = Date.now() > Settings.data.timeClose || $scope.user.status.admitted;
+      $scope.regIsClosed = Date.now() > Settings.data.timeClose || $scope.user.status.admitted || $scope.user.status.rejected || $scope.user.status.waitlisted;
 
       var reimbClasses;
       $.getJSON('../assets/reimbClasses.json').done(function(data){
