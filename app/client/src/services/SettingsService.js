@@ -57,6 +57,12 @@ angular.module('reg')
         return $http.put(base + 'reimbClasses', {
           reimbClasses: reimbClasses
         });
+      },
+      updateWave: function(data, num) {
+        return $http.put(base + 'updateWave', {
+          waveNum: num,
+          data: data
+        });
       }
     };
 

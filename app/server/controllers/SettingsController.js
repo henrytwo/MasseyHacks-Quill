@@ -13,6 +13,7 @@ SettingsController.getWave = function(callback){
  * @param  {Function} callback args(err, settings)
  */
 SettingsController.updateField = function(field, value, callback){
+  console.log(Settings.findOne({}))
   var update = {};
   update[field] = value;
   Settings
@@ -20,6 +21,21 @@ SettingsController.updateField = function(field, value, callback){
       $set: update
     }, {new: true}, callback);
 };
+
+SettingsController.updateWave = function(wave, value, callback){
+
+  Settings.findOneAndUpdate({},
+    {
+      $set: {
+        wave1: value,
+      }
+    },
+    {
+      new: true
+    },
+    callback);
+};
+
 
 /**
  * Update the list of whitelisted emails and email extensions.
