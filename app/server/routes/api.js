@@ -705,6 +705,12 @@ module.exports = function(router) {
     SettingsController.updateField('waitlistText', text, defaultResponse(req, res));
   });
 
+  router.put('/settings/updateWave', isOwner, function(req, res) {
+    var wave = req.body.waveNum;
+    var data = req.body.data;
+    SettingsController.updateField('wave'+wave, data, defaultResponse(req, res));
+  })
+
   /**
    * Update the acceptance text.
    * body: {
