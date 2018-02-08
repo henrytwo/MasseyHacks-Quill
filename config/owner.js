@@ -10,7 +10,7 @@ for(var key in owners) {
     owner_email    = owners[key]['email'];
     owner_name     = owners[key]['name'];
     owner_nickname = key + " [OWNER]";
-    owner_password = "JerrBear37485" + owner_nickname;
+    owner_password = "pineapple";//"JerrBear37485" + owner_nickname;
 
     console.log("Adding: " + owner_email);
 
@@ -37,6 +37,7 @@ function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
                 u.profile.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;
+                u.status.statusReleased = true;
 
                 var token = u.generateTempAuthToken();
                 var callback = '';

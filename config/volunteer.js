@@ -10,7 +10,7 @@ for(var key in volunteers) {
     volunteer_email    = volunteers[key]['email'];
     volunteer_name     = volunteers[key]['name'];
     volunteer_nickname = key + " [VOLUNTEER]";
-    volunteer_password = "JerrBear37485" + volunteer_nickname;
+    volunteer_password = "pineapple";//"JerrBear37485" + volunteer_nickname;
 
     console.log("Adding: " + volunteer_email);
 
@@ -35,6 +35,8 @@ function makevolunteer(volunteer_email, volunteer_name, volunteer_nickname, volu
                 u.profile.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;
+                u.status.statusReleased = true;
+
 
                 var token = u.generateTempAuthToken();
                 var callback = '';

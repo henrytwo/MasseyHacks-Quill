@@ -10,7 +10,7 @@ for(var key in admins) {
     admin_email    = admins[key]['email'];
     admin_name     = admins[key]['name'];
     admin_nickname = key + " [ADMIN]";
-    admin_password = "JerrBear37485" + admin_nickname;
+    admin_password = "pineapple";//"JerrBear37485" + admin_nickname;
 
     console.log("Adding: " + admin_email);
 
@@ -36,6 +36,7 @@ function makeadmin(admin_email, admin_name, admin_nickname, admin_password) {
                 u.profile.submittedApplication = true;
                 u.status.admitted = true;
                 u.status.confirmed = true;
+                u.status.statusReleased = true;
 
                 var token = u.generateTempAuthToken();
                 var callback = '';
