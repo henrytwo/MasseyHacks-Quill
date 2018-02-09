@@ -14,6 +14,8 @@ angular.module('reg')
 
       // Set up the user
       $scope.user = currentUser.data;
+      $scope.backupUser = JSON.stringify(currentUser.data.profile);
+
       var originalTeamCode = $scope.user.teamCode;
       var oldSchool = '';
 
@@ -237,8 +239,31 @@ angular.module('reg')
           onSuccess: function(event, fields){
             _updateTeam();
             _updateSchools();
-            _updateUser();
 
+            if ($scope.user.status.completedProfile) {
+              if (JSON.stringify($scope.user.profile) === $scope.backupUser) {
+                  swal({
+                      title: "Warning",
+                      text: "You have not modified your application",
+                      type: "warning",
+                  });
+              } else {
+
+                  swal({
+                      title: "Whoa!",
+                      text: "You can edit your application after submitting, but you risk losing your place in queue!",
+                      type: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#DD6B55",
+                      confirmButtonText: "Yes, resubmit",
+                      closeOnConfirm: false
+                  }, function(){
+                    _updateUser();
+                  });
+              }
+            } else {
+                _updateUser();
+            }
           },
           onFailure: function(formErrors, fields){
             $scope.fieldErrors = formErrors;
