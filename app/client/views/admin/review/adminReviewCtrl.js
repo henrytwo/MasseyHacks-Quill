@@ -53,6 +53,7 @@ angular.module('reg')
           p.push(i);
         }
         $scope.pages = p;
+
       }
 
       UserService
@@ -81,7 +82,7 @@ angular.module('reg')
       $scope.goToPage = function(page){
         $state.go('app.admin.review', {
           page: page,
-          size: $stateParams.size || 50
+          size: 200 || 50
         });
       };
 
@@ -236,6 +237,24 @@ angular.module('reg')
           return 'warning';
         }
       };
+
+      function selectUserBody(user) {
+          selectUser(user);
+          $('.long.user.modal').modal('hide');
+          swal({
+                  title: "Notice",
+                  text: "All votes are final and are immediately taken into consideration. The next application will be displayed immediately after the previous is processed.\n\nRemember that this power is a privilege.",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#DD6B55",
+                  confirmButtonText: "I accept",
+                  closeOnConfirm: true
+              },
+              function() {
+                  $('.long.user.modal').modal('show');
+              });
+
+        }
 
       function selectUser(user){
           if (user != null) {
@@ -416,14 +435,14 @@ angular.module('reg')
                             name: 'Last Updated',
                             value: formatTime(user.lastUpdated)
                         },{
-                            name: 'Confirm By',
-                            value: formatTime(user.status.confirmBy) || 'N/A'
-                        },{
                             name: 'Status',
                             value: user.status.name
                         },{
                             name: 'Team',
                             value: user.teamCode || 'None'
+                        },{
+                            name: 'Wave',
+                            value: user.wave
                         },{
                             name: 'Requested travel reimbursement',
                             value: user.profile.needsReimbursement || 'False'
@@ -452,15 +471,15 @@ angular.module('reg')
                     fields: [
                         {
                             name: 'Website',
-                            value: user.profile.site
+                            value: user.profile.site || 'N/A'
                         },
                         {
                             name: 'Devpost',
-                            value: user.profile.devpost
+                            value: user.profile.devpost || 'N/A'
                         },
                         {
                             name: 'Github',
-                            value: user.profile.github
+                            value: user.profile.github || 'N/A'
                         },
                         {
                             name: 'Method of Discovery',
@@ -476,11 +495,11 @@ angular.module('reg')
                         },
                         {
                             name: 'Free comment',
-                            value: user.profile.freeComment
+                            value: user.profile.freeComment || 'N/A'
                         }
                         ,{
                             name: 'Spaces or Tabs',
-                            value: user.profile.spacesOrTabs
+                            value: user.profile.spacesOrTabs || 'N/A'
                         },
                     ]
                 }
@@ -534,6 +553,7 @@ angular.module('reg')
       }
 
       $scope.selectUser = selectUser;
+      $scope.selectUserBody = selectUserBody;
       $scope.review = review;
 
       function review(users) {
