@@ -75,6 +75,7 @@
                     name="grade"
                     ng-model="user.profile.grade">
                 <option value="">Grade</option>
+                <option value="<=8"><= 8 (Special Cases)</option>
                 <option value="9">9</option>
                 <option value="10">10</option>
                 <option value="11">11</option>
@@ -351,7 +352,7 @@
         </ul>
       </div>
 
-        <b>You can edit your application after submitting, but you risk losing your place in queue!
+          <b>You can edit your application after submitting, <b>but you risk losing your place in queue!</b>
 
         <div class="field" style="margin-bottom:5px" ng-hide="regIsClosed">
           <button type="submit"

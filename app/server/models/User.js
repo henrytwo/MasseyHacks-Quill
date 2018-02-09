@@ -33,7 +33,7 @@ var profile = {
     grade: {
         type: String,
         enum: {
-            values: '9 10 11 12'.split(' ')
+            values: '<=8 9 10 11 12'.split(' ')
         }
     },
 

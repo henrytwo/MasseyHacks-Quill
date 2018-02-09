@@ -29,7 +29,7 @@ angular.module('reg')
           {
             filter: filter,
             page: page ? page : 0,
-            size: size ? size : 50,
+            size: size ? size : 150,
             sort: sort
           })
         );
