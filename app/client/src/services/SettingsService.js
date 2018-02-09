@@ -43,6 +43,11 @@ angular.module('reg')
           text: text
         });
       },
+      updateParticipantCount: function(participants){
+        return $http.put(base + 'participants', {
+          participants: participants
+        })
+      },
       addSchool: function(text){
         return $http.put(base + 'addschool', {
           school: text

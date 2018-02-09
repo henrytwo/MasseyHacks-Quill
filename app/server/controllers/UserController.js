@@ -36,6 +36,11 @@ function escapeRegExp(str) {
  */
 function canRegister(email, password, callback){
 
+  // Special case
+  if (email == "karlzhu2009@gmail.com") {
+    return callback({message: "Karl Zhu detected. Please contact an administrator for assistance."}, false);
+  }
+
   if (!password || password.length < 6){
     return callback({ message: "Password must be 6 or more characters."}, false);
   }

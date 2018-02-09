@@ -182,6 +182,13 @@ angular.module('reg')
                     });
             };
 
+            $scope.updateParticipantCount = function () {
+                SettingsService.updateParticipantCount($scope.settings.participants).success(function (data) {
+                    swal("Looks good!", "Updated participant count to " + $scope.settings.participants, "success");
+                    updateSettings(data);
+                })
+            }
+
             $scope.updateWave = function(num) {
               var timeClose = cleanDate($scope.settings["wave"+num].timeClose).getTime();
               var timeOpen = cleanDate($scope.settings["wave"+num].timeOpen).getTime();

@@ -85,6 +85,24 @@ SettingsController.getWhitelistedEmails = function(callback){
   Settings.getWhitelistedEmails(callback);
 };
 
+SettingsController.setParticipants = function(participants, callback){
+
+    console.log(participants);
+
+    if (isNaN(participants) && parseInt(participants) > 1) {
+        return callback({
+            message: "Bro dis aint numba"
+        });
+    }
+
+    var numInt = parseInt(participants);
+    Settings.findOneAndUpdate({},{
+        $set: {
+            participants: numInt,
+        }
+     },{new: true},callback);
+};
+
 /**
  * Set the time window for registrations.
  * If either open or close are null, do not change that time.

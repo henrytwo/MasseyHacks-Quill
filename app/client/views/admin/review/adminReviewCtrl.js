@@ -126,7 +126,7 @@ angular.module('reg')
                            selectUser($scope.users[0]);
                         } else {
                             $('.long.user.modal').modal('hide');
-                              swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
+                            swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
                         }
                     }
                   else
@@ -549,7 +549,12 @@ angular.module('reg')
                 closeOnConfirm: true
             },
             function() {
-                $('.long.user.modal').modal('show');
+                if (users.length > 0) {
+                    $('.long.user.modal').modal('show');
+                }
+                else {
+                    swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
+                }
             });
       }
 

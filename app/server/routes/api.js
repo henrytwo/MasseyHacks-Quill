@@ -778,7 +778,14 @@ module.exports = function(router) {
     SettingsController.updateRegistrationTimes(open, close, defaultResponse(req, res));
   });
 
-  /**
+  router.put('/settings/participants', isOwner, function(req, res) {
+    console.log(req.body);
+      var participants = req.body.participants;
+      SettingsController.setParticipants(participants, defaultResponse(req, res));
+  });
+
+
+    /**
    * Get the whitelisted emails.
    *
    * res: {

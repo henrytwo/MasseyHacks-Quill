@@ -44,6 +44,34 @@
         </div>
       </div>
     </div>
+
+    <div class="column">
+      <div ng-class="{'loading': loading}" class="ui red segment">
+        <div class="ui header">
+          Participant Count
+        </div>
+        <p>System will automatically wait list acceptances past this value</p>
+            <div class="ui form">
+              <div class="field">
+            <textarea
+                    class="ui input"
+                    type="text"
+                    ng-model="settings.participants">
+            </textarea>
+              </div>
+              <div class="field">
+                <div
+                        class="ui green button"
+                        ng-click="updateParticipantCount()">
+                  Update
+                </div>
+              </div>
+            </div>
+        </div>
+
+      </div>
+  </div>
+
   </div>
 
   <div class="ui stackable two column grid">
