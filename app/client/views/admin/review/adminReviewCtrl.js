@@ -9,6 +9,7 @@ angular.module('reg')
 
       var adminUser = currentUser.data;
 
+      $scope.admin = adminUser;
       $scope.pages = [];
       $scope.users = [];
       // to know when to filter by date
@@ -82,7 +83,7 @@ angular.module('reg')
       $scope.goToPage = function(page){
         $state.go('app.admin.review', {
           page: page,
-          size: 200 || 50
+          size: 150
         });
       };
 

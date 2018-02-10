@@ -31,6 +31,7 @@ function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
                 u.owner = true;
                 u.admin = true;
                 u.volunteer = true;
+                u.reviewer = true;
                 u.id = owner_nickname;
                 u.verified = true;
                 u.status.admittedBy = "MasseyHacks Account Authority";

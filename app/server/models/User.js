@@ -329,6 +329,12 @@ var schema = new mongoose.Schema({
         default: false,
     },
 
+    reviewer: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+
     admin: {
         type: Boolean,
         required: true,

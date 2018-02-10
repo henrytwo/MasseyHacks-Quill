@@ -49,7 +49,30 @@ module.exports = function(router) {
     });
   }
 
-  /**
+  function isReviewer(req, res, next){
+
+      var token = getToken(req);
+
+      UserController.getByToken(token, function(err, user){
+
+          if (err) {
+              return res.status(500).send(err);
+          }
+
+          if (user && user.reviewer){
+              req.user = user;
+              return next();
+          }
+
+          return res.status(401).send({
+              message: 'Get outta here, punk!'
+          });
+
+      });
+  }
+
+
+    /**
    * Using the access token provided, check to make sure that
    * you are, indeed, an admin.
    */
@@ -569,13 +592,13 @@ module.exports = function(router) {
     UserController.remove(id, user, defaultResponse(req, res));
   });
 
-  router.post('/users/:id/voteAdmitUser', isAdmin, function (req, res) {
+  router.post('/users/:id/voteAdmitUser', isReviewer, function (req, res) {
       var id = req.params.id;
       var user = req.user;
       UserController.voteAdmitUser(id, user, defaultResponse(req, res));
   });
 
-  router.post('/users/:id/voteRejectUser', isAdmin, function (req, res) {
+  router.post('/users/:id/voteRejectUser', isReviewer, function (req, res) {
       var id = req.params.id;
       var user = req.user;
       UserController.voteRejectUser(id, user, defaultResponse(req, res));
