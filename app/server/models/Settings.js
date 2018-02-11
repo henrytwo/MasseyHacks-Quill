@@ -71,6 +71,9 @@ var wave4 = {
 
 var schema = new mongoose.Schema({
   status: String,
+  log : {
+    type: [String]
+  },
   timeOpen: {
     type: Number,
     default: 0

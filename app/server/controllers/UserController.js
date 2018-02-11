@@ -112,7 +112,7 @@ UserController.loginWithPassword = function(email, password, callback){
 
   if (!validator.isEmail(email)){
     return callback({
-      message: 'Invalid email'
+      message: 'Incorrect username or password'
     });
   }
 
@@ -1215,7 +1215,7 @@ UserController.voteRejectUser = function(id, user, callback){
  * @param  (String)   reimbClass  Users accepted reimbursement class/amount
  * @param  {Function} callback args(err, user)
  */
-UserController.voteAdmitUser = function(id, user, callback){
+UserController.voteAdmitUser = function(id, adminUser, callback){
 
     User
         .findOneAndUpdate({
@@ -1223,17 +1223,19 @@ UserController.voteAdmitUser = function(id, user, callback){
                 'verified': true,
                 'status.rejected': false,
                 'status.admitted': false,
-                'applicationAdmit' : {$nin : [user.email]},
-                'applicationReject' : {$nin : [user.email]}
+                'applicationAdmit' : {$nin : [adminUser.email]},
+                'applicationReject' : {$nin : [adminUser.email]}
             },{
                 $push: {
-                    'applicationAdmit': user.email,
-                    'votedBy': user.email,
+                    'applicationAdmit': adminUser.email,
+                    'votedBy': adminUser.email,
                 }
             }, {
                 new: true
             },
             function(err, user) {
+
+                UserController.addToLog(id, adminUser.email + " voted for " + user.email + " (" + user.profile.name + ")", callback);
 
                 if (err || !user) {
                     return callback(err);
@@ -1415,6 +1417,25 @@ UserController.QRcheckInById = function(id, callback){
     }
   })
 };
+
+UserController.addToLog = function (id, message, callback) {
+
+    var marked_message = "[" + Date() + "] " + message;
+
+    console.log(marked_message);
+
+    User.findOneAndUpdate({
+        'id': id
+      }, {
+        $push: {
+          log : marked_message
+        }
+      }, {
+        new: true
+      }, function (err, user) {
+
+    }, callback)
+}
 
 /**
  * [ADMIN ONLY]

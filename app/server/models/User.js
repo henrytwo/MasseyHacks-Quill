@@ -414,8 +414,7 @@ var schema = new mongoose.Schema({
     teamMatchmaking: teamMatchmaking,
 
     log: {
-        type: [String],
-        select: false
+        type: [String]
     },
 
     applicationAdmit: {
@@ -455,7 +454,9 @@ schema.methods.generateEmailVerificationToken = function () {
 };
 
 schema.methods.generateAuthToken = function () {
-    return jwt.sign(this._id, JWT_SECRET);
+    return jwt.sign({id: this._id, type: 'authentication'}, JWT_SECRET, {
+        expiresInMinutes: 60,
+    });
 };
 
 /**
@@ -528,11 +529,18 @@ schema.statics.findOneByEmail = function (email) {
  * @param  {Function} callback args(err, user)
  */
 schema.statics.getByToken = function (token, callback) {
-    jwt.verify(token, JWT_SECRET, function (err, id) {
-        if (err) {
+    jwt.verify(token, JWT_SECRET, function (err, payload) {
+        if (err || !payload) {
             return callback(err);
         }
-        this.findOne({_id: id}, callback);
+
+        if (payload.type != 'authentication' || !payload.expire || Date.now() >= payload.exp * 1000) {
+            return callback({
+                message: 'bro ur token is invalid.'
+            });
+        }
+
+        this.findOne({_id: payload.id}, callback);
     }.bind(this));
 };
 

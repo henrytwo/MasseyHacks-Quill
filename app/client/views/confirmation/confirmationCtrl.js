@@ -22,7 +22,6 @@ angular.module('reg')
       SettingsService
         .getPublicSettings()
         .success(function(settings){
-          getClassAmount(settings);
         });
       _setupForm();
 
