@@ -110,7 +110,8 @@
 
           <button
                   class="ui negative button"
-                  ng-click="toggleReject($event, selectedUser, $index)">
+                  ng-click="toggleReject($event, selectedUser, $index)"
+                  ng-show="admin.owner">
             <i ng-if="!selectedUser.status.rejected">Reject [FORCE]
             </i>
             <i ng-if="selectedUser.status.rejected">Unreject [FORCE]
@@ -118,7 +119,8 @@
           </button>
           <button
                   class="ui positive button"
-                  ng-click="acceptUser($event, selectedUser, $index)">
+                  ng-click="acceptUser($event, selectedUser, $index)"
+                  ng-show="admin.owner">
             Accept [FORCE]
           </button>
           <div class="ui negative right labeled icon button">
@@ -137,6 +139,7 @@
           <th>Name</th>
           <th>V/S/A/C</th>
           <th></th>
+          <th>Wave</th>
           <th>City</th>
           <th>Need Reimbursement</th>
           <th>Email</th>
@@ -271,6 +274,8 @@
             </button>
 
           </td>
+
+          <td>{{user.wave}}</td>
 
           <td>{{user.profile.departing}}</td>
           <td

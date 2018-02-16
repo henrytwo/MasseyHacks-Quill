@@ -1235,7 +1235,7 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
             },
             function(err, user) {
 
-                UserController.addToLog(id, adminUser.email + " voted for " + (user) ? user.email : "null" + " (" + (user) ? user.profile.name : "null" + ")", callback);
+                //UserController.addToLog(id, adminUser.email + " voted for " + (user) ? user.email : "null" + " (" + (user) ? user.profile.name : "null" + ")", callback);
 
                 if (err || !user) {
                     return callback(err);

@@ -44,7 +44,7 @@ angular.module('reg')
 
       function updatePage(data){
         $scope.users = data.users.filter(function (user) {
-            return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.votedBy.indexOf(adminUser.email) === -1 /*&& user.wave === $scope.wave*/;
+            return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.status.rejected !== true && user.votedBy.indexOf(adminUser.email) === -1 && user.wave === $scope.wave;
         });
         $scope.currentPage = data.page;
         $scope.pageSize = data.size;
@@ -109,33 +109,29 @@ angular.module('reg')
             closeOnConfirm: false
             },
             function(){
+              $('.long.user.modal').modal('hide');
               UserService
                 .reject(user._id)
                 .success(function(user){
                   if(user !== ""){//User cannot be found if user is accepted
-                    if(index == null){ //we don't have index because toggleReject has been called in pop-up
-                      for(var i = 0; i < $scope.users.length; i++){
-                        if($scope.users[i]._id === user._id){
-                          $scope.users[i] = user;
-                          selectUser(user);
-                          }
-                        }
-                      }
-                      else
                         $scope.users.splice(index, 1);
                         swal("Action Performed", 'This user has been rejected.', "success");
+                        $('.long.user.modal').modal('show');
                         if ($scope.users.length > 0) {
                            selectUser($scope.users[0]);
                         } else {
                             $('.long.user.modal').modal('hide');
                             swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
                         }
-                    }
-                  else
-                    swal("Could not be rejected", 'User cannot be rejected if its not verified or it is admitted', "error");
+                  }
+                  else {
+                      swal("Could not be rejected", 'User cannot be rejected if its not verified or it is admitted', "error");
+                      $('.long.user.modal').modal('show');
+                  }
                 })
                 .error(function(err) {
-                    swal("Access Denied", "You do not have permission to perform this action.", "error")
+                    swal("Access Denied", "You do not have permission to perform this action.", "error");
+                    $('.long.user.modal').modal('show');
                 });
             }
           );
@@ -154,9 +150,11 @@ angular.module('reg')
                 else
                  $scope.users[index] = user;
               swal("Action Performed", 'This user has been unrejected.', "success");
+                $('.long.user.modal').modal('show');
             })
             .error(function(err) {
-                swal("Access Denied", "You do not have permission to perform this action.", "error")
+                swal("Access Denied", "You do not have permission to perform this action.", "error");
+                $('.long.user.modal').modal('show');
             });
         }
       };
@@ -184,35 +182,30 @@ angular.module('reg')
               confirmButtonText: "Yes, accept this user.",
               closeOnConfirm: false
               }, function(){
+                $('.long.user.modal').modal('hide');
 
                 UserService
                   .admitUser(user._id)
                   .success(function(user){
                     if(user != ""){// User cannot be found if user is rejected
-                      if(index == null){ //we don't have index because acceptUser has been called in pop-up
-                        for(var i = 0; i < $scope.users.length; i++){
-                          if($scope.users[i]._id === user._id){
-                            $scope.users[i] = user;
-                            selectUser(user);
-                            }
-                          }
-                        }
-                        else
-                          $scope.users.splice(index, 1);
-                          swal("Action Performed", 'This user has been admitted.', "success");
-                          if ($scope.users.length > 0) {
-                              selectUser($scope.users[0]);
-                          }
-                          else {
-                              $('.long.user.modal').modal('hide');
-                              swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
-                          }
+                      $scope.users.splice(index, 1);
+                      swal("Action Performed", 'This user has been admitted.', "success");
+                      if ($scope.users.length > 0) {
+                          selectUser($scope.users[0]);
+                          $('.long.user.modal').modal('show');
+                      }
+                      else {
+                          $('.long.user.modal').modal('hide');
+                          swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
+                      }
                     }
                     else
                       swal("Could not be accepted", 'User cannot be accepted if the user is rejected. Please remove rejection.', "error");
+                      $('.long.user.modal').modal('show');
                   })
                   .error(function(err) {
-                      swal("Access Denied", "You do not have permission to perform this action.", "error")
+                      swal("Access Denied", "You do not have permission to perform this action.", "error");
+                      $('.long.user.modal').modal('show');
                   });;
 
               });
@@ -359,6 +352,7 @@ angular.module('reg')
                 confirmButtonText: "Yes, vote to admit.",
                 closeOnConfirm: false
             }, function(){
+              $('.long.user.modal').modal('hide');
 
               UserService
                   .voteAdmitUser(user._id)
@@ -377,9 +371,11 @@ angular.module('reg')
                       else {
                           swal("Error", "Action could not be performed.\nYou cannot vote on a user if status is locked!\nAdditionally, you cannot vote more than once!", "error");
                       }
+                      $('.long.user.modal').modal('show');
                   })
                   .error(function(err) {
-                      swal("Error", "Action could not be performed.", "error")
+                      swal("Error", "Action could not be performed.", "error");
+                      $('.long.user.modal').modal('show');
                   });
 
             });
@@ -397,6 +393,7 @@ angular.module('reg')
                 confirmButtonText: "Yes, vote to reject.",
                 closeOnConfirm: false
             }, function(){
+                $('.long.user.modal').modal('hide');
 
                 UserService
                     .voteRejectUser(user._id)
@@ -404,6 +401,7 @@ angular.module('reg')
                         if (user != "") {
                             $scope.users.splice(index, 1);
                             swal("Action Performed", "Voted to reject", "success");
+                            $('.long.user.modal').modal('show');
                             if ($scope.users.length > 0) {
                                 selectUser($scope.users[0]);
                             }
@@ -414,10 +412,12 @@ angular.module('reg')
                         }
                         else {
                             swal("Error", "Action could not be performed.\nYou cannot vote on a user if status is locked!\nAdditionally, you cannot vote more than once!", "error");
+                            $('.long.user.modal').modal('show');
                         }
                     })
                     .error(function(err) {
-                        swal("Error", "Action could not be performed.", "error")
+                        swal("Error", "Action could not be performed.", "error");
+                        $('.long.user.modal').modal('show');
                     });
 
             });
