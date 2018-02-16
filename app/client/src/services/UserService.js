@@ -35,6 +35,17 @@ angular.module('reg')
         );
       },
 
+      getPageFull: function(page, size, filter, sort){
+          return $http.get(users + '?' + $.param(
+              {
+                  filter: filter,
+                  page: page ? page : 0,
+                  size: 500,
+                  sort: sort
+              })
+          );
+      },
+
       getMatchmaking: function(type, page, size, filter) {
         return $http.get('/api/matchmaking/data/' + '?' + $.param(
           {

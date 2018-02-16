@@ -58,7 +58,7 @@ angular.module('reg')
       }
 
       UserService
-        .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
+        .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
         .success(function(data){
           updatePage(data);
         });
@@ -66,7 +66,7 @@ angular.module('reg')
       $scope.sortByDate = function(){
         $scope.sortDate = !$scope.sortDate;
         UserService
-                  .getPage($stateParams.page, 150, $scope.filter, $scope.sortDate)
+                  .getPageFull($stateParams.page, 500, $scope.filter, $scope.sortDate)
                   .success(function(data){
                     updatePage(data);
                   });
@@ -74,7 +74,7 @@ angular.module('reg')
 
       $scope.filterUsers = function() {
         UserService
-          .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
+          .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
           .success(function(data){
             updatePage(data);
           });
