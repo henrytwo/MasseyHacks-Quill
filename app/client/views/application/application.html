@@ -29,8 +29,7 @@
 
   <div class="ui stackable page grid">
     <div class="column">
-      <div class="ui form error"
-            ng-class="{'loading': loading}">
+      <div class="ui form error" ng-class="{'loading': loading}">
 
         <div class="divided title">Basic Information</div>
 
@@ -83,9 +82,9 @@
             </select>
         </div>
 
-       <br>
+        <br>
 
-       <div class="field">
+        <div class="field">
           <label>What gender do you identify as? *</label>
          <p>This information is used for statistical purposes and will not influence your application.</p>
           <select
@@ -128,76 +127,77 @@
           <label> School Information </label>
         </div>
 
-      <div class="field" id="schoolField">
-        <label> Which school are you from? *</label>
-        <p style="margin-bottom: 10px;">
-        Please type in the school you are enrolled at.
-        </p>
-        <select class="ui fluid school search dropdown"
-               name="school"
-               id="school"
-               ng-model="user.profile.school"
-               maxlength="50">
-               <option value="">Select School</option>
-        </select>
-      </div>
+        <div class="field" id="schoolField">
+          <label> Which school are you from? *</label>
+          <p style="margin-bottom: 10px;">
+          Please type in the school you are enrolled at.
+          </p>
+          <select class="ui fluid school search dropdown"
+                 name="school"
+                 id="school"
+                 ng-model="user.profile.school"
+                 maxlength="50">
+                 <option value="">Select School</option>
+          </select>
+        </div>
 
-      <div class="field">
-        <label> What city are you travelling from? *</label>
-        <input type="text"
-               name="departing"
-               ng-model="user.profile.departing">
-      </div>
+        <div class="field">
+          <label> What city are you travelling from? *</label>
+          <input type="text"
+                 name="departing"
+                 ng-model="user.profile.departing">
+        </div>
 
-      <div class="field">
-        <label> What is your phone number?</label>
-        <input type="text"
-               name="phone"
-               ng-model="user.profile.phone">
-      </div>
+        <div class="field">
+          <label> What is your phone number?</label>
+          <input type="text"
+                 name="phone"
+                 ng-model="user.profile.phone">
+        </div>
 
-      <div class="field">
-        <label> Dietary Restrictions *</label>
+        <div class="field">
+          <label> Dietary Restrictions *</label>
 
-        <p>
-          If your restrictions are not included here, please let us know in the additional notes at the bottom.
-        </p>
-        <p>
-          We'll make sure you get fed :)
-        </p>
-
-      </div>
-
-      <div class="inline fields">
-        <div class="field"
-             ng-repeat="(key, value) in diet">
-
-          <div class="ui checkbox">
-            <input type="checkbox" ng-model="diet[key]" />
-            <label>{{key}}</label>
-          </div>
+          <p>
+            If your restrictions are not included here, please let us know in the additional notes at the bottom.
+          </p>
+          <p>
+            We'll make sure you get fed :)
+          </p>
 
         </div>
-      </div>
 
-      <div class="field">
-        <label> T-shirt size *</label>
-        <p>
-          Prepping for some FREE swag ;)
-        </p>
+        <div class="inline fields">
+          <div class="field"
+               ng-repeat="(key, value) in diet">
 
-        <select
-          class="ui fluid dropdown"
-          name="shirt"
-          id="shirt"
-          ng-model="user.profile.shirt"
-          required>
-          <option value="">Shirt Size</option>
-          <option value="S">Small</option>
-          <option value="M">Medium</option>
-          <option value="L">Large</option>
-        </select>
-      </div>
+            <div class="ui checkbox">
+              <input type="checkbox" ng-model="diet[key]" />
+              <label>{{key}}</label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="field">
+          <label> T-shirt size *</label>
+          <p>
+            Prepping for some FREE swag ;)
+          </p>
+
+          <select
+            class="ui fluid dropdown"
+            name="shirt"
+            id="shirt"
+            ng-model="user.profile.shirt"
+            required>
+            <option value="">Shirt Size</option>
+            <option value="S">Small</option>
+            <option value="M">Medium</option>
+            <option value="L">Large</option>
+          </select>
+        </div>
+
 
       <br>
         <br>
@@ -352,7 +352,7 @@
         </ul>
       </div>
 
-          <b>You can edit your application after submitting, <b>but you risk losing your place in queue!</b>
+          You can edit your application after submitting, <b>but you risk losing your place in queue!</b>
 
         <div class="field" style="margin-bottom:5px" ng-hide="regIsClosed">
           <button type="submit"

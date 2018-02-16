@@ -208,6 +208,24 @@ angular.module('reg')
                 }
               ]
             },
+            essayproject: {
+                identifier: 'essayproject',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please tell us about your past experience.'
+                    }
+                ]
+            },
+            essaygain: {
+                identifier: 'essaygain',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please tell us about what you hope to gain at MasseyHacks IV.'
+                    }
+                ]
+            },
             methodofdiscovery: {
               identifier: 'methodofdiscovery',
               rules: [

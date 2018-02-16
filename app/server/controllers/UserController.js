@@ -14,7 +14,7 @@ var programmingLanguages = shuffleSeed.shuffle(require('../assets/programming_la
 
 var UserController = {};
 
-var maxTeamSize = process.env.TEAM_MAX_SIZE || 4;
+var maxTeamSize = 4;
 
 
 
@@ -1235,7 +1235,7 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
             },
             function(err, user) {
 
-                UserController.addToLog(id, adminUser.email + " voted for " + user.email + " (" + user.profile.name + ")", callback);
+                UserController.addToLog(id, adminUser.email + " voted for " + (user) ? user.email : "null" + " (" + (user) ? user.profile.name : "null" + ")", callback);
 
                 if (err || !user) {
                     return callback(err);

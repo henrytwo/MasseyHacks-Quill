@@ -44,13 +44,13 @@ angular.module('reg')
 
       function updatePage(data){
         $scope.users = data.users.filter(function (user) {
-            return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.votedBy.indexOf(adminUser.email) === -1 && user.wave === $scope.wave;
+            return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.votedBy.indexOf(adminUser.email) === -1 /*&& user.wave === $scope.wave*/;
         });
         $scope.currentPage = data.page;
         $scope.pageSize = data.size;
 
         var p = [];
-        for (var i = 0; i < data.totalPages; i++){
+        for (var i = 0; i < Math.ceil($scope.users.length / $scope.pageSize); i++){
           p.push(i);
         }
         $scope.pages = p;
@@ -66,7 +66,7 @@ angular.module('reg')
       $scope.sortByDate = function(){
         $scope.sortDate = !$scope.sortDate;
         UserService
-                  .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
+                  .getPage($stateParams.page, 150, $scope.filter, $scope.sortDate)
                   .success(function(data){
                     updatePage(data);
                   });

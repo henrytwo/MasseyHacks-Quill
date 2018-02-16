@@ -531,10 +531,11 @@ schema.statics.findOneByEmail = function (email) {
 schema.statics.getByToken = function (token, callback) {
     jwt.verify(token, JWT_SECRET, function (err, payload) {
         if (err || !payload) {
+            console.log('ur bad');
             return callback(err);
         }
 
-        if (payload.type != 'authentication' || !payload.expire || Date.now() >= payload.exp * 1000) {
+        if (payload.type != 'authentication' || !payload.exp || Date.now() >= payload.exp * 1000) {
             return callback({
                 message: 'bro ur token is invalid.'
             });

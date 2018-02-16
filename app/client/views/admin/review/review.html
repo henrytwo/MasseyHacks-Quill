@@ -5,7 +5,8 @@
 
     <button
             class="ui positive button"
-            ng-click="review(users)">
+            ng-click="review(users)"
+            ng-class="{disabled: users.length == 0}">
         Start reviewing!
     </button>
 

@@ -105,54 +105,6 @@ angular.module('reg')
           }
         }
       })
-      .state('app.matchmaking', {
-        url: "/matchmaking",
-        templateUrl: "views/matchmaking/matchmaking.html",
-        controller: 'MatchmakingCtrl',
-        data: {
-          requireApplied: true
-        },
-        resolve: {
-          currentUser: function(UserService){
-            return UserService.getCurrentUser();
-          },
-          settings: function(SettingsService){
-            return SettingsService.getPublicSettings();
-          }
-        }
-      })
-      .state('app.matchmaking.teams', {
-        url: "/matchmaking/teams",
-        templateUrl: "views/matchmaking/teams/teams.html",
-        controller: 'TeamsCtrl',
-        data: {
-          requireApplied: true
-        },
-        resolve: {
-          currentUser: function(UserService){
-            return UserService.getCurrentUser();
-          },
-          settings: function(SettingsService){
-            return SettingsService.getPublicSettings();
-          }
-        }
-      })
-      .state('app.matchmaking.individuals', {
-        url: "/matchmaking/individuals",
-        templateUrl: "views/matchmaking/individuals/individuals.html",
-        controller: 'IndividualsCtrl',
-        data: {
-          requireApplied: true
-        },
-        resolve: {
-          currentUser: function(UserService){
-            return UserService.getCurrentUser();
-          },
-          settings: function(SettingsService){
-            return SettingsService.getPublicSettings();
-          }
-        }
-      })
       .state('app.admin', {
         views: {
           '': {
