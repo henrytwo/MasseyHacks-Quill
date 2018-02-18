@@ -88,9 +88,11 @@ function generateID(i){
 UserController.loginWithToken = function(token, callback){
   User.getByToken(token, function(err, user){
     if (!user || !user.active) {
-      return callback(err, token, null);
+        return callback(err, token, null);
     }
     var u = removeSensitive(user);
+
+    UserController.addToLog(user.email + " successfully logged in with token", callback);
 
     return callback(err, token, u);
   });
@@ -124,18 +126,27 @@ UserController.loginWithPassword = function(email, password, callback){
         return callback(err);
       }
       if (!user) {
-        return callback({
+
+          UserController.addToLog(user.email + " failed to log in with password", callback);
+
+          return callback({
           message: "Incorrect username or password"
         });
       }
 
       if (!user.active) {
+
+          UserController.addToLog(user.email + " failed to log in with password", callback);
+
           return callback({
               message: "User has been deactivated"
           });
       }
       if (!user.checkPassword(password)) {
-        return callback({
+
+          UserController.addToLog(user.email + " failed to log in with password", callback);
+
+          return callback({
           message: "Incorrect username or password"
         });
       }
@@ -144,6 +155,8 @@ UserController.loginWithPassword = function(email, password, callback){
       var token = user.generateAuthToken();
 
       var u = removeSensitive(user);
+
+      UserController.addToLog(user.email + " successfully logged in with password", callback);
 
       return callback(null, token, u);
   });
@@ -253,6 +266,8 @@ UserController.createUser = function(email, password, nickname, callback) {
               if (err){
                 return callback(err);
               } else {
+
+                UserController.addToLog(user.email + " created an account", callback);
                 // yay! success.
                 var token = u.generateAuthToken();
 
@@ -1196,42 +1211,49 @@ UserController.resetPassword = function(token, password, callback){
  * @param  (String)   reimbClass  Users accepted reimbursement class/amount
  * @param  {Function} callback args(err, user)
  */
-UserController.voteRejectUser = function(id, user, callback){
+UserController.voteRejectUser = function(id, adminUser, callback){
     User
         .findOneAndUpdate({
                 '_id': id,
                 'verified': true,
                 'status.rejected': false,
                 'status.admitted': false,
-                'applicationAdmit' : {$nin : [user.email]},
-                'applicationReject' : {$nin : [user.email]}
+                'applicationAdmit' : {$nin : [adminUser.email]},
+                'applicationReject' : {$nin : [adminUser.email]}
             },{
                 $push: {
-                    'applicationReject': user.email,
-                    'votedBy': user.email
+                    'applicationReject': adminUser.email,
+                    'votedBy': adminUser.email
                 }
             }, {
                 new: true
             },
             function(err, user) {
 
+
+                UserController.addToLog(adminUser.email + " voted to reject " + user.email, callback);
+
                 if (err || !user) {
                     return callback(err);
                 }
 
-                if (user.votedBy.length >= 5) {
-                    if (user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
-                        user.status.admitted = true;
-                        user.status.rejected = false;
-                        user.status.admittedBy = "MasseyHacks Admission Authority";
-                        console.log("Admitted user");
-                    }
-                    else {
-                        user.status.admitted = false;
-                        user.status.rejected = true;
-                        console.log("Rejected user");
-                    }
+
+                if (user.applicationReject.length >= 3 && user.applicationReject.length > user.applicationAdmit.length) {
+                    user.status.admitted = false;
+                    user.status.rejected = true;
+                    console.log("Rejected user");
+
+                    UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, callback);
                 }
+                else {
+                    user.status.admitted = true;
+                    user.status.rejected = false;
+                    user.status.admittedBy = "MasseyHacks Admission Authority";
+                    console.log("Admitted user");
+
+                    UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, callback);
+                }
+
 
                 User.findOneAndUpdate({
                         '_id': id,
@@ -1256,7 +1278,7 @@ UserController.voteRejectUser = function(id, user, callback){
 /**
  * [ADMIN ONLY]
  *
- * Vote to reject a user.
+ * Vote to admit a user.
  * @param  {String}   userId      User id of the admit
  * @param  {String}   user        User doing the admitting
  * @param  (String)   reimbClass  Users accepted reimbursement class/amount
@@ -1282,7 +1304,7 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
             },
             function(err, user) {
 
-                UserController.addToLog(user.id, adminUser.email + " voted for " + user.email, callback);
+                UserController.addToLog(adminUser.email + " voted to admit " + user.email, callback);
 
                 if (err || !user) {
                     return callback(err);
@@ -1298,6 +1320,8 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
                                 user.status.admitted = false;
                                 user.status.rejected = true;
                                 console.log("Rejected user");
+
+                                UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, callback);
                             } else {
                                 if (data < total) {
                                     console.log(user);
@@ -1308,12 +1332,16 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
                                         user.status.rejected = false;
                                         user.status.admittedBy = "MasseyHacks Admission Authority";
                                         console.log("Admitted user");
+
+                                        UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, callback);
                                     }
                                 } else {
                                     if (user.applicationAdmit.length >= 3) {
                                         user.status.waitlisted = true;
                                         user.status.rejected = false;
                                         console.log("Waitlisted User");
+
+                                        UserController.addToLog("MasseyHacks Admission Authority waitlisted " + user.email, callback);
                                     }
                                 }
                             }
@@ -1465,7 +1493,7 @@ UserController.QRcheckInById = function(id, callback){
   })
 };
 
-UserController.addToLog = function (id, message, callback) {
+UserController.addToLog = function (message, callback) {
 
     var marked_message = "[" + Date() + "] " + message;
 
