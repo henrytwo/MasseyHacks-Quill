@@ -352,12 +352,23 @@ UserController.getPage = function(query, callback){
   if(query.filter.needsReimbursement === 'true') {
     statusFilter.push({'profile.needsReimbursement': 'true'});
   }
-  if(query.filter.rejected === 'true')
-    statusFilter.push({'status.rejected': 'true'});
+  if(query.filter.rejected === 'true') {
+      statusFilter.push({'status.rejected': 'true'});
+  }
+  if(query.filter.waiver === 'true') {
+      statusFilter.push({'status.waiver': 'true'});
+  }
+  if(query.filter.active === 'true') {
+      statusFilter.push({'active': 'false'});
+  }
   //else
   // statusFilter.push({});
-
-  statusFilter.push({'volunteer': 'false'});
+  if(query.filter.volunteer === 'true') {
+      statusFilter.push({'volunteer': 'true'});
+  }
+  else {
+      statusFilter.push({'volunteer': 'false'});
+  }
 
   User
     .find(findQuery)

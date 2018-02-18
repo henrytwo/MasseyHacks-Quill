@@ -69,6 +69,15 @@
               {{stats.declined}}
           </div>
         </div>
+        <div class="item">
+          <i class="circle red icon"></i>
+          <div class="content">
+            <strong>
+              Waiver
+            </strong> :
+            {{stats.waiver}}
+          </div>
+        </div>
 
         <div class="item">
           <i class="green flag icon"></i>
@@ -88,107 +97,14 @@
             <strong>
               Unisex shirt sizes:
             </strong> :
-              XS ({{stats.shirtSizes['XS']}})
               S ({{stats.shirtSizes['S']}})
               M ({{stats.shirtSizes['M']}})
               L ({{stats.shirtSizes['L']}})
-              XL ({{stats.shirtSizes['XL']}})
-              XXL ({{stats.shirtSizes['XXL']}})
-          </div>
-        </div>
-
-        <div class="item">
-          <i class="child icon"></i>
-          <div class="content">
-            <strong>
-              Women's shirt sizes:
-            </strong> :
-              XS ({{stats.shirtSizes['WXS']}})
-              S ({{stats.shirtSizes['WS']}})
-              M ({{stats.shirtSizes['WM']}})
-              L ({{stats.shirtSizes['WL']}})
-              XL ({{stats.shirtSizes['WXL']}})
-              XXL ({{stats.shirtSizes['WXXL']}})
           </div>
         </div>
 
         <div class="ui divider"></div>
-
-        <div class="item">
-          <i class="green money icon"></i>
-          <div class="content">
-            <strong>
-              Requested travel reimbursement classes:
-            </strong>
-                Finland: <strong>{{stats.RfinlandTotal}}</strong>
-                Baltics: <strong>{{stats.RbalticsTotal}}</strong>
-                Nordic: <strong>{{stats.RnordicTotal}}</strong>
-                Europe: <strong>{{stats.ReuropeTotal}}</strong>
-                Outside Europe: <strong>{{stats.RoutsideTotal}}</strong>
-          </div>
-        </div>
-
-        <div class="item">
-          <i class="green money icon"></i>
-          <div class="content">
-            <strong>
-              Accepted travel reimbursement classes:
-            </strong>
-              Finland: <strong>{{stats.AfinlandTotal}}</strong>
-              Baltics: <strong>{{stats.AbalticsTotal}}</strong>
-              Nordic: <strong>{{stats.AnordicTotal}}</strong>
-              Europe: <strong>{{stats.AeuropeTotal}}</strong>
-              Outside Europe: <strong>{{stats.AoutsideTotal}}</strong>
-              Special: <strong>{{stats.Aspecial}}</strong>
-              Rejected:<strong>{{stats.ArejectedTotal}}</strong>
-          </div>
-        </div>
-        <div class="item">
-          <i class="green money icon"></i>
-          <div class="content">
-            <strong>
-              Accepted amount of reimbursements given: {{stats.TotalAmountofReimbursementsAccepted}} €
-            </strong>
-          </div>
-        </div>
-
-        <div class="item">
-          <i class="green money icon"></i>
-          <div class="content">
-            <strong>
-              Confirmed travel reimbursement classes:
-            </strong>
-              Finland: <strong>{{stats.CfinlandTotal}}</strong>
-              Baltics: <strong>{{stats.CbalticsTotal}}</strong>
-              Nordic: <strong>{{stats.CnordicTotal}}</strong>
-              Europe: <strong>{{stats.CeuropeTotal}}</strong>
-              Outside Europe: <strong>{{stats.CoutsideTotal}}</strong>
-              Special: <strong>{{stats.Cspecial}}</strong>
-              Rejected:<strong>{{stats.CrejectedTotal}}</strong>
-          </div>
-        </div>
-        <div class="item">
-          <i class="green money icon"></i>
-          <div class="content">
-            <strong>
-              Confirmed amount of reimbursements given: {{stats.TotalAmountofReimbursementsConfirmed}} €
-            </strong>
-          </div>
-        </div>
-
-        <div class="ui divider"></div>
-
-        <div class="item">
-          <i class="plug icon"></i>
-          <div class="content">
-            <strong>
-              Need/Want Hardware:
-            </strong>{{stats.wantsHardware}}
-          </div>
-        </div>
-
-        <div class="ui divider"></div>
-
+        
         <div class="item">
           <i class="food icon"></i>
           <div class="content">
@@ -204,55 +120,6 @@
 
       </div>
     </div>
-    <div class="ui divider"></div>
-    <!-- Not needed at the moment
-        <div class="item">
-          <div class="content">
-            <strong>
-              Send remainder emails for users who have not submitted application:
-            </strong>
-            <div class="field" style="margin-bottom:5px">
-              <button type="submit"
-                      class="fluid ui sea-serpent button"
-                      ng-click="sendLaggerEmails()">
-                Send!
-              </button>
-            </div>
-          </div>
-        </div>
-      -->
-
-        <div class="item">
-          <div class="content">
-            <strong>
-              Send rejection email:
-            </strong>
-            <div class="field" style="margin-bottom:5px">
-              <button type="submit"
-                      class="fluid ui sea-serpent button"
-                      ng-click="sendRejectEmails()">
-                Send!
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!--<div class="item">
-          <div class="content">
-            <strong>
-              Send QR-code email:
-            </strong>
-            <div class="field" style="margin-bottom:5px">
-              <button type="submit"
-                      class="fluid ui sea-serpent button"
-                      ng-click="sendQREmails()">
-                Send!
-              </button>
-            </div>
-          </div>
-        </div>-->
-
-
   </div>
 
   <div
@@ -293,270 +160,59 @@
         </div>
       </div>
     </div>
-    <!-- <div class="ui divider"></div>
-      <div class="ui list">
-        <div class="item">
-          <strong>Fresh:</strong> {{stats.demo.year['2019']}} ({{stats.demo.year['2019'] / stats.total * 100 | number: 1}}%)
-        </div>
-        <div class="item">
-          <strong>Soph:</strong> {{stats.demo.year['2018']}} ({{stats.demo.year['2018'] / stats.total * 100 | number: 1}}%)
-        </div>
-        <div class="item">
-         <strong>Junior:</strong> {{stats.demo.year['2017']}} ({{stats.demo.year['2017'] / stats.total * 100 | number: 1}}%)
-        </div>
-        <div class="item">
-          <strong>Senior:</strong> {{stats.demo.year['2016']}} ({{stats.demo.year['2016'] / stats.total * 100 | number: 1}}%)
-        </div>
-      </div> -->
     <div class="ui divider"></div>
     <div class="ui header">
-      Track Distribution
+      Grade Distribution
     </div>
-    <div class="field">
-      <label>Account Status</label>
-      <select ng-model="accountStatus" class="ui fluid search selection dropdown">
-        <option value="total" selected="selected">Total</option>
-        <option value="completedProfile">Submitted Application</option>
-        <option value="admitted">Admitted</option>
-        <option value="confirmed">Confirmed</option>
-      </select>
-    </div>
-    <div ng-show="accountStatus=='total'">
       <div class="ui list">
         <div class="item">
-          <div class="content">
-            <strong>HealthTech</strong>: {{stats.demo.tracks['HealthTech']}} ({{stats.demo.track['HealthTech'] / stats.total * 100 | number:1}}%)
-          </div>
+          <strong>Grade <=8</strong> {{stats.demo.grade['<=8']}} ({{stats.demo.grade['<='] / stats.total * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <div class="content">
-            <strong>Logistics</strong>: {{stats.demo.tracks['Logistics']}} ({{stats.demo.tracks['Logistics'] / stats.total * 100 | number:1}}%)
-          </div>
+          <strong>Grade 9</strong> {{stats.demo.grade['9']}} ({{stats.demo.grade['9'] / stats.total * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <div class="content">
-            <strong>Entertainment</strong>: {{stats.demo.tracks['Entertainment']}} ({{stats.demo.tracks['Entertainment'] / stats.total * 100 | number:1}}%)
-          </div>
+          <strong>Grade 10</strong> {{stats.demo.grade['10']}} ({{stats.demo.grade['10'] / stats.total * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <div class="content">
-            <strong>Mobility</strong>: {{stats.demo.tracks['Mobility']}} ({{stats.demo.tracks['Mobility'] / stats.total * 100 | number:1 }}%)
-          </div>
+         <strong>Grade 11</strong> {{stats.demo.grade['11']}} ({{stats.demo.grade['11'] / stats.total * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <div class="content">
-            <strong>Intelligent Buildings</strong>: {{stats.demo.tracks['Intelligent Buildings']}} ({{stats.demo.tracks['Intelligent Buildings'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Game Jam</strong>: {{stats.demo.tracks['Game Jam']}} ({{stats.demo.tracks['Game Jam'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>FinTech</strong>: {{stats.demo.tracks['FinTech']}} ({{stats.demo.tracks['FinTech'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Industrial Internet</strong>: {{stats.demo.tracks['Industrial Internet']}} ({{stats.demo.tracks['Industrial Internet'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Artificial Intelligence</strong>: {{stats.demo.tracks['Artificial Intelligence']}} ({{stats.demo.tracks['Artificial Intelligence'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Big Data</strong>: {{stats.demo.tracks['Big Data']}} ({{stats.demo.tracks['Big Data'] / stats.total * 100 | number:1 }}%)
-          </div>
+          <strong>Grade 12</strong> {{stats.demo.grade['12']}} ({{stats.demo.grade['12'] / stats.total * 100 | number: 1}}%)
         </div>
       </div>
-    </div>
 
-    <div ng-show="accountStatus=='completedProfile'">
-      <div class="ui list">
-        <div class="item">
-          <div class="content">
-            <strong>HealthTech</strong>: {{stats.appliedStats.tracks['HealthTech']}} ({{stats.appliedStats.track['HealthTech'] / stats.total * 100 | number:1}}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Logistics</strong>: {{stats.appliedStats.tracks['Logistics']}} ({{stats.appliedStats.tracks['Logistics'] / stats.total * 100 | number:1}}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Entertainment</strong>: {{stats.appliedStats.tracks['Entertainment']}} ({{stats.appliedStats.tracks['Entertainment'] / stats.total * 100 | number:1}}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Mobility</strong>: {{stats.appliedStats.tracks['Mobility']}} ({{stats.appliedStats.tracks['Mobility'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Intelligent Buildings</strong>: {{stats.appliedStats.tracks['Intelligent Buildings']}} ({{stats.appliedStats.tracks['Intelligent Buildings'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Game Jam</strong>: {{stats.appliedStats.tracks['Game Jam']}} ({{stats.appliedStats.tracks['Game Jam'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>FinTech</strong>: {{stats.appliedStats.tracks['FinTech']}} ({{stats.appliedStats.tracks['FinTech'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Industrial Internet</strong>: {{stats.appliedStats.tracks['Industrial Internet']}} ({{stats.appliedStats.tracks['Industrial Internet'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Artificial Intelligence</strong>: {{stats.demo.tracks['Artificial Intelligence']}} ({{stats.demo.tracks['Artificial Intelligence'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Big Data</strong>: {{stats.demo.tracks['Big Data']}} ({{stats.demo.tracks['Big Data'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div ng-show="accountStatus=='admitted'">
-      <div class="ui list">
-        <div class="item">
-          <div class="content">
-            <strong>HealthTech</strong>: {{stats.admittedStats.tracks['HealthTech']}} ({{stats.admittedStats.track['HealthTech'] / stats.total * 100 | number:1}}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Logistics</strong>: {{stats.admittedStats.tracks['Logistics']}} ({{stats.admittedStats.tracks['Logistics'] / stats.total * 100 | number:1}}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Entertainment</strong>: {{stats.admittedStats.tracks['Entertainment']}} ({{stats.admittedStats.tracks['Entertainment'] / stats.total * 100 | number:1}}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Mobility</strong>: {{stats.admittedStats.tracks['Mobility']}} ({{stats.admittedStats.tracks['Mobility'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Intelligent Buildings</strong>: {{stats.admittedStats.tracks['Intelligent Buildings']}} ({{stats.admittedStats.tracks['Intelligent Buildings'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Game Jam</strong>: {{stats.admittedStats.tracks['Game Jam']}} ({{stats.admittedStats.tracks['Game Jam'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>FinTech</strong>: {{stats.admittedStats.tracks['FinTech']}} ({{stats.admittedStats.tracks['FinTech'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Industrial Internet</strong>: {{stats.admittedStats.tracks['Industrial Internet']}} ({{stats.admittedStats.tracks['Industrial Internet'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Artificial Intelligence</strong>: {{stats.demo.tracks['Artificial Intelligence']}} ({{stats.demo.tracks['Artificial Intelligence'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Big Data</strong>: {{stats.demo.tracks['Big Data']}} ({{stats.demo.tracks['Big Data'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div ng-show="accountStatus=='confirmed'">
-      <div class="ui list">
-        <div class="item">
-          <div class="content">
-            <strong>HealthTech</strong>: {{stats.confirmedStats.tracks['HealthTech']}} ({{stats.confirmedStats.track['HealthTech'] / stats.total * 100 | number:1}}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Logistics</strong>: {{stats.confirmedStats.tracks['Logistics']}} ({{stats.confirmedStats.tracks['Logistics'] / stats.total * 100 | number:1}}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Entertainment</strong>: {{stats.confirmedStats.tracks['Entertainment']}} ({{stats.confirmedStats.tracks['Entertainment'] / stats.total * 100 | number:1}}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Mobility</strong>: {{stats.confirmedStats.tracks['Mobility']}} ({{stats.confirmedStats.tracks['Mobility'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Intelligent Buildings</strong>: {{stats.confirmedStats.tracks['Intelligent Buildings']}} ({{stats.confirmedStats.tracks['Intelligent Buildings'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Game Jam</strong>: {{stats.confirmedStats.tracks['Game Jam']}} ({{stats.confirmedStats.tracks['Game Jam'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>FinTech</strong>: {{stats.confirmedStats.tracks['FinTech']}} ({{stats.confirmedStats.tracks['FinTech'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Industrial Internet</strong>: {{stats.confirmedStats.tracks['Industrial Internet']}} ({{stats.confirmedStats.tracks['Industrial Internet'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Artificial Intelligence</strong>: {{stats.demo.tracks['Artificial Intelligence']}} ({{stats.demo.tracks['Artificial Intelligence'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <strong>Big Data</strong>: {{stats.demo.tracks['Big Data']}} ({{stats.demo.tracks['Big Data'] / stats.total * 100 | number:1 }}%)
-          </div>
-        </div>
-      </div>
-    </div>
-
-<!--   <div
-    class="ui purple segment"
-    ng-class="{'loading': loading}">
+    <!--
+    <div class="ui divider"></div>
     <div class="ui header">
-      Team Names
+      School Distribution
     </div>
     <div class="ui list">
-      <div
-        class="item"
-        ng-repeat="team in stats.teams | orderBy: 'name'">
-        <div class="header">
-          {{team.name}}
-        </div>
-        {{team.users.join(', ')}}
+      <div class="item">
+        <strong>Massey</strong> {{stats.demo.grade['<=8']}} ({{stats.demo.grade['<='] / stats.total * 100 | number: 1}}%)
       </div>
-    </div>
-  </div> -->
+      <div class="item">
+        <strong>Not Massey</strong> {{stats.demo.grade['9']}} ({{stats.demo.grade['9'] / stats.total * 100 | number: 1}}%)
+      </div>
+    </div> -->
+
+
+    <!--   <div
+        class="ui purple segment"
+        ng-class="{'loading': loading}">
+        <div class="ui header">
+          Team Names
+        </div>
+        <div class="ui list">
+          <div
+            class="item"
+            ng-repeat="team in stats.teams | orderBy: 'name'">
+            <div class="header">
+              {{team.name}}
+            </div>
+            {{team.users.join(', ')}}
+          </div>
+        </div>
+      </div> -->
 
 </div>
