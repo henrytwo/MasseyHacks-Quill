@@ -1245,7 +1245,7 @@ UserController.voteRejectUser = function(id, adminUser, callback){
 
                     UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, callback);
                 }
-                else {
+                else if (user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length){
                     user.status.admitted = true;
                     user.status.rejected = false;
                     user.status.admittedBy = "MasseyHacks Admission Authority";
