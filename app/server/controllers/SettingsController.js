@@ -176,7 +176,12 @@ SettingsController.getRegistrationTimes = function(callback){
  * @return {[type]}            [description]
  */
 SettingsController.getPublicSettings = function(callback){
-  Settings.getPublicSettings(callback);
+    Settings.getPublicSettings(callback);
 };
+
+SettingsController.getPrivateSettings = function(callback){
+    Settings.getPrivateSettings(callback);
+};
+
 
 module.exports = SettingsController;

@@ -148,10 +148,16 @@ schema.statics.getRegistrationTimes = function(callback){
     });
 };
 
-schema.statics.getPublicSettings = function(callback){
+schema.statics.getPrivateSettings = function(callback){
   this
     .findOne({})
     .exec(callback);
+};
+
+schema.statics.getPublicSettings = function(callback){
+    this
+        .findOne({}).select('-log')
+        .exec(callback);
 };
 
 schema.statics.getCurrentWave = function (callback) {

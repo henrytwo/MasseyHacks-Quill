@@ -7,7 +7,7 @@ angular.module('reg')
 
             $scope.settings = {};
             SettingsService
-                .getPublicSettings()
+                .getPrivateSettings()
                 .success(function(settings){
                     updateSettings(settings);
                 });
@@ -15,6 +15,7 @@ angular.module('reg')
             function updateSettings(settings){
                 $scope.loading = false;
                 // Format the dates in settings.
+
                 settings.timeOpen = new Date(settings.timeOpen);
                 settings.timeClose = new Date(settings.timeClose);
                 settings.timeConfirm = new Date(settings.timeConfirm);
@@ -36,24 +37,9 @@ angular.module('reg')
                 settings.wave4.timeConfirm = new Date(settings.wave4.timeConfirm);
 
                 $scope.settings = settings;
+
             }
 
-            // Whitelist --------------------------------------
-
-            SettingsService
-                .getWhitelistedEmails()
-                .success(function(emails){
-                    $scope.whitelist = emails.join(", ");
-                });
-
-            $scope.updateWhitelist = function(){
-                SettingsService
-                    .updateWhitelistedEmails($scope.whitelist.replace(/ /g, '').split(','))
-                    .success(function(settings){
-                        swal('Whitelist updated.');
-                        $scope.whitelist = settings.whitelistedEmails.join(", ");
-                    });
-            };
 
             // Registration Times -----------------------------
 

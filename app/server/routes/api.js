@@ -724,7 +724,12 @@ module.exports = function(router) {
     SettingsController.getPublicSettings(defaultResponse(req, res));
   });
 
-  /**
+  router.get('/settingsPrivate', isOwner, function(req, res){
+      SettingsController.getPrivateSettings(defaultResponse(req, res));
+  });
+
+
+    /**
    * Update the acceptance text.
    * body: {
    *   text: String

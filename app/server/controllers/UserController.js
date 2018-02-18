@@ -1275,7 +1275,7 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
             },
             function(err, user) {
 
-                //UserController.addToLog(id, adminUser.email + " voted for " + (user) ? user.email : "null" + " (" + (user) ? user.profile.name : "null" + ")", callback);
+                UserController.addToLog(user.id, adminUser.email + " voted for " + user.email, callback);
 
                 if (err || !user) {
                     return callback(err);
@@ -1474,7 +1474,18 @@ UserController.addToLog = function (id, message, callback) {
         new: true
       }, function (err, user) {
 
-    }, callback)
+    }, callback);
+
+    Settings.findOneAndUpdate({
+    }, {
+        $push: {
+            log : marked_message
+        }
+    }, {
+        new: true
+    }, function (err, user) {
+
+    }, callback);
 }
 
 /**

@@ -9,6 +9,9 @@ angular.module('reg')
       getPublicSettings: function(){
         return $http.get(base);
       },
+      getPrivateSettings: function(){
+          return $http.get('/api/settingsPrivate/');
+      },
       updateRegistrationTimes: function(open, close){
         return $http.put(base + 'times', {
           timeOpen: open,
