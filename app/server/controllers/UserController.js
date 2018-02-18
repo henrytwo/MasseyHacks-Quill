@@ -155,7 +155,6 @@ var removeSensitiveStaff = function(user) {
 
     delete u.password;
     delete u.salt;
-    delete u.log;
     delete u.applicationAdmit;
     delete u.applicationReject;
     delete u.status.admittedBy;
@@ -168,7 +167,6 @@ var removeSensitive = function(user) {
 
     delete u.password;
     delete u.salt;
-    delete u.log;
     delete u.applicationAdmit;
     delete u.applicationReject;
     delete u.votedBy;
@@ -1463,18 +1461,6 @@ UserController.addToLog = function (id, message, callback) {
     var marked_message = "[" + Date() + "] " + message;
 
     console.log(marked_message);
-
-    User.findOneAndUpdate({
-        'id': id
-      }, {
-        $push: {
-          log : marked_message
-        }
-      }, {
-        new: true
-      }, function (err, user) {
-
-    }, callback);
 
     Settings.findOneAndUpdate({
     }, {
