@@ -59,7 +59,7 @@ module.exports = function(router) {
               return res.status(500).send(err);
           }
 
-          if (user && user.reviewer){
+          if (user && (user.reviewer || user.developer)){
               req.user = user;
               return next();
           }

@@ -288,12 +288,16 @@ UserController.getByToken = function (token, callback) {
  * @param  {Function} callback args(err, user)
  */
 UserController.getAll = function (callback) {
-  User.find({}, function (users) {
+  User.find({volunteer: false}).exec(function(err, users){
+
+      console.log(users);
+
       for (var i = 0; i < users.length; i++) {
           users[i] = removeSensitiveStaff(users[i]);
       }
 
       return callback(null, users);
+
   });
 };
 
@@ -333,31 +337,25 @@ UserController.getPage = function(query, callback){
 
  if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
-    statusFilter.push({'status.completedProfile': 'false'});
-    statusFilter.push({'status.rejected': 'false'});
   }
-  else if(query.filter.submitted === 'true') {
+  if(query.filter.submitted === 'true') {
     statusFilter.push({'status.completedProfile': 'true'});
-    statusFilter.push({'status.admitted': 'false'});
-    statusFilter.push({'status.rejected': 'false'});
   }
-  else if(query.filter.admitted === 'true') {
+  if(query.filter.admitted === 'true') {
     statusFilter.push({'status.admitted': 'true'});
-    statusFilter.push({'status.confirmed': 'false'});
     statusFilter.push({'status.rejected': 'false'});
   }
-  else if(query.filter.confirmed ==='true') {
+  if(query.filter.confirmed ==='true') {
     statusFilter.push({'status.confirmed': 'true'});
     statusFilter.push({'status.rejected': 'false'});
   }
-  else if(query.filter.needsReimbursement === 'true') {
+  if(query.filter.needsReimbursement === 'true') {
     statusFilter.push({'profile.needsReimbursement': 'true'});
-    statusFilter.push({'status.rejected': 'false'});
   }
-  else if(query.filter.rejected === 'true')
+  if(query.filter.rejected === 'true')
     statusFilter.push({'status.rejected': 'true'});
-  else
-   statusFilter.push({});
+  //else
+  // statusFilter.push({});
 
   statusFilter.push({'volunteer': 'false'});
 
