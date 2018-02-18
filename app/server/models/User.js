@@ -335,6 +335,12 @@ var schema = new mongoose.Schema({
         default: false,
     },
 
+    developer: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+
     admin: {
         type: Boolean,
         required: true,
@@ -455,7 +461,7 @@ schema.methods.generateEmailVerificationToken = function () {
 
 schema.methods.generateAuthToken = function () {
     return jwt.sign({id: this._id, type: 'authentication'}, JWT_SECRET, {
-        expiresInMinutes: 60,
+        expiresInMinutes: 720,
     });
 };
 

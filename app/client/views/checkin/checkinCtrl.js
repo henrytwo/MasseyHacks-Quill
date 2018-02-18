@@ -31,7 +31,8 @@ angular.module('reg')
         '$scope',
         '$stateParams',
         'UserService',
-        function ($scope, $stateParams, UserService) {
+        '$state',
+        function ($scope, $stateParams, UserService, $state) {
 
             loadScript("https://rawgit.com/schmich/instascan-builds/master/instascan.min.js", function () {
                 scanner = new Instascan.Scanner({video: document.getElementById('preview')});
@@ -88,7 +89,7 @@ angular.module('reg')
             $scope.selectedUser.sections = generateSections({
                 status: '',
                 confirmation: {
-                    dietaryRestrictions: []
+                    notes: []
                 }, profile: {
                     occupationalStatus: [],
                     bestTools: [],
@@ -149,9 +150,16 @@ angular.module('reg')
                 $scope.pages = p;
             }
 
+            $scope.goToPage = function(page) {
+                $state.go('app.checkin', {
+                    page: page,
+                    size: 50
+                });
+            }
+
             $scope.filterUsers = function () {
                 UserService
-                    .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
+                    .getPageFull($stateParams.page, 50, $scope.filter, $scope.sortDate)
                     .success(function (data) {
                         updatePage(data);
                     });
@@ -176,6 +184,7 @@ angular.module('reg')
                                 .success(function (user) {
                                     $scope.users[index] = user;
                                     swal("Check!", user.profile.name + ' has been checked in.', "success");
+                                    $('.long.user.modal').modal('hide');
                                 });
                         }
                     );
@@ -205,6 +214,7 @@ angular.module('reg')
                                     .success(function (user) {
                                         $scope.users[index] = user;
                                         swal("Checked out", user.profile.name + ' has been checked out.', "success");
+                                        $('.long.user.modal').modal('hide');
                                     })
                             });
                         })
@@ -237,7 +247,9 @@ angular.module('reg')
                     UserService
                         .checkIn(user._id)
                         .success(function (user) {
-                            swal("Checked in!", user.profile.name + ' has been checked in succesfully!.', "success");
+                            $scope.users[index] = user;
+                            swal("Checked in!", user.profile.name + ' has been checked in successfully!.', "success");
+                            $('.long.user.modal').modal('hide');
                         })
                         .error(function () {
                             swal("Something went wrong!", "error")
@@ -248,7 +260,7 @@ angular.module('reg')
             };
 
             UserService
-                .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
+                .getPageFull($stateParams.page, 50, $scope.filter, $scope.sortDate)
                 .success(function (data) {
                     updatePage(data);
                 });
@@ -269,6 +281,10 @@ angular.module('reg')
                                 value: user.status.checkedIn,
                                 type: 'boolean'
                             }, {
+                                name: 'Waiver',
+                                value: user.status.waiver,
+                                type: 'boolean'
+                            }, {
                                 name: 'Name',
                                 value: user.profile.name
                             }, {
@@ -280,52 +296,28 @@ angular.module('reg')
                             }, {
                                 name: 'Team',
                                 value: user.teamCode || 'None'
+                            },
+                            {
+                                name: 'Shirt Size',
+                                value: user.confirmation.shirtSize,
+                                type: 'string'
                             }
                         ]
                     }, {
                         name: 'Profile',
                         fields: [
                             {
-                                name: 'Age',
-                                value: user.profile.age
+                                name: 'Grade',
+                                value: user.profile.grade
                             }, {
-                                name: 'Travels from Country',
-                                value: user.profile.travelFromCountry
+                                name: 'School',
+                                value: user.profile.school
                             }, {
-                                name: 'Travels from City',
-                                value: user.profile.travelFromCity
+                                name: 'Departing from',
+                                value: user.profile.departing
                             }, {
-                                name: 'Home Country',
-                                value: user.profile.homeCountry
-                            }, {
-                                name: 'Most interesting track',
-                                value: user.profile.mostInterestingTrack
-                            },
-                            {
-                                name: 'Applied for accommodation',
-                                value: user.profile.applyAccommodation,
-                                type: 'boolean'
-                            },
-                            {
-                                name: 'Applied for travel reimbursement',
-                                value: user.status.reimbursementApplied,
-                                type: 'boolean'
-                            },
-                            {
-                                name: 'Admitted reimbursement class',
-                                value: user.profile.AcceptedreimbursementClass || 'None'
-                            }
-                        ]
-                    }, {
-                        name: 'Confirmation',
-                        fields: [
-                            {
-                                name: 'Shirt Size',
-                                value: user.confirmation.shirtSize,
-                                type: 'string'
-                            }, {
-                                name: 'Needs Hardware',
-                                value: user.confirmation.needsHardware,
+                                name: 'Travel reimbursement',
+                                value: user.status.travelreimbursement,
                                 type: 'boolean'
                             }
                         ]

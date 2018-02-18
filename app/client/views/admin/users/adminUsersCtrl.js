@@ -285,8 +285,8 @@ angular.module('reg')
       function selectUser(user){
         $scope.selectedUser = user;
         $scope.selectedUser.sections = generateSections(user);
-        $('.long.user.modal')
-          .modal('show');
+
+        $('.long.user.modal').modal('show');
       }
 
        $scope.exportCSV = function() {

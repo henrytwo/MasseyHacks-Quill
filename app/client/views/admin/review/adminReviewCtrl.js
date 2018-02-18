@@ -43,25 +43,32 @@ angular.module('reg')
       }
 
       function updatePage(data){
-        $scope.users = data.users.filter(function (user) {
-            return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.status.rejected !== true && user.votedBy.indexOf(adminUser.email) === -1 && user.wave === $scope.wave;
-        });
-        $scope.currentPage = data.page;
-        $scope.pageSize = data.size;
+        if (adminUser.reviewer) {
+            $scope.users = data.users.filter(function (user) {
+                return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.status.rejected !== true && user.votedBy.indexOf(adminUser.email) === -1 && user.wave === $scope.wave;
+            });
+            $scope.currentPage = data.page;
+            $scope.pageSize = data.size;
 
-        var p = [];
-        for (var i = 0; i < Math.ceil($scope.users.length / $scope.pageSize); i++){
-          p.push(i);
+            var p = [];
+            for (var i = 0; i < Math.ceil($scope.users.length / $scope.pageSize); i++) {
+                p.push(i);
+            }
+            $scope.pages = p;
         }
-        $scope.pages = p;
+        else {
+            return null;
+        }
 
       }
 
-      UserService
-        .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
-        .success(function(data){
-          updatePage(data);
-        });
+      if (adminUser.reviewer) {
+        UserService
+            .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate)
+            .success(function (data) {
+                updatePage(data);
+            });
+      }
 
       $scope.sortByDate = function(){
         $scope.sortDate = !$scope.sortDate;

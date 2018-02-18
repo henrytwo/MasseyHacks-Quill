@@ -17,14 +17,6 @@
               <i class="search icon"></i>
           </div>
         </div>
-          <div class="ui checkbox" style="padding-right: 10px">
-              <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.hacker">
-              <label style="padding-left: 20px"> Hackers </label>
-          </div>
-          <div class="ui checkbox" style="padding-right: 10px">
-              <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.staff">
-              <label style="padding-left: 20px"> Organizer </label>
-          </div>
          <div class="ui checkbox" style="padding-right: 10px">
             <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.verified">
             <label style="padding-left: 20px"> Verified </label>
@@ -116,17 +108,20 @@
 
           <button
                   class="ui negative button"
+                  ng-show="adminUser.reviewer"
                   ng-click="voteRejectUser($event, selectedUser, $index)">
             VOTE REJECT
           </button>
           <button
                   class="ui positive button"
+                  ng-show="adminUser.reviewer"
                   ng-click="voteAdmitUser($event, selectedUser, $index)">
             VOTE ACCEPT
           </button>
 
             <button
               class="ui negative button"
+              ng-show="adminUser.owner"
               ng-click="toggleReject($event, selectedUser, $index)">
               <i ng-if="!selectedUser.status.rejected">Reject
               </i>
@@ -135,8 +130,9 @@
             </button>
             <button
               class="ui positive button"
+              ng-show="adminUser.owner"
               ng-click="acceptUser($event, selectedUser, $index)">
-              Accept participant {{selectedUser.profile.name}}
+              Accept participant
             </button>
             <div class="ui negative right labeled icon button">
             Close
@@ -144,10 +140,9 @@
           </div>
         </div>
 
-      </div>
 
-      <table
-              class="ui celled selectable compact users table"
+
+      <table class="ui celled selectable compact users table">
         <thead>
           <tr>
             <th>Votes</th>
@@ -257,6 +252,7 @@
               <button
                       ng-click="voteAdmitUser($event, user, $index)"
                       class="ui circular mini basic icon button"
+                      ng-show="adminUser.reviewer"
                       ng-class="{disabled: user.status.rejected || user.status.admitted || user.votedBy.indexOf(adminUser.email) !== -1}">
 
                 <i class="green user icon"></i>
@@ -265,6 +261,7 @@
               <button
                       ng-click="voteRejectUser($event, user, $index)"
                       class="ui circular mini basic icon button"
+                      ng-show="adminUser.reviewer"
                       ng-class="{disabled: user.status.rejected || user.status.admitted || user.votedBy.indexOf(adminUser.email) !== -1}">
 
                 <i class="red user icon"></i>
@@ -273,6 +270,7 @@
               <button
                       ng-click="acceptUser($event, user, $index)"
                       class="ui circular mini basic green icon button"
+                      ng-show="adminUser.owner"
                       ng-class="{disabled: user.status.rejected || user.status.admitted}">
 
                 <i class="green checkmark circle icon"></i>
@@ -281,6 +279,7 @@
               <button
                       ng-click="toggleReject($event, user, $index)"
                       class="ui circular mini basic red icon button"
+                      ng-show="adminUser.owner"
                       ng-class="{disabled: user.status.admitted}">
                 <i
                         ng-if="!user.status.rejected"
@@ -306,6 +305,7 @@
 
               <button
                       ng-click="removeUser($event, user, $index)"
+                      ng-show="adminUser.owner"
                       class="ui circular mini basic icon button">
 
                 <i class="remove user icon"></i>
@@ -313,6 +313,7 @@
 
               <button
                 ng-click="toggleActivate($event, user, $index)"
+                ng-show="adminUser.owner"
                 class="ui circular mini basic green icon button">
 
                 <i

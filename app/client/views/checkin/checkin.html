@@ -85,6 +85,10 @@
                             class="ui label">
                             {{selectedUser.status.name.toUpperCase()}}
                           </div>
+
+                          <span ng-show="!selectedUser.status.waiver">
+                            <br>[IMPORTANT: NO WAIVER, DO NOT ADMIT]
+                          </span>
                         </div>
 
                       </div>
@@ -112,11 +116,21 @@
                     </div>
                     <div class="actions">
                       <span ng-show="selectedUser.status.checkedIn"><b>This user is already checked in!</b></span>
+
                       <button
                         class="ui positive button"
-                        ng-click="checkInUser($event, selectedUser, $index)">
+                        ng-show="!selectedUser.status.checkedIn"
+                        ng-click="toggleCheckIn($event, selectedUser, $index)">
                         Check In {{selectedUser.profile.name}}
                       </button>
+
+                      <button
+                        class="ui positive button"
+                        ng-show="selectedUser.status.checkedIn"
+                        ng-click="toggleCheckIn($event, selectedUser, $index)">
+                        Check Out {{selectedUser.profile.name}}
+                      </button>
+
                       <div class="ui negative right labeled icon button">
                       Close
                       <i class="checkmark icon"></i>
@@ -124,6 +138,7 @@
                   </div>
 
                   </div>
+                <h2 style="text-align: center">IMPORTANT: DO <b>NOT</b> CHECKIN WITHOUT WAIVER</h2>
                 <table
                 class="ui celled selectable compact users table" style="overflow-x: auto;">
                 <thead>
@@ -132,8 +147,7 @@
                     <th>Name</th>
                     <th>E-mail address</th>
                     <th>Checked</th>
-                    <th>Team</th>
-                    <th>A / C</th>
+                    <th>A / C / W</th>
 
                   </tr>
                 </thead>
@@ -171,8 +185,6 @@
                       </button>
 
                     </td>
-                    <td>{{user.teamCode}}</td>
-
                     <!-- A/C -->
 
                     <td
@@ -207,6 +219,20 @@
                       <i
                         ng-if="user.status.admitted && user.status.declined"
                         class="red remove circle icon">
+                      </i>
+
+                      <!-- Waiver -->
+                      <i
+                        ng-if="!user.status.confirmed"
+                        class="circle thin icon">
+                      </i>
+                      <i
+                        ng-if="user.status.admitted && user.status.confirmed && user.status.waiver"
+                        class="green check circle icon">
+                      </i>
+                      <i
+                        ng-if="user.status.admitted && user.status.confirmed && !user.status.waiver"
+                        class="question icon">
                       </i>
                     </td>
                   </tr>

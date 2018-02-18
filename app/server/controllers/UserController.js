@@ -149,6 +149,20 @@ UserController.loginWithPassword = function(email, password, callback){
   });
 };
 
+
+var removeSensitiveStaff = function(user) {
+    var u = user.toJSON();
+
+    delete u.password;
+    delete u.salt;
+    delete u.log;
+    delete u.applicationAdmit;
+    delete u.applicationReject;
+    delete u.status.admittedBy;
+
+    return u
+};
+
 var removeSensitive = function(user) {
   var u = user.toJSON();
 
@@ -158,6 +172,7 @@ var removeSensitive = function(user) {
     delete u.applicationAdmit;
     delete u.applicationReject;
     delete u.votedBy;
+    delete u.status.admittedBy;
 
     if (!user.status.statusReleased) {
         u.status.admitted = false;
@@ -166,10 +181,8 @@ var removeSensitive = function(user) {
         u.status.waitlisted = false;
     }
 
-    console.log(u);
-
   return u
-}
+};
 
 /**
  * Create a new user given an email and a password.
@@ -277,7 +290,13 @@ UserController.getByToken = function (token, callback) {
  * @param  {Function} callback args(err, user)
  */
 UserController.getAll = function (callback) {
-  User.find({}, callback);
+  User.find({}, function (users) {
+      for (var i = 0; i < users.length; i++) {
+          users[i] = removeSensitiveStaff(users[i]);
+      }
+
+      return callback(null, users);
+  });
 };
 
 /**
@@ -314,13 +333,7 @@ UserController.getPage = function(query, callback){
   }
   console.log(query.filter)
 
-  if(query.filter.hacker === 'true') {
-      statusFilter.push({'volunteer': 'false'});
-  }
-  else if(query.filter.staff === 'true') {
-      statusFilter.push({'volunteer': 'true'});
-  }
-  else if(query.filter.verified === 'true') {
+ if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
     statusFilter.push({'status.completedProfile': 'false'});
     statusFilter.push({'status.rejected': 'false'});
@@ -348,6 +361,8 @@ UserController.getPage = function(query, callback){
   else
    statusFilter.push({});
 
+  statusFilter.push({'volunteer': 'false'});
+
   User
     .find(findQuery)
     .sort({
@@ -360,6 +375,11 @@ UserController.getPage = function(query, callback){
       if (err || !users){
         return callback(err);
       }
+
+      for (var i = 0; i < users.length; i++) {
+          users[i] = removeSensitiveStaff(users[i]);
+      }
+
 
       User.count(findQuery).exec(function(err, count){
 
@@ -618,6 +638,26 @@ UserController.updateProfileById = function (id, profile, callback){
       });
       });
   });
+};
+
+
+UserController.updateWaiverById = function (id, waiver, callback){
+
+      User.findOneAndUpdate({
+              _id: id,
+              verified: true
+          },
+          {
+              $set: {
+                  'lastUpdated': Date.now(),
+                  'status.waiver': waiver
+              }
+          },
+          {
+              new: true
+          },
+          callback);
+
 };
 
 UserController.updateMatchmakingProfileById = function (id, profile, callback){

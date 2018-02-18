@@ -402,6 +402,13 @@ module.exports = function(router) {
     UserController.updateProfileById(id, profile , defaultResponse(req, res));
   });
 
+  router.put('/users/:id/waiver', isAdmin, function(req, res){
+      var waiver = req.body.waiver;
+      var id = req.params.id;
+
+      UserController.updateWaiverById(id, waiver , defaultResponse(req, res));
+  });
+
   /**
    * [OWNER/ADMIN]
    *

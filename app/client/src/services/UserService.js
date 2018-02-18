@@ -25,6 +25,7 @@ angular.module('reg')
       },
 
       getPage: function(page, size, filter, sort){
+
         return $http.get(users + '?' + $.param(
           {
             filter: filter,
@@ -69,6 +70,12 @@ angular.module('reg')
         return $http.put(base + id + '/profile', {
           profile: profile
         });
+      },
+
+      updateWaiver: function(id, waiver){
+          return $http.put(base + id + '/waiver', {
+              waiver: waiver
+          });
       },
 
       updateMatchmakingProfile: function(id, profile){
