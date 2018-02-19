@@ -49,12 +49,13 @@
 
         <p>
           <strong>
-            Welcome, {{user.nickname}}! <br>
+            Welcome, {{(user.profile.name) ? user.profile.name : user.nickname}}! <br>
           </strong>
         </p>
         <p>
         </p>
 
+        <!-- UNVERIFIED -->
         <div
           ng-if="dashState('unverified')"
           class="description">
@@ -70,27 +71,25 @@
           </p>
           <p>
             <strong>
-              For questions, please contact hello@masseyhacks.com.
+              For questions, please contact hello@masseyhacks.ca.
             </strong>
           </p>
           <p>
-            {{ DASHBOARD.UNVERIFIED }}
+            UNVERIFIED
           </p>
           <div class="ui resend button" ng-click="resendEmail()">
             Resend verification email
           </div>
         </div>
 
+        <!-- INCOMPLETE APPLICATION -->
         <div
           ng-if="dashState('openAndIncomplete') && !user.volunteer"
           class="description">
           <p>
             <strong>
-                {{ DASHBOARD.INCOMPLETE_TITLE }}
+                INCOMPLETE APPLICATION
             </strong>
-          </p>
-          <p>
-            {{ DASHBOARD.INCOMPLETE }}
           </p>
           <p>
             It seems like your application is incomplete.
@@ -104,6 +103,7 @@
 
         </div>
 
+        <!-- UNDER REVIEW -->
         <div
           ng-if="dashState('submitted')"
           class="description">
@@ -210,7 +210,8 @@
 
           <div class="markdown">
             <h4>
-                {{ DASHBOARD.ADMITTED_AND_CANNOT_CONFIRM_TITLE }}
+
+                CONFIRMATION DEADLINE PAST
             </h4>
 
             <p>
@@ -228,13 +229,13 @@
             ng-show="!pastConfirmation"
             class="markdown">
             <h4>
-                {{ DASHBOARD.CONFIRMED_NOT_PAST_TITLE }}
+            CONFIRMED
             </h4>
           </div>
 
-          <div
-            class="markdown"
-            ng-bind-html="confirmationText">
+          <div class="markdown">
+            Your spot has successfully been confirmed at MasseyHacks IV! Don’t forget that we cannot admit you into the event until your waiver has been signed.<br>
+            It's never too early to start thinking about your hack! We hope to see you on April 28th ready and excited for your 24 hours of hard work and fun.
           </div>
 
           <div class="ui sea-serpent button"
@@ -269,9 +270,9 @@
 
         </div>
 
-          <div class="description" ng-if="user.volunteer">
-              Hello there fellow organizer, welcome to your administrative dashboard.<br><b>Remember, with great power, comes great responsibility.</b>
-          </div>
+        <div class="description" ng-if="user.volunteer">
+            Hello there fellow organizer, welcome to your administrative dashboard.<br><b>Remember, with great power, comes great responsibility.</b>
+        </div>
 
 
         </div>

@@ -11,11 +11,11 @@
     Dashboard
   </div>
 
-  <div ng-show="currentUser.verified && !(currentUser.status.rejected && settings.showRejection)">
+  <div ng-show="currentUser.verified && !currentUser.status.rejected">
     <div
       ui-sref-active="active"
       ui-sref="app.application"
-      ng-show="!currentUser.status.declined && !currentUser.volunteer"
+      ng-show="!currentUser.status.rejected && !currentUser.status.declined && !currentUser.volunteer"
       class="item">
       Application
     </div>
@@ -38,7 +38,7 @@
     <div
       ui-sref-active="active"
       ui-sref="app.team"
-      ng-show="!currentUser.status.declined && currentUser.status.completedProfile"
+      ng-show="!currentUser.status.rejected && !currentUser.status.declined && currentUser.status.completedProfile"
       class="item">
       Team
     </div>

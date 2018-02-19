@@ -127,8 +127,6 @@ UserController.loginWithPassword = function(email, password, callback){
       }
       if (!user) {
 
-          UserController.addToLog(user.email + " failed to log in with password", callback);
-
           return callback({
           message: "Incorrect username or password"
         });
