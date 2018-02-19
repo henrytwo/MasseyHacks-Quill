@@ -1286,13 +1286,11 @@ UserController.voteRejectUser = function(id, adminUser, callback){
             },
             function(err, user) {
 
-
-                UserController.addToLog(adminUser.email + " voted to reject " + user.email, callback);
-
                 if (err || !user) {
                     return callback(err);
                 }
 
+                UserController.addToLog(adminUser.email + " voted to reject " + user.email, callback);
 
                 if (user.applicationReject.length >= 3 && user.applicationReject.length > user.applicationAdmit.length) {
                     user.status.admitted = false;
@@ -1360,11 +1358,11 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
             },
             function(err, user) {
 
-                UserController.addToLog(adminUser.email + " voted to admit " + user.email, callback);
-
                 if (err || !user) {
                     return callback(err);
                 }
+
+                UserController.addToLog(adminUser.email + " voted to admit " + user.email, callback);
 
                 Settings.findOne({}, function(err, data){
                         var total = data.participants;
