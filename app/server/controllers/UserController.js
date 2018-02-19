@@ -829,6 +829,59 @@ UserController.updateReimbursementById = function (id, reimbursement, callback){
   });
 };
 
+UserController.advanceWaitlist = function () {
+    Settings.findOne({}).exec(function(err, setting) {
+        if (!err) {
+            User.count({
+                'status.admitted': true,
+                'status.declined': false,
+                'owner': false,
+                'admin': false,
+                'reviewer': false,
+                'volunteer': false
+            }, function (err, data) {
+                var currentAdmitted = data;
+                if (data <= setting.participants) {
+                    User.find({
+                        'status.waitlisted':true
+                    }).exec(function(err, data) {
+                        for (var i = currentAdmitted; i < setting.participants; i++) {
+                            var cuser = data[0];
+
+                            cuser.status.admitted = true;
+                            cuser.status.rejected = false;
+                            cuser.status.waitlisted = false;
+                            cuser.status.admittedBy = "MasseyHacks Admission Authority";
+                            cuser.status.statusReleased = true;
+                            console.log("moving waitlist");
+
+                            console.log(cuser);
+
+                            User.findOneAndUpdate({
+                                    '_id': cuser._id,
+                                    'verified': true,
+                                    'status.waitlisted': true
+                                },
+                                {
+                                    $set: {
+                                        'status': cuser.status
+                                    }
+                                },
+                                {
+                                    new: true
+                                }, function(err, c){
+                                    console.log(err);
+                                    console.log(c);
+                                })
+                        }
+                    })
+
+                }
+            })
+        }
+    })
+};
+
 /**
  * Decline an acceptance, given an id.
  *
@@ -859,7 +912,9 @@ UserController.declineById = function (id, callback){
         return callback(err);
       }
       Mailer.sendDeclinedEmail(user);
-      return callback(err, user);
+      callback(err, user);
+
+      UserController.advanceWaitlist();
     });
 };
 
