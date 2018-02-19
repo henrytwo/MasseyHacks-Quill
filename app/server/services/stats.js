@@ -31,12 +31,13 @@ function calculateStats(settings){
         'Big Data': 0
       },
       schools: {},
-      // year: {
-      //   '2016': 0,
-      //   '2017': 0,
-      //   '2018': 0,
-      //   '2019': 0,
-      // }
+      grade: {
+        '<=8': 0,
+        '9': 0,
+        '10': 0,
+        '11': 0,
+        '12': 0,
+      }
     },
 
     teams: {},
@@ -44,7 +45,6 @@ function calculateStats(settings){
     submitted: 0,
     admitted: 0,
     confirmed: 0,
-    confirmedMit: 0,
     declined: 0,
 
     confirmedFemale: 0,
@@ -53,108 +53,14 @@ function calculateStats(settings){
     confirmedNone: 0,
 
     shirtSizes: {
-      'XS': 0,
       'S': 0,
       'M': 0,
-      'L': 0,
-      'XL': 0,
-      'XXL': 0,
-      'WXS': 0,
-      'WS': 0,
-      'WM': 0,
-      'WL': 0,
-      'WXL': 0,
-      'WXXL': 0,
-      'None': 0
+      'L': 0
     },
 
     dietaryRestrictions: {},
 
-    hostNeededFri: 0,
-    hostNeededSat: 0,
-    hostNeededUnique: 0,
-
-    hostNeededFemale: 0,
-    hostNeededMale: 0,
-    hostNeededOther: 0,
-    hostNeededNone: 0,
-
-    reimbursementTotal: 0,
-    reimbursementMissing: 0,
-
-    wantsHardware: 0,
-
-    checkedIn: 0,
-
-    RfinlandTotal: 0,
-    RbalticsTotal: 0,
-    RnordicTotal:  0,
-    ReuropeTotal:  0,
-    RoutsideTotal: 0,
-
-    AfinlandTotal: 0,
-    AbalticsTotal: 0,
-    AnordicTotal:  0,
-    AeuropeTotal:  0,
-    AoutsideTotal: 0,
-    Aspecial:      0,
-    ArejectedTotal:0,
-
-    CfinlandTotal: 0,
-    CbalticsTotal: 0,
-    CnordicTotal:  0,
-    CeuropeTotal:  0,
-    CoutsideTotal: 0,
-    Cspecial:      0,
-    CrejectedTotal:0,
-
-    TotalAmountofReimbursementsAccepted: 0,
-    TotalAmountofReimbursementsConfirmed: 0,
-
-    appliedStats: {
-      tracks: {
-        'HealthTech': 0,
-        'Logistics': 0,
-        'Entertainment': 0,
-        'Mobility': 0,
-        'Intelligent Buildings': 0,
-        'Game Jam': 0,
-        'FinTech': 0,
-        'Industrial Internet': 0,
-        'Artificial Intelligence': 0,
-        'Big Data': 0
-      }
-    },
-
-    admittedStats: {
-      tracks: {
-        'HealthTech': 0,
-        'Logistics': 0,
-        'Entertainment': 0,
-        'Mobility': 0,
-        'Intelligent Buildings': 0,
-        'Game Jam': 0,
-        'FinTech': 0,
-        'Industrial Internet': 0,
-        'Artificial Intelligence': 0,
-        'Big Data': 0
-      }
-    },
-
-    confirmedStats: {
-      tracks: {
-        'HealthTech': 0,
-        'Logistics': 0,
-        'Entertainment': 0,
-        'Mobility': 0,
-        'Intelligent Buildings': 0,
-        'Game Jam': 0,
-        'FinTech': 0,
-        'Industrial Internet': 0,
-        'Artificial Intelligence': 0,
-        'Big Data': 0
-      }
-    }
+    checkedIn: 0
   };
 
 
@@ -176,18 +82,6 @@ function calculateStats(settings){
         // Add to the gender
         newStats.demo.gender[user.profile.gender] += 1;
 
-        // Add to tracks
-        if(user.status.completedProfile && !user.status.admitted && !user.status.confirmed){
-          newStats.appliedStats.tracks[user.profile.mostInterestingTrack] += 1;
-        }
-        if(user.status.admitted  && user.status.completedProfile && !user.status.confirmed){
-          newStats.admittedStats.tracks[user.profile.mostInterestingTrack] += 1;
-        }
-        if(user.status.confirmed){
-          newStats.confirmedStats.tracks[user.profile.mostInterestingTrack] += 1;
-        }
-        newStats.demo.tracks[user.profile.mostInterestingTrack] += 1;
-
         // Count verified
         newStats.verified += user.verified ? 1 : 0;
 
@@ -200,9 +94,6 @@ function calculateStats(settings){
         // Count confirmed
         newStats.confirmed += user.status.confirmed ? 1 : 0;
 
-        // Count confirmed that are mit
-        newStats.confirmedMit += user.status.confirmed && email === "mit.edu" ? 1 : 0;
-
         newStats.confirmedFemale += user.status.confirmed && user.profile.gender == "F" ? 1 : 0;
         newStats.confirmedMale += user.status.confirmed && user.profile.gender == "M" ? 1 : 0;
         newStats.confirmedOther += user.status.confirmed && user.profile.gender == "O" ? 1 : 0;
@@ -211,93 +102,9 @@ function calculateStats(settings){
         // Count declined
         newStats.declined += user.status.declined ? 1 : 0;
 
-        // Count the number of people who need reimbursements
-        // newStats.reimbursementTotal += user.confirmation.needsReimbursement ? 1 : 0;
-        newStats.reimbursementTotal += user.profile.needsReimbursement ? 1 : 0;
-
-        // Count the number of requested travel reimbursement clasess
-        newStats.RfinlandTotal += user.profile.AppliedreimbursementClass == "Finland" ? 1 : 0;
-        newStats.RbalticsTotal += user.profile.AppliedreimbursementClass == "Baltics" ? 1 : 0;
-        newStats.RnordicTotal += user.profile.AppliedreimbursementClass == "Nord" ? 1 : 0;
-        newStats.ReuropeTotal += user.profile.AppliedreimbursementClass == "Europe" ? 1 : 0;
-        newStats.RoutsideTotal += user.profile.AppliedreimbursementClass == "Outside Europe" ? 1 : 0;
-
-        if(!user.status.declined){
-          var regex = /\d/g;
-          if (user.profile.AcceptedreimbursementClass == "Finland") {
-            if (user.status.confirmed) {
-              newStats.CfinlandTotal += 1;
-              newStats.TotalAmountofReimbursementsConfirmed += settings.reimbursementClass.Finland;
-            }
-            newStats.AfinlandTotal += 1;
-            newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Finland;
-          } else if (user.profile.AcceptedreimbursementClass == "Baltics") {
-            if (user.status.confirmed) {
-              newStats.CbalticsTotal += 1;
-              newStats.TotalAmountofReimbursementsConfirmed += settings.reimbursementClass.Baltics;
-            }
-            newStats.AbalticsTotal += 1;
-            newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Baltics;
-          } else if (user.profile.AcceptedreimbursementClass == "Nordic") {
-            if (user.status.confirmed) {
-              newStats.CnordicTotal += 1;
-              newStats.TotalAmountofReimbursementsConfirmed += settings.reimbursementClass.Nordic;
-            }
-            newStats.AnordicTotal += 1;
-            newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Nordic;
-          } else if (user.profile.AcceptedreimbursementClass == "Europe") {
-            if (user.status.confirmed) {
-              newStats.CeuropeTotal += 1;
-              newStats.TotalAmountofReimbursementsConfirmed += settings.reimbursementClass.Europe;
-            }
-            newStats.AeuropeTotal += 1;
-            newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Europe;
-          } else if (user.profile.AcceptedreimbursementClass == "Outside Europe") {
-            if (user.status.confirmed) {
-              newStats.CoutsideTotal += 1;
-              newStats.TotalAmountofReimbursementsConfirmed += settings.reimbursementClass.Outside;
-            }
-            newStats.AoutsideTotal += 1;
-            newStats.TotalAmountofReimbursementsAccepted += settings.reimbursementClass.Outside;
-          } else if (regex.test(user.profile.AcceptedreimbursementClass)) {
-            if (user.status.confirmed) {
-              newStats.Cspecial += 1;
-              newStats.TotalAmountofReimbursementsConfirmed += parseInt(user.profile.AcceptedreimbursementClass);
-            }
-            newStats.Aspecial += 1;
-            newStats.TotalAmountofReimbursementsAccepted += parseInt(user.profile.AcceptedreimbursementClass);
-          } else if (user.profile.AcceptedreimbursementClass == "Rejected") {
-            if (user.status.confirmed) {
-              newStats.CrejectedTotal += 1;
-            }
-            newStats.ArejectedTotal += 1;
-          }
+        if (user.profile.grade){
+          newStats.demo.grade[user.profile.grade] += 1;
         }
-        // Count the number of people who still need to be reimbursed
-        newStats.reimbursementMissing += user.confirmation.needsReimbursement &&
-          !user.status.reimbursementGiven ? 1 : 0;
-
-        // Count the number of people who want hardware
-        newStats.wantsHardware += user.confirmation.wantsHardware ? 1 : 0;
-
-        // Count schools
-        if (!newStats.demo.schools[email]){
-          newStats.demo.schools[email] = {
-            submitted: 0,
-            admitted: 0,
-            confirmed: 0,
-            declined: 0,
-          };
-        }
-        newStats.demo.schools[email].submitted += user.status.completedProfile ? 1 : 0;
-        newStats.demo.schools[email].admitted += user.status.admitted ? 1 : 0;
-        newStats.demo.schools[email].confirmed += user.status.confirmed ? 1 : 0;
-        newStats.demo.schools[email].declined += user.status.declined ? 1 : 0;
-
-        // Count graduation years
-        // if (user.profile.graduationYear){
-        //   newStats.demo.year[user.profile.graduationYear] += 1;
-        // }
 
         // Grab the team name if there is one
         // if (user.teamCode && user.teamCode.length > 0){
@@ -311,20 +118,6 @@ function calculateStats(settings){
         if (user.confirmation.shirtSize in newStats.shirtSizes){
           newStats.shirtSizes[user.confirmation.shirtSize] += 1;
         }
-
-        // Host needed counts
-        newStats.hostNeededFri += user.confirmation.hostNeededFri ? 1 : 0;
-        newStats.hostNeededSat += user.confirmation.hostNeededSat ? 1 : 0;
-        newStats.hostNeededUnique += user.confirmation.hostNeededFri || user.confirmation.hostNeededSat ? 1 : 0;
-
-        newStats.hostNeededFemale
-          += (user.confirmation.hostNeededFri || user.confirmation.hostNeededSat) && user.profile.gender == "F" ? 1 : 0;
-        newStats.hostNeededMale
-          += (user.confirmation.hostNeededFri || user.confirmation.hostNeededSat) && user.profile.gender == "M" ? 1 : 0;
-        newStats.hostNeededOther
-          += (user.confirmation.hostNeededFri || user.confirmation.hostNeededSat) && user.profile.gender == "O" ? 1 : 0;
-        newStats.hostNeededNone
-          += (user.confirmation.hostNeededFri || user.confirmation.hostNeededSat) && user.profile.gender == "N" ? 1 : 0;
 
         // Dietary restrictions
         if (user.confirmation.dietaryRestrictions){

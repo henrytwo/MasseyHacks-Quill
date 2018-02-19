@@ -267,13 +267,14 @@ UserController.createUser = function(email, password, nickname, callback) {
                 return callback(err);
               } else {
 
-                UserController.addToLog(user.email + " created an account", callback);
                 // yay! success.
                 var token = u.generateAuthToken();
 
                 // Send over a verification email
                 var verificationToken = u.generateEmailVerificationToken();
                 Mailer.sendVerificationEmail(u, verificationToken);
+
+                UserController.addToLog(u.email + " created an account", callback);
 
                 return callback(
                   null,
@@ -1499,14 +1500,13 @@ UserController.addToLog = function (message, callback) {
 
     console.log(marked_message);
 
-    Settings.findOneAndUpdate({
-    }, {
+    Settings.findOneAndUpdate({}, {
         $push: {
             log : marked_message
         }
     }, {
         new: true
-    }, function (err, user) {
+    }, function () {
 
     }, callback);
 }

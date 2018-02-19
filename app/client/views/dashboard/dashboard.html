@@ -43,7 +43,7 @@
 
         <div class="ui divider"></div>
 
-        <div id="QRContainer" ng-show="user.status.confirmed">
+        <div id="QRContainer" ng-show="user.status.confirmed && !user.volunteer">
           <img id="QR" ng-src="{{qr}}">
         </div>
 
@@ -82,7 +82,7 @@
         </div>
 
         <div
-          ng-if="dashState('openAndIncomplete')"
+          ng-if="dashState('openAndIncomplete') && !user.volunteer"
           class="description">
           <p>
             <strong>
@@ -222,7 +222,7 @@
 
         <div
           class="description"
-          ng-if="dashState('confirmed')">
+          ng-if="dashState('confirmed') && !user.volunteer">
 
           <div
             ng-show="!pastConfirmation"
@@ -269,7 +269,12 @@
 
         </div>
 
-      </div>
+          <div class="description" ng-if="user.volunteer">
+              Hello there fellow organizer, welcome to your administrative dashboard.<br><b>Remember, with great power, comes great responsibility.</b>
+          </div>
+
+
+        </div>
 
     </div>
   </div>

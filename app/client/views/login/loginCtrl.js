@@ -15,6 +15,7 @@ angular.module('reg')
       $scope.loginState = 'login';
 
       function onSuccess() {
+        console.log("Eyyy");
         $state.go('app.dashboard');
       }
 
