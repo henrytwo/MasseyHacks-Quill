@@ -31,7 +31,7 @@
         <div
           class="declined state"
           ng-if="dashState('admittedAndCannotConfirm')">
-          Expired Admission
+          Expired Confirmation
         </div>
 
 
@@ -74,10 +74,7 @@
               For questions, please contact hello@masseyhacks.ca.
             </strong>
           </p>
-          <p>
-            UNVERIFIED
-          </p>
-          <div class="ui resend button" ng-click="resendEmail()">
+          <div class="ui sea-serpent button" ng-click="resendEmail()">
             Resend verification email
           </div>
         </div>
@@ -88,11 +85,10 @@
           class="description">
           <p>
             <strong>
-                INCOMPLETE APPLICATION
+              It seems like your application is incomplete.
             </strong>
           </p>
           <p>
-            It seems like your application is incomplete.
             We encourage you to complete your application in order to increase your chances of acceptance.
             We are eager to review your application and spots are limited so finish it quick!
           </p>
@@ -114,13 +110,7 @@
             Your application has successfully been submitted and we are hard at work reviewing it. We will let you know during one of our acceptance waves if you have been accepted to attend MasseyHacks IV. If you are not accepted during the first acceptance wave after your submission, don’t worry as your application is automatically considered for our next wave.             <br>
             <br>
             Meanwhile you can still edit your information and check your status on the Dashboard.
-            <strong>
-                {{ DASHBOARD.SUBMITTED_TITLE }}
-            </strong>
-          </p>
-          <p>
-            {{ DASHBOARD.SUBMITTED }}
-          </p>
+
           <div class="ui sea-serpent button"
                ui-sref="app.application">
             Edit your application
@@ -142,21 +132,28 @@
 
         </div>
 
+        <!-- APPLICATION DEADLINE PASSED -->
         <div
           ng-if="dashState('closedAndIncomplete')">
           <p>
             <strong>
-                {{ DASHBOARD.CLOSED_AND_INCOMPLETE_TITLE }}
+            Unfortunately, the deadline to complete your application of {{Utils.formatTime(Settings.timeClose)}} has passed.
             </strong>
           </p>
           <p>
-            {{ DASHBOARD.CLOSED_AND_INCOMPLETE }}
+            The final deadline to submit your deadline has passed. Since your application was incomplete, we were unable to consider it. Thank you for your interest and we hope to see you next year.
           </p>
         </div>
 
+        <!-- WAITLISTED -->
         <div
           ng-if="dashState('waitlisted')"
           class="description" >
+
+          <div class="markdown">
+            <h4>
+              We would love to have you at MasseyHacks IV, but unfortunately due to overwhelming interest in the event, you have been placed on the waiting list. Don’t worry, we will notify you immediately when a spot opens up for you. Thank you for applying to MasseyHacks IV! </h4>
+          </div>
 
           <div
             class="markdown"
@@ -176,20 +173,18 @@
           </div>
         </div>
 
+        <!-- NOT CONFIRMED YET -->
         <div
           class="description"
           ng-if="dashState('admittedAndCanConfirm')">
 
           <div class="markdown">
             <h4>
-                {{ DASHBOARD.ADMITTED_AND_CAN_CONFIRM_TITLE }}
+              You must confirm by {{Utils.formatTime(user.status.confirmBy)}}.
             </h4>
-          </div>
-
-          <div class="markdown">
-            <h4>
-                {{ DASHBOARD.ADMITTED_AND_CAN_CONFIRM }}
-            </h4>
+            <p>
+              CONGRATULATIONS! Your application was outstanding and you have been accepted to attend MasseyHacks IV. Now your need to confirm your spot at the event. To do this click the RSVP button below and sign the waiver. Do this as soon as possible so you do not lose your spot.
+            </p>
           </div>
 
           <div class="ui sea-serpent button"
@@ -204,23 +199,23 @@
 
         </div>
 
+        <!-- CONFIRMATION DEADLINE PASSED -->
         <div
           class="description"
           ng-if="dashState('admittedAndCannotConfirm')">
 
           <div class="markdown">
             <h4>
-
-                CONFIRMATION DEADLINE PAST
+              Your confirmation deadline of {{Utils.formatTime(user.status.confirmBy)}} has passed.
             </h4>
 
             <p>
-                {{ DASHBOARD.ADMITTED_AND_CANNOT_CONFIRM }}
+              Unfortunately, the deadline to complete your confirmation has passed. We would have loved to have you at MasseyHacks IV, but you did not confirm your spot in time. Thank you for applying and we hope hope to see you next year.
             </p>
           </div>
-
         </div>
 
+        <!-- CONFIRMED -->
         <div
           class="description"
           ng-if="dashState('confirmed') && !user.volunteer">
@@ -250,6 +245,7 @@
 
         </div>
 
+        <!-- UNABLE TO MAKE -->
         <div
           class="description"
           ng-if="dashState('declined')">
@@ -260,6 +256,7 @@
           </p>
         </div>
 
+        <!-- REJECTED -->
         <div
           class="description"
           ng-if="dashState('reviewed')">
@@ -270,10 +267,10 @@
 
         </div>
 
+        <!-- ORGANIZER -->
         <div class="description" ng-if="user.volunteer">
             Hello there fellow organizer, welcome to your administrative dashboard.<br><b>Remember, with great power, comes great responsibility.</b>
         </div>
-
 
         </div>
 

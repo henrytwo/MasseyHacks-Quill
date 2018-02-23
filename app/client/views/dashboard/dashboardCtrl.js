@@ -15,8 +15,10 @@ angular.module('reg')
       var Settings = settings.data;
       var user = currentUser.data;
       $scope.user = user;
+      $scope.Settings = Settings;
       $scope.classAmount = Utils.getAcceptedreimbAmount(user, Settings);
       $scope.DASHBOARD = DASHBOARD;
+      $scope.Utils = Utils;
 
       console.log(user);
 

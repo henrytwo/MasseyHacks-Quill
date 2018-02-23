@@ -257,6 +257,7 @@ UserController.createUser = function(email, password, nickname, callback) {
             var u = new User();
             u.email = email;
             u.nickname = nickname;
+            u.profile.name = nickname;
             u.password = User.generateHash(password);
             u.id = id;
 
@@ -326,6 +327,7 @@ UserController.getPage = function(query, callback){
   var size = parseInt(query.size);
   var text = query.filter.text;
   var sort = query.sort == 'true' ? -1 : 1;
+  var sortByField = query.sortBy;
   var textFilter = [];
   var statusFilter = [];
 
@@ -387,7 +389,7 @@ UserController.getPage = function(query, callback){
   User
     .find(findQuery)
     .sort({
-      'timestamp': sort
+      sortByField: sort
     })
     .select('+status.admittedBy')
     .skip(page * size)

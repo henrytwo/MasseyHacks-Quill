@@ -159,7 +159,7 @@ angular.module('reg')
 
             $scope.filterUsers = function () {
                 UserService
-                    .getPageFull($stateParams.page, 50, $scope.filter, $scope.sortDate)
+                    .getPageFull($stateParams.page, 50, $scope.filter, $scope.sortDate, 'timestamp')
                     .success(function (data) {
                         updatePage(data);
                     });
@@ -260,7 +260,7 @@ angular.module('reg')
             };
 
             UserService
-                .getPageFull($stateParams.page, 50, $scope.filter, $scope.sortDate)
+                .getPageFull($stateParams.page, 50, $scope.filter, $scope.sortDate, 'timestamp')
                 .success(function (data) {
                     updatePage(data);
                 });

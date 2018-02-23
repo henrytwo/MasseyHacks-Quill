@@ -24,25 +24,27 @@ angular.module('reg')
         return $http.get(base);
       },
 
-      getPage: function(page, size, filter, sort){
+      getPage: function(page, size, filter, sort, sortBy){
 
         return $http.get(users + '?' + $.param(
           {
             filter: filter,
             page: page ? page : 0,
             size: size ? size : 50,
-            sort: sort
+            sort: sort,
+            sortBy: sortBy
           })
         );
       },
 
-      getPageFull: function(page, size, filter, sort){
+      getPageFull: function(page, size, filter, sort, sortBy){
           return $http.get(users + '?' + $.param(
               {
                   filter: filter,
                   page: page ? page : 0,
                   size: 500,
-                  sort: sort
+                  sort: sort,
+                  sortBy: sortBy
               })
           );
       },

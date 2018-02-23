@@ -47,9 +47,14 @@
     right: 35px;
     margin-top: 15px;
     margin-bottom: 15px;
+    transition: all 0.3s ease 0s;
+    border-width: thick;
+    transform: scale(1);
 
     &:hover {
       background-color: $accent2;
+      color: $secondary;
+      transform: scale(1.05);
     }
   }
 
