@@ -123,6 +123,9 @@ angular.module('reg')
         if(user.status.rejected){
           return 'Reviewed';
         }
+        if(user.volunteer){
+          return 'Organizer';
+        }
         return user.status.name;
       };
       //QR
@@ -521,7 +524,7 @@ angular.module('reg')
         return confetti;
       }
 
-      if (user.status.admitted && !user.status.rejected && !user.status.declined && $scope.dashState('admittedAndCannotConfirm')){
+      if (user.status.admitted && !user.status.rejected && !user.status.declined && !user.volunteer &&!$scope.dashState('admittedAndCannotConfirm')){
         $scope.cf = confettiActivate();
 
         $scope.timer = setInterval(function () {
