@@ -68,6 +68,10 @@ angular.module('reg')
         return $http.get('/api/matchmaking/teamInSearch')
       },
 
+      inviteToSlack: function(id){
+          return $http.get('/api/slack/' + id);
+      },
+
       updateProfile: function(id, profile){
         return $http.put(base + id + '/profile', {
           profile: profile

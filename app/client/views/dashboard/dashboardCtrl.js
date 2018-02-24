@@ -97,6 +97,20 @@ angular.module('reg')
       $scope.confirmationText = $sce.trustAsHtml(converter.makeHtml(Settings.confirmationText));
       $scope.waitlistText = $sce.trustAsHtml(converter.makeHtml(Settings.waitlistText));
 
+      $scope.inviteToSlack = function() {
+          UserService.inviteToSlack(user._id)
+              .success(function(){
+              sweetAlert({
+                  title: "Woo!",
+                  text: "Please check your email for the invitation!",
+                  type: "success",
+                  confirmButtonColor: "#5ABECF"
+              })
+          })
+          .error(function(res){
+              swal({title:"Uh oh!", text: res + "\n\nFeel free to contact us at hello@masseyhacks.ca for further assistance.", type:"error"});
+          });
+      }
 
       $scope.declineAdmission = function(){
 

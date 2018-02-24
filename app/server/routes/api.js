@@ -392,6 +392,16 @@ module.exports = function(router) {
   /**
    * [OWNER/ADMIN]
    *
+   * GET - Get a specific user.
+   */
+  router.get('/slack/:id', isOwnerOrAdmin, function(req, res){
+      UserController.inviteToSlack(req.params.id, defaultResponse(req, res));
+  });
+
+
+    /**
+   * [OWNER/ADMIN]
+   *
    * PUT - Update a specific user's profile.
    */
 

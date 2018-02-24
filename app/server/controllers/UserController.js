@@ -3,6 +3,7 @@ var User = require('../models/User');
 var Settings = require('../models/Settings');
 var Mailer = require('../services/email');
 var Stats = require('../services/stats');
+var request = require('request');
 var AutoRemove = require('../services/autoRemove');
 
 var validator = require('validator');
@@ -1511,6 +1512,43 @@ UserController.remove = function(id, user, callback){
   User.findOneAndRemove({
       _id: id
     }, callback);
+};
+
+UserController.inviteToSlack = function (id, callback){
+    User.findById(id, function(err, user) {
+        if (user.status.confirmed && user.status.admitted && user.status.statusReleased) {
+            request.post({
+                url: 'https://' + process.env.SLACK_INVITE + '.slack.com/api/users.admin.invite',
+                form: {
+                    email: user.email,
+                    token: process.env.SLACK_INVITE_TOKEN,
+                    set_active: true
+                }
+            }, function (err, httpResponse, body) {
+                console.log(err + httpResponse + body);
+                if (err || body !== '{"ok":true}') {
+
+                    if (body.includes('already_in_team')) {
+                        return callback('You have already join the Slack!\n(' + process.env.SLACK_INVITE + '.slack.com)');
+                    }
+                    else if (body.includes('already_invited')) {
+                        return callback('We\'ve already sent an invitation!\nBe sure to check your spam in case it was filtered :\'(\n\n(' + process.env.SLACK_INVITE + '.slack.com)');
+                    }
+                    else {
+                        return callback('Something went wrong...\nThat\'s all we know :/');
+                    }
+
+
+                }
+                else {
+                    return callback(null);
+                }
+            });
+        }
+        else {
+            return callback(401, 'Get outta here, punk!');
+        }
+    });
 };
 
 /**
