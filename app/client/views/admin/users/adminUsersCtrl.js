@@ -294,8 +294,6 @@ angular.module('reg')
         .getAll()
         .success(function(data){
 
-          console.log(data[0]);
-
           var output = "";
           var titles = generateSections(data[0]);
            for(var i = 0; i < titles.length; i++){
@@ -304,6 +302,7 @@ angular.module('reg')
             }
            }
            output += "\n";
+
 
           for (var rows = 0; rows < data.length; rows++){
             row = generateSections(data[rows]);
@@ -437,6 +436,23 @@ angular.module('reg')
         function generateSections(user){
         return [
           {
+            name: 'Admission Information',
+              fields: [
+                  {
+                      name: 'Admitted by',
+                      value: user.status.admittedBy ? user.status.admittedBy : 'N/A'
+                  },
+                  {
+                    name: 'Voted by',
+                    value: user.votedBy
+                  },
+                  {
+                      name: 'Votes',
+                      value: user.votedBy.length + '/5'
+                  }
+              ]
+          },
+          {
             name: 'Basic Info',
             fields: [
               {
@@ -452,8 +468,8 @@ angular.module('reg')
                 name: 'Status',
                 value: user.status.name
               },{
-                name: 'Rejected',
-                value: user.status.rejected
+                name: 'Waiver',
+                value: user.status.waiver
               },{
                 name: 'Checked In',
                 value: formatTime(user.status.checkInTime) || 'N/A'
@@ -495,7 +511,7 @@ angular.module('reg')
                 name: 'Grade',
                 value: user.profile.grade
               },{
-                name: 'Ethinicity',
+                name: 'Ethnicity',
                 value: user.profile.ethnicity
               },{
                 name: 'Dietary Restrictions',

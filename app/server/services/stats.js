@@ -120,22 +120,14 @@ function calculateStats(settings){
           newStats.demo.grade[user.profile.grade] += 1;
         }
 
-        // Grab the team name if there is one
-        // if (user.teamCode && user.teamCode.length > 0){
-        //   if (!newStats.teams[user.teamCode]){
-        //     newStats.teams[user.teamCode] = [];
-        //   }
-        //   newStats.teams[user.teamCode].push(user.profile.name);
-        // }
-
         // Count shirt sizes
-        if (user.confirmation.shirtSize in newStats.shirtSizes){
-          newStats.shirtSizes[user.confirmation.shirtSize] += 1;
+        if (user.profile.shirt in newStats.shirtSizes){
+          newStats.shirtSizes[user.profile.shirt] += 1;
         }
 
         // Dietary restrictions
-        if (user.confirmation.dietaryRestrictions){
-          user.confirmation.dietaryRestrictions.forEach(function(restriction){
+        if (user.profile.diet){
+          user.profile.diet.forEach(function(restriction){
             if (!newStats.dietaryRestrictions[restriction]){
               newStats.dietaryRestrictions[restriction] = 0;
             }
@@ -170,17 +162,6 @@ function calculateStats(settings){
             });
           });
         newStats.demo.schools = schools;
-
-        // Likewise, transform the teams into an array of objects
-        // var teams = [];
-        // _.keys(newStats.teams)
-        //   .forEach(function(key){
-        //     teams.push({
-        //       name: key,
-        //       users: newStats.teams[key]
-        //     });
-        //   });
-        // newStats.teams = teams;
 
         console.log('Stats updated!');
         newStats.lastUpdated = new Date();
