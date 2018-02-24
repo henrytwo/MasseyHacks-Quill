@@ -61,21 +61,21 @@
           </div>
         </div>
         <div class="item">
-          <i class="circle red icon"></i>
+          <i class="green circle check icon"></i>
           <div class="content">
             <strong>
-              Declined
+              Waiver
             </strong> :
-              {{stats.declined}}
+            {{stats.waiver}}
           </div>
         </div>
         <div class="item">
           <i class="circle red icon"></i>
           <div class="content">
             <strong>
-              Waiver
+              Declined
             </strong> :
-            {{stats.waiver}}
+              {{stats.declined}}
           </div>
         </div>
 
@@ -86,20 +86,6 @@
               Checked In
             </strong> :
               {{stats.checkedIn}}
-          </div>
-        </div>
-
-        <div class="ui divider"></div>
-
-        <div class="item">
-          <i class="child icon"></i>
-          <div class="content">
-            <strong>
-              Unisex shirt sizes:
-            </strong> :
-              S ({{stats.shirtSizes['S']}})
-              M ({{stats.shirtSizes['M']}})
-              L ({{stats.shirtSizes['L']}})
           </div>
         </div>
 
@@ -126,7 +112,7 @@
     class="ui pink segment"
     ng-class="{'loading': loading}">
     <div class="ui header">
-      Demographics
+      Demographics (All)
     </div>
     <div class="ui list">
       <div class="item">
@@ -166,7 +152,7 @@
     </div>
       <div class="ui list">
         <div class="item">
-          <strong>Grade <=8</strong> {{stats.demo.grade['<=8']}} ({{stats.demo.grade['<='] / stats.total * 100 | number: 1}}%)
+          <strong>Grade <=8</strong> {{stats.demo.grade['<=8']}} ({{stats.demo.grade['<=8'] / stats.total * 100 | number: 1}}%)
         </div>
         <div class="item">
           <strong>Grade 9</strong> {{stats.demo.grade['9']}} ({{stats.demo.grade['9'] / stats.total * 100 | number: 1}}%)
@@ -181,6 +167,128 @@
           <strong>Grade 12</strong> {{stats.demo.grade['12']}} ({{stats.demo.grade['12'] / stats.total * 100 | number: 1}}%)
         </div>
       </div>
+
+    <div class="ui divider"></div>
+    <div class="ui header">
+      School Distribution
+    </div>
+    <div class="ui list">
+      <div class="item">
+        <strong>Massey</strong> {{stats.demo.massey}} ({{stats.demo.massey / (stats.demo.nonmassey + stats.demo.massey) | number: 1}}%)
+      </div>
+      <div class="item">
+        <strong>Not Massey</strong> {{stats.demo.nonmassey}} ({{stats.demo.nonmassey / (stats.demo.nonmassey + stats.demo.massey) | number: 1}}%)
+      </div>
+    </div>
+
+    <div class="ui divider"></div>
+
+    <div class="item">
+
+      <div class="content">
+        <div class="ui header">
+          Shirt Sizes
+        </div>
+        <strong>
+          Unisex shirt sizes:
+        </strong>
+        S ({{stats.shirtSizes['S']}})
+        M ({{stats.shirtSizes['M']}})
+        L ({{stats.shirtSizes['L']}})
+      </div>
+    </div>
+  </div>
+
+
+    <div
+            class="ui pink segment"
+            ng-class="{'loading': loading}">
+      <div class="ui header">
+        Demographics (Confirmed)
+      </div>
+      <div class="ui list">
+        <div class="item">
+          <i class="users icon"></i>
+          <div class="content">
+            <strong>Total users</strong>: {{confirmed.stats.total}}
+          </div>
+        </div>
+        <div class="item">
+          <i class="female icon"></i>
+          <div class="content">
+            <strong>Female</strong>: {{confirmed.stats.demo.gender['F']}} ({{confirmed.stats.demo.gender['F'] / confirmed.stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <i class="male icon"></i>
+          <div class="content">
+            <strong>Male</strong>: {{confirmed.stats.demo.gender['M']}} ({{confirmed.stats.demo.gender['M'] / confirmed.stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <i class="other gender icon"></i>
+          <div class="content">
+            <strong>Other</strong>: {{confirmed.stats.demo.gender['O']}} ({{confirmed.stats.demo.gender['O'] / confirmed.stats.total * 100 | number:1}}%)
+          </div>
+        </div>
+        <div class="item">
+          <i class="question icon"></i>
+          <div class="content">
+            <strong>Did not respond</strong>: {{confirmed.stats.demo.gender['N']}} ({{confirmed.stats.demo.gender['N'] / confirmed.stats.total * 100 | number:1 }}%)
+          </div>
+        </div>
+      </div>
+      <div class="ui divider"></div>
+      <div class="ui header">
+        Grade Distribution
+      </div>
+      <div class="ui list">
+        <div class="item">
+          <strong>Grade <=8</strong> {{confirmed.stats.demo.grade['<=8']}} ({{confirmed.stats.demo.grade['<=8'] / confirmed.stats.total * 100 | number: 1}}%)
+        </div>
+        <div class="item">
+          <strong>Grade 9</strong> {{confirmed.stats.demo.grade['9']}} ({{confirmed.stats.demo.grade['9'] / confirmed.stats.total * 100 | number: 1}}%)
+        </div>
+        <div class="item">
+          <strong>Grade 10</strong> {{confirmed.stats.demo.grade['10']}} ({{confirmed.stats.demo.grade['10'] / confirmed.stats.total * 100 | number: 1}}%)
+        </div>
+        <div class="item">
+          <strong>Grade 11</strong> {{confirmed.stats.demo.grade['11']}} ({{confirmed.stats.demo.grade['11'] / confirmed.stats.total * 100 | number: 1}}%)
+        </div>
+        <div class="item">
+          <strong>Grade 12</strong> {{confirmed.stats.demo.grade['12']}} ({{confirmed.stats.demo.grade['12'] / confirmed.stats.total * 100 | number: 1}}%)
+        </div>
+      </div>
+
+      <div class="ui divider"></div>
+      <div class="ui header">
+        School Distribution
+      </div>
+      <div class="ui list">
+        <div class="item">
+          <strong>Massey</strong> {{confirmed.stats.demo.massey}} ({{confirmed.stats.demo.massey / (confirmed.stats.demo.nonmassey + confirmed.stats.demo.massey) | number: 1}}%)
+        </div>
+        <div class="item">
+          <strong>Not Massey</strong> {{confirmed.stats.demo.nonmassey}} ({{confirmed.stats.demo.nonmassey / (confirmed.stats.demo.nonmassey + confirmed.stats.demo.massey) | number: 1}}%)
+        </div>
+      </div>
+
+      <div class="ui divider"></div>
+
+      <div class="item">
+        <div class="content">
+          <div class="ui header">
+            Shirt Sizes
+          </div>
+          <strong>
+            Unisex shirt sizes:
+          </strong>
+          S ({{confirmed.stats.shirtSizes['S']}})
+          M ({{confirmed.stats.shirtSizes['M']}})
+          L ({{confirmed.stats.shirtSizes['L']}})
+        </div>
+      </div>
+    </div>
 
     <!--
     <div class="ui divider"></div>

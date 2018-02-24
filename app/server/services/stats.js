@@ -11,6 +11,7 @@ function calculateStats(settings){
     lastUpdated: 0,
 
     total: 0,
+
     demo: {
       gender: {
         M: 0,
@@ -18,19 +19,8 @@ function calculateStats(settings){
         O: 0,
         N: 0
       },
-      tracks: {
-        'HealthTech': 0,
-        'Logistics': 0,
-        'Entertainment': 0,
-        'Mobility': 0,
-        'Intelligent Buildings': 0,
-        'Game Jam': 0,
-        'FinTech': 0,
-        'Industrial Internet': 0,
-        'Artificial Intelligence': 0,
-        'Big Data': 0
-      },
-      schools: {},
+      massey: 0,
+      nonmassey: 0,
       grade: {
         '<=8': 0,
         '9': 0,
@@ -40,27 +30,52 @@ function calculateStats(settings){
       }
     },
 
-    teams: {},
+    shirtSizes: {
+        'S': 0,
+        'M': 0,
+        'L': 0
+    },
+
+    confirmed : {
+
+        total: 0,
+
+        demo: {
+            gender: {
+                M: 0,
+                F: 0,
+                O: 0,
+                N: 0
+            },
+            massey: 0,
+            nonmassey: 0,
+            grade: {
+                '<=8': 0,
+                '9': 0,
+                '10': 0,
+                '11': 0,
+                '12': 0,
+            }
+        },
+
+        shirtSizes: {
+            'S': 0,
+            'M': 0,
+            'L': 0
+        }
+    },
+
     verified: 0,
     submitted: 0,
     admitted: 0,
     confirmed: 0,
     declined: 0,
+    waiver: 0,
+    checkedIn: 0,
 
-    confirmedFemale: 0,
-    confirmedMale: 0,
-    confirmedOther: 0,
-    confirmedNone: 0,
+    dietaryRestrictions: {}
 
-    shirtSizes: {
-      'S': 0,
-      'M': 0,
-      'L': 0
-    },
 
-    dietaryRestrictions: {},
-
-    checkedIn: 0
   };
 
 
@@ -76,9 +91,6 @@ function calculateStats(settings){
 
       async.each(users, function(user, callback){
 
-        // Grab the email extension
-        var email = user.email.split('@')[1];
-
         // Add to the gender
         newStats.demo.gender[user.profile.gender] += 1;
 
@@ -93,6 +105,8 @@ function calculateStats(settings){
 
         // Count confirmed
         newStats.confirmed += user.status.confirmed ? 1 : 0;
+
+        newStats.waiver += user.status.waiver ? 1 : 0;
 
         newStats.confirmedFemale += user.status.confirmed && user.profile.gender == "F" ? 1 : 0;
         newStats.confirmedMale += user.status.confirmed && user.profile.gender == "M" ? 1 : 0;

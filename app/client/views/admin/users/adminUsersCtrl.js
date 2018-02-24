@@ -294,6 +294,8 @@ angular.module('reg')
         .getAll()
         .success(function(data){
 
+          console.log(data[0]);
+
           var output = "";
           var titles = generateSections(data[0]);
            for(var i = 0; i < titles.length; i++){

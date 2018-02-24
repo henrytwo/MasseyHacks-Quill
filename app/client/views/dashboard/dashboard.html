@@ -183,7 +183,7 @@
               You must confirm by {{Utils.formatTime(user.status.confirmBy)}}.
             </h4>
             <p>
-              CONGRATULATIONS! Your application was outstanding and you have been accepted to attend MasseyHacks IV. Now your need to confirm your spot at the event. To do this click the RSVP button below and sign the waiver. Do this as soon as possible so you do not lose your spot.
+              CONGRATULATIONS! Your application was outstanding and you have been accepted to attend MasseyHacks IV. Now your need to confirm your spot at the event. To do this click the Confirm button below and sign the waiver. Do this as soon as possible so you do not lose your spot.
             </p>
           </div>
 
@@ -233,11 +233,6 @@
           </div>
 
           <div class="ui sea-serpent button"
-               ng-click="inviteToSlack()">
-            Send Slack invitation
-          </div>
-
-          <div class="ui sea-serpent button"
                ui-sref="app.confirmation">
             {{pastConfirmation ? 'View' : 'Edit'}} your confirmation information
           </div>
@@ -245,6 +240,18 @@
           <div class="ui vermilion button"
                ng-click="declineAdmission()">
             Sorry, I can't make it
+          </div>
+
+          <br>
+
+          <div class="ui sea-serpent button"
+               ng-click="inviteToSlack()">
+            Send Slack invitation
+          </div>
+
+          <div class="ui sea-serpent button"
+               ng-click="inviteToSlack()">
+            Get Waiver
           </div>
 
         </div>
@@ -276,7 +283,7 @@
             Hello there fellow organizer, welcome to your administrative dashboard.<br><b>Remember, with great power, comes great responsibility.</b>
         </div>
 
-        </div>
+     </div>
 
     </div>
   </div>

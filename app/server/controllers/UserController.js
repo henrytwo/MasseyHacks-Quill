@@ -1532,7 +1532,7 @@ UserController.inviteToSlack = function (id, callback){
                         return callback('You have already join the Slack!\n(' + process.env.SLACK_INVITE + '.slack.com)');
                     }
                     else if (body.includes('already_invited')) {
-                        return callback('We\'ve already sent an invitation!\nBe sure to check your spam in case it was filtered :\'(\n\n(' + process.env.SLACK_INVITE + '.slack.com)');
+                        return callback('We already sent an invitation!\nBe sure to check your spam in case it was filtered :\'(\n\n(' + process.env.SLACK_INVITE + '.slack.com)');
                     }
                     else {
                         return callback('Something went wrong...\nThat\'s all we know :/');
