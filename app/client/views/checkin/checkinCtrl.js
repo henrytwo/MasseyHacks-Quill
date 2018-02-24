@@ -220,6 +220,7 @@ angular.module('reg')
                         })
                 }
 
+
             };
 
             function selectUser(user) {

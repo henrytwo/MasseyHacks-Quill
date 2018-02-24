@@ -313,7 +313,7 @@ angular.module('reg')
                               hackers[rawData[x].email][reviewers.indexOf(rawData[x].applicationAdmit[a])] = 'ADMIT';
                           }
                           for (var r = 0; r < rawData[x].applicationReject.length; r++) {
-                              hackers[rawData[x].email][reviewers.indexOf(rawData[x].applicationReject[b])] = 'REJECT';
+                              hackers[rawData[x].email][reviewers.indexOf(rawData[x].applicationReject[r])] = 'REJECT';
                           }
                       }
                   }
