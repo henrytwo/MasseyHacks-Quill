@@ -298,6 +298,12 @@ UserController.getByToken = function (token, callback) {
   User.getByToken(token, callback);
 };
 
+UserController.getAllMaster = function (callback) {
+    User.find().exec(function(err, users){
+        return callback(null, users);
+    });
+};
+
 /**
  * Get all users.
  * It's going to be a lot of data, so make sure you want to do this.

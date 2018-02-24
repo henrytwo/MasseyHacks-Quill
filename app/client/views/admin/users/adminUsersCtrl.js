@@ -288,6 +288,72 @@ angular.module('reg')
 
         $('.long.user.modal').modal('show');
       }
+      
+      $scope.exportVoter = function () {
+          UserService
+              .getAllMaster()
+              .success(function(rawData){
+                  var reviewers = [];
+                  var hackers = {};
+
+                  for (var i = 0; i < rawData.length; i++) {
+                      if (rawData[i].reviewer) {
+                          reviewers.push(rawData[i].email);
+                      }
+                  }
+
+                  for (var x = 0; x < rawData.length; x++) {
+                      if (!rawData[x].volunteer) {
+                          hackers[rawData[x].email] = [];
+
+                          for (var m = 0; m < reviewers.length; m++) {
+                              hackers[rawData[x].email].push('');
+                          }
+                          for (var a = 0; a < rawData[x].applicationAdmit.length; a++) {
+                              hackers[rawData[x].email][reviewers.indexOf(rawData[x].applicationAdmit[a])] = 'ADMIT';
+                          }
+                          for (var r = 0; r < rawData[x].applicationReject.length; r++) {
+                              hackers[rawData[x].email][reviewers.indexOf(rawData[x].applicationReject[b])] = 'REJECT';
+                          }
+                      }
+                  }
+
+                  var output = ";";
+
+                  for(var i = 0; i < reviewers.length; i++){
+                      output += reviewers[i] + ";";
+                  }
+                  output += "\n";
+
+                  for (var key in hackers){
+                      var row = hackers[key];
+                      output += key + ';';
+                      for (var i = 0; i < row.length; i++){
+                          if(!row[i]){
+                              output += ";";
+                              continue;
+                          }
+                          var field = row[i];
+                          try {
+                              output += field.replace(/(\r\n|\n|\r)/gm," ") + ";";
+                          } catch (err){
+                              output += field + ";";
+                          }
+
+                      }
+                      output += "\n";
+                  }
+
+                  var element = document.createElement('a');
+                  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
+                  element.setAttribute('download', "votes " + new Date().toDateString() + ".csv");
+                  element.style.display = 'none';
+                  document.body.appendChild(element);
+                  element.click();
+                  document.body.removeChild(element);
+
+          });
+      }
 
        $scope.exportCSV = function() {
         UserService
