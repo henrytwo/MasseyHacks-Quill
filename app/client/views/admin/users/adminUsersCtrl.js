@@ -357,7 +357,7 @@ angular.module('reg')
 
        $scope.exportCSV = function() {
         UserService
-        .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'timestamp')
+        .getPageFull(0, $stateParams.size, $scope.filter, $scope.sortDate, 'timestamp')
         .success(function(rawData){
           var data = rawData['users'];
 
