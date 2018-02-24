@@ -291,8 +291,9 @@ angular.module('reg')
 
        $scope.exportCSV = function() {
         UserService
-        .getAll()
-        .success(function(data){
+        .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'timestamp')
+        .success(function(rawData){
+          var data = rawData['users'];
 
           var output = "";
           var titles = generateSections(data[0]);
