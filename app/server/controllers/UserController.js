@@ -853,7 +853,9 @@ UserController.advanceWaitlist = function () {
                     User.find({
                         'status.waitlisted':true
                     }).exec(function(err, data) {
-                        for (var i = currentAdmitted; i < setting.participants; i++) {
+                        for (var i = 0; i < Math.min(setting.participants - currentAdmitted, data.length); i++) {
+
+                            console.log(data);
                             var cuser = data[0];
 
                             cuser.status.admitted = true;

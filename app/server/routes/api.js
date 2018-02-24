@@ -761,7 +761,7 @@ module.exports = function(router) {
   router.put('/settings/updateWave', isOwner, function(req, res) {
     var wave = req.body.waveNum;
     var data = req.body.data;
-    SettingsController.updateField('wave'+wave, data, defaultResponse(req, res));
+    SettingsController.updateWave('wave'+wave, data, defaultResponse(req, res));
   })
 
   /**

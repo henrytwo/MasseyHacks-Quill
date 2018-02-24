@@ -1,4 +1,5 @@
 var Settings = require('../models/Settings');
+var waveSend = require('../services/waveSend');
 
 var SettingsController = {};
 
@@ -13,7 +14,6 @@ SettingsController.getWave = function(callback){
  * @param  {Function} callback args(err, settings)
  */
 SettingsController.updateField = function(field, value, callback){
-  console.log(Settings.findOne({}))
   var update = {};
   update[field] = value;
   Settings
@@ -23,17 +23,20 @@ SettingsController.updateField = function(field, value, callback){
 };
 
 SettingsController.updateWave = function(wave, value, callback){
+  var w = {};
+  w[wave] = value;
 
   Settings.findOneAndUpdate({},
     {
-      $set: {
-        wave1: value,
-      }
+      $set: w
     },
     {
       new: true
     },
-    callback);
+    function(err, data) {
+      waveSend.engageTimers(true);
+      callback(err, data);
+    });
 };
 
 
