@@ -298,6 +298,12 @@ UserController.getByToken = function (token, callback) {
   User.getByToken(token, callback);
 };
 
+UserController.getAllMaster = function (callback) {
+    User.find().exec(function(err, users){
+        return callback(null, users);
+    });
+};
+
 /**
  * Get all users.
  * It's going to be a lot of data, so make sure you want to do this.
@@ -1534,7 +1540,7 @@ UserController.inviteToSlack = function (id, callback){
                         return callback('You have already join the Slack!\n(' + process.env.SLACK_INVITE + '.slack.com)');
                     }
                     else if (body.includes('already_invited')) {
-                        return callback('We\'ve already sent an invitation!\nBe sure to check your spam in case it was filtered :\'(\n\n(' + process.env.SLACK_INVITE + '.slack.com)');
+                        return callback('We already sent an invitation!\nBe sure to check your spam in case it was filtered :\'(\n\n(' + process.env.SLACK_INVITE + '.slack.com)');
                     }
                     else {
                         return callback('Something went wrong...\nThat\'s all we know :/');

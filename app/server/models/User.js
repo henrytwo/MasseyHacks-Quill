@@ -139,12 +139,10 @@ var profile = {
 // Only after confirmed
 var confirmation = {
     coming: {
-        type: Boolean,
-        requited: true
+        type: Boolean
     },
     bus: {
-        type: Boolean,
-        requited: true
+        type: Boolean
     },
     notes: {
         type: String,

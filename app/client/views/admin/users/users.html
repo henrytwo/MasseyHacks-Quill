@@ -69,6 +69,7 @@
       <div class="ui header">
         Users
         <a class="btn" ng-click="exportCSV()">Export to CSV</a>
+        <a class="btn" ng-click="exportVoter()" ng-show="adminUser.owner">Export voter data</a>
       </div>
       <div class="ui long user modal">
         <i class="close icon"></i>
@@ -89,11 +90,6 @@
                 {{selectedUser.status.name.toUpperCase()}}
               </div>
             </div>
-            <p>
-              <strong> Admitted by: </strong> {{selectedUser.status.admittedBy ? selectedUser.status.admittedBy : 'N/A'}} <br>
-              <strong> Voted: </strong> {{selectedUser.votedBy}} <br>
-
-            </p>
           </div>
 
           <div ng-repeat="section in selectedUser.sections">

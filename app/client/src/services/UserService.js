@@ -24,6 +24,10 @@ angular.module('reg')
         return $http.get(base);
       },
 
+      getAllMaster: function () {
+          return $http.get('/api/usersMaster');
+      },
+
       getPage: function(page, size, filter, sort, sortBy){
 
         return $http.get(users + '?' + $.param(

@@ -98,6 +98,7 @@ angular.module('reg')
       $scope.waitlistText = $sce.trustAsHtml(converter.makeHtml(Settings.waitlistText));
 
       $scope.inviteToSlack = function() {
+
           UserService.inviteToSlack(user._id)
               .success(function(){
               sweetAlert({

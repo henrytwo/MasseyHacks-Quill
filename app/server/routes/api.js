@@ -373,6 +373,14 @@ module.exports = function(router) {
     }
   });
 
+  router.get('/usersMaster', isOwner, function(req, res){
+      var query = req.query;
+
+
+      UserController.getAllMaster(defaultResponse(req, res));
+
+  });
+
   /**
    * [ADMIN ONLY]
    */
