@@ -288,6 +288,42 @@ angular.module('reg')
 
         $('.long.user.modal').modal('show');
       }
+
+      function getState(status) {
+          if (status.checkedIn) {
+              return 'checked in';
+          }
+
+          if (status.declined) {
+              return "declined";
+          }
+
+          if (status.rejected) {
+              return "rejected";
+          }
+
+          if (status.waitlisted) {
+              return "waitlisted";
+          }
+
+          if (status.confirmed) {
+              return "confirmed";
+          }
+
+          if (status.admitted) {
+              return "admitted";
+          }
+          if (status.completedProfile) {
+              return "submitted";
+          }
+
+          if (!verified) {
+              return "unverified";
+          }
+
+          return "incomplete";
+
+      }
       
       $scope.exportVoter = function () {
           UserService
@@ -307,21 +343,21 @@ angular.module('reg')
 
                           var hackerName = ((rawData[x].profile.name) ? rawData[x].profile.name : rawData[x].nickname) + "\";\"" + rawData[x].email;
 
-                          hackers[hackerName] = [];
+                          hackers[hackerName] = [getState(rawData[x].status).toUpperCase()];
 
                           for (var m = 0; m < reviewers.length; m++) {
                               hackers[hackerName].push('');
                           }
                           for (var a = 0; a < rawData[x].applicationAdmit.length; a++) {
-                              hackers[hackerName][reviewers.indexOf(rawData[x].applicationAdmit[a])] = 'ADMIT';
+                              hackers[hackerName][1 + reviewers.indexOf(rawData[x].applicationAdmit[a])] = 'ADMIT';
                           }
                           for (var r = 0; r < rawData[x].applicationReject.length; r++) {
-                              hackers[hackerName][reviewers.indexOf(rawData[x].applicationReject[r])] = 'REJECT';
+                              hackers[hackerName][1 + reviewers.indexOf(rawData[x].applicationReject[r])] = 'REJECT';
                           }
                       }
                   }
 
-                  var output = ";;";
+                  var output = "Name;Email;Status;";
 
                   for(var i = 0; i < reviewers.length; i++){
                       output += "\"" + reviewers[i] + "\";";
