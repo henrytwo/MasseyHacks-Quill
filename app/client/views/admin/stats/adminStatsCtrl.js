@@ -8,6 +8,7 @@ angular.module('reg')
         .getStats()
         .success(function(stats){
           $scope.stats = stats;
+          console.log(stats);
           $scope.loading = false;
         });
 

@@ -12,6 +12,9 @@ function calculateStats(settings){
 
     total: 0,
 
+    wave: 0,
+    review: [['Reviewer', 'Wave 1', 'Wave 2', 'Wave 3', 'Wave 4']],
+
     demo: {
       gender: {
         M: 0,
@@ -76,12 +79,29 @@ function calculateStats(settings){
 
     dietaryRestrictions: {}
 
-
   };
 
+  Settings.getCurrentWave(function (meh, wave) {
+      newStats.wave = wave;
+  });
+
+  var votes = {};
+  var waveTotals = [0, 0, 0, 0];
+
+    User
+    .find({"reviewer":true, "developer":false})
+    .exec(function(err, users) {
+        if (err || !users) {
+            throw err;
+        }
+
+        async.each(users, function(user, callback) {
+            votes[user.email] = [user.profile.name ? user.profile.name : user.nickname, 0, 0, 0, 0];
+        });
+    });
 
 
-  User
+    User
     .find({"admin": false,"owner":false,"volunteer":false})
     .exec(function(err, users){
       if (err || !users){
@@ -91,6 +111,14 @@ function calculateStats(settings){
       newStats.total = users.length;
 
       async.each(users, function(user, callback){
+
+        for (var i = 0; i < user.votedBy.length; i++) {
+            if (user.votedBy[i] in votes) {
+                votes[user.votedBy[i]][user.wave] += 1;
+            }
+        }
+
+        waveTotals[user.wave - 1] += 1;
 
         // Count verified
         newStats.verified += user.verified ? 1 : 0;
@@ -183,30 +211,45 @@ function calculateStats(settings){
 
           callback(); // let async know we've finished
       }, function() {
-        // Transform dietary restrictions into a series of objects
-        var restrictions = [];
-        _.keys(newStats.dietaryRestrictions)
-          .forEach(function(key){
-            restrictions.push({
-              name: key,
-              count: newStats.dietaryRestrictions[key],
-            });
-          });
-        newStats.dietaryRestrictions = restrictions;
 
-        var confirmedRestrictions = [];
-        _.keys(newStats.confirmedStat.dietaryRestrictions)
-            .forEach(function(key){
-                confirmedRestrictions.push({
-                    name: key,
-                    count: newStats.confirmedStat.dietaryRestrictions[key],
-                });
-            });
-        newStats.confirmedStat.dietaryRestrictions = confirmedRestrictions;
+          for (var voter in votes) {
+              var line = votes[voter];
 
-        console.log('Stats updated!');
-        newStats.lastUpdated = new Date();
-        stats = newStats;
+              for (var i = 1; i < line.length; i++) {
+                  line[i] = line[i] + '/' + waveTotals[i - 1];
+              }
+
+              //console.log(line);
+
+              newStats.review.push(line);
+          };
+
+          //console.log(newStats.review);
+
+          // Transform dietary restrictions into a series of objects
+          var restrictions = [];
+          _.keys(newStats.dietaryRestrictions)
+              .forEach(function (key) {
+                  restrictions.push({
+                      name: key,
+                      count: newStats.dietaryRestrictions[key]
+                  });
+              });
+          newStats.dietaryRestrictions = restrictions;
+
+          var confirmedRestrictions = [];
+          _.keys(newStats.confirmedStat.dietaryRestrictions)
+              .forEach(function (key) {
+                  confirmedRestrictions.push({
+                      name: key,
+                      count: newStats.confirmedStat.dietaryRestrictions[key]
+                  });
+              });
+          newStats.confirmedStat.dietaryRestrictions = confirmedRestrictions;
+
+          console.log('Stats updated!');
+          newStats.lastUpdated = new Date();
+          stats = newStats;
       });
     });
 

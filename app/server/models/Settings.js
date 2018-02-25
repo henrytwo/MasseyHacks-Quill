@@ -175,6 +175,6 @@ schema.statics.getCurrentWave = function (callback) {
         return callback(false, 'inf');
       }
     });
-}
+};
 
 module.exports = mongoose.model('Settings', schema);

@@ -98,6 +98,30 @@
           </div>
         </div>
 
+        <div class="ui divider"></div>
+
+        <div class="item">
+            <i class="green flag icon"></i>
+            <div class="content">
+                <strong>
+                    Wave
+                </strong> :
+                {{stats.wave}}
+            </div>
+        </div>
+
+        <div class="item">
+          <div class="content">
+            <table class="ui celled selectable compact users table">
+              <tr ng-repeat="line in stats.review track by $index" style="height: 50px">
+                <th ng-repeat="section in line track by $index">{{section}}</th>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+
+
       </div>
     </div>
   </div>
