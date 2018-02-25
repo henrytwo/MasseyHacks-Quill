@@ -201,11 +201,18 @@ var removeSensitive = function(user) {
  * @param  {Function} callback args(err, user)
  */
 UserController.createUser = function(email, password, nickname, callback) {
-  if (typeof email !== "string"){
+  if (typeof email !== "string" || !validator.isEmail(email)){
     return callback({
       message: "Incorrect email format"
     });
   }
+
+  if (email.includes('"') || nickname.includes('"')) {
+      return callback({
+          message: "Invalid Characters"
+      });
+  }
+
   Settings.getRegistrationTimes(function(err, times){
     if (err) {
       callback(err);
@@ -396,7 +403,7 @@ UserController.getPage = function(query, callback){
   User
     .find(findQuery)
     .sort({
-      sortByField: sort
+      'lastUpdated': sort
     })
     .select('+status.admittedBy')
     .skip(page * size)

@@ -297,37 +297,40 @@ angular.module('reg')
                   var hackers = {};
 
                   for (var i = 0; i < rawData.length; i++) {
-                      if (rawData[i].reviewer) {
+                      if (rawData[i].reviewer && !rawData[i].developer) {
                           reviewers.push(rawData[i].email);
                       }
                   }
 
                   for (var x = 0; x < rawData.length; x++) {
                       if (!rawData[x].volunteer) {
-                          hackers[rawData[x].email] = [];
+
+                          var hackerName = ((rawData[x].profile.name) ? rawData[x].profile.name : rawData[x].nickname) + "\";\"" + rawData[x].email;
+
+                          hackers[hackerName] = [];
 
                           for (var m = 0; m < reviewers.length; m++) {
-                              hackers[rawData[x].email].push('');
+                              hackers[hackerName].push('');
                           }
                           for (var a = 0; a < rawData[x].applicationAdmit.length; a++) {
-                              hackers[rawData[x].email][reviewers.indexOf(rawData[x].applicationAdmit[a])] = 'ADMIT';
+                              hackers[hackerName][reviewers.indexOf(rawData[x].applicationAdmit[a])] = 'ADMIT';
                           }
                           for (var r = 0; r < rawData[x].applicationReject.length; r++) {
-                              hackers[rawData[x].email][reviewers.indexOf(rawData[x].applicationReject[b])] = 'REJECT';
+                              hackers[hackerName][reviewers.indexOf(rawData[x].applicationReject[r])] = 'REJECT';
                           }
                       }
                   }
 
-                  var output = ";";
+                  var output = ";;";
 
                   for(var i = 0; i < reviewers.length; i++){
-                      output += reviewers[i] + ";";
+                      output += "\"" + reviewers[i] + "\";";
                   }
                   output += "\n";
 
                   for (var key in hackers){
                       var row = hackers[key];
-                      output += key + ';';
+                      output += "\"" + key + "\";";
                       for (var i = 0; i < row.length; i++){
                           if(!row[i]){
                               output += ";";
@@ -335,9 +338,9 @@ angular.module('reg')
                           }
                           var field = row[i];
                           try {
-                              output += field.replace(/(\r\n|\n|\r)/gm," ") + ";";
+                              output += "\"" + field.replace(/(\r\n|\n|\r|\t)/gm," ") + "\";";
                           } catch (err){
-                              output += field + ";";
+                              output += "\"" + field + "\";";
                           }
 
                       }
@@ -361,11 +364,13 @@ angular.module('reg')
         .success(function(rawData){
           var data = rawData['users'];
 
+          console.log(data);
+
           var output = "";
           var titles = generateSections(data[0]);
            for(var i = 0; i < titles.length; i++){
             for(var j = 0; j < titles[i].fields.length; j++){
-              output += titles[i].fields[j].name + ";";
+              output += "\"" + titles[i].fields[j].name + "\";";
             }
            }
            output += "\n";
@@ -381,9 +386,9 @@ angular.module('reg')
                 }
                 var field = row[i].fields[j].value;
                 try {
-                  output += field.replace(/(\r\n|\n|\r)/gm," ") + ";";
+                  output += "\"" + field.replace(/(\r\n|\n|\r|\t)/gm," ") + "\";";
                 } catch (err){
-                  output += field + ";";
+                  output += "\"" + field + "\";";
                 }
               }
             }
@@ -637,52 +642,6 @@ angular.module('reg')
             ]
           }
         ];
-      }
-
-      $scope.exportTRCSV = function() {
-        UserService
-        .getAll()
-        .success(function(data){
-          data = data.filter(function(user){
-            return user.status.reimbursementApplied;
-          })
-          var output = "";
-          var titles = generateTRSections(data[0]);
-           for(var i = 0; i < titles.length; i++){
-            for(var j = 0; j < titles[i].fields.length; j++){
-              output += titles[i].fields[j].name + ";";
-            }
-           }
-           output += "\n";
-
-          for (var rows = 0; rows < data.length; rows++){
-            row = generateTRSections(data[rows]);
-            for (var i = 0; i < row.length; i++){
-              for(var j = 0; j < row[i].fields.length;j++){
-                if(!row[i].fields[j].value){
-                  output += ";";
-                  continue;
-                }
-                var field = row[i].fields[j].value;
-                try {
-                  output += field.replace(/(\r\n|\n|\r)/gm," ") + ";";
-                } catch (err){
-                  output += field + ";";
-                }
-              }
-            }
-            output += "\n";
-          }
-
-          var element = document.createElement('a');
-          element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
-          element.setAttribute('download', "base " + new Date().toDateString() + ".csv");
-          element.style.display = 'none';
-          document.body.appendChild(element);
-          element.click();
-          document.body.removeChild(element);
-
-          });
       }
 
       $scope.selectUser = selectUser;

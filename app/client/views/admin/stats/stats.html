@@ -78,6 +78,15 @@
               {{stats.declined}}
           </div>
         </div>
+        <div class="item">
+          <i class="circle red icon"></i>
+          <div class="content">
+            <strong>
+              Rejected
+            </strong> :
+            {{stats.rejected}}
+          </div>
+        </div>
 
         <div class="item">
           <i class="green flag icon"></i>
@@ -90,19 +99,28 @@
         </div>
 
         <div class="ui divider"></div>
-        
+
         <div class="item">
-          <i class="food icon"></i>
+            <i class="green flag icon"></i>
+            <div class="content">
+                <strong>
+                    Wave
+                </strong> :
+                {{stats.wave}}
+            </div>
+        </div>
+
+        <div class="item">
           <div class="content">
-            <strong>
-              Dietary Restrictions:
-            </strong>
-            <span
-              ng-repeat="restriction in stats.dietaryRestrictions | orderBy: '-count'">
-              {{restriction.name}} ({{restriction.count}})
-            </span>
+            <table class="ui celled selectable compact users table">
+              <tr ng-repeat="line in stats.review track by $index" style="height: 50px">
+                <th ng-repeat="section in line track by $index">{{section}}</th>
+              </tr>
+            </table>
           </div>
         </div>
+
+
 
       </div>
     </div>
@@ -174,10 +192,10 @@
     </div>
     <div class="ui list">
       <div class="item">
-        <strong>Massey</strong> {{stats.demo.massey}} ({{stats.demo.massey / (stats.demo.nonmassey + stats.demo.massey) | number: 1}}%)
+        <strong>Massey</strong> {{stats.demo.massey}} ({{stats.demo.massey / (stats.demo.nonmassey + stats.demo.massey) * 100 | number: 1}}%)
       </div>
       <div class="item">
-        <strong>Not Massey</strong> {{stats.demo.nonmassey}} ({{stats.demo.nonmassey / (stats.demo.nonmassey + stats.demo.massey) | number: 1}}%)
+        <strong>Not Massey</strong> {{stats.demo.nonmassey}} ({{stats.demo.nonmassey / (stats.demo.nonmassey + stats.demo.massey) * 100 | number: 1}}%)
       </div>
     </div>
 
@@ -197,6 +215,22 @@
         L ({{stats.shirtSizes['L']}})
       </div>
     </div>
+
+    <div class="ui divider"></div>
+
+    <div class="item">
+      <i class="food icon"></i>
+      <div class="content">
+        <strong>
+          Dietary Restrictions:
+        </strong>
+        <span
+                ng-repeat="restriction in stats.dietaryRestrictions | orderBy: '-count'">
+              {{restriction.name}} ({{restriction.count}})
+            </span>
+      </div>
+    </div>
+
   </div>
 
 
@@ -210,31 +244,31 @@
         <div class="item">
           <i class="users icon"></i>
           <div class="content">
-            <strong>Total users</strong>: {{confirmed.stats.total}}
+            <strong>Total users</strong>: {{stats.confirmedStat.total}}
           </div>
         </div>
         <div class="item">
           <i class="female icon"></i>
           <div class="content">
-            <strong>Female</strong>: {{confirmed.stats.demo.gender['F']}} ({{confirmed.stats.demo.gender['F'] / confirmed.stats.total * 100 | number:1}}%)
+            <strong>Female</strong>: {{stats.confirmedStat.demo.gender['F']}} ({{stats.confirmedStat.demo.gender['F'] / stats.confirmedStat.total * 100 | number:1}}%)
           </div>
         </div>
         <div class="item">
           <i class="male icon"></i>
           <div class="content">
-            <strong>Male</strong>: {{confirmed.stats.demo.gender['M']}} ({{confirmed.stats.demo.gender['M'] / confirmed.stats.total * 100 | number:1}}%)
+            <strong>Male</strong>: {{stats.confirmedStat.demo.gender['M']}} ({{stats.confirmedStat.demo.gender['M'] / stats.confirmedStat.total * 100 | number:1}}%)
           </div>
         </div>
         <div class="item">
           <i class="other gender icon"></i>
           <div class="content">
-            <strong>Other</strong>: {{confirmed.stats.demo.gender['O']}} ({{confirmed.stats.demo.gender['O'] / confirmed.stats.total * 100 | number:1}}%)
+            <strong>Other</strong>: {{stats.confirmedStat.demo.gender['O']}} ({{stats.confirmedStat.demo.gender['O'] / stats.confirmedStat.total * 100 | number:1}}%)
           </div>
         </div>
         <div class="item">
           <i class="question icon"></i>
           <div class="content">
-            <strong>Did not respond</strong>: {{confirmed.stats.demo.gender['N']}} ({{confirmed.stats.demo.gender['N'] / confirmed.stats.total * 100 | number:1 }}%)
+            <strong>Did not respond</strong>: {{stats.confirmedStat.demo.gender['N']}} ({{stats.confirmedStat.demo.gender['N'] / stats.confirmedStat.total * 100 | number:1 }}%)
           </div>
         </div>
       </div>
@@ -244,19 +278,19 @@
       </div>
       <div class="ui list">
         <div class="item">
-          <strong>Grade <=8</strong> {{confirmed.stats.demo.grade['<=8']}} ({{confirmed.stats.demo.grade['<=8'] / confirmed.stats.total * 100 | number: 1}}%)
+          <strong>Grade <=8</strong> {{stats.confirmedStat.demo.grade['<=8']}} ({{stats.confirmedStat.demo.grade['<=8'] / stats.confirmedStat.total * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <strong>Grade 9</strong> {{confirmed.stats.demo.grade['9']}} ({{confirmed.stats.demo.grade['9'] / confirmed.stats.total * 100 | number: 1}}%)
+          <strong>Grade 9</strong> {{stats.confirmedStat.demo.grade['9']}} ({{stats.confirmedStat.demo.grade['9'] / stats.confirmedStat.total * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <strong>Grade 10</strong> {{confirmed.stats.demo.grade['10']}} ({{confirmed.stats.demo.grade['10'] / confirmed.stats.total * 100 | number: 1}}%)
+          <strong>Grade 10</strong> {{stats.confirmedStat.demo.grade['10']}} ({{stats.confirmedStat.demo.grade['10'] / stats.confirmedStat.total * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <strong>Grade 11</strong> {{confirmed.stats.demo.grade['11']}} ({{confirmed.stats.demo.grade['11'] / confirmed.stats.total * 100 | number: 1}}%)
+          <strong>Grade 11</strong> {{stats.confirmedStat.demo.grade['11']}} ({{stats.confirmedStat.demo.grade['11'] / stats.confirmedStat.total * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <strong>Grade 12</strong> {{confirmed.stats.demo.grade['12']}} ({{confirmed.stats.demo.grade['12'] / confirmed.stats.total * 100 | number: 1}}%)
+          <strong>Grade 12</strong> {{stats.confirmedStat.demo.grade['12']}} ({{stats.confirmedStat.demo.grade['12'] / stats.confirmedStat.total * 100 | number: 1}}%)
         </div>
       </div>
 
@@ -266,10 +300,10 @@
       </div>
       <div class="ui list">
         <div class="item">
-          <strong>Massey</strong> {{confirmed.stats.demo.massey}} ({{confirmed.stats.demo.massey / (confirmed.stats.demo.nonmassey + confirmed.stats.demo.massey) | number: 1}}%)
+          <strong>Massey</strong> {{stats.confirmedStat.demo.massey}} ({{stats.confirmedStat.demo.massey / (stats.confirmedStat.demo.nonmassey + stats.confirmedStat.demo.massey) * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <strong>Not Massey</strong> {{confirmed.stats.demo.nonmassey}} ({{confirmed.stats.demo.nonmassey / (confirmed.stats.demo.nonmassey + confirmed.stats.demo.massey) | number: 1}}%)
+          <strong>Not Massey</strong> {{stats.confirmedStat.demo.nonmassey}} ({{stats.confirmedStat.demo.nonmassey / (stats.confirmedStat.demo.nonmassey + stats.confirmedStat.demo.massey) * 100 | number: 1}}%)
         </div>
       </div>
 
@@ -283,11 +317,27 @@
           <strong>
             Unisex shirt sizes:
           </strong>
-          S ({{confirmed.stats.shirtSizes['S']}})
-          M ({{confirmed.stats.shirtSizes['M']}})
-          L ({{confirmed.stats.shirtSizes['L']}})
+          S ({{stats.confirmedStat.shirtSizes['S']}})
+          M ({{stats.confirmedStat.shirtSizes['M']}})
+          L ({{stats.confirmedStat.shirtSizes['L']}})
         </div>
       </div>
+
+      <div class="ui divider"></div>
+
+      <div class="item">
+        <i class="food icon"></i>
+        <div class="content">
+          <strong>
+            Dietary Restrictions:
+          </strong>
+          <span
+                  ng-repeat="restriction in stats.confirmedStat.dietaryRestrictions | orderBy: '-count'">
+              {{restriction.name}} ({{restriction.count}})
+            </span>
+        </div>
+      </div>
+
     </div>
 
     <!--

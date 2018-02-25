@@ -12,6 +12,9 @@ function calculateStats(settings){
 
     total: 0,
 
+    wave: 0,
+    review: [['Reviewer', 'Wave 1', 'Wave 2', 'Wave 3', 'Wave 4']],
+
     demo: {
       gender: {
         M: 0,
@@ -36,7 +39,7 @@ function calculateStats(settings){
         'L': 0
     },
 
-    confirmed : {
+    confirmedStat : {
 
         total: 0,
 
@@ -71,16 +74,34 @@ function calculateStats(settings){
     confirmed: 0,
     declined: 0,
     waiver: 0,
+    rejected: 0,
     checkedIn: 0,
 
     dietaryRestrictions: {}
 
-
   };
 
+  Settings.getCurrentWave(function (meh, wave) {
+      newStats.wave = wave;
+  });
+
+  var votes = {};
+  var waveTotals = [0, 0, 0, 0];
+
+    User
+    .find({"reviewer":true, "developer":false})
+    .exec(function(err, users) {
+        if (err || !users) {
+            throw err;
+        }
+
+        async.each(users, function(user, callback) {
+            votes[user.email] = [user.profile.name ? user.profile.name : user.nickname, 0, 0, 0, 0];
+        });
+    });
 
 
-  User
+    User
     .find({"admin": false,"owner":false,"volunteer":false})
     .exec(function(err, users){
       if (err || !users){
@@ -91,11 +112,18 @@ function calculateStats(settings){
 
       async.each(users, function(user, callback){
 
-        // Add to the gender
-        newStats.demo.gender[user.profile.gender] += 1;
+        for (var i = 0; i < user.votedBy.length; i++) {
+            if (user.votedBy[i] in votes) {
+                votes[user.votedBy[i]][user.wave] += 1;
+            }
+        }
+
+        waveTotals[user.wave - 1] += 1;
 
         // Count verified
         newStats.verified += user.verified ? 1 : 0;
+
+        newStats.rejected += user.rejected ? 1 : 0;
 
         // Count submitted
         newStats.submitted += user.status.completedProfile ? 1 : 0;
@@ -108,64 +136,120 @@ function calculateStats(settings){
 
         newStats.waiver += user.status.waiver ? 1 : 0;
 
-        newStats.confirmedFemale += user.status.confirmed && user.profile.gender == "F" ? 1 : 0;
-        newStats.confirmedMale += user.status.confirmed && user.profile.gender == "M" ? 1 : 0;
-        newStats.confirmedOther += user.status.confirmed && user.profile.gender == "O" ? 1 : 0;
-        newStats.confirmedNone += user.status.confirmed && user.profile.gender == "N" ? 1 : 0;
-
         // Count declined
         newStats.declined += user.status.declined ? 1 : 0;
-
-        if (user.profile.grade){
-          newStats.demo.grade[user.profile.grade] += 1;
-        }
-
-        // Count shirt sizes
-        if (user.profile.shirt in newStats.shirtSizes){
-          newStats.shirtSizes[user.profile.shirt] += 1;
-        }
-
-        // Dietary restrictions
-        if (user.profile.diet){
-          user.profile.diet.forEach(function(restriction){
-            if (!newStats.dietaryRestrictions[restriction]){
-              newStats.dietaryRestrictions[restriction] = 0;
-            }
-            newStats.dietaryRestrictions[restriction] += 1;
-          });
-        }
 
         // Count checked in
         newStats.checkedIn += user.status.checkedIn ? 1 : 0;
 
-        callback(); // let async know we've finished
+
+          // Add to the gender
+          newStats.demo.gender[user.profile.gender] += 1;
+
+          if (user.profile.grade){
+              newStats.demo.grade[user.profile.grade] += 1;
+          }
+
+          // Count shirt sizes
+          if (user.profile.shirt in newStats.shirtSizes){
+              newStats.shirtSizes[user.profile.shirt] += 1;
+          }
+          // Dietary restrictions
+          if (user.profile.diet){
+              user.profile.diet.forEach(function(restriction){
+                  if (!newStats.dietaryRestrictions[restriction]){
+                      newStats.dietaryRestrictions[restriction] = 0;
+                  }
+                  newStats.dietaryRestrictions[restriction] += 1;
+              });
+          }
+
+          if (user.profile.school) {
+              if (user.profile.school.toLowerCase().includes("massey")) {
+                  newStats.demo.massey += 1;
+              }
+              else {
+                  newStats.demo.nonmassey += 1;
+              }
+          }
+
+          if (user.status.confirmed) {
+
+              newStats.confirmedStat.total += 1;
+
+              // Add to the gender
+              newStats.confirmedStat.demo.gender[user.profile.gender] += 1;
+
+              if (user.profile.grade){
+                  newStats.confirmedStat.demo.grade[user.profile.grade] += 1;
+              }
+
+              // Count shirt sizes
+              if (user.profile.shirt in newStats.confirmedStat.shirtSizes){
+                  newStats.confirmedStat.shirtSizes[user.profile.shirt] += 1;
+              }
+              // Dietary restrictions
+              if (user.profile.diet){
+                  user.profile.diet.forEach(function(restriction){
+                      if (!newStats.confirmedStat.dietaryRestrictions[restriction]){
+                          newStats.confirmedStat.dietaryRestrictions[restriction] = 0;
+                      }
+                      newStats.confirmedStat.dietaryRestrictions[restriction] += 1;
+                  });
+              }
+
+              if (user.profile.school) {
+                  if (user.profile.school.toLowerCase().includes("massey")) {
+                      newStats.confirmedStat.demo.massey += 1;
+                  }
+                  else {
+                      newStats.confirmedStat.demo.nonmassey += 1;
+                  }
+              }
+
+          }
+
+          callback(); // let async know we've finished
       }, function() {
-        // Transform dietary restrictions into a series of objects
-        var restrictions = [];
-        _.keys(newStats.dietaryRestrictions)
-          .forEach(function(key){
-            restrictions.push({
-              name: key,
-              count: newStats.dietaryRestrictions[key],
-            });
-          });
-        newStats.dietaryRestrictions = restrictions;
 
-        // Transform schools into an array of objects
-        var schools = [];
-        _.keys(newStats.demo.schools)
-          .forEach(function(key){
-            schools.push({
-              email: key,
-              count: newStats.demo.schools[key].submitted,
-              stats: newStats.demo.schools[key]
-            });
-          });
-        newStats.demo.schools = schools;
+          for (var voter in votes) {
+              var line = votes[voter];
 
-        console.log('Stats updated!');
-        newStats.lastUpdated = new Date();
-        stats = newStats;
+              for (var i = 1; i < line.length; i++) {
+                  line[i] = line[i] + '/' + waveTotals[i - 1];
+              }
+
+              //console.log(line);
+
+              newStats.review.push(line);
+          };
+
+          //console.log(newStats.review);
+
+          // Transform dietary restrictions into a series of objects
+          var restrictions = [];
+          _.keys(newStats.dietaryRestrictions)
+              .forEach(function (key) {
+                  restrictions.push({
+                      name: key,
+                      count: newStats.dietaryRestrictions[key]
+                  });
+              });
+          newStats.dietaryRestrictions = restrictions;
+
+          var confirmedRestrictions = [];
+          _.keys(newStats.confirmedStat.dietaryRestrictions)
+              .forEach(function (key) {
+                  confirmedRestrictions.push({
+                      name: key,
+                      count: newStats.confirmedStat.dietaryRestrictions[key]
+                  });
+              });
+          newStats.confirmedStat.dietaryRestrictions = confirmedRestrictions;
+
+          console.log('Stats updated!');
+          newStats.lastUpdated = new Date();
+          stats = newStats;
       });
     });
 
@@ -187,5 +271,13 @@ var Stats = {};
 Stats.getUserStats = function(){
   return stats;
 };
+
+Settings
+    .getPublicSettings(function(err, settings){
+        if (err || !settings){
+            throw err;
+        }
+        calculateStats(settings);
+    });
 
 module.exports = Stats;

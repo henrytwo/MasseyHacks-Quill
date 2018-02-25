@@ -68,6 +68,7 @@ angular.module('reg')
             .success(function (data) {
                 updatePage(data);
             });
+
       }
 
       $scope.sortByDate = function(){
@@ -585,5 +586,7 @@ angular.module('reg')
                 }
             });
       }
+
+
 
     }]);

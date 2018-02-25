@@ -45,7 +45,10 @@ angular.module('reg')
 
 
       $scope.updateProfile = function(){
-        UserService
+          $scope.selectedUser.profile.name = $scope.selectedUser.profile.firstname + " " + $scope.selectedUser.profile.lastname;
+
+
+          UserService
           .updateProfile($scope.selectedUser._id, $scope.selectedUser.profile)
           .success(function(data){
             UserService.updateWaiver($scope.selectedUser._id, $scope.selectedUser.status.waiver).success(function (data) {
