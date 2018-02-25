@@ -297,28 +297,31 @@ angular.module('reg')
                   var hackers = {};
 
                   for (var i = 0; i < rawData.length; i++) {
-                      if (rawData[i].reviewer) {
+                      if (rawData[i].reviewer && !rawData[i].developer) {
                           reviewers.push(rawData[i].email);
                       }
                   }
 
                   for (var x = 0; x < rawData.length; x++) {
                       if (!rawData[x].volunteer) {
-                          hackers[rawData[x].email] = [];
+
+                          var hackerName = ((rawData[x].profile.name) ? rawData[x].profile.name : rawData[x].nickname) + "\";\"" + rawData[x].email;
+
+                          hackers[hackerName] = [];
 
                           for (var m = 0; m < reviewers.length; m++) {
-                              hackers[rawData[x].email].push('');
+                              hackers[hackerName].push('');
                           }
                           for (var a = 0; a < rawData[x].applicationAdmit.length; a++) {
-                              hackers[rawData[x].email][reviewers.indexOf(rawData[x].applicationAdmit[a])] = 'ADMIT';
+                              hackers[hackerName][reviewers.indexOf(rawData[x].applicationAdmit[a])] = 'ADMIT';
                           }
                           for (var r = 0; r < rawData[x].applicationReject.length; r++) {
-                              hackers[rawData[x].email][reviewers.indexOf(rawData[x].applicationReject[r])] = 'REJECT';
+                              hackers[hackerName][reviewers.indexOf(rawData[x].applicationReject[r])] = 'REJECT';
                           }
                       }
                   }
 
-                  var output = ";";
+                  var output = ";;";
 
                   for(var i = 0; i < reviewers.length; i++){
                       output += "\"" + reviewers[i] + "\";";
@@ -327,7 +330,7 @@ angular.module('reg')
 
                   for (var key in hackers){
                       var row = hackers[key];
-                      output += key + ";";
+                      output += "\"" + key + "\";";
                       for (var i = 0; i < row.length; i++){
                           if(!row[i]){
                               output += ";";
