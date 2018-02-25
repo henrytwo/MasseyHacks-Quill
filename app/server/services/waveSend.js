@@ -24,45 +24,46 @@ var ad = function (err, user) {
 
 var acceptPart = function (wave) {
     console.log("running Wave "+wave);
-    Users.find({'wave': wave}).exec(function (err, data) {
-        async.each(data, function (user, callback) {
-            console.log("running user " + user.email);
-            Users.findOneAndUpdate({
-                    '_id': user._id
-                },
-                {
-                    $set: {
-                        'status.statusReleased': true
-                    }
-                },
-                {
-                    new: true
-                }, ad);
-
-            callback()
-        })
-    })
-};
-
-var notConfirmed = function (wave) {
-    Users.find({'wave': wave}).exec(function (err, data) {
-        async.each(data, function (user, callback) {
-            if (!user.confirmed) {
-                console.log("running user" + user.email);
+    Settings.findOne({}).exec(function(err, setting) {
+        Users.find({'wave': wave}).exec(function (err, data) {
+            async.each(data, function (user, callback) {
+                console.log("running user " + user.email);
                 Users.findOneAndUpdate({
                         '_id': user._id
                     },
                     {
                         $set: {
-                            'status.admitted': false
+                            'status.statusReleased': true,
+                            'status.confirmBy':setting['wave'+wave]['timeConfirm']
                         }
                     },
                     {
                         new: true
-                    }, callback);
+                    }, ad);
 
-                UserController.advanceWaitlist();
-            }
+                callback()
+            })
+        })
+    })
+};
+
+var notConfirmed = function (wave) {
+    Users.find({'wave': wave, 'status.admitted':true, 'status.declined':false, 'status.confirmed': false}).exec(function (err, data) {
+        async.each(data, function (user, callback) {
+            console.log("running user" + user.email);
+            Users.findOneAndUpdate({
+                    '_id': user._id
+                },
+                {
+                    $set: {
+                        'status.admitted': false
+                    }
+                },
+                {
+                    new: true
+                }, callback);
+
+            UserController.advanceWaitlist();
         })
     })
 }
