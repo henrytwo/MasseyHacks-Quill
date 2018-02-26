@@ -97,13 +97,17 @@ angular.module('reg')
       $scope.confirmationText = $sce.trustAsHtml(converter.makeHtml(Settings.confirmationText));
       $scope.waitlistText = $sce.trustAsHtml(converter.makeHtml(Settings.waitlistText));
 
+      $scope.getWaiver = function() {
+          swal('Wave~');
+      }
+
       $scope.inviteToSlack = function() {
 
           UserService.inviteToSlack(user._id)
               .success(function(){
               sweetAlert({
                   title: "Woo!",
-                  text: "Please check your email for the invitation!",
+                  text: "Please check your email for the invitation!\n(" + user.email+ ")",
                   type: "success",
                   confirmButtonColor: "#5ABECF"
               })
@@ -130,6 +134,7 @@ angular.module('reg')
               .success(function(user){
                 $rootScope.currentUser = user;
                 $scope.user = user;
+                location.reload();
               });
         });
       };

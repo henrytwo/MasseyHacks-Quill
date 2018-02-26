@@ -953,6 +953,7 @@ UserController.rejectById = function (id, callback){
   },
     {
       $set: {
+        'status.statusReleased': true,
         'lastUpdated': Date.now(),
         'status.rejected': true,
       }
@@ -963,6 +964,7 @@ UserController.rejectById = function (id, callback){
       if (err || !user) {
         return callback(err);
       }
+      Mailer.sendRejectEmails([user]);
       return callback(err, user);
     });
 };
@@ -1457,9 +1459,10 @@ UserController.admitUser = function(id, user, callback){
         'status.rejected': false
       },{
         $set: {
+          'status.statusReleased' : true,
           'status.admitted': true,
           'status.admittedBy': user.email,
-          'status.confirmBy': times.timeConfirm,
+          'status.confirmBy': Date.now() + 604800000,
         }
       }, {
         new: true
