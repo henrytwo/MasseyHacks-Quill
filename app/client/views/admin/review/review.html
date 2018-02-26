@@ -1,7 +1,7 @@
-<div class="ui segment" ng-show="!admin.reviewer">
+<div class="ui segment" ng-show="!admin.reviewer && !admin.developer">
   You do not have permission to access this page. Please contact an administrator for assistance.
 </div>
-<div class="ui segment" ng-show="admin.reviewer">
+<div class="ui segment" ng-show="admin.reviewer || admin.developer">
 
     <button
             class="ui positive button"

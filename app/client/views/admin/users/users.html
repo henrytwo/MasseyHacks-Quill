@@ -116,13 +116,13 @@
 
           <button
                   class="ui negative button"
-                  ng-show="adminUser.reviewer"
+                  ng-show="adminUser.reviewer || adminUser.developer"
                   ng-click="voteRejectUser($event, selectedUser, $index)">
             VOTE REJECT
           </button>
           <button
                   class="ui positive button"
-                  ng-show="adminUser.reviewer"
+                  ng-show="adminUser.reviewer || adminUser.developer"
                   ng-click="voteAdmitUser($event, selectedUser, $index)">
             VOTE ACCEPT
           </button>
@@ -260,7 +260,7 @@
               <button
                       ng-click="voteAdmitUser($event, user, $index)"
                       class="ui circular mini basic icon button"
-                      ng-show="adminUser.reviewer"
+                      ng-show="adminUser.reviewer || adminUser.developer"
                       ng-class="{disabled: user.status.rejected || user.status.admitted || user.votedBy.indexOf(adminUser.email) !== -1}">
 
                 <i class="green user icon"></i>
@@ -269,7 +269,7 @@
               <button
                       ng-click="voteRejectUser($event, user, $index)"
                       class="ui circular mini basic icon button"
-                      ng-show="adminUser.reviewer"
+                      ng-show="adminUser.reviewer || adminUser.developer"
                       ng-class="{disabled: user.status.rejected || user.status.admitted || user.votedBy.indexOf(adminUser.email) !== -1}">
 
                 <i class="red user icon"></i>

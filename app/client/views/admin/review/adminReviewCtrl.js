@@ -43,7 +43,7 @@ angular.module('reg')
       }
 
       function updatePage(data){
-        if (adminUser.reviewer) {
+        if (adminUser.reviewer || adminUser.developer) {
             $scope.users = data.users.filter(function (user) {
                 return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.status.rejected !== true && user.votedBy.indexOf(adminUser.email) === -1 && user.wave === $scope.wave;
             });
@@ -62,7 +62,7 @@ angular.module('reg')
 
       }
 
-      if (adminUser.reviewer) {
+      if (adminUser.reviewer || adminUser.developer) {
         UserService
             .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'timestamp')
             .success(function (data) {

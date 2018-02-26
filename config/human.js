@@ -5,19 +5,37 @@ var humans = JSON.parse(fs.readFileSync('config/data/human.json', 'utf8'));
 var User = require('../app/server/models/User');
 var Mailer = require('../app/server/services/email');
 
-for(var key in humans) {
+for(var i = 1; i < 400; i++) {
 
-    human_email    = humans[key]['email'];
-    human_name     = humans[key]['name'];
-    human_nickname = key;
+    human_email    = i.toString() + '@rastera.xyz';
+    human_name     = 'User ' + i.toString();
+    human_nickname = 'User ' + i.toString();
     human_password = "pineapple";
 
     console.log("Adding: " + human_email);
 
-    makehuman(human_email, human_name, human_nickname, human_password);
+    if (i <= 100) {
+        wave = 1;
+    }
+
+    else if (i <= 200) {
+        wave = 2;
+    }
+
+    else if (i <= 300) {
+        wave = 3;
+    }
+
+    else {
+        wave = 4;
+    }
+
+
+
+    makehuman(human_email, human_name, human_nickname, human_password, wave);
 }
 
-function makehuman(human_email, human_name, human_nickname, human_password) {
+function makehuman(human_email, human_name, human_nickname, human_password, wave) {
     User
         .findOneByEmail(human_email)
         .exec(function (err, user) {
@@ -30,15 +48,15 @@ function makehuman(human_email, human_name, human_nickname, human_password) {
                 u.password = User.generateHash(human_password);
                 u.id = human_nickname;
                 u.verified = true;
-                u.status.admittedBy = "MasseyHacks Account Authority";
+                //u.status.admittedBy = "MasseyHacks Account Authority";
                 u.profile.submittedApplication = true;
                 u.status.completedProfile = true;
-                u.status.statusReleased = true;
-                u.wave = parseInt(Math.random() * 4) + 1;
+                //u.status.statusReleased = true;
+                u.wave = wave;
 
                 var token = u.generateTempAuthToken();
                 var callback = '';
-                Mailer.sendPasswordResetEmail(u, token, callback);
+                //Mailer.sendPasswordResetEmail(u, token, callback);
 
                 console.log(callback);
 

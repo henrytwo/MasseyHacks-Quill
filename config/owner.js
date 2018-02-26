@@ -10,14 +10,16 @@ for(var key in owners) {
     owner_email    = owners[key]['email'];
     owner_name     = owners[key]['name'];
     owner_nickname = key + " [OWNER]";
-    owner_password = "pineapple";//"JerrBear37485" + owner_nickname;
+    owner_password = "applepineapple";//"JerrBear37485" + owner_nickname;
+    owner_reviewer = owners[key]['reviewer'];
+    owner_developer = owners[key]['developer'];
 
     console.log("Adding: " + owner_email);
 
-    makeOwner(owner_email, owner_name, owner_nickname, owner_password);
+    makeOwner(owner_email, owner_name, owner_nickname, owner_password, owner_reviewer, owner_developer);
 }
 
-function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
+function makeOwner(owner_email, owner_name, owner_nickname, owner_password, reviewer, developer) {
     User
         .findOneByEmail(owner_email)
         .exec(function (err, user) {
@@ -31,7 +33,8 @@ function makeOwner(owner_email, owner_name, owner_nickname, owner_password) {
                 u.owner = true;
                 u.admin = true;
                 u.volunteer = true;
-                u.reviewer = true;
+                u.reviewer = reviewer;
+                u.developer = developer;
                 u.id = owner_nickname;
                 u.verified = true;
                 u.status.admittedBy = "MasseyHacks Account Authority";

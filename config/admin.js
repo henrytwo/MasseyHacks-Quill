@@ -11,13 +11,16 @@ for(var key in admins) {
     admin_name     = admins[key]['name'];
     admin_nickname = key + " [ADMIN]";
     admin_password = "pineapple";//"JerrBear37485" + admin_nickname;
+    admin_reviewer = admins[key]['reviewer'];
+    admin_developer = admins[key]['developer'];
+
 
     console.log("Adding: " + admin_email);
 
-    makeadmin(admin_email, admin_name, admin_nickname, admin_password);
+    makeadmin(admin_email, admin_name, admin_nickname, admin_password, admin_reviewer, admin_developer);
 }
 
-function makeadmin(admin_email, admin_name, admin_nickname, admin_password) {
+function makeadmin(admin_email, admin_name, admin_nickname, admin_password, admin_reviewer, admin_developer) {
     User
         .findOneByEmail(admin_email)
         .exec(function (err, user) {
@@ -30,6 +33,8 @@ function makeadmin(admin_email, admin_name, admin_nickname, admin_password) {
                 u.password = User.generateHash(admin_password);
                 u.admin = true;
                 u.volunteer = true;
+                u.reviewer = admin_reviewer;
+                u.developer = admin_developer;
                 u.id = admin_nickname;
                 u.verified = true;
                 u.status.admittedBy = "MasseyHacks Account Authority";

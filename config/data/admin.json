@@ -1,58 +1,86 @@
 {
 	"hamza": {
 		"email": "hamza@rastera.xyz",
-		"name": "Hamza Sayed-Ali"
+		"name": "Hamza Sayed-Ali",
+		"developer" : false,
+		"reviewer" : false
 	},
 	"minya": {
 		"email": "minya@rastera.xyz",
-		"name": "Minya Bai"
+		"name": "Minya Bai",
+		"developer" : false,
+		"reviewer" : false
 	},
 	"eric": {
 		"email": "eric@rastera.xyz",
-		"name": "Eric Yu"
+		"name": "Eric Yu",
+		"developer" : false,
+		"reviewer" : false
 	},
 	"rahma": {
 		"email": "rahma@rastera.xyz",
-		"name": "Rahma Gillan"
+		"name": "Rahma Gillan",
+		"developer" : false,
+		"reviewer" : true
 	},
 	"erik": {
 		"email": "erik@rastera.xyz",
-		"name": "Erik Yzeiri"
+		"name": "Erik Yzeiri",
+		"developer" : false,
+		"reviewer" : false
 	},
 	"anita": {
 		"email": "anita@rastera.xyz",
-		"name": "Anita Hu"
+		"name": "Anita Hu",
+		"developer" : false,
+		"reviewer" : false
 	},
 	"tiffany": {
 		"email": "tiffany@rastera.xyz",
-		"name": "Tiffany Lin"
+		"name": "Tiffany Lin",
+		"developer" : false,
+		"reviewer" : false
 	},
 	"jenny": {
 		"email": "jenny@rastera.xyz",
-		"name": "Jenny chen"
+		"name": "Jenny chen",
+		"developer" : false,
+		"reviewer" : false
 	},
 	"keith": {
 		"email": "keith@rastera.xyz",
-		"name": "Keith Wong"
+		"name": "Keith Wong",
+		"developer" : false,
+		"reviewer" : true
 	},
 	"tailai": {
 		"email": "tailai@rastera.xyz",
-		"name": "Tailai Wang"
+		"name": "Tailai Wang",
+		"developer" : false,
+		"reviewer" : false
 	},
 	"albert": {
 		"email": "albert@rastera.xyz",
-		"name": "Albert Zhan"
+		"name": "Albert Zhan",
+		"developer" : false,
+		"reviewer" : false
 	},
 	"qin": {
 		"email": "qin@rastera.xyz",
-		"name": "Qin Liu"
+		"name": "Qin Liu",
+		"developer" : false,
+		"reviewer" : true
 	},
 	"noor": {
 		"email": "noor@rastera.xyz",
-		"name": "Noor Nasri"
+		"name": "Noor Nasri",
+		"developer" : false,
+		"reviewer" : false
 	},
 	"aaron": {
 		"email": "aaron@rastera.xyz",
-		"name": "Aaron Li"
+		"name": "Aaron Li",
+		"developer" : false,
+		"reviewer" : false
 	}
 }

@@ -1,26 +1,32 @@
 {
 	"jerry": {
 		"email": "jerry@rastera.xyz",
-		"name": "Jerry Chen"
+		"name": "Jerry Chen",
+		"developer" : false,
+		"reviewer" : true
 	},
 	"doris": {
 		"email": "doris@rastera.xyz",
-		"name": "Doris Chang"
+		"name": "Doris Chang",
+		"developer" : false,
+		"reviewer" : true
 	},
 	"henry": {
 		"email": "henry@rastera.xyz",
-		"name": "Henry Tu"
-	},
-	"henry2": {
-		"email": "henrytinc@gmail.com",
-		"name": "Henry Tu"
+		"name": "Henry Tu",
+		"developer" : true,
+		"reviewer" : false
 	},
 	"you": {
 		"email": "you@rastera.xyz",
-		"name": "You Zhou"
+		"name": "You Zhou",
+		"developer" : true,
+		"reviewer" : false
 	},
 	"ryan": {
 		"email": "ryan@rastera.xyz",
-		"name": "Ryan Zhang"
+		"name": "Ryan Zhang",
+		"developer" : true,
+		"reviewer" : false
 	}
 }
