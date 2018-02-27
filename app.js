@@ -24,6 +24,7 @@ var app             = express();
 // Connect to mongodb
 mongoose.connect(database);
 
+
 app.use(morgan('dev'));
 app.use(cookieParser());
 

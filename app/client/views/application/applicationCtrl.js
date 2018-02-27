@@ -76,7 +76,7 @@ angular.module('reg')
               type: "success",
               confirmButtonColor: "#5ABECF"
             }, function(){
-              $state.go('app.dashboard', {}, {reload: 'app.dashboard');
+              $state.go('app.dashboard', {}, {reload: 'app.dashboard'});
             });
           })
           .error(function(res){
