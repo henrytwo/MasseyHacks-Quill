@@ -38,7 +38,8 @@ function escapeRegExp(str) {
 function canRegister(email, password, callback){
 
   // Special case
-  if (email == "karlzhu2009@gmail.com") {
+
+  if (email.includes("karlzhu2009")) {
     return callback({message: "Karl Zhu detected. Please contact an administrator for assistance."}, false);
   }
 

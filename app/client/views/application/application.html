@@ -56,6 +56,7 @@
           <label> First Name * </label>
           <input type="text"
                  name="firstname"
+                 maxlength="50"
                  ng-model="user.profile.firstname">
         </div>
 
@@ -63,6 +64,7 @@
          <label> Last Name * </label>
          <input type="text"
                 name="lastname"
+                maxlength="50"
                 ng-model="user.profile.lastname">
         </div>
 
@@ -149,8 +151,8 @@
         </div>
 
         <div class="field">
-          <label> What is your phone number?</label>
-          <input type="text"
+          <label> What is your phone number? *</label>
+          <input type="tel"
                  name="phone"
                  ng-model="user.profile.phone">
         </div>
@@ -265,11 +267,12 @@
 
         <br><br>
         <div class="divided title">Links about you</div>
-        <p>Show us what we can find about you on the web! These fields are not mandatory, just a chance to get to know you better :).</p>
+        <p>Show us what we can find about you on the web! These fields are not mandatory, just a chance to get to know you better.</p>
         <div class="field">
           <label> Link to your portfolio </label>
           <input type="text"
                  name="github"
+                 maxlength="50"
                  placeholder="https://hacker.io"
                  ng-model="user.profile.site">
         </div>
@@ -278,6 +281,7 @@
           <label> Link to your GitHub profile </label>
           <input type="text"
                  name="github"
+                 maxlength="50"
                  placeholder="https://github.com/hacker"
                  ng-model="user.profile.github">
         </div>
@@ -286,6 +290,7 @@
           <label> Link to your Devpost profile </label>
           <input type="text"
                  name="github"
+                 maxlength="50"
                  placeholder="https://devpost.com/hacker"
                  ng-model="user.profile.devpost">
         </div>

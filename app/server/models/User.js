@@ -546,15 +546,32 @@ schema.statics.getByToken = function (token, callback) {
 };
 
 schema.statics.validateProfile = function (profile, cb) {
+
     return cb(!(
         profile.name.length > 0 &&
+        profile.name.length < 100 &&
+        profile.firstname.length < 100 &&
+        profile.firstname.length > 0 &&
+        profile.lastname.length < 100 &&
+        profile.lastname.length > 0 &&
         profile.essaygain.length <= 500 &&
         profile.essayproject.length <= 500 &&
-        profile.freeComment.length <= 500 &&
+        (profile.pasthackathon == null || (profile.pasthackathon != null && profile.pasthackathon.length <= 500)) &&
+        (profile.freeComment == null || (profile.freeComment != null &&profile.freeComment.length <= 500)) &&
+        (profile.github == null || (profile.github != null && profile.github.length <= 50)) &&
+        (profile.site == null || (profile.site != null && profile.site.length <= 50)) &&
+        (profile.phone == null || (profile.phone != null && profile.phone.length <= 50)) &&
+        (profile.departing == null || (profile.departing != null && profile.departing.length <= 50)) &&
+        (profile.devpost == null || (profile.devpost != null && profile.devpost.length <= 50)) &&
         profile.school.length <= 50 &&
         profile.conduct &&
         profile.termsAndCond &&
-        ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1
+        ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1 &&
+        ['S', 'M', 'L'].indexOf(profile.shirt) > -1 &&
+        ['<=8', '9', '10', '11', '12'].indexOf(profile.grade) > -1 &&
+        ['mlh', 'facebook', 'mouth', 'other'].indexOf(profile.methodofdiscovery) > -1 &&
+        ['W', 'B', 'NA', 'A', 'H', 'O', 'N'].indexOf(profile.ethnicity) > -1
+
     ));
 };
 

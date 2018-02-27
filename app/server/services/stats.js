@@ -276,6 +276,7 @@ Stats.getUserStats = function(){
 Settings
     .getPublicSettings(function(err, settings){
         if (err || !settings){
+            console.log(err);
             throw err;
         }
         calculateStats(settings);
