@@ -46,7 +46,6 @@ angular.module('reg')
 
       $scope.updateProfile = function(){
           $scope.selectedUser.profile.name = $scope.selectedUser.profile.firstname + " " + $scope.selectedUser.profile.lastname;
-          $scope.selectedUser.profile.conduct = true;
           $scope.selectedUser.profile.termsAndCond = true;
 
           console.log($scope.selectedUser.profile);

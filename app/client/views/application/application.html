@@ -335,15 +335,9 @@
           </textarea>
         </div>
 
-        <div class="ui checkbox" style="margin-bottom:5px">
-            <input type="checkbox" name="conduct" id="conduct" ng-model="user.profile.conduct">
-            <label for="conduct"><h5>I agree with <a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">MLH Code of Conduct</a> and
-              <a href="https://github.com/MLH/mlh-policies/blob/master/data-sharing.md" target="_blank">MLH Data Sharing Provision</a>*</h5></label>
-        </div>
         <div class="ui checkbox">
             <input type="checkbox" name="termsAndCond" id="termsAndCond" ng-model="user.profile.termsAndCond">
-            <label for="termsAndCond"><h5>I agree with MLH Terms and Conditions, which can be found
-              <a href="https://masseyhacks.com/terms/" target="_blank">here</a>*</h5></label>
+          <label for="termsAndCond"><h5>I agree to the terms of both the <b></b><a style="color: #0d71bb" href="https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions" target="_blank">MLH Contest Terms and Conditions</a></b> and the <b><a style="color: #0d71bb" href="https://mlh.io/privacy" target="_blank">MLH Privacy Policy</a></b>.*</h5></label>
         </div>
         <br>
         <br>
@@ -359,7 +353,7 @@
 
           You can edit your application after submitting, <b>but you risk losing your place in queue!</b>
 
-        <div class="field" style="margin-bottom:5px" ng-hide="regIsClosed">
+        <div class="field" style="margin-bottom:5px; padding: 5px" ng-hide="regIsClosed">
           <button type="submit"
                   class="fluid ui sea-serpent button"
                   ng-click="submitForm()">

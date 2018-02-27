@@ -76,7 +76,7 @@ angular.module('reg')
               type: "success",
               confirmButtonColor: "#5ABECF"
             }, function(){
-              $state.go('app.dashboard', {}, {reload: 'app.dashboard'});
+              location.replace('/');
             });
           })
           .error(function(res){
@@ -235,15 +235,6 @@ angular.module('reg')
                 }
               ]
             },
-            conduct: {
-              identifier: 'conduct',
-              rules: [
-                {
-                  type: 'checked',
-                  prompt: 'You must accept MLH code of conduct to continue.'
-                }
-              ]
-            },
             termsAndCond: {
               identifier: 'termsAndCond',
               rules: [
@@ -323,15 +314,18 @@ angular.module('reg')
         $scope.error = null;
         $scope.user.profile.name = $scope.user.profile.firstname + " " + $scope.user.profile.lastname;
 
-        if ($scope.user.profile.school == null || $scope.user.profile.school == undefined || ($scope.user.profile.school !== null && ($scope.user.profile.school.toLowerCase().includes('undefined')))) {
-            if (oldSchool !== null) {
-                $scope.user.profile.school = oldSchool;
-            }
-            else {
-                $scope.error = 'Hey! You didn\' fill in your school!';
-            }
+        // Super jank code to get the school to not appear as null
+
+        if (($scope.user.profile.school == null || $scope.user.profile.school == undefined || ($scope.user.profile.school !== null && ($scope.user.profile.school.toLowerCase().includes('undefined')))) && oldSchool !== null) {
+            $scope.user.profile.school = oldSchool;
         }
-        else if ($scope.user.profile.phone != null && !(/^(1\s|1|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/).test($scope.user.profile.phone)) {
+
+        if ($scope.user.profile.school == null || $scope.user.profile.school == undefined || ($scope.user.profile.school !== null && ($scope.user.profile.school.toLowerCase().includes('undefined')))) {
+
+            $scope.error = 'Hey! You didn\' fill in your school!';
+
+        }
+        else if ($scope.user.profile.phone != null && !(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test($scope.user.profile.phone)) {
             $scope.error = 'Hey! Your phone number isn\'t valid!';
         }
         else {
