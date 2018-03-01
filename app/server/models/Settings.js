@@ -160,21 +160,38 @@ schema.statics.getPublicSettings = function(callback){
         .exec(callback);
 };
 
-schema.statics.getCurrentWave = function (callback) {
-  this.findOne({})
-    .exec(function(err, setting) {
-      if (setting.wave1.timeClose >= Date.now()) {
-        return callback(false,1);
-      } else if (setting.wave2.timeClose >= Date.now()) {
-        return callback(false,2);
-      } else if (setting.wave3.timeClose >= Date.now()) {
-        return callback(false,3);
-      } else if (setting.wave4.timeClose >= Date.now()) {
-        return callback(false,4);
-      } else {
-        return callback(false, 'inf');
-      }
-    });
+schema.statics.getCurrentWave = function (callback, reviewer) {
+  if (reviewer) {
+      this.findOne({})
+          .exec(function (err, setting) {
+              if (setting.wave1.timeClose >= Date.now()) {
+                  return callback(false, 1);
+              } else if (setting.wave2.timeClose >= Date.now()) {
+                  return callback(false, 2);
+              } else if (setting.wave3.timeClose >= Date.now()) {
+                  return callback(false, 3);
+              } else if (setting.wave4.timeClose >= Date.now()) {
+                  return callback(false, 4);
+              } else {
+                  return callback(false, 'inf');
+              }
+          });
+  }
+
+    this.findOne({})
+        .exec(function(err, setting) {
+            if (setting.wave1.timeClose >= Date.now()) {
+                return callback(false,1);
+            } else if (setting.wave2.timeClose >= Date.now()) {
+                return callback(false,2);
+            } else if (setting.wave3.timeClose >= Date.now()) {
+                return callback(false,3);
+            } else if (setting.wave4.timeClose >= Date.now()) {
+                return callback(false,4);
+            } else {
+                return callback(false, 'inf');
+            }
+        });
 };
 
 module.exports = mongoose.model('Settings', schema);

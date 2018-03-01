@@ -25,7 +25,7 @@ var ad = function (err, user) {
 var acceptPart = function (wave) {
     console.log("running Wave "+wave);
     Settings.findOne({}).exec(function(err, setting) {
-        Users.find({'wave': wave}).exec(function (err, data) {
+        Users.find({'wave': wave, $or:[{'status.admitted':true}, {'status.rejected':true}]}).exec(function (err, data) {
             async.each(data, function (user, callback) {
                 console.log("running user " + user.email);
                 Users.findOneAndUpdate({
@@ -44,7 +44,28 @@ var acceptPart = function (wave) {
                 callback()
             })
         })
-    })
+    });
+
+    Users.find({'wave':wave, 'status.admitted':false, 'status.rejected':false}).exec(function (err, users) {
+        async.each(users, function (user, callback) {
+            console.log("running user " + user.email);
+            Users.findOneAndUpdate({
+                    '_id': user._id
+                },
+                {
+                    $set: {
+                        wave: wave+1
+                    }
+                },
+                {
+                    new: true
+                }, function (err, user) {
+                    console.log("user " + user.email + "has been postponed");
+                });
+
+            callback()
+        })
+    });
 };
 
 var notConfirmed = function (wave) {
