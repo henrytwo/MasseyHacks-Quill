@@ -240,7 +240,7 @@ angular.module('reg')
               rules: [
                 {
                   type: 'checked',
-                  prompt: 'You must accept MLH Terms & Conditions.'
+                  prompt: 'You must accept MLH Terms & Conditions, MLH Privacy Policy, and MLH Code of Conduct.'
                 }
               ]
             }

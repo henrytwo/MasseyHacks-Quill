@@ -36,7 +36,7 @@
         <fieldset ng-disabled="regIsClosed">
 
         <div class="field">
-          <label> Email *</label>
+          <label> Email <span style="color: red">*</span></label>
           <input type="email"
                  name="email"
                  disabled="disabled"
@@ -44,7 +44,7 @@
         </div>
 
         <div class="field">
-          <label> Username *</label>
+          <label> Username <span style="color: red">*</span></label>
           <input type="text"
                  name="nickname"
                  disabled="disabled"
@@ -53,7 +53,7 @@
 
 
         <div class="field">
-          <label> First Name * </label>
+          <label> First Name <span style="color: red">*</span> </label>
           <input type="text"
                  name="firstname"
                  maxlength="50"
@@ -61,7 +61,7 @@
         </div>
 
         <div class="field">
-         <label> Last Name * </label>
+         <label> Last Name <span style="color: red">*</span> </label>
          <input type="text"
                 name="lastname"
                 maxlength="50"
@@ -69,7 +69,7 @@
         </div>
 
         <div class="field">
-            <label>What grade are you in? *</label>
+            <label>What grade are you in? <span style="color: red">*</span></label>
             <select
                     class="ui fluid dropdown"
                     id="grade"
@@ -87,7 +87,7 @@
         <br>
 
         <div class="field">
-          <label>What gender do you identify as? *</label>
+          <label>What gender do you identify as? <span style="color: red">*</span></label>
          <p>This information is used for statistical purposes and will not influence your application.</p>
           <select
             class="ui fluid dropdown"
@@ -105,7 +105,7 @@
         <br>
 
         <div class="field">
-          <label>What is your ethnic background? *</label>
+          <label>What is your ethnic background? <span style="color: red">*</span></label>
           <p>This information is used for statistical purposes and will not influence your application.</p>
           <select
                   class="ui fluid dropdown"
@@ -130,7 +130,7 @@
         </div>
 
         <div class="field" id="schoolField">
-          <label> Which school are you from? *</label>
+          <label> Which school are you from? <span style="color: red">*</span></label>
           <p style="margin-bottom: 10px;">
           Please type in the school you are enrolled at.
           </p>
@@ -144,21 +144,21 @@
         </div>
 
         <div class="field">
-          <label> What city are you travelling from? *</label>
+          <label> What city are you travelling from? <span style="color: red">*</span></label>
           <input type="text"
                  name="departing"
                  ng-model="user.profile.departing">
         </div>
 
         <div class="field">
-          <label> What is your phone number? *</label>
+          <label> What is your phone number? <span style="color: red">*</span></label>
           <input type="tel"
                  name="phone"
                  ng-model="user.profile.phone">
         </div>
 
         <div class="field">
-          <label> Dietary Restrictions *</label>
+          <label> Dietary Restrictions <span style="color: red">*</span></label>
 
           <p>
             If your restrictions are not included here, please let us know in the free comment section at the bottom.
@@ -182,7 +182,7 @@
         </div>
 
         <div class="field">
-          <label> T-shirt size *</label>
+          <label> T-shirt size <span style="color: red">*</span></label>
           <p>
             Prepping for some FREE swag ;)
           </p>
@@ -206,7 +206,7 @@
         <div class="divided title">Travel & Accommodation</div>
           <div class="ui checkbox">
           <input type="checkbox" id="needsReimbursement" ng-model="user.profile.needsReimbursement">
-            <label><h5>Do you need travel reimbursement? *</h5></label>
+            <label><h5>Do you need travel reimbursement? <span style="color: red">*</span></h5></label>
         </div>
 
         <br>
@@ -215,7 +215,7 @@
 
         <div class="ui checkbox">
           <input type="checkbox" id="hackathonxp" ng-model="user.profile.hackathonxp">
-          <label for="hackathonxp"><h5>Have you been to a hackathon before? *</h5></label>
+          <label for="hackathonxp"><h5>Have you been to a hackathon before? <span style="color: red">*</span></h5></label>
         </div>
 
         <br>
@@ -223,7 +223,7 @@
 
         <div class="indent">
           <div class="field" ng-show="user.profile.hackathonxp">
-            <label>Which hackathons have you attended? *</label>
+            <label>Which hackathons have you attended? <span style="color: red">*</span></label>
             <textarea ng-model="user.profile.pasthackathon" maxlength="500">
             </textarea>
           </div>
@@ -232,7 +232,7 @@
           <br>
 
         <div class="field">
-          <label>How did you find out about us? *</label>
+          <label>How did you find out about us? <span style="color: red">*</span></label>
           <select
                   class="ui fluid dropdown"
                   name="methodofdiscovery"
@@ -248,7 +248,7 @@
 
         <div class="field">
           <label>
-            Describe a project you're most proud of *
+            Describe a project you're most proud of <span style="color: red">*</span>
           </label>
           <p style="margin-bottom: 10px";>
             It doesn't have to relate to programming!
@@ -259,7 +259,7 @@
 
         <div class="field">
           <label>
-              What do you hope to gain from MasseyHacks IV? *
+              What do you hope to gain from MasseyHacks IV? <span style="color: red">*</span>
           </label>
           <textarea name="essaygain" id="essaygain" ng-model="user.profile.essaygain" maxlength="500">
           </textarea>
@@ -335,9 +335,10 @@
           </textarea>
         </div>
 
+
         <div class="ui checkbox">
             <input type="checkbox" name="termsAndCond" id="termsAndCond" ng-model="user.profile.termsAndCond">
-          <label for="termsAndCond"><h5>I agree to the terms of both the <b></b><a style="color: #0d71bb" href="https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions" target="_blank">MLH Contest Terms and Conditions</a></b> and the <b><a style="color: #0d71bb" href="https://mlh.io/privacy" target="_blank">MLH Privacy Policy</a></b>.*</h5></label>
+          <label for="termsAndCond"><h5>I agree to the terms of the <b></b><a style="color: #0d71bb" href="https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions" target="_blank">MLH Contest Terms and Conditions</a></b>, the <b><a style="color: #0d71bb" href="https://mlh.io/privacy" target="_blank">MLH Privacy Policy</a></b>, and the <a target="_blank" style="color: #0d71bb" href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"><b>MLH Code of Conduct</b></a>. <span style="color: red">*</span></h5></label>
         </div>
         <br>
         <br>
@@ -351,17 +352,17 @@
         </ul>
       </div>
 
-          You can edit your application after submitting, <b>but you risk losing your place in queue!</b>
-
-        <div class="field" style="margin-bottom:5px; padding: 5px" ng-hide="regIsClosed">
+          You can edit your application after submitting, <b>but you risk losing your place in queue!</b><br><br>
+          By submitting your application to MasseyHacks, you agree to have your registration information shared with partners.
+          <br>
+          <div class="field" style="margin-bottom:5px; padding: 5px" ng-hide="regIsClosed">
           <button type="submit"
                   class="fluid ui sea-serpent button"
                   ng-click="submitForm()">
             Submit
           </button>
         </div>
-        By submitting your application to MasseyHacks, you agree to have your registration information shared with partners.
-        </fieldset>
+     </fieldset>
       </div>
     </div>
   </div>
