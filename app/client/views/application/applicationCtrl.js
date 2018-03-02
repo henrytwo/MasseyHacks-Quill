@@ -316,7 +316,8 @@ angular.module('reg')
               type: "warning",
               showCancelButton:true,
               confirmButtonColor: "#DD6B55",
-              confirmButtonText: "Yes, save"},
+              confirmButtonText: "Yes, save",
+              closeOnConfirm: false},
               function() {
                   // Get the dietary restrictions as an array
                   var drs = [];
