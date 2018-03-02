@@ -420,6 +420,14 @@ module.exports = function(router) {
     UserController.updateProfileById(id, profile , defaultResponse(req, res));
   });
 
+  router.put('/users/:id/saveprofile', isOwnerOrAdmin, function(req, res){
+    var profile = sanitize(req.body.profile);
+    var id = req.params.id;
+
+    UserController.saveProfileById(id, profile , defaultResponse(req, res));
+
+    });
+
   router.put('/users/:id/waiver', isAdmin, function(req, res){
       var waiver = req.body.waiver;
       var id = req.params.id;

@@ -72,7 +72,7 @@ angular.module('reg')
           .success(function(data){
             sweetAlert({
               title: "Awesome!",
-              text: "Your application has been saved.",
+              text: "Your application has been submitted.",
               type: "success",
               confirmButtonColor: "#5ABECF"
             }, function(){
@@ -303,6 +303,48 @@ angular.module('reg')
           }
 
         }, 1);
+      }
+
+      $scope.saveForm = function() {
+          if ($scope.user.profile.submittedApplication) {
+              swal({title: "Warning",
+                  text: "You have already submitted your application, please click submit to update your information",
+                  type: "warning"})
+          } else {
+          swal({title: "Warning",
+              text: "Your profile will be saved. It will NOT be submitted",
+              type: "warning",
+              showCancelButton:true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes, save"},
+              function() {
+                  // Get the dietary restrictions as an array
+                  var drs = [];
+                  Object.keys($scope.diet).forEach(function(key){
+                      if ($scope.diet[key]){
+                          drs.push(key);
+                      }
+                  });
+                  $scope.user.profile.diet = drs;
+
+                  // Update user profile
+                  UserService
+                      .saveProfile(Session.getUserId(), $scope.user.profile)
+                      .success(function(data){
+                          sweetAlert({
+                              title: "Awesome!",
+                              text: "Your application has been saved.",
+                              type: "success",
+                              confirmButtonColor: "#5ABECF"
+                          }, function(){
+                              location.replace('/');
+                          });
+                      })
+                      .error(function(res){
+                          sweetAlert("Uh oh!", "Something went wrong.", "error");
+                      });
+              })
+          }
       }
 
       $scope.submitForm = function(){

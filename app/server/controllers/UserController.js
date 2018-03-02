@@ -678,6 +678,27 @@ UserController.updateProfileById = function (id, profile, callback){
   });
 };
 
+UserController.saveProfileById = function (id, profile, callback){
+
+    // Validate the user profile, and mark the user as profile completed
+    // when successful.
+    csvValidation(profile, function(profileValidated){
+        User.findOneAndUpdate({
+                _id: id,
+                verified: true
+            },
+            {
+                $set: {
+                    'profile': profileValidated
+                }
+            },
+            {
+                new: true
+            },
+            callback);
+    });
+};
+
 
 UserController.updateWaiverById = function (id, waiver, callback){
 

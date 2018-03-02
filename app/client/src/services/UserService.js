@@ -82,10 +82,16 @@ angular.module('reg')
         });
       },
 
+      saveProfile: function(id, profile){
+        return $http.put(base + id + '/saveprofile', {
+          profile: profile
+        });
+      },
+
       updateWaiver: function(id, waiver){
-          return $http.put(base + id + '/waiver', {
-              waiver: waiver
-          });
+        return $http.put(base + id + '/waiver', {
+            waiver: waiver
+        });
       },
 
       updateMatchmakingProfile: function(id, profile){
