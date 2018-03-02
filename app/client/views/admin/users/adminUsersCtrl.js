@@ -46,7 +46,7 @@ angular.module('reg')
       }
 
       UserService
-        .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'timestamp')
+        .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
         .success(function(data){
           updatePage(data);
         });
@@ -54,7 +54,7 @@ angular.module('reg')
       $scope.sortByDate = function(){
         $scope.sortDate = !$scope.sortDate;
         UserService
-                  .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'timestamp')
+                  .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
                   .success(function(data){
                     updatePage(data);
                   });
@@ -62,7 +62,7 @@ angular.module('reg')
 
       $scope.filterUsers = function() {
         UserService
-          .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'timestamp')
+          .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
           .success(function(data){
             updatePage(data);
           });
@@ -396,7 +396,7 @@ angular.module('reg')
 
        $scope.exportCSV = function() {
         UserService
-        .getPageFull(0, $stateParams.size, $scope.filter, $scope.sortDate, 'timestamp')
+        .getPageFull(0, $stateParams.size, $scope.filter, false, 'profile.sname')
         .success(function(rawData){
           var data = rawData['users'];
 
@@ -565,7 +565,7 @@ angular.module('reg')
             fields: [
               {
                 name: 'Created On',
-                value: formatTime(user.timestamp)
+                value: formatTime(user.lastUpdated)
               },{
                 name: 'Last Updated',
                 value: formatTime(user.lastUpdated)

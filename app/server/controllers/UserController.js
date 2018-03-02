@@ -341,8 +341,8 @@ UserController.getPage = function(query, callback){
   var page = query.page;
   var size = parseInt(query.size);
   var text = query.filter.text;
-  var sort = query.sort == 'true' ? -1 : 1;
-  var sortByField = query.sortBy;
+  var sort = {};
+  sort[query.sortBy] = query.sort == 'true' ? -1 : 1;
   var textFilter = [];
   var statusFilter = [];
 
@@ -403,9 +403,7 @@ UserController.getPage = function(query, callback){
 
   User
     .find(findQuery)
-    .sort({
-      sortByField: sort
-    })
+    .sort(sort)
     .select('+status.admittedBy')
     .skip(page * size)
     .limit(size)

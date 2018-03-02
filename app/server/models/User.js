@@ -12,6 +12,12 @@ var profile = {
         default: false
     },
 
+    sname: {
+        type: String,
+        min: 1,
+        maxlength: 200,
+    },
+
     name: {
         type: String,
         min: 1,
@@ -546,7 +552,7 @@ schema.statics.getByToken = function (token, callback) {
 
 schema.statics.validateProfile = function (profile, cb) {
 
-    return cb(!(
+    var good = !(
         profile.name.length > 0 &&
         profile.name.length < 100 &&
         profile.firstname.length < 100 &&
@@ -569,8 +575,13 @@ schema.statics.validateProfile = function (profile, cb) {
         ['<=8', '9', '10', '11', '12'].indexOf(profile.grade) > -1 &&
         ['mlh', 'facebook', 'mouth', 'other'].indexOf(profile.methodofdiscovery) > -1 &&
         ['W', 'B', 'NA', 'A', 'H', 'O', 'N'].indexOf(profile.ethnicity) > -1
+    );
 
-    ));
+    if (!good) {
+        this.profile.sname = this.profile.name.toLowerCase();
+    }
+
+    return cb(good);
 };
 
 //=========================================

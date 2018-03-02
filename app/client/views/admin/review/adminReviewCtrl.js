@@ -64,7 +64,7 @@ angular.module('reg')
 
       if (adminUser.reviewer || adminUser.developer) {
         UserService
-            .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'timestamp')
+            .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
             .success(function (data) {
                 updatePage(data);
             });
@@ -74,7 +74,7 @@ angular.module('reg')
       $scope.sortByDate = function(){
         $scope.sortDate = !$scope.sortDate;
         UserService
-                  .getPageFull($stateParams.page, 500, $scope.filter, $scope.sortDate, 'timestamp')
+                  .getPageFull($stateParams.page, 500, $scope.filter, $scope.sortDate, 'lastUpdated')
                   .success(function(data){
                     updatePage(data);
                   });
@@ -82,7 +82,7 @@ angular.module('reg')
 
       $scope.filterUsers = function() {
         UserService
-          .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'timestamp')
+          .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
           .success(function(data){
             updatePage(data);
           });
@@ -439,7 +439,7 @@ angular.module('reg')
                     fields: [
                         {
                             name: 'Created On',
-                            value: formatTime(user.timestamp)
+                            value: formatTime(user.lastUpdated)
                         },{
                             name: 'Last Updated',
                             value: formatTime(user.lastUpdated)
