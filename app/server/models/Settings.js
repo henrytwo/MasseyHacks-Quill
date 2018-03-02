@@ -161,23 +161,6 @@ schema.statics.getPublicSettings = function(callback){
 };
 
 schema.statics.getCurrentWave = function (callback, reviewer) {
-  if (reviewer) {
-      this.findOne({})
-          .exec(function (err, setting) {
-              if (setting.wave1.timeClose >= Date.now()) {
-                  return callback(false, 1);
-              } else if (setting.wave2.timeClose >= Date.now()) {
-                  return callback(false, 2);
-              } else if (setting.wave3.timeClose >= Date.now()) {
-                  return callback(false, 3);
-              } else if (setting.wave4.timeClose >= Date.now()) {
-                  return callback(false, 4);
-              } else {
-                  return callback(false, 'inf');
-              }
-          });
-  }
-
     this.findOne({})
         .exec(function(err, setting) {
             if (setting.wave1.timeClose >= Date.now()) {
@@ -189,7 +172,7 @@ schema.statics.getCurrentWave = function (callback, reviewer) {
             } else if (setting.wave4.timeClose >= Date.now()) {
                 return callback(false,4);
             } else {
-                return callback(false, 'inf');
+                return callback(false,5);
             }
         });
 };
