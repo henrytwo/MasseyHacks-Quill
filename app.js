@@ -16,7 +16,7 @@ database = process.env.MONGO_URL || database;
 
 var ownerConfig     = require('./config/owner');
 var adminConfig     = require('./config/admin');
-var humanConfig     = require('./config/human');
+//var humanConfig     = require('./config/human');
 var volunteerConfig = require('./config/volunteer');
 var settingsConfig  = require('./config/settings');
 

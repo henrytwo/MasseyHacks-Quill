@@ -356,12 +356,26 @@
           By submitting your application to MasseyHacks, you agree to have your registration information shared with partners.
           <br>
           <div class="field" style="margin-bottom:5px; padding: 5px" ng-hide="regIsClosed">
-          <button type="submit"
-                  class="fluid ui sea-serpent button"
-                  ng-click="submitForm()">
-            Submit
-          </button>
-          <button type="submit" class="fluid ui sea-serpent button" ng-click="saveForm()">Save</button>
+
+            <div style="padding-top: 5px" >
+              <button type="submit"
+                      class="fluid ui sea-serpent button"
+                      ng-click="submitForm()"
+                      ng-if="!user.profile.submittedApplication">
+                Submit
+              </button>
+
+              <button type="submit"
+                      class="fluid ui sea-serpent button"
+                      ng-click="submitForm()"
+                      ng-if="user.profile.submittedApplication">
+                Resubmit
+              </button>
+            </div>
+
+            <div style="padding-top: 5px" ng-show="!user.profile.submittedApplication">
+              <button type="submit" class="fluid ui sea-serpent button" ng-click="saveForm()">Save</button>
+            </div>
         </div>
      </fieldset>
       </div>
