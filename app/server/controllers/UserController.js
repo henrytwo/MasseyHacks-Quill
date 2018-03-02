@@ -404,7 +404,7 @@ UserController.getPage = function(query, callback){
   User
     .find(findQuery)
     .sort({
-      'lastUpdated': sort
+      sortByField: sort
     })
     .select('+status.admittedBy')
     .skip(page * size)
