@@ -4,7 +4,7 @@ var waveSend = require('../services/waveSend');
 var SettingsController = {};
 
 SettingsController.getWave = function(callback){
-  Settings.getCurrentWave(callback, true);
+  Settings.getCurrentWave(callback);
 }
 
 /**
