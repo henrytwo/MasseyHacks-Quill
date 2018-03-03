@@ -558,6 +558,29 @@ schema.statics.getByToken = function (token, callback) {
 
 schema.statics.validateProfile = function (id, profile, cb) {
 
+    console.log(profile.name.length > 0);
+    console.log(profile.name.length < 200);
+    console.log(profile.firstname.length < 100);
+    console.log(profile.firstname.length > 0);
+    console.log(profile.lastname.length < 100);
+    console.log(profile.lastname.length > 0);
+    console.log(profile.essaygain.length <= 500);
+    console.log(profile.essayproject.length <= 500);
+    console.log((profile.pasthackathon == null || (profile.pasthackathon != null && profile.pasthackathon.length <= 500)));
+    console.log((profile.freeComment == null || (profile.freeComment != null && profile.freeComment.length <= 500)));
+    console.log((profile.github == null || (profile.github != null && profile.github.length <= 50)));
+    console.log((profile.site == null || (profile.site != null && profile.site.length <= 50)));
+    console.log((profile.phone == null || (profile.phone != null && profile.phone.length <= 50 && (/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test(profile.phone))));
+    console.log((profile.departing == null || (profile.departing != null && profile.departing.length <= 50)));
+    console.log((profile.devpost == null || (profile.devpost != null && profile.devpost.length <= 50)));
+    console.log(profile.school.length <= 50);
+    console.log(profile.termsAndCond);
+    console.log(['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1);
+    console.log(['S', 'M', 'L'].indexOf(profile.shirt) > -1);
+    console.log(['<=8', '9', '10', '11', '12'].indexOf(profile.grade) > -1);
+    console.log(['mlh', 'facebook', 'mouth', 'other'].indexOf(profile.methodofdiscovery) > -1);
+    console.log(['W', 'B', 'NA', 'A', 'H', 'O', 'N'].indexOf(profile.ethnicity) > -1);
+    
     var good = !(
         profile.name.length > 0 &&
         profile.name.length < 100 &&

@@ -170,7 +170,6 @@ var removeSensitiveStaff = function(user) {
     delete u.salt;
     delete u.applicationAdmit;
     delete u.applicationReject;
-    delete u.status.admittedBy;
 
     return u
 };
@@ -615,8 +614,9 @@ UserController.updateProfileById = function (id, profile, callback){
   // Validate the user profile, and mark the user as profile completed
   // when successful.
   console.log(profile);
+
   csvValidation(profile, function(profileValidated){
-    User.validateProfile(id, profile, function(err){
+      User.validateProfile(id, profile, function(err){
       if (err){
         return callback({message: 'invalid profile'});
       }

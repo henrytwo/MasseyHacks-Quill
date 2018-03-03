@@ -317,10 +317,6 @@ angular.module('reg')
               return "submitted";
           }
 
-          if (!verified) {
-              return "unverified";
-          }
-
           return "incomplete";
 
       }

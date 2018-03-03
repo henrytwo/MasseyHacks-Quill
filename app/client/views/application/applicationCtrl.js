@@ -217,6 +217,15 @@ angular.module('reg')
                     }
                 ]
             },
+            hackathonxp: {
+              identifier: 'hackathonxp',
+              rules: [
+                  {
+                      type: 'empty',
+                      prompt: 'Please tell us about your previous hackathons.'
+                  }
+              ]
+            },
             essaygain: {
                 identifier: 'essaygain',
                 rules: [

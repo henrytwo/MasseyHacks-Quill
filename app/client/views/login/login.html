@@ -42,13 +42,14 @@
             </form>
           </div>
 
-          <div ng-show="regIsOpen">
+          <div>
             <div class="ui divider"/>
 
             <div class="field">
               <button id="register"
                       type="submit"
                       class="fluid ui register button"
+                      ng-class="{disabled : !regIsOpen}"
                       ng-click="setLoginState('register')">
                       Register
               </button>

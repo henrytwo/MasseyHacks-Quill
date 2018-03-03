@@ -376,7 +376,7 @@ angular.module('reg')
                             },
                             {
                                 name: 'Shirt Size',
-                                value: user.confirmation.shirtSize,
+                                value: user.profile.shirt,
                                 type: 'string'
                             }
                         ]
