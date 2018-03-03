@@ -262,6 +262,11 @@ var status = {
         required: true,
         default: false,
     },
+    noConfirmation: {
+      type: Boolean,
+      required:true,
+      default: false
+    },
     rejected: {
         type: Boolean,
         required: true,

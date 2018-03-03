@@ -871,10 +871,11 @@ UserController.advanceWaitlist = function () {
             User.count({
                 'status.admitted': true,
                 'status.declined': false,
+                'status.noConfirmation': false,
                 'owner': false,
                 'admin': false,
                 'reviewer': false,
-                'volunteer': false
+                'volunteer': false,
             }, function (err, data) {
                 var currentAdmitted = data;
                 if (data <= setting.participants) {
@@ -882,35 +883,25 @@ UserController.advanceWaitlist = function () {
                         'status.waitlisted':true
                     }).exec(function(err, data) {
                         for (var i = 0; i < Math.min(setting.participants - currentAdmitted, data.length); i++) {
+                            var cuser = data[i];
 
-                            console.log(data);
-                            var cuser = data[0];
-
-                            cuser.status.admitted = true;
-                            cuser.status.rejected = false;
-                            cuser.status.waitlisted = false;
-                            cuser.status.admittedBy = "MasseyHacks Admission Authority";
-                            cuser.status.statusReleased = true;
-                            console.log("moving waitlist");
-
-                            console.log(cuser);
+                            console.log('Moving Waitlist');
 
                             User.findOneAndUpdate({
-                                    '_id': cuser._id,
-                                    'verified': true,
-                                    'status.waitlisted': true
+                                    '_id': cuser._id
                                 },
                                 {
                                     $set: {
-                                        'status': cuser.status
+                                        'status.waitlisted': false
                                     }
-                                },
-                                {
+                                }, {
                                     new: true
-                                }, function(err, c){
-                                    console.log(err);
-                                    console.log(c);
-                                })
+                                },
+                                function(err, user) {
+                                    var advanceUser = {'email':'waitlist_advancer@masseyhacks.ca'};
+                                    UserController.admitUser(user._id, advanceUser, function(a, b){});
+                                });
+
                         }
                     })
 

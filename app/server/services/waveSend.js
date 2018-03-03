@@ -7,27 +7,21 @@ var async = require('async');
 
 
 var ad = function (err, user) {
-
     if (err) {
-        console.log("Error when processing user:" + data.email);
+        console.log("Error when processing user:" + user.email);
     } else {
         console.log(user.status.admitted);
-        if (user.status.admitted) {
-            console.log(user.email + "Admitted");
-            mailer.sendAdmittanceEmail(user)
-        } else {
-            console.log(user.email + "Rejected");
-            mailer.sendRejectEmails([user])
-        }
+        console.log(user.email + "Admitted");
+        mailer.sendAdmittanceEmail(user)
     }
 };
 
 var acceptPart = function (wave) {
     console.log("running Wave "+wave);
     Settings.findOne({}).exec(function(err, setting) {
-        Users.find({'wave': wave, $or:[{'status.admitted':true}, {'status.rejected':true}]}).exec(function (err, data) {
+        Users.find({'wave': wave, 'status.admitted':true}).exec(function (err, data) {
             async.each(data, function (user, callback) {
-                console.log("running user " + user.email);
+                console.log("admitting user " + user.email);
                 Users.findOneAndUpdate({
                         '_id': user._id
                     },
@@ -43,6 +37,30 @@ var acceptPart = function (wave) {
 
                 callback()
             })
+        })
+    });
+
+    Users.find({'wave': wave, 'status.rejected':true}).exec(function (err, data) {
+        async.each(data, function (user, callback) {
+            console.log("reject/pushback user " + user.email);
+            Users.findOneAndUpdate({
+                    '_id': user._id
+                },
+                {
+                    $set: {
+                        wave: 4,
+                        lastUpdated: 31536000000 + user.lastUpdated,
+                        'status.rejected':false,
+                        applicationAdmit:[],
+                        applicationReject:[],
+                        votedBy:[]
+                    }
+                },
+                {
+                    new: true
+                }, null);
+
+            callback()
         })
     });
 
@@ -70,22 +88,25 @@ var acceptPart = function (wave) {
 
 var notConfirmed = function (wave) {
     Users.find({'wave': wave, 'status.admitted':true, 'status.declined':false, 'status.confirmed': false}).exec(function (err, data) {
-        async.each(data, function (user, callback) {
-            console.log("running user" + user.email);
-            Users.findOneAndUpdate({
-                    '_id': user._id
-                },
-                {
-                    $set: {
-                        'status.admitted': false
-                    }
-                },
-                {
-                    new: true
-                }, callback);
+        console.log(data.length);
+       for (var i = 0; i < data.length; i++) {
+            var user = data[i];
+           console.log("running user" + user.email);
+           Users.findOneAndUpdate({
+                   '_id': user._id
+               },
+               {
+                   $set: {
+                       'status.noConfirmation':true
+                   }
+               },
+               {
+                   new: true
+               }, null);
+       }
 
-            UserController.advanceWaitlist();
-        })
+        UserController.advanceWaitlist();
+
     })
 }
 

@@ -45,7 +45,7 @@ angular.module('reg')
       function updatePage(data){
         if (adminUser.reviewer || adminUser.developer) {
             $scope.users = data.users.filter(function (user) {
-                return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.status.rejected !== true && user.votedBy.indexOf(adminUser.email) === -1 && user.wave > $scope.wave;
+                return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.completedProfile === true && user.status.admitted !== true && user.status.rejected !== true && user.votedBy.indexOf(adminUser.email) === -1 && user.wave <= $scope.wave;
             });
             $scope.currentPage = data.page;
             $scope.pageSize = data.size;
