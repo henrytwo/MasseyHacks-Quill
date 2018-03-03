@@ -155,16 +155,16 @@
       <table class="ui celled selectable compact users table">
         <thead>
           <tr>
-            <th>Votes</th>
-            <th>Name</th>
-            <th>Wave</th>
+            <th class="sortable" ng-click='sortBy("votedBy")'>Votes <i ng-class="{angle: true, icon: true, down: !sortDate, up: sortDate}"></i></th>
+            <th class="sortable" ng-click='sortBy("sname")'>Name <i ng-class="{angle: true, icon: true, down: !sortDate, up: sortDate}"></i></th>
+            <th class="sortable" ng-click='sortBy("wave")'>Wave <i ng-class="{angle: true, icon: true, down: !sortDate, up: sortDate}"></i></th>
             <th>V/S/A/C/W</th>
             <th></th>
             <th>Edit</th>
             <th>City</th>
             <th>Need Reimbursement</th>
             <th>Email</th>
-            <th class="sortable" ng-click='sortByDate()'>Application Last Update <i ng-class="{angle: true, icon: true, down: !sortDate, up: sortDate}"></i></th>
+            <th class="sortable" ng-click='sortBy("lastUpdated")'>Application Last Update <i ng-class="{angle: true, icon: true, down: !sortDate, up: sortDate}"></i></th>
             <th>School</th>
             <th>Team</th>
             <th>ID</th>

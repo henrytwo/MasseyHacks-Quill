@@ -20,6 +20,10 @@ angular.module('reg')
                       text: 'Your session has expired, you have been logged out.',
                       type: 'error'
                   });
+
+                  Session.destroy();
+
+                  return false;
               }
               config.headers['x-access-token'] = token;
             }

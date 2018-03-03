@@ -51,10 +51,10 @@ angular.module('reg')
           updatePage(data);
         });
 
-      $scope.sortByDate = function(){
+      $scope.sortBy = function(param){
         $scope.sortDate = !$scope.sortDate;
         UserService
-                  .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
+                  .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, param)
                   .success(function(data){
                     updatePage(data);
                   });
