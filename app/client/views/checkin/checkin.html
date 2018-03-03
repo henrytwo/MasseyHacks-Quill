@@ -120,14 +120,14 @@
                       <button
                         class="ui positive button"
                         ng-show="!selectedUser.status.checkedIn"
-                        ng-click="toggleCheckIn($event, selectedUser, $index)">
+                        ng-click="checkInUserFull($event, selectedUser, $index)">
                         Check In {{selectedUser.profile.name}}
                       </button>
 
                       <button
                         class="ui positive button"
                         ng-show="selectedUser.status.checkedIn"
-                        ng-click="toggleCheckIn($event, selectedUser, $index)">
+                        ng-click="checkOutUserFull($event, selectedUser, $index)">
                         Check Out {{selectedUser.profile.name}}
                       </button>
 

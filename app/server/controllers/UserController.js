@@ -616,7 +616,7 @@ UserController.updateProfileById = function (id, profile, callback){
   // when successful.
   console.log(profile);
   csvValidation(profile, function(profileValidated){
-    User.validateProfile(profile, function(err){
+    User.validateProfile(id, profile, function(err){
       if (err){
         return callback({message: 'invalid profile'});
       }
@@ -661,6 +661,7 @@ UserController.updateProfileById = function (id, profile, callback){
           },
           {
             $set: {
+              'sname': profile.name.toLowerCase(),
               'wave':currentWave,
               'lastUpdated': Date.now(),
               'profile': profileValidated,

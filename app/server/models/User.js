@@ -12,12 +12,6 @@ var profile = {
         default: false
     },
 
-    sname: {
-        type: String,
-        min: 1,
-        maxlength: 200,
-    },
-
     name: {
         type: String,
         min: 1,
@@ -367,6 +361,13 @@ var schema = new mongoose.Schema({
         default: false
     },
 
+    sname: {
+        type: String,
+        min: 1,
+        default: '',
+        maxlength: 200
+    },
+
     timestamp: {
         type: Number,
         required: true,
@@ -550,7 +551,7 @@ schema.statics.getByToken = function (token, callback) {
     }.bind(this));
 };
 
-schema.statics.validateProfile = function (profile, cb) {
+schema.statics.validateProfile = function (id, profile, cb) {
 
     var good = !(
         profile.name.length > 0 &&
@@ -576,10 +577,6 @@ schema.statics.validateProfile = function (profile, cb) {
         ['mlh', 'facebook', 'mouth', 'other'].indexOf(profile.methodofdiscovery) > -1 &&
         ['W', 'B', 'NA', 'A', 'H', 'O', 'N'].indexOf(profile.ethnicity) > -1
     );
-
-    if (!good) {
-        this.profile.sname = this.profile.name.toLowerCase();
-    }
 
     return cb(good);
 };

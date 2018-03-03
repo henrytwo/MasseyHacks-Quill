@@ -159,7 +159,7 @@ angular.module('reg')
 
             $scope.filterUsers = function () {
                 UserService
-                    .getPageFull($stateParams.page, 50, $scope.filter, $scope.sortDate, 'timestamp')
+                    .getPageFull($stateParams.page, 50, $scope.filter, $scope.sortDate, 'sname')
                     .success(function (data) {
                         updatePage(data);
                     });
@@ -184,6 +184,9 @@ angular.module('reg')
                                 .success(function (user) {
                                     $scope.users[index] = user;
                                     swal("Check!", user.profile.name + ' has been checked in.', "success");
+                                    if(!$scope.$$phase) {
+                                        $scope.$apply();
+                                    }
                                     $('.long.user.modal').modal('hide');
                                 });
                         }
@@ -259,6 +262,79 @@ angular.module('reg')
                 });
 
             };
+
+
+
+            $scope.checkInUserFull = function ($event, user, index) {
+                $event.stopPropagation();
+
+
+                swal({
+                    title: "Whoa, wait a minute!",
+                    text: "You are about to check in " + user.profile.name + "!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, CHECK IN!",
+                    closeOnConfirm: false
+                }, function () {
+
+
+                    UserService
+                        .checkIn(user._id)
+                        .success(function (user) {
+                            $scope.users[index] = user;
+                            swal({title:"Checked in!", text:user.profile.name + ' has been checked in successfully!.', type:"success"}, function () {
+                                location.reload();
+                            });
+                            $('.long.user.modal').modal('hide');
+
+                        })
+                        .error(function () {
+                            swal("Something went wrong!", "error")
+                        });
+
+                });
+
+            };
+
+
+            $scope.checkOutUserFull = function ($event, user, index) {
+                $event.stopPropagation();
+
+                swal({
+                        title: "Whoa, wait a minute!",
+                        text: "You are about to check out " + user.profile.name + "!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, check them out.",
+                        closeOnConfirm: false
+                    },
+                    function () {
+                        swal({
+                            title: "Are you ABSOLUTELY SURE?",
+                            text: "You are about to CHECK OUT " + user.profile.name + "!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, CHECK OUT.",
+                            closeOnConfirm: false
+                        }, function () {
+                            UserService
+                                .checkOut(user._id)
+                                .success(function (user) {
+                                    $scope.users[index] = user;
+                                    swal({title:"Checked in!", text:user.profile.name + ' has been checked out successfully!.', type:"success"}, function () {
+                                        location.reload();
+                                    });
+                                    $('.long.user.modal').modal('hide');
+                                })
+                        });
+                    })
+
+            };
+
 
             UserService
                 .getPageFull($stateParams.page, 50, $scope.filter, $scope.sortDate, 'timestamp')

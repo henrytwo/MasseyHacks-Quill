@@ -327,6 +327,7 @@ angular.module('reg')
                       }
                   });
                   $scope.user.profile.diet = drs;
+                  $scope.user.profile.name = $scope.user.profile.firstname + " " + $scope.user.profile.lastname;
 
                   // Update user profile
                   UserService
