@@ -13,8 +13,15 @@ angular.module('reg')
       var user = $rootScope.currentUser;
       $scope.settings = settings;
       $scope.EVENT_INFO = EVENT_INFO;
-     
-      $scope.pastConfirmation = Utils.isAfter(user.status.confirmBy);
+
+      if (user != null) {
+          $scope.pastConfirmation = Utils.isAfter(user.status.confirmBy);
+      }
+      else {
+          swal({tite: "Uh oh", text:"Something went wrong.", type:"error"}, function () {
+              AuthService.logout();
+          })
+      }
 
       $scope.logout = function(){
           swal({
