@@ -466,7 +466,7 @@ schema.methods.generateEmailVerificationToken = function () {
 
 schema.methods.generateAuthToken = function () {
     return jwt.sign({id: this._id, type: 'authentication'}, JWT_SECRET, {
-        expiresInMinutes: 10,
+        expiresInMinutes: 720,
     });
 };
 
