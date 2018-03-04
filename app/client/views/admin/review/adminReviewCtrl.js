@@ -264,6 +264,7 @@ angular.module('reg')
               $scope.selectedUser.sections = generateSections(user);
           }
           else {
+              $('.long.user.modal').modal('hide');
               swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
           }
       }
@@ -447,9 +448,6 @@ angular.module('reg')
                             name: 'Status',
                             value: user.status.name
                         },{
-                            name: 'Team',
-                            value: user.teamCode || 'None'
-                        },{
                             name: 'Wave',
                             value: user.wave
                         },{
@@ -480,14 +478,17 @@ angular.module('reg')
                     fields: [
                         {
                             name: 'Website',
+                            type: 'url',
                             value: user.profile.site || 'N/A'
                         },
                         {
                             name: 'Devpost',
+                            type: 'url',
                             value: user.profile.devpost || 'N/A'
                         },
                         {
                             name: 'Github',
+                            type: 'url',
                             value: user.profile.github || 'N/A'
                         },
                         {
@@ -582,6 +583,7 @@ angular.module('reg')
                     $('.long.user.modal').modal('show');
                 }
                 else {
+                    $('.long.user.modal').modal('hide');
                     swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
                 }
             });

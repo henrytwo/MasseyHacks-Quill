@@ -89,6 +89,7 @@ angular.module('reg')
           }
         }
       })
+        /*
       .state('app.team', {
         url: "/team",
         templateUrl: "views/team/team.html",
@@ -104,7 +105,7 @@ angular.module('reg')
             return SettingsService.getPublicSettings();
           }
         }
-      })
+      }) */
       .state('app.admin', {
         views: {
           '': {

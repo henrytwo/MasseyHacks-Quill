@@ -389,11 +389,12 @@ var schema = new mongoose.Schema({
         default: Date.now(),
     },
 
+    /*
     teamCode: {
         type: String,
         min: 0,
         maxlength: 140,
-    },
+    },*/
 
     verified: {
         type: Boolean,
@@ -558,6 +559,7 @@ schema.statics.getByToken = function (token, callback) {
 
 schema.statics.validateProfile = function (id, profile, cb) {
 
+    /*
     console.log(profile.name.length > 0);
     console.log(profile.name.length < 200);
     console.log(profile.firstname.length < 100);
@@ -580,10 +582,11 @@ schema.statics.validateProfile = function (id, profile, cb) {
     console.log(['<=8', '9', '10', '11', '12'].indexOf(profile.grade) > -1);
     console.log(['mlh', 'facebook', 'mouth', 'other'].indexOf(profile.methodofdiscovery) > -1);
     console.log(['W', 'B', 'NA', 'A', 'H', 'O', 'N'].indexOf(profile.ethnicity) > -1);
-    
+    */
+
     var good = !(
         profile.name.length > 0 &&
-        profile.name.length < 100 &&
+        profile.name.length < 200 &&
         profile.firstname.length < 100 &&
         profile.firstname.length > 0 &&
         profile.lastname.length < 100 &&
@@ -608,6 +611,12 @@ schema.statics.validateProfile = function (id, profile, cb) {
 
     return cb(good);
 };
+
+
+schema.statics.validateConfirmation = function (id, confirmation, cb) {
+    return cb(!(confirmation.notes == null || (confirmation.notes != null && confirmation.notes.length <= 500)));
+};
+
 
 //=========================================
 // Virtuals

@@ -306,7 +306,7 @@ UserController.getByToken = function (token, callback) {
 };
 
 UserController.getAllMaster = function (callback) {
-    User.find().exec(function(err, users){
+    User.find().sort({'sname' : -1}).select('+status.admittedBy').exec(function(err, users){
         return callback(null, users);
     });
 };
@@ -350,7 +350,9 @@ UserController.getPage = function(query, callback){
           { $or: textFilter},
           { $and: statusFilter }
       ]
-  }
+  };
+
+  console.log(sort);
 
   if(typeof query.filter.text != "undefined") {
     var re = new RegExp(escapeRegExp(text), 'i');
@@ -382,15 +384,39 @@ UserController.getPage = function(query, callback){
   if(query.filter.needsReimbursement === 'true') {
     statusFilter.push({'profile.needsReimbursement': 'true'});
   }
+  if(query.filter.bus === 'true') {
+    statusFilter.push({'confirmation.bus': 'true'});
+  }
   if(query.filter.rejected === 'true') {
       statusFilter.push({'status.rejected': 'true'});
   }
   if(query.filter.waiver === 'true') {
       statusFilter.push({'status.waiver': 'true'});
   }
+  if(query.filter.waitlisted === 'true') {
+      statusFilter.push({'status.waitlisted': 'true'});
+  }
   if(query.filter.active === 'true') {
       statusFilter.push({'active': 'false'});
   }
+
+    if(query.filter.w1 === 'true') {
+        statusFilter.push({'wave': 1});
+    }
+    if(query.filter.w2 === 'true') {
+        statusFilter.push({'wave': 2});
+    }
+    if(query.filter.w3 === 'true') {
+        statusFilter.push({'wave': 3});
+    }
+    if(query.filter.w4 === 'true') {
+        statusFilter.push({'wave': 4});
+    }
+    if(query.filter.w5 === 'true') {
+        statusFilter.push({'wave': 5});
+    }
+
+
   //else
   // statusFilter.push({});
   if(query.filter.volunteer === 'true') {
@@ -414,7 +440,6 @@ UserController.getPage = function(query, callback){
       for (var i = 0; i < users.length; i++) {
           users[i] = removeSensitiveStaff(users[i]);
       }
-
 
       User.count(findQuery).exec(function(err, count){
 
@@ -748,46 +773,55 @@ UserController.updateMatchmakingProfileById = function (id, profile, callback){
  */
 UserController.updateConfirmationById = function (id, confirmation, callback){
   csvValidation(confirmation, function(confirmationValidated){
-    User.findById(id, function(err, user){
+      User.validateConfirmation(id, confirmation, function(err) {
 
-      if(err || !user){
-        return callback(err);
-      }
+          if (err){
+              return callback({message: 'invalid confirmation'});
+          }
 
-      // Make sure that the user followed the deadline, but if they're already confirmed
-      // that's okay.
-      if (Date.now() >= user.status.confirmBy && !user.status.confirmed){
-        return callback({
-          message: "You've missed the confirmation deadline."
-        });
-      }
+          User.findById(id, function (err, user) {
+
+              if (err || !user) {
+                  return callback(err);
+              }
+
+              // Make sure that the user followed the deadline, but if they're already confirmed
+              // that's okay.
+              if (Date.now() >= user.status.confirmBy && !user.status.confirmed) {
+                  return callback({
+                      message: "You've missed the confirmation deadline."
+                  });
+              }
 
 
-        // You can only confirm acceptance if you're admitted and haven't declined.
-        User.findOneAndUpdate({
-          '_id': id,
-          'verified': true,
-          'status.admitted': true,
-          'status.declined': {$ne: true}
-        },
-          {
-            $set: {
-              'lastUpdated': Date.now(),
-              'confirmation': confirmationValidated,
-              'status.confirmed': true,
-            }
-          }, {
-            new: true
-          },
-          function(err, user) {
-            if (err || !user) {
-              return callback(err);
-            }
-            Mailer.sendConfirmationEmail(user);
-            return callback(err, user);
+              // You can only confirm acceptance if you're admitted and haven't declined.
+              User.findOneAndUpdate({
+                      '_id': id,
+                      'verified': true,
+                      'status.admitted': true,
+                      'status.declined': {$ne: true}
+                  },
+                  {
+                      $set: {
+                          'lastUpdated': Date.now(),
+                          'confirmation': confirmationValidated,
+                          'status.confirmed': true,
+                      }
+                  }, {
+                      new: true
+                  },
+                  function (err, user) {
+                      if (err || !user) {
+                          return callback(err);
+                      }
+                      Mailer.sendConfirmationEmail(user);
+                      return callback(err, user);
+                  });
+
           });
-        });
+      });
     });
+
 };
 
 UserController.updateFileNameById = function(id, fileName, callback){
@@ -1065,12 +1099,23 @@ UserController.getTeammates = function(id, callback){
  * @param  {String}   code     Code of the proposed team
  * @param  {Function} callback args(err, users)
  */
+
 UserController.createOrJoinTeam = function(id, code, callback){
+    return callback({
+        message: "bud. no."
+    });
+
   csvValidation(code, function(codeValidated){
     if (!code){
       return callback({
         message: "Please enter a team name."
       });
+    }
+
+    if (code != null && code.length > 50) {
+        return callback({
+            message: "Bud pls, we have limit of 50 chars"
+        });
     }
 
     if (typeof code !== 'string') {

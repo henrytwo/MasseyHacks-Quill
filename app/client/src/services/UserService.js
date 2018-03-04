@@ -119,6 +119,7 @@ angular.module('reg')
       // ------------------------
       // Team
       // ------------------------
+        /*
       joinOrCreateTeam: function(code){
         return $http.put(base + Session.getUserId() + '/team', {
           code: code
@@ -131,7 +132,7 @@ angular.module('reg')
 
       getMyTeammates: function(){
         return $http.get(base + Session.getUserId() + '/team');
-      },
+      },*/
 
       // -------------------------
       // Admin Only

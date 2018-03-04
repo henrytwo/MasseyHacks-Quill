@@ -138,7 +138,7 @@ angular.module('reg')
                 }).filter(function (user) {
                     return user.status.declined !== true;
                 }).filter(function (user) {
-                    return user.admin !== true && user.volunteer !== true && user.owner !== true;
+                    return user.admin !== true && user.volunteer !== true && user.owner !== true && user.status.confirmed === true;
                 });
                 $scope.currentPage = data.page;
                 $scope.pageSize = data.size;

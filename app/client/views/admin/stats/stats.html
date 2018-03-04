@@ -87,6 +87,15 @@
             {{stats.rejected}}
           </div>
         </div>
+        <div class="item">
+          <i class="circle yellow icon"></i>
+          <div class="content">
+            <strong>
+              Waitlisted
+            </strong> :
+            {{stats.waitlisted}}
+          </div>
+        </div>
 
         <div class="item">
           <i class="green flag icon"></i>
@@ -233,6 +242,19 @@
       </div>
     </div>
 
+    <div class="ui divider"></div>
+
+    <div class="item">
+
+      <div class="content">
+        <div class="ui header">
+          Bus from Toronto/Waterloo
+        </div>
+
+        {{stats.bus}}
+      </div>
+    </div>
+
   </div>
 
 
@@ -337,6 +359,19 @@
                   ng-repeat="restriction in stats.confirmedStat.dietaryRestrictions | orderBy: '-count'">
               {{restriction.name}} ({{restriction.count}})
             </span>
+        </div>
+      </div>
+
+      <div class="ui divider"></div>
+
+      <div class="item">
+
+        <div class="content">
+          <div class="ui header">
+            Bus from Toronto/Waterloo
+          </div>
+
+          {{stats.confirmedStat.bus}}
         </div>
       </div>
 

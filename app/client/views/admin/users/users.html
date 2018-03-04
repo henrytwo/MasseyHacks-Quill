@@ -34,12 +34,20 @@
             <label style="padding-left: 20px"> Confirmed </label>
           </div>
           <div class="ui checkbox" style="padding-right: 10px">
+            <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.waitlisted">
+            <label style="padding-left: 20px"> Waitlisted </label>
+          </div>
+          <div class="ui checkbox" style="padding-right: 10px">
             <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.waiver">
             <label style="padding-left: 20px"> Waiver </label>
           </div>
           <div class="ui checkbox" style="padding-right: 10px">
             <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.needsReimbursement">
             <label style="padding-left: 20px"> Need travel reimbursements </label>
+          </div>
+          <div class="ui checkbox" style="padding-right: 10px">
+            <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.bus">
+            <label style="padding-left: 20px"> Bus </label>
           </div>
           <div class="ui checkbox" style="padding-right: 10px">
             <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.rejected">
@@ -53,6 +61,27 @@
             <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.active">
             <label style="padding-left: 20px"> Deactivated </label>
           </div>
+
+        <div class="ui checkbox" style="padding-right: 10px">
+          <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.w1">
+          <label style="padding-left: 20px"> Wave 1 </label>
+        </div>
+        <div class="ui checkbox" style="padding-right: 10px">
+          <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.w2">
+          <label style="padding-left: 20px"> Wave 2 </label>
+        </div>
+        <div class="ui checkbox" style="padding-right: 10px">
+          <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.w3">
+          <label style="padding-left: 20px"> Wave 3 </label>
+        </div>
+        <div class="ui checkbox" style="padding-right: 10px">
+          <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.w4">
+          <label style="padding-left: 20px"> Wave 4 </label>
+        </div>
+        <div class="ui checkbox" style="padding-right: 10px">
+          <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.w5">
+          <label style="padding-left: 20px"> Wave 5 </label>
+        </div>
       </div>
       <div class="ui divider"></div>
 
@@ -105,6 +134,10 @@
                 <i class="green circle check icon" ng-show="field.value"></i>
               </span>
 
+              <span ng-if="field.type == 'url'">
+                <a href="{{field.value}}" target="_blank">{{field.value}}</a>
+              </span>
+
               <span ng-if="field.type == null">
                 {{field.value}}
               </span>
@@ -114,7 +147,6 @@
 
         </div>
         <div class="actions">
-
           <button
                   class="ui negative button"
                   ng-show="adminUser.reviewer || adminUser.developer"
@@ -128,45 +160,44 @@
             VOTE ACCEPT
           </button>
 
-            <button
-              class="ui negative button"
-              ng-show="adminUser.owner"
-              ng-click="toggleReject($event, selectedUser, $index)">
-              <i ng-if="!selectedUser.status.rejected">[FORCE] REJECT
-              </i>
-              <i ng-if="selectedUser.status.rejected">[FORCE] UNREJECT
-              </i>
-            </button>
-            <button
-              class="ui positive button"
-              ng-show="adminUser.owner"
-              ng-click="acceptUser($event, selectedUser, $index)">
-              [FORCE] ACCEPT
-            </button>
-            <div class="ui negative right labeled icon button">
+          <button
+                  class="ui negative button"
+                  ng-click="toggleReject($event, selectedUser, $index)"
+                  ng-show="adminUser.owner">
+            <i ng-if="!selectedUser.status.rejected">Reject [FORCE]
+            </i>
+            <i ng-if="selectedUser.status.rejected">Unreject [FORCE]
+            </i>
+          </button>
+          <button
+                  class="ui positive button"
+                  ng-click="acceptUser($event, selectedUser, $index)"
+                  ng-show="adminUser.owner">
+            Accept [FORCE]
+          </button>
+          <div class="ui negative right labeled icon button">
             Close
             <i class="checkmark icon"></i>
           </div>
         </div>
+
       </div>
-
-
 
       <table class="ui celled selectable compact users table">
         <thead>
           <tr>
-            <th class="sortable" ng-click='sortBy("votedBy")'>Votes <i ng-class="{angle: true, icon: true, down: !sortDate, up: sortDate}"></i></th>
-            <th class="sortable" ng-click='sortBy("sname")'>Name <i ng-class="{angle: true, icon: true, down: !sortDate, up: sortDate}"></i></th>
-            <th class="sortable" ng-click='sortBy("wave")'>Wave <i ng-class="{angle: true, icon: true, down: !sortDate, up: sortDate}"></i></th>
+            <th class="sortable" ng-click='sortBy("votedBy")'>Votes <i ng-class="{angle: true, icon: true, down: !sorted['votedBy'], up: sorted['votedBy']}"></i></th>
+            <th class="sortable" ng-click='sortBy("sname")'>Name <i ng-class="{angle: true, icon: true, down: !sorted['sname'], up: sorted['sname']}"></i></th>
+            <th class="sortable" ng-click='sortBy("wave")'>Wave <i ng-class="{angle: true, icon: true, down: !sorted['wave'], up: sorted['wave']}"></i></th>
             <th>V/S/A/C/W</th>
             <th></th>
             <th>Edit</th>
             <th>City</th>
             <th>Need Reimbursement</th>
+            <th>Need Bus</th>
             <th>Email</th>
-            <th class="sortable" ng-click='sortBy("lastUpdated")'>Application Last Update <i ng-class="{angle: true, icon: true, down: !sortDate, up: sortDate}"></i></th>
+            <th class="sortable" ng-click='sortBy("lastUpdated")'>Application Last Update <i ng-class="{angle: true, icon: true, down: !sorted['date'], up: sorted['date']}"></i></th>
             <th>School</th>
-            <th>Team</th>
             <th>ID</th>
 
 
@@ -361,10 +392,23 @@
                 class="red remove circle icon">
               </i>
             </td>
+            <td
+                    class="collapsing">
+
+              <!-- Required bus -->
+              <i
+                      ng-if="user.confirmation.bus"
+                      class="green check circle icon">
+              </i>
+              <i
+                      ng-if="!user.confirmation.bus"
+                      class="red remove circle icon">
+              </i>
+            </td>
+
             <td>{{user.email}}
             <td>{{user.timestamp | date: 'mediumDate'}}</td>
             <td>{{user.profile.school}}</td>
-            <td>{{user.teamCode}}</td>
             <td>
                 <strong>
                     {{user.id}}

@@ -87,16 +87,16 @@ angular.module('reg')
       function _updateTeam(e) {
         // Update user teamCode
         if ($scope.user.teamCode === originalTeamCode || !$scope.user.teamCode) {
-          return;
+          return true;
         }
 
         UserService
           .joinOrCreateTeam($scope.user.teamCode)
           .success(function(user){
-            return;
+            return true;
           })
           .error(function(res){
-            return;
+            return res;
           });
       }
 
@@ -112,182 +112,191 @@ angular.module('reg')
         }
       }
 
-      function _setupForm(){
-        // Semantic-UI form validation
-        $('.ui.form').form({
-          inline:true,
-          fields: {
-            firstname: {
-              identifier: 'firstname',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your first name.'
-                }
-              ]
-            },
-            lastname: {
-              identifier: 'lastname',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your last name.'
-                }
-              ]
-            },
-            grade: {
-              identifier: 'grade',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your grade.'
-                }
-              ]
-            },
-            school: {
-              identifier: 'school',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your school.'
-                }
-              ]
-            },
-            phone: {
-              identifier: 'phone',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your phone number.'
-                }
-              ]
-            },
-            departing: {
-              identifier: 'departing',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your departing location.'
-                }
-              ]
-            },
-            pasthackathon: {
-              identifier: 'pasthackathon',
-              depends: 'hackathonxp',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your past hackathon experience(s).'
-                }
-              ]
-            },
-            gender: {
-              identifier: 'gender',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select a gender.'
-                }
-              ]
-            },
-            ethnicity: {
-              identifier: 'ethnicity',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select an ethnicity.'
-                }
-              ]
-            },
-            shirt: {
-              identifier: 'shirt',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select your shirt size.'
-                }
-              ]
-            },
-            essayproject: {
-                identifier: 'essayproject',
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Please tell us about your past experience.'
-                    }
-                ]
-            },
-            hackathonxp: {
-              identifier: 'hackathonxp',
-              rules: [
-                  {
-                      type: 'empty',
-                      prompt: 'Please tell us about your previous hackathons.'
+      function _setupForm() {
+          var teamRes = _updateTeam();
+
+          if(teamRes == true) {
+            // Semantic-UI form validation
+            $('.ui.form').form({
+              inline: true,
+              fields: {
+                  firstname: {
+                      identifier: 'firstname',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please enter your first name.'
+                          }
+                      ]
+                  },
+                  lastname: {
+                      identifier: 'lastname',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please enter your last name.'
+                          }
+                      ]
+                  },
+                  grade: {
+                      identifier: 'grade',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please enter your grade.'
+                          }
+                      ]
+                  },
+                  school: {
+                      identifier: 'school',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please enter your school.'
+                          }
+                      ]
+                  },
+                  phone: {
+                      identifier: 'phone',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please enter your phone number.'
+                          }
+                      ]
+                  },
+                  departing: {
+                      identifier: 'departing',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please enter your departing location.'
+                          }
+                      ]
+                  },
+                  pasthackathon: {
+                      identifier: 'pasthackathon',
+                      depends: 'hackathonxp',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please enter your past hackathon experience(s).'
+                          }
+                      ]
+                  },
+                  gender: {
+                      identifier: 'gender',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please select a gender.'
+                          }
+                      ]
+                  },
+                  ethnicity: {
+                      identifier: 'ethnicity',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please select an ethnicity.'
+                          }
+                      ]
+                  },
+                  shirt: {
+                      identifier: 'shirt',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please select your shirt size.'
+                          }
+                      ]
+                  },
+                  essayproject: {
+                      identifier: 'essayproject',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please tell us about your past experience.'
+                          }
+                      ]
+                  },
+                  hackathonxp: {
+                      identifier: 'hackathonxp',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please tell us about your previous hackathons.'
+                          }
+                      ]
+                  },
+                  essaygain: {
+                      identifier: 'essaygain',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please tell us about what you hope to gain at MasseyHacks IV.'
+                          }
+                      ]
+                  },
+                  methodofdiscovery: {
+                      identifier: 'methodofdiscovery',
+                      rules: [
+                          {
+                              type: 'empty',
+                              prompt: 'Please tell us about how you learned about MasseyHacks IV.'
+                          }
+                      ]
+                  },
+                  termsAndCond: {
+                      identifier: 'termsAndCond',
+                      rules: [
+                          {
+                              type: 'checked',
+                              prompt: 'You must accept MLH Terms & Conditions, MLH Privacy Policy, and MLH Code of Conduct.'
+                          }
+                      ]
                   }
-              ]
-            },
-            essaygain: {
-                identifier: 'essaygain',
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Please tell us about what you hope to gain at MasseyHacks IV.'
-                    }
-                ]
-            },
-            methodofdiscovery: {
-              identifier: 'methodofdiscovery',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please tell us about how you learned about MasseyHacks IV.'
-                }
-              ]
-            },
-            termsAndCond: {
-              identifier: 'termsAndCond',
-              rules: [
-                {
-                  type: 'checked',
-                  prompt: 'You must accept MLH Terms & Conditions, MLH Privacy Policy, and MLH Code of Conduct.'
-                }
-              ]
-            }
-          },
-          onSuccess: function(event, fields){
-            _updateTeam();
-            _updateSchools();
+              },
+              onSuccess: function (event, fields) {
 
-            if ($scope.user.status.completedProfile) {
-              if (JSON.stringify($scope.user.profile) === $scope.backupUser) {
-                  swal({
-                      title: "Warning",
-                      text: "You have not modified your application",
-                      type: "warning",
-                  });
-              } else {
+                  _updateSchools();
 
-                  swal({
-                      title: "Whoa!",
-                      text: "You can edit your application after submitting, but you risk losing your place in queue!",
-                      type: "warning",
-                      showCancelButton: true,
-                      confirmButtonColor: "#DD6B55",
-                      confirmButtonText: "Yes, resubmit",
-                      closeOnConfirm: false
-                  }, function(){
-                    _updateUser();
-                  });
+                  if ($scope.user.status.completedProfile) {
+                      if (JSON.stringify($scope.user.profile) === $scope.backupUser) {
+                          swal({
+                              title: "Warning",
+                              text: "You have not modified your application",
+                              type: "warning",
+                          });
+                      } else {
+
+                          swal({
+                              title: "Whoa!",
+                              text: "You can edit your application after submitting, but you risk losing your place in queue!",
+                              type: "warning",
+                              showCancelButton: true,
+                              confirmButtonColor: "#DD6B55",
+                              confirmButtonText: "Yes, resubmit",
+                              closeOnConfirm: false
+                          }, function () {
+                              _updateUser();
+                          });
+                      }
+                  } else {
+                      _updateUser();
+                  }
+
+              },
+              onFailure: function (formErrors, fields) {
+                  $scope.fieldErrors = formErrors;
+                  $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
               }
-            } else {
-                _updateUser();
-            }
-          },
-          onFailure: function(formErrors, fields){
-            $scope.fieldErrors = formErrors;
-            $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
+
+          });
           }
-        });
+          else {
+              swal(teamRes);
+          }
 
         // Set selected multiselect items
         $("#spacesOrTabs").dropdown('set selected', $scope.user.profile.spacesOrTabs);

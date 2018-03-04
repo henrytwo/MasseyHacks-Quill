@@ -9,10 +9,11 @@ angular.module('reg')
 
       $scope.adminUser = currentUser.data;
 
+      $scope.param = 'sname';
       $scope.pages = [];
       $scope.users = [];
       // to know when to filter by date
-      $scope.sortDate = false;
+      $scope.sorted = {'votedBy' : false, 'sname' : false, 'wave' : false, 'lastUpdated' : false};
       $scope.filter = {text:"", hacker: true};
 
       // Semantic-UI moves modal content into a dimmer at the top level.
@@ -46,23 +47,29 @@ angular.module('reg')
       }
 
       UserService
-        .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
+        .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sorted[$scope.param], $scope.param)
         .success(function(data){
           updatePage(data);
         });
 
       $scope.sortBy = function(param){
-        $scope.sortDate = !$scope.sortDate;
+        $scope.param = param;
+
+        var s = !$scope.sorted[param];
+
+        $scope.sorted = {'votedBy' : false, 'sname' : false, 'wave' : false, 'lastUpdated' : false};
+        $scope.sorted[param] = s;
+
         UserService
-                  .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, param)
+                  .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sorted[param], param)
                   .success(function(data){
                     updatePage(data);
                   });
-      }
+      };
 
       $scope.filterUsers = function() {
         UserService
-          .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
+          .getPage($stateParams.page, $stateParams.size, $scope.filter, $scope.sorted[$scope.param], $scope.param)
           .success(function(data){
             updatePage(data);
           });
@@ -339,21 +346,27 @@ angular.module('reg')
 
                           var hackerName = ((rawData[x].profile.name) ? rawData[x].profile.name : rawData[x].nickname) + "\";\"" + rawData[x].email;
 
-                          hackers[hackerName] = [getState(rawData[x].status).toUpperCase()];
+                          hackers[hackerName] = [getState(rawData[x].status).toUpperCase(), rawData[x].status.admittedBy ? rawData[x].status.admittedBy : 'N/A'];
 
                           for (var m = 0; m < reviewers.length; m++) {
                               hackers[hackerName].push('');
                           }
                           for (var a = 0; a < rawData[x].applicationAdmit.length; a++) {
-                              hackers[hackerName][1 + reviewers.indexOf(rawData[x].applicationAdmit[a])] = 'ADMIT';
+                              var index = reviewers.indexOf(rawData[x].applicationAdmit[a]);
+                              if (index > -1) {
+                                  hackers[hackerName][2 + index] = 'ADMIT';
+                              }
                           }
                           for (var r = 0; r < rawData[x].applicationReject.length; r++) {
-                              hackers[hackerName][1 + reviewers.indexOf(rawData[x].applicationReject[r])] = 'REJECT';
+                              var index = reviewers.indexOf(rawData[x].applicationReject[r]);
+                              if (index > -1) {
+                                  hackers[hackerName][2 + index] = 'REJECT';
+                              }
                           }
                       }
                   }
 
-                  var output = "Name;Email;Status;";
+                  var output = "Name;Email;Status;Admitted By (If Applicable);";
 
                   for(var i = 0; i < reviewers.length; i++){
                       output += "\"" + reviewers[i] + "\";";
@@ -586,13 +599,10 @@ angular.module('reg')
                 value: user.email
               },{
                 name: 'Phone',
-                value: user.phone
+                value: user.profile.phone
               },{
                 name: 'ID',
                 value: user.id
-              },{
-                name: 'Team',
-                value: user.teamCode || 'None'
               },{
                 name: 'Requested travel reimbursement',
                 value: user.profile.needsReimbursement || 'False'
@@ -629,20 +639,22 @@ angular.module('reg')
               }
             ]
           },{
-            name: 'Additional',
-            fields: [
-              {
+        fields: [
+            {
                 name: 'Website',
-                value: user.profile.site
-              },
-              {
+                type: 'url',
+                value: user.profile.site || 'N/A'
+            },
+            {
                 name: 'Devpost',
-                value: user.profile.devpost
-              },
-              {
+                type: 'url',
+                value: user.profile.devpost || 'N/A'
+            },
+            {
                 name: 'Github',
-                value: user.profile.github
-              },
+                type: 'url',
+                value: user.profile.github || 'N/A'
+            },
               {
                 name: 'Method of Discovery',
                 value: user.profile.methodofdiscovery
@@ -670,7 +682,11 @@ angular.module('reg')
               {
                 name: 'Additional notes',
                 value: user.confirmation.notes
-              }
+              },
+                {
+                    name: 'Waterloo/Toronto Bus',
+                    value: user.confirmation.bus
+                }
             ]
           }
         ];

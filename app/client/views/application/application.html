@@ -155,6 +155,7 @@
           <label> What is your phone number? <span style="color: red">*</span></label>
           <input type="tel"
                  name="phone"
+                 maxlength="20"
                  ng-model="user.profile.phone">
         </div>
 
@@ -225,7 +226,7 @@
         <div class="indent">
           <div class="field" ng-show="user.profile.hackathonxp">
             <label>Which hackathons have you attended? <span style="color: red">*</span></label>
-            <textarea ng-model="user.profile.pasthackathon" maxlength="500">
+            <textarea id="pasthackathon" name="pasthackathon" ng-model="user.profile.pasthackathon" maxlength="500">
             </textarea>
           </div>
         </div>
@@ -298,21 +299,6 @@
 
         <br><br>
         <div class="divided title">Final questions</div>
-
-        <div class="field">
-          <label>
-            If you have already formed a team for MasseyHacks IV, please name it with a unique string. </label>
-            <p style="margin-bottom: 10px;">
-            Remember that the team name is Case Sensitive and all teammates have to apply <strong>separately with the same team name</strong>!
-            Having a team is not compulsory at all for attending.
-            <br>
-            NOTE that to compete for prizes at MasseyHacks IV, your team can be max. 4 members!
-          </p>
-          <input type="text"
-                 name="teamCode"
-                 placeholder="cAsE SENsiTiVE"
-                 ng-model="user.teamCode">
-        </div>
 
         <div class="field">
           <label>And finally… Spaces or tabs?</label>

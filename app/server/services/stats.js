@@ -11,7 +11,6 @@ function calculateStats(settings){
     lastUpdated: 0,
 
     total: 0,
-
     wave: 0,
     review: [['Reviewer', 'Wave 1', 'Wave 2', 'Wave 3', 'Wave 4']],
 
@@ -42,6 +41,7 @@ function calculateStats(settings){
     confirmedStat : {
 
         total: 0,
+        bus: 0,
 
         demo: {
             gender: {
@@ -72,11 +72,13 @@ function calculateStats(settings){
     verified: 0,
     submitted: 0,
     admitted: 0,
+    waitlisted: 0,
     confirmed: 0,
     declined: 0,
     waiver: 0,
     rejected: 0,
     checkedIn: 0,
+    bus: 0,
 
     dietaryRestrictions: {}
 
@@ -125,6 +127,9 @@ function calculateStats(settings){
         newStats.verified += user.verified ? 1 : 0;
 
         newStats.rejected += user.rejected ? 1 : 0;
+
+        newStats.waitlisted += user.status.waitlisted ? 1 : 0;
+        newStats.bus += user.confirmation.bus ? 1 : 0;
 
         // Count submitted
         newStats.submitted += user.status.completedProfile ? 1 : 0;
@@ -177,6 +182,7 @@ function calculateStats(settings){
           if (user.status.confirmed) {
 
               newStats.confirmedStat.total += 1;
+              newStats.confirmedStat.bus += user.confirmation.bus ? 1 : 0;
 
               // Add to the gender
               newStats.confirmedStat.demo.gender[user.profile.gender] += 1;

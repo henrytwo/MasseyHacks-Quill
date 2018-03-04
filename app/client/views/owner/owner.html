@@ -253,7 +253,7 @@
     <div class="preview ui segment">
       <h3>System Log</h3>
       <div style="overflow: scroll;">
-      <span ng-repeat="line in settings.log track by $index">{{line}}<br></span>
+      <span ng-repeat="line in settings.log.slice().reverse() track by $index">{{line}}<br></span>
       </div>
     </div>
   </div>
