@@ -1452,20 +1452,17 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
 
                                 UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, callback);
                             } else {
-                                if (data < total) {
-                                    console.log(user);
-                                    console.log(user.votedBy);
-
-                                    if (user.applicationAdmit.length >= 3) {
+                                console.log(user);
+                                console.log(user.votedBy);
+                                if (user.applicationAdmit.length >= 3 && !user.status.waitlisted && !user.status.admitted && !user.status.rejected) {
+                                    if (data < total) {
                                         user.status.admitted = true;
                                         user.status.rejected = false;
                                         user.status.admittedBy = "MasseyHacks Admission Authority";
                                         console.log("Admitted user");
 
                                         UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, callback);
-                                    }
-                                } else {
-                                    if (user.applicationAdmit.length >= 3) {
+                                    } else {
                                         user.status.waitlisted = true;
                                         user.status.rejected = false;
                                         console.log("Waitlisted User");
