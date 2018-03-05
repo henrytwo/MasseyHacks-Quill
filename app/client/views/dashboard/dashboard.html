@@ -22,7 +22,7 @@
         </div> -->
 
         <div
-          class="state"
+          class="waitlist state"
           ng-class="user.status.name"
           ng-if="!dashState('admittedAndCannotConfirm')">
           {{checkStatus()}}
@@ -32,13 +32,6 @@
           class="declined state"
           ng-if="dashState('admittedAndCannotConfirm')">
           Expired Confirmation
-        </div>
-
-
-        <div
-          class="waitlist state"
-          ng-if="dashState('waitlisted')">
-          On waitlist
         </div>
 
         <div class="ui divider"></div>
@@ -152,8 +145,8 @@
           class="description" >
 
           <div class="markdown">
-            <h4>
-              Unfortunately due to overwhelming interest in the event, you have been placed on the waiting list. Don’t worry, we will notify you immediately when a spot opens up for you. Thank you for applying to MasseyHacks IV! </h4>
+            <p>
+              Unfortunately due to overwhelming interest in the event, you have been placed on the waiting list. Don’t worry, we will notify you immediately when a spot opens up for you. Thank you for applying to MasseyHacks IV! </p>
           </div>
 
           <div
@@ -161,7 +154,7 @@
             ng-bind-html="waitlistText">
           </div>
 
-          <div class="ui purple button"
+          <div class="ui sea-serpent button"
                ui-sref="app.application">
             View your application
           </div>

@@ -52,8 +52,7 @@ angular.module('reg')
           case 'openAndIncomplete':
             return regIsOpen && user.verified && !user.status.completedProfile;
           case 'submitted':
-            return user.status.completedProfile && !user.status.admitted &&
-            !(user.status.rejected);
+            return user.status.completedProfile && !user.status.admitted && !(user.status.rejected) && !(user.status.waitlisted);
           case 'closedAndIncomplete':
             return !regIsOpen && !user.status.completedProfile && !user.status.admitted &&
             !(user.status.rejected);
