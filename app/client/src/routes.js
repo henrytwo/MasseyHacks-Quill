@@ -235,6 +235,36 @@ angular.module('reg')
          document.body.scrollTop = document.documentElement.scrollTop = 0;
       });
 
+      function parseJwt (token) {
+          var base64Url = token.split('.')[1];
+          var base64 = base64Url.replace('-', '+').replace('_', '/');
+          return JSON.parse(window.atob(base64));
+      };
+
+      function tokenActive() {
+          var token = Session.getToken();
+
+          if (token) {
+              if (parseJwt(token).exp <= Date.now() / 1000) {
+                  swal({
+                      title: 'Session Expired',
+                      text: 'Your session has expired, you have been logged out.',
+                      type: 'error'
+                  });
+
+                  Session.destroy();
+
+                  return false;
+              }
+              else {
+                return true;
+              }
+          }
+          else {
+            return false;
+          }
+      }
+
       $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         var unmatched = toState.data.unmatched;
         var requireLogin = toState.data.requireLogin;
@@ -251,6 +281,11 @@ angular.module('reg')
         if (unmatched){
           event.preventDefault();
           $state.go('app.dashboard');
+        }
+
+        if (requireLogin && !tokenActive()) {
+            event.preventDefault();
+            $state.go('login');
         }
 
         if (requireLogin && !Session.getToken()) {

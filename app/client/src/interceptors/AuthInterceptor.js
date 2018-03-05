@@ -14,6 +14,8 @@ angular.module('reg')
 
             var token = Session.getToken();
             if (token){
+
+                /*
               if (parseJwt(token).exp <= Date.now() / 1000) {
                   swal({
                       title: 'Session Expired',
@@ -24,7 +26,8 @@ angular.module('reg')
                   Session.destroy();
 
                   return false;
-              }
+              } */
+
               config.headers['x-access-token'] = token;
             }
             return config;
