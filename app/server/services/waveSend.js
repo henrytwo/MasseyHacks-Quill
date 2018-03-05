@@ -5,6 +5,36 @@ var UserController = require('../controllers/UserController');
 var mailer = require('../services/email');
 var async = require('async');
 
+setInterval(function() {
+    confirmationCheck();
+}, 86400000);
+
+var confirmationCheck = function() {
+    Users.find({'status.admitted': true, 'status.declined':false, 'status.confirmed':false, 'status.noConfirmation':false}).exec(function(err, users){
+
+        console.log(users);
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].status.confirmBy < Date.now()) {
+                Users.findOneAndUpdate({
+                        '_id': users[i]._id
+                    },
+                    {
+                        $set: {
+                            'status.noConfirmation':true
+                        }
+                    }, {
+                        new: true
+                    },
+                    function(err, user) {
+                        console.log("Rejecting user " + user.email + " due to expired confirmation");
+                    });
+            }
+        }
+        UserController.advanceWaitlist();
+    });
+};
+
+confirmationCheck();
 
 var ad = function (err, user) {
     if (err) {
@@ -86,30 +116,6 @@ var acceptPart = function (wave) {
     });
 };
 
-var notConfirmed = function (wave) {
-    Users.find({'wave': wave, 'status.admitted':true, 'status.declined':false, 'status.confirmed': false}).exec(function (err, data) {
-        console.log(data.length);
-       for (var i = 0; i < data.length; i++) {
-            var user = data[i];
-           console.log("running user" + user.email);
-           Users.findOneAndUpdate({
-                   '_id': user._id
-               },
-               {
-                   $set: {
-                       'status.noConfirmation':true
-                   }
-               },
-               {
-                   new: true
-               }, null);
-       }
-
-        UserController.advanceWaitlist();
-
-    })
-}
-
 var waveA = function () {
     acceptPart(1);
 };
@@ -126,27 +132,10 @@ var waveD = function () {
     acceptPart(4);
 };
 
-var confirmA = function () {
-    notConfirmed(1);
-};
-
-var confirmB = function () {
-    notConfirmed(2);
-};
-
-var confirmC = function () {
-    notConfirmed(3);
-};
-
-var confirmD = function () {
-    notConfirmed(4);
-};
-
 var waveSend = {};
 
 waveSend.engageTimers = function(c) {
   var waveAccept = [waveA, waveB, waveC, waveD];
-  var expireConfirm = [confirmA, confirmB, confirmC, confirmD];
   const params = ['1', '2', '3', '4'];
 
   if (c) {
@@ -159,10 +148,8 @@ waveSend.engageTimers = function(c) {
               var confirm = schedule.scheduledJobs["c" + param];
 
               accept.reschedule(new Date(setting['wave' + param].timeClose + 604800000));
-              confirm.reschedule(new Date(setting['wave' + param].timeConfirm));
 
               console.log(accept.nextInvocation());
-              console.log(confirm.nextInvocation());
               console.log("Reschedule")
           })
       })
@@ -175,7 +162,6 @@ waveSend.engageTimers = function(c) {
               console.log(setting['wave' + param].timeClose + " ", Date.now());
 
               schedule.scheduleJob(param, new Date(setting['wave' + param].timeClose + 604800000), waveAccept[parseInt(param)-1]);
-              schedule.scheduleJob("c" + param, new Date(setting['wave' + param].timeConfirm), expireConfirm[parseInt(param)-1]);
 
               console.log("Schedule")
           })

@@ -909,7 +909,7 @@ UserController.advanceWaitlist = function () {
                 'owner': false,
                 'admin': false,
                 'reviewer': false,
-                'volunteer': false,
+                'volunteer': false
             }, function (err, data) {
                 var currentAdmitted = data;
                 if (data <= setting.participants) {
@@ -976,8 +976,6 @@ UserController.declineById = function (id, callback){
       }
       Mailer.sendDeclinedEmail(user);
       callback(err, user);
-
-      UserController.advanceWaitlist();
     });
 };
 
@@ -1501,9 +1499,8 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
  * [ADMIN ONLY]
  *
  * Admit a user.
- * @param  {String}   userId      User id of the admit
+ * @param  {String}   id      User id of the admit
  * @param  {String}   user        User doing the admitting
- * @param  (String)   reimbClass  Users accepted reimbursement class/amount
  * @param  {Function} callback args(err, user)
  */
 UserController.admitUser = function(id, user, callback){
@@ -1518,7 +1515,7 @@ UserController.admitUser = function(id, user, callback){
         $set: {
           'status.statusReleased' : true,
           'status.admitted': true,
-          'status.admittedBy': user.email,
+          'status.admittedBy': user['email'],
           'status.confirmBy': Date.now() + 604800000,
         }
       }, {
