@@ -69,7 +69,7 @@ var profile = {
 
     school: {
         type: String,
-        maxlength: 50,
+        maxlength: 100,
     },
 
     departing: {
@@ -600,7 +600,7 @@ schema.statics.validateProfile = function (id, profile, cb) {
         (profile.phone == null || (profile.phone != null && profile.phone.length <= 50 && (/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test(profile.phone))) &&
         (profile.departing == null || (profile.departing != null && profile.departing.length <= 50)) &&
         (profile.devpost == null || (profile.devpost != null && profile.devpost.length <= 50)) &&
-        profile.school.length <= 50 &&
+        profile.school.length <= 100 &&
         profile.termsAndCond &&
         ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1 &&
         ['S', 'M', 'L'].indexOf(profile.shirt) > -1 &&

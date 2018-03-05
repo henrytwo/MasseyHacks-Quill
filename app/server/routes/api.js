@@ -313,6 +313,9 @@ module.exports = function(router) {
    router.get('/search/school/:query', function(req, res) {
      var params = sanitize(req.params);
      var query = params.query;
+     if (query.length > 100) {
+       query = query.substr(0, 100);
+     }
      query = query.replace(/[!@#$<>%^*;()"]/g, "");
      SettingsController.getSchools(function(err, schools) {
        if (err) {

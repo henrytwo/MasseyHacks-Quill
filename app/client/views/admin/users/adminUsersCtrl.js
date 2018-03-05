@@ -405,7 +405,7 @@ angular.module('reg')
 
        $scope.exportCSV = function() {
         UserService
-        .getPageFull(0, $stateParams.size, $scope.filter, false, 'profile.sname')
+        .getPageFull(0, $stateParams.size, $scope.filter, false, 'sname')
         .success(function(rawData){
           var data = rawData['users'];
 
