@@ -247,7 +247,12 @@
                 class="green check circle icon">
               </i>
               <i
-                ng-if="!user.status.rejected && !user.status.admitted"
+                    ng-if="user.status.waitlisted"
+                    class="yellow check circle icon">
+              </i>
+
+              <i
+                ng-if="!user.status.rejected && !user.status.admitted && !user.status.waitlisted"
                 class="thin circle icon">
               </i>
               <i

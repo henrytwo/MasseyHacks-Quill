@@ -410,8 +410,9 @@ angular.module('reg')
                         if (user != "") {
                             $scope.users.splice(index, 1);
                             swal("Action Performed", "Voted to reject", "success");
-                            $('.long.user.modal').modal('show');
+
                             if ($scope.users.length > 0) {
+                                $('.long.user.modal').modal('show');
                                 selectUser($scope.users[0]);
                             }
                             else {

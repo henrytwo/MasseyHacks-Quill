@@ -1000,6 +1000,7 @@ UserController.rejectById = function (id, callback){
         'status.statusReleased': true,
         'lastUpdated': Date.now(),
         'status.rejected': true,
+        'status.waitlisted' : false,
       }
     }, {
       new: true
@@ -1032,6 +1033,7 @@ UserController.unRejectById = function (id, callback){
       $set: {
         'lastUpdated': Date.now(),
         'status.rejected': false,
+        'status.waitlisted' : false,
       }
     }, {
       new: true
@@ -1511,6 +1513,7 @@ UserController.admitUser = function(id, user, callback){
       },{
         $set: {
           'status.statusReleased' : true,
+          'status.waitlisted' : false,
           'status.admitted': true,
           'status.admittedBy': user['email'],
           'status.confirmBy': Date.now() + 604800000,
