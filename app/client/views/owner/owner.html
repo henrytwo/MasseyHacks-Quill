@@ -252,8 +252,16 @@
   <div class="column ui orange segment">
     <div class="preview ui segment">
       <h3>System Log</h3>
+
+      <div class="ui checkbox">
+        <input type="checkbox" id="showLog" ng-model="showLog">
+        <label for="showLog"><h5>Show log</h5></label>
+      </div>
+
+      <br>
+      <br>
       <div style="overflow: scroll;">
-      <span ng-repeat="line in settings.log.slice().reverse() track by $index">{{line}}<br></span>
+      <span ng-show="showLog" ng-repeat="line in settings.log.slice().reverse() track by $index">{{line}}<br></span>
       </div>
     </div>
   </div>
