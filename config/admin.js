@@ -45,7 +45,6 @@ function makeadmin(admin_email, admin_name, admin_nickname, admin_password, admi
 
                 var token = u.generateTempAuthToken();
                 var callback = '';
-                Mailer.sendPasswordResetEmail(u, token, callback);
 
                 console.log(callback);
 
