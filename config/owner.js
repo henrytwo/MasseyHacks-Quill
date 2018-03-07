@@ -45,7 +45,6 @@ function makeOwner(owner_email, owner_name, owner_nickname, owner_password, revi
 
                 var token = u.generateTempAuthToken();
                 var callback = '';
-                Mailer.sendPasswordResetEmail(u, token, callback);
 
                 console.log(callback);
 

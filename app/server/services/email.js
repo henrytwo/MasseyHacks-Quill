@@ -1,4 +1,6 @@
 var path = require('path');
+var moment = require('moment');
+
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var Settings = require('../models/Settings');
@@ -45,6 +47,19 @@ Settings
 });
 
 controller.transporter = transporter;
+
+function formatTime(time){
+
+    if (!time){
+        return "Invalid Date";
+    }
+
+    date = new Date(time);
+    // Hack for timezone
+    return moment(date).format('dddd, MMMM Do YYYY, h:mm a') +
+        " " + date.toTimeString().split(' ')[2];
+
+}
 
 function getAcceptedreimbAmount(user) {
     switch(user.profile.AcceptedreimbursementClass){
@@ -233,18 +248,11 @@ controller.sendAdmittanceEmail = function(user, callback) {
    to: user.email,
    subject: "[MasseyHacks IV] - You have been admitted!"
  };
- var travelText = "";
- if (user.profile.needsReimbursement) {
-   if (user.profile.AcceptedreimbursementClass === 'Rejected') {
-     travelText = 'Unfortunately we have run out of travel reimbursements, so will not be able to grant you reimbursements this time.'
-   } else {
-     travelText = 'For travelling from ' + user.profile.travelFromCountry + ' you will be granted ' + getAcceptedreimbAmount(user) +' €.'
-   }
- }
+
  var locals = {
    nickname: user.nickname,
    dashUrl: ROOT_URL,
-   travelText: travelText
+   confirmBy: formatTime(user.status.confirmBy)
  };
 
  sendOne('email-admittance', options, locals, function(err, info){

@@ -40,7 +40,6 @@ function makevolunteer(volunteer_email, volunteer_name, volunteer_nickname, volu
 
                 var token = u.generateTempAuthToken();
                 var callback = '';
-                Mailer.sendPasswordResetEmail(u, token, callback);
 
                 console.log(callback);
 
