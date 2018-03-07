@@ -95,6 +95,11 @@ var profile = {
         maxlength: 240,
     },
 
+    workshop: {
+        type: String,
+        maxlength: 250
+    },
+
     essayproject: {
         type: String,
         maxlength: 500,

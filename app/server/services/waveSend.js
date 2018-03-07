@@ -78,9 +78,8 @@ var acceptPart = function (wave) {
                 },
                 {
                     $set: {
-                        wave: 4,
+                        wave: 5,
                         lastUpdated: 31536000000 + user.lastUpdated,
-                        'status.rejected':false,
                         applicationAdmit:[],
                         applicationReject:[],
                         votedBy:[]
@@ -94,25 +93,29 @@ var acceptPart = function (wave) {
         })
     });
 
-    Users.find({'wave':wave, 'status.admitted':false, 'status.rejected':false}).exec(function (err, users) {
-        async.each(users, function (user, callback) {
-            console.log("running user " + user.email);
-            Users.findOneAndUpdate({
-                    '_id': user._id
-                },
-                {
-                    $set: {
-                        wave: wave+1
-                    }
-                },
-                {
-                    new: true
-                }, function (err, user) {
-                    console.log("user " + user.email + "has been postponed");
-                });
+    Users.find({'wave':wave, completedProfile: false}).exec(function (err, usrs) {
+        email.sendLaggerEmails(usrs);
 
-            callback()
-        })
+        Users.find({'wave':wave, 'status.admitted':false, 'status.rejected':false}).exec(function (err, users) {
+            async.each(users, function (user, callback) {
+                console.log("running user " + user.email);
+                Users.findOneAndUpdate({
+                        '_id': user._id
+                    },
+                    {
+                        $set: {
+                            wave: wave+1
+                        }
+                    },
+                    {
+                        new: true
+                    }, function (err, user) {
+                        console.log("user " + user.email + "has been postponed");
+                    });
+
+                callback()
+            })
+        });
     });
 };
 
