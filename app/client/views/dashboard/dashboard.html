@@ -37,7 +37,7 @@
         <div class="ui divider"></div>
 
         <div id="QRContainer" ng-show="user.status.confirmed && !user.volunteer">
-          <img id="QR" ng-src="{{qr}}">
+          <img id="QR" ng-src="{{qr}}" style="min-width: 200px; max-width: 250px; width: 100%; height: auto;">
         </div>
 
         <p>
@@ -183,11 +183,13 @@
           </div>
 
           <div class="ui sea-serpent button"
+               style="min-width: 200px; width: 100%"
                ui-sref="app.confirmation">
             Confirm your spot
           </div>
 
           <div class="ui vermilion button"
+               style="min-width: 200px; width: 100%"
                ng-click="declineAdmission()">
             Sorry, I can't make it
           </div>
@@ -227,22 +229,26 @@
             <b>Don’t forget that we cannot admit you into the event until your waiver has been signed.</b> It's never too early to start thinking about your hack! We hope to see you on April 28th ready and excited for your 24 hours of hacking!
           </div>
 
-          <div class="ui sea-serpent button" 
+          <div class="ui sea-serpent button"
+               style="min-width: 200px; width: 100%"
                ui-sref="app.confirmation">
             {{pastConfirmation ? 'View' : 'Edit'}} confirmation
           </div>
 
-          <div class="ui sea-serpent button" 
+          <div class="ui sea-serpent button"
+               style="min-width: 200px; width: 100%"
                ng-click="inviteToSlack()">
             Send Slack invitation
           </div>
 
-          <div class="ui sea-serpent button" 
+          <div class="ui sea-serpent button"
+               style="min-width: 200px; width: 100%"
                ng-click="getWaiver()">
             Get Waiver
           </div>
 
           <div class="ui vermilion button"
+               style="min-width: 200px; width: 100%"
                ng-click="declineAdmission()">
             Sorry, I can't make it
           </div><br>
