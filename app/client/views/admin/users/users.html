@@ -53,6 +53,10 @@
             <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.rejected">
             <label style="padding-left: 20px"> Rejected </label>
           </div>
+        <div class="ui checkbox" style="padding-right: 10px">
+          <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.declined">
+          <label style="padding-left: 20px"> Declined </label>
+        </div>
           <div class="ui checkbox" style="padding-right: 10px">
             <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.volunteer">
             <label style="padding-left: 20px"> Organizer </label>
@@ -101,6 +105,7 @@
         <a class="btn" ng-click="exportVoter()" ng-show="adminUser.owner">Export voter data</a>
       </div>
       <div class="ui long user modal">
+
         <i class="close icon"></i>
         <div class="header">
           {{selectedUser.profile.name ? selectedUser.profile.name : selectedUser.email}}
@@ -109,8 +114,8 @@
             (Admin)
           </span>
         </div>
-        <div class="content">
 
+        <div class="content">
           <div>
             <div class="ui header">
               Status:
@@ -121,10 +126,12 @@
             </div>
           </div>
 
+          <!--
           <div ng-repeat="section in selectedUser.sections">
             <div class="ui divider"></div>
 
             <h3> {{section.title}} </h3>
+
 
             <p ng-repeat="field in section.fields">
               <strong> {{field.name}}: </strong>
@@ -142,10 +149,10 @@
                 {{field.value}}
               </span>
             </p>
-
-          </div>
+          </div> -->
 
         </div>
+
         <div class="actions">
           <button
                   class="ui negative button"

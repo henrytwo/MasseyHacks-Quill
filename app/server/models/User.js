@@ -600,6 +600,7 @@ schema.statics.validateProfile = function (id, profile, cb) {
         profile.essayproject.length <= 500 &&
         (profile.pasthackathon == null || (profile.pasthackathon != null && profile.pasthackathon.length <= 500)) &&
         (profile.freeComment == null || (profile.freeComment != null &&profile.freeComment.length <= 500)) &&
+        (profile.workshop == null || (profile.workshop != null &&profile.workshop.length <= 250)) &&
         (profile.github == null || (profile.github != null && profile.github.length <= 50)) &&
         (profile.site == null || (profile.site != null && profile.site.length <= 50)) &&
         (profile.phone == null || (profile.phone != null && profile.phone.length <= 50 && (/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test(profile.phone))) &&

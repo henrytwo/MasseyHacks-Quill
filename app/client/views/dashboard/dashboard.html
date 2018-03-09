@@ -227,27 +227,25 @@
             <b>Don’t forget that we cannot admit you into the event until your waiver has been signed.</b> It's never too early to start thinking about your hack! We hope to see you on April 28th ready and excited for your 24 hours of hacking!
           </div>
 
-          <div class="ui sea-serpent button"
+          <div class="ui sea-serpent button" 
                ui-sref="app.confirmation">
-            {{pastConfirmation ? 'View' : 'Edit'}} your confirmation information
+            {{pastConfirmation ? 'View' : 'Edit'}} confirmation
+          </div>
+
+          <div class="ui sea-serpent button" 
+               ng-click="inviteToSlack()">
+            Send Slack invitation
+          </div>
+
+          <div class="ui sea-serpent button" 
+               ng-click="getWaiver()">
+            Get Waiver
           </div>
 
           <div class="ui vermilion button"
                ng-click="declineAdmission()">
             Sorry, I can't make it
-          </div>
-
-          <br>
-
-          <div class="ui sea-serpent button"
-               ng-click="inviteToSlack()">
-            Send Slack invitation
-          </div>
-
-          <div class="ui sea-serpent button"
-               ng-click="getWaiver()">
-            Get Waiver
-          </div>
+          </div><br>
 
         </div>
 
@@ -258,7 +256,7 @@
 
           <p>
             We're sorry to hear that you won't be able to make it to MasseyHacks IV! :(<br>
-            Maybe next year! We hope you see you again soon.
+            Thank you for your interest and we hope to see you next year.
           </p>
         </div>
 

@@ -667,6 +667,10 @@ angular.module('reg')
                 name: 'What do you hope to gain from MasseyHacks IV?',
                 value: user.profile.essaygain
               },
+            {
+                name: 'Workshops',
+                value: user.profile.workshop
+            },
               {
                 name: 'Free comment',
                 value: user.profile.freeComment

@@ -370,10 +370,10 @@ angular.module('reg')
                             }, {
                                 name: 'ID',
                                 value: user.id
-                            }, {
+                            }, /*{
                                 name: 'Team',
                                 value: user.teamCode || 'None'
-                            },
+                            },*/
                             {
                                 name: 'Shirt Size',
                                 value: user.profile.shirt,

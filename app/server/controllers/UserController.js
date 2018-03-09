@@ -387,6 +387,9 @@ UserController.getPage = function(query, callback){
   if(query.filter.bus === 'true') {
     statusFilter.push({'confirmation.bus': 'true'});
   }
+    if(query.filter.declined === 'true') {
+        statusFilter.push({'status.declined': 'true'});
+    }
   if(query.filter.rejected === 'true') {
       statusFilter.push({'status.rejected': 'true'});
   }
@@ -1516,7 +1519,7 @@ UserController.admitUser = function(id, user, callback){
           'status.waitlisted' : false,
           'status.admitted': true,
           'status.admittedBy': user['email'],
-          'status.confirmBy': Date.now() + 604800000,
+          'status.confirmBy': Date.now() + 604800000
         }
       }, {
         new: true
