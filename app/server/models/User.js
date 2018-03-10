@@ -447,6 +447,11 @@ var schema = new mongoose.Schema({
         type: [String],
     },
 
+    numVotes : {
+      type: Number,
+      default: 0
+    },
+
     votedBy: {
         type: [String]
     },

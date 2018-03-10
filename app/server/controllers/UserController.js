@@ -266,6 +266,7 @@ UserController.createUser = function(email, password, nickname, callback) {
             u.email = email;
             u.nickname = nickname;
             u.profile.name = nickname;
+            u.profile.sname = nickname;
             u.password = User.generateHash(password);
             u.id = id;
 
@@ -442,6 +443,7 @@ UserController.getPage = function(query, callback){
 
       for (var i = 0; i < users.length; i++) {
           users[i] = removeSensitiveStaff(users[i]);
+          console.log(users[i].sname)
       }
 
       User.count(findQuery).exec(function(err, count){
@@ -1390,6 +1392,9 @@ UserController.voteRejectUser = function(id, adminUser, callback){
                 $push: {
                     'applicationReject': adminUser.email,
                     'votedBy': adminUser.email
+                },
+                $inc : {
+                    'numVotes': 1
                 }
             }, {
                 new: true
@@ -1461,7 +1466,10 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
             },{
                 $push: {
                     'applicationAdmit': adminUser.email,
-                    'votedBy': adminUser.email,
+                    'votedBy': adminUser.email
+                },
+                $inc : {
+                    'numVotes': 1
                 }
             }, {
                 new: true

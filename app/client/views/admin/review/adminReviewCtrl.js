@@ -259,7 +259,7 @@ angular.module('reg')
         }
 
       function selectUser(user){
-          if (user != null) {
+          if (user != null && $scope.users.length > 0) {
               $scope.selectedUser = user;
               $scope.selectedUser.sections = generateSections(user);
           }
@@ -580,7 +580,7 @@ angular.module('reg')
                 closeOnConfirm: true
             },
             function() {
-                if (users.length > 0) {
+                if ($scope.users.length > 0) {
                     $('.long.user.modal').modal('show');
                 }
                 else {

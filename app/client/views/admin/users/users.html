@@ -193,7 +193,7 @@
       <table class="ui celled selectable compact users table">
         <thead>
           <tr>
-            <th class="sortable" ng-click='sortBy("votedBy")'>Votes <i ng-class="{angle: true, icon: true, down: !sorted['votedBy'], up: sorted['votedBy']}"></i></th>
+            <th class="sortable" ng-click='sortBy("numVotes")'>Votes <i ng-class="{angle: true, icon: true, down: !sorted['numVotes'], up: sorted['numVotes']}"></i></th>
             <th class="sortable" ng-click='sortBy("sname")'>Name <i ng-class="{angle: true, icon: true, down: !sorted['sname'], up: sorted['sname']}"></i></th>
             <th class="sortable" ng-click='sortBy("wave")'>Wave <i ng-class="{angle: true, icon: true, down: !sorted['wave'], up: sorted['wave']}"></i></th>
             <th>V/S/A/C/W</th>
@@ -217,7 +217,7 @@
             ng-class="rowClass(user)">
 
             <td>
-              <b>{{user.votedBy.length}}/5</b>
+              <b>{{user.numVotes}}/5</b>
             </td>
             <td>
                 {{user.profile.name}}
@@ -306,7 +306,7 @@
                       ng-click="voteAdmitUser($event, user, $index)"
                       class="ui circular mini basic icon button"
                       ng-show="adminUser.reviewer || adminUser.developer"
-                      ng-class="{disabled: user.status.rejected || user.status.admitted || user.votedBy.indexOf(adminUser.email) !== -1}">
+                      ng-class="{disabled: user.status.rejected || user.status.admitted || user.numVotes.indexOf(adminUser.email) !== -1}">
 
                 <i class="green user icon"></i>
               </button>
@@ -315,7 +315,7 @@
                       ng-click="voteRejectUser($event, user, $index)"
                       class="ui circular mini basic icon button"
                       ng-show="adminUser.reviewer || adminUser.developer"
-                      ng-class="{disabled: user.status.rejected || user.status.admitted || user.votedBy.indexOf(adminUser.email) !== -1}">
+                      ng-class="{disabled: user.status.rejected || user.status.admitted || user.numVotes.indexOf(adminUser.email) !== -1}">
 
                 <i class="red user icon"></i>
               </button>
@@ -419,7 +419,7 @@
             </td>
 
             <td>{{user.email}}
-            <td>{{user.timestamp | date: 'mediumDate'}}</td>
+            <td>{{user.lastUpdated | date: 'mediumDate'}}</td>
             <td>{{user.profile.school}}</td>
             <td>
                 <strong>
