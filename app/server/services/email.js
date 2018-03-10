@@ -61,26 +61,6 @@ function formatTime(time){
 
 }
 
-function getAcceptedreimbAmount(user) {
-    switch(user.profile.AcceptedreimbursementClass){
-      case("Finland"):
-        return settings.reimbursementClass.Finland;
-      case("Baltics"):
-        return settings.reimbursementClass.Baltics;
-      case("Nordic"):
-        return settings.reimbursementClass.Nordic;
-      case("Europe"):
-        return settings.reimbursementClass.Europe;
-      case("Outside Europe"):
-        return settings.reimbursementClass.Outside;
-      case("Rejected"):
-        return "0";
-      default:
-        return user.profile.AcceptedreimbursementClass;
-    }
-}
-
-
 function sendOne(templateName, options, data, callback){
 
   if (NODE_ENV === "dev") {
@@ -148,7 +128,7 @@ controller.sendRejectEmails = function(users, callback) {
     var user = users[i];
     var options = {
       to: user.email,
-      subject: "[MasseyHacks IV] - Final decisions for MasseyHacks IV!"
+      subject: "[MasseyHacks IV] - Final decisions for MasseyHacks IV"
     };
 
     var locals = {
@@ -281,25 +261,11 @@ controller.sendConfirmationEmail = function(user, token, callback) {
    to: user.email,
    subject: "[MasseyHacks IV] - You are confirmed!"
  };
- var travelText;
- if (user.profile.needsReimbursement && user.profile.AcceptedreimbursementClass !== 'Rejected') {
-   travelText = 'A reminder about your travel reimbursement: ' +
-    'For travelling from ' + user.profile.travelFromCountry + ', you will be granted ' + getAcceptedreimbAmount(user) + ' €.';
- }
-
- var accommodationText;
- if (user.profile.applyAccommodation) {
-   accommodationText = 'The free accommodation provided by MasseyHacks will be ' +
-   'held at schools near the event venue. Be sure to bring necessary stuff ' +
-   'like matress, sleeping bag and pillow.'
- }
 
  var locals = {
    nickname: user.nickname,
    userId: user.id,
    dashUrl: ROOT_URL,
-   travelText: travelText,
-   accommodationText: accommodationText
  };
  sendOne('email-confirmation', options, locals, function(err, info){
    if (err){

@@ -238,6 +238,11 @@ var status = {
         required: true,
         default: false,
     },
+    sentConfirmation: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     waitlisted: {
         type: Boolean,
         required: true,
@@ -590,8 +595,6 @@ schema.statics.validateProfile = function (id, profile, cb) {
     */
 
     var good = !(
-        profile.name.length > 0 &&
-        profile.name.length < 200 &&
         profile.firstname.length < 100 &&
         profile.firstname.length > 0 &&
         profile.lastname.length < 100 &&

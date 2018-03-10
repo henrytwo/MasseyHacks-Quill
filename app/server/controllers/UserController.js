@@ -682,6 +682,10 @@ UserController.updateProfileById = function (id, profile, callback){
         });
       }
 
+      if (profileValidated.firstname != null && profileValidated.lastname != null && profileValidated.firstname.length > 0 && profileValidated.lastname.length > 0) {
+          profile.name = profile.firstname + " " + profile.lastname
+      }
+  
       Settings.getCurrentWave(function (err, currentWave) {
         User.findOneAndUpdate({
             _id: id,
@@ -710,13 +714,17 @@ UserController.saveProfileById = function (id, profile, callback){
     // Validate the user profile, and mark the user as profile completed
     // when successful.
     csvValidation(profile, function(profileValidated){
+        if (profileValidated.firstname != null && profileValidated.lastname != null && profileValidated.firstname.length > 0 && profileValidated.lastname.length > 0) {
+            profileValidated.name = profileValidated.firstname + " " + profileValidated.lastname
+        }
+
         User.findOneAndUpdate({
                 _id: id,
                 verified: true
             },
             {
                 $set: {
-                    'profile': profileValidated
+                    'profile': profileValidated,
                 }
             },
             {
@@ -817,7 +825,31 @@ UserController.updateConfirmationById = function (id, confirmation, callback){
                       if (err || !user) {
                           return callback(err);
                       }
-                      Mailer.sendConfirmationEmail(user);
+
+                      if (!user.status.sentConfirmation) {
+                          User.findOneAndUpdate(
+                              {
+                                  '_id': id,
+                                  'verified': true,
+                                  'status.admitted': true,
+                                  'status.declined': {$ne: true}
+                              },
+                              {
+                                  $set: {
+                                      'status.sentConfirmation':true
+                                  }
+                              },
+                              {
+                                  new: true
+                              },
+                              function (err, user) {
+                                  if (err || !user) {
+                                      return callback(err);
+                                  }
+                                  Mailer.sendConfirmationEmail(user);
+                              });
+                      }
+
                       return callback(err, user);
                   });
 
