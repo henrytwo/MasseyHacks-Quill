@@ -29,6 +29,7 @@ module.exports = function(router) {
    */
   function isAdmin(req, res, next){
 
+
     var token = getToken(req);
 
     UserController.getByToken(token, function(err, user){
@@ -77,6 +78,7 @@ module.exports = function(router) {
    * you are, indeed, an admin.
    */
   function isOwner(req, res, next){
+      console.log(req.headers['x-forwarded-for'] || req.connection.remoteAddress);
 
       var token = getToken(req);
 
