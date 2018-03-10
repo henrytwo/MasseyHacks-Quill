@@ -1385,7 +1385,7 @@ UserController.voteRejectUser = function(id, adminUser, callback){
                 '_id': id,
                 'verified': true,
                 'status.rejected': false,
-                'status.admitted': false,
+                'stats.admitted': false,
                 'applicationAdmit' : {$nin : [adminUser.email]},
                 'applicationReject' : {$nin : [adminUser.email]}
             },{
@@ -1407,40 +1407,43 @@ UserController.voteRejectUser = function(id, adminUser, callback){
 
                 UserController.addToLog(adminUser.email + " voted to reject " + user.email, callback);
 
-                if (user.applicationReject.length >= 3 && user.applicationReject.length > user.applicationAdmit.length) {
-                    user.status.admitted = false;
-                    user.status.rejected = true;
-                    console.log("Rejected user");
+                if (!user.status.admitted && !user.status.rejected && !user.status.waitlisted) {
 
-                    UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, callback);
+                    if (user.applicationReject.length >= 3 && user.applicationReject.length > user.applicationAdmit.length) {
+                        user.status.admitted = false;
+                        user.status.rejected = true;
+                        console.log("Rejected user");
+
+                        UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, callback);
+                    }
+                    else if (user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
+                        user.status.admitted = true;
+                        user.status.rejected = false;
+                        user.status.admittedBy = "MasseyHacks Admission Authority";
+                        console.log("Admitted user");
+
+                        UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, callback);
+                    }
+
+
+                    User.findOneAndUpdate({
+                            '_id': id,
+                            'verified': true,
+                            'status.rejected': false,
+                            'status.admitted': false,
+                        },
+                        {
+                            $set: {
+                                'status': user.status
+                            }
+                        },
+                        {
+                            new: true
+                        },
+                        function (err, user) {
+                            return callback(err, user);
+                        });
                 }
-                else if (user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length){
-                    user.status.admitted = true;
-                    user.status.rejected = false;
-                    user.status.admittedBy = "MasseyHacks Admission Authority";
-                    console.log("Admitted user");
-
-                    UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, callback);
-                }
-
-
-                User.findOneAndUpdate({
-                        '_id': id,
-                        'verified': true,
-                        'status.rejected': false,
-                        'status.admitted': false,
-                    },
-                    {
-                        $set: {
-                            'status': user.status
-                        }
-                    },
-                    {
-                        new: true
-                    },
-                    function(err, user) {
-                        return callback(err, user);
-                    });
             });
 };
 
@@ -1488,50 +1491,52 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
                         User.count({'status.admitted':true, 'status.declined':false, 'owner': false, 'admin':false, 'reviewer':false, 'volunteer': false}, function(err, data) {
                             console.log(total);
                             console.log(data);
-                            if (user.applicationReject.length >= 3){
-                                user.status.admitted = false;
-                                user.status.rejected = true;
-                                console.log("Rejected user");
+                            if (!user.status.admitted && !user.status.rejected && !user.status.waitlisted) {
+                                if (user.applicationReject.length >= 3) {
+                                    user.status.admitted = false;
+                                    user.status.rejected = true;
+                                    console.log("Rejected user");
 
-                                UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, callback);
-                            } else {
-                                console.log(user);
-                                console.log(user.votedBy);
-                                if (user.applicationAdmit.length >= 3 && !user.status.waitlisted && !user.status.admitted && !user.status.rejected) {
-                                    if (data < total) {
-                                        user.status.admitted = true;
-                                        user.status.rejected = false;
-                                        user.status.admittedBy = "MasseyHacks Admission Authority";
-                                        console.log("Admitted user");
+                                    UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, callback);
+                                } else {
+                                    console.log(user);
+                                    console.log(user.votedBy);
+                                    if (user.applicationAdmit.length >= 3) {
+                                        if (data < total) {
+                                            user.status.admitted = true;
+                                            user.status.rejected = false;
+                                            user.status.admittedBy = "MasseyHacks Admission Authority";
+                                            console.log("Admitted user");
 
-                                        UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, callback);
-                                    } else {
-                                        user.status.waitlisted = true;
-                                        user.status.rejected = false;
-                                        console.log("Waitlisted User");
+                                            UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, callback);
+                                        } else {
+                                            user.status.waitlisted = true;
+                                            user.status.rejected = false;
+                                            console.log("Waitlisted User");
 
-                                        UserController.addToLog("MasseyHacks Admission Authority waitlisted " + user.email, callback);
+                                            UserController.addToLog("MasseyHacks Admission Authority waitlisted " + user.email, callback);
+                                        }
                                     }
                                 }
-                            }
 
-                            User.findOneAndUpdate({
-                                    '_id': id,
-                                    'verified': true,
-                                    'status.rejected': false,
-                                    'status.admitted': false,
-                                },
-                                {
-                                    $set: {
-                                        'status': user.status
-                                    }
-                                },
-                                {
-                                    new: true
-                                },
-                                function(err, user) {
-                                    return callback(err, user);
-                                });
+                                User.findOneAndUpdate({
+                                        '_id': id,
+                                        'verified': true,
+                                        'status.rejected': false,
+                                        'status.admitted': false,
+                                    },
+                                    {
+                                        $set: {
+                                            'status': user.status
+                                        }
+                                    },
+                                    {
+                                        new: true
+                                    },
+                                    function (err, user) {
+                                        return callback(err, user);
+                                    });
+                            }
                         })
                 });
             });
