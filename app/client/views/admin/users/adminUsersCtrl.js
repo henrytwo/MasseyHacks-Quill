@@ -561,7 +561,7 @@ angular.module('reg')
                   },
                   {
                     name: 'Voted by',
-                    value: user.numVotes
+                    value: user.votedBy
                   },
                   {
                       name: 'Votes',
