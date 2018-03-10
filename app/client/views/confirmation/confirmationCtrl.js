@@ -40,7 +40,7 @@ angular.module('reg')
           .success(function(data){
             sweetAlert({
               title: "Woo!",
-              text: "You're confirmed!",
+              text: user.status.sentConfirmation ? "Confirmation updated!" : "You're confirmed!",
               type: "success",
               confirmButtonColor: "#5ABECF"
             }, function(){

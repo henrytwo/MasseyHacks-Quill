@@ -266,6 +266,7 @@ UserController.createUser = function(email, password, nickname, callback) {
             u.email = email;
             u.nickname = nickname;
             u.profile.name = nickname;
+            u.profile.sname = nickname;
             u.password = User.generateHash(password);
             u.id = id;
 
@@ -387,6 +388,9 @@ UserController.getPage = function(query, callback){
   if(query.filter.bus === 'true') {
     statusFilter.push({'confirmation.bus': 'true'});
   }
+    if(query.filter.declined === 'true') {
+        statusFilter.push({'status.declined': 'true'});
+    }
   if(query.filter.rejected === 'true') {
       statusFilter.push({'status.rejected': 'true'});
   }
@@ -439,6 +443,7 @@ UserController.getPage = function(query, callback){
 
       for (var i = 0; i < users.length; i++) {
           users[i] = removeSensitiveStaff(users[i]);
+          console.log(users[i].sname)
       }
 
       User.count(findQuery).exec(function(err, count){
@@ -679,6 +684,10 @@ UserController.updateProfileById = function (id, profile, callback){
         });
       }
 
+      if (profileValidated.firstname != null && profileValidated.lastname != null && profileValidated.firstname.length > 0 && profileValidated.lastname.length > 0) {
+          profile.name = profile.firstname + " " + profile.lastname
+      }
+  
       Settings.getCurrentWave(function (err, currentWave) {
         User.findOneAndUpdate({
             _id: id,
@@ -707,13 +716,17 @@ UserController.saveProfileById = function (id, profile, callback){
     // Validate the user profile, and mark the user as profile completed
     // when successful.
     csvValidation(profile, function(profileValidated){
+        if (profileValidated.firstname != null && profileValidated.lastname != null && profileValidated.firstname.length > 0 && profileValidated.lastname.length > 0) {
+            profileValidated.name = profileValidated.firstname + " " + profileValidated.lastname
+        }
+
         User.findOneAndUpdate({
                 _id: id,
                 verified: true
             },
             {
                 $set: {
-                    'profile': profileValidated
+                    'profile': profileValidated,
                 }
             },
             {
@@ -814,7 +827,31 @@ UserController.updateConfirmationById = function (id, confirmation, callback){
                       if (err || !user) {
                           return callback(err);
                       }
-                      Mailer.sendConfirmationEmail(user);
+
+                      if (!user.status.sentConfirmation) {
+                          User.findOneAndUpdate(
+                              {
+                                  '_id': id,
+                                  'verified': true,
+                                  'status.admitted': true,
+                                  'status.declined': {$ne: true}
+                              },
+                              {
+                                  $set: {
+                                      'status.sentConfirmation':true
+                                  }
+                              },
+                              {
+                                  new: true
+                              },
+                              function (err, user) {
+                                  if (err || !user) {
+                                      return callback(err);
+                                  }
+                                  Mailer.sendConfirmationEmail(user);
+                              });
+                      }
+
                       return callback(err, user);
                   });
 
@@ -1355,6 +1392,9 @@ UserController.voteRejectUser = function(id, adminUser, callback){
                 $push: {
                     'applicationReject': adminUser.email,
                     'votedBy': adminUser.email
+                },
+                $inc : {
+                    'numVotes': 1
                 }
             }, {
                 new: true
@@ -1429,7 +1469,10 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
             },{
                 $push: {
                     'applicationAdmit': adminUser.email,
-                    'votedBy': adminUser.email,
+                    'votedBy': adminUser.email
+                },
+                $inc : {
+                    'numVotes': 1
                 }
             }, {
                 new: true
@@ -1521,7 +1564,7 @@ UserController.admitUser = function(id, user, callback){
           'status.waitlisted' : false,
           'status.admitted': true,
           'status.admittedBy': user['email'],
-          'status.confirmBy': Date.now() + 604800000,
+          'status.confirmBy': Date.now() + 604800000
         }
       }, {
         new: true

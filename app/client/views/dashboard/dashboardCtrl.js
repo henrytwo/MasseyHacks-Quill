@@ -97,7 +97,17 @@ angular.module('reg')
       $scope.waitlistText = $sce.trustAsHtml(converter.makeHtml(Settings.waitlistText));
 
       $scope.getWaiver = function() {
-          swal('Wave~');
+          sweetAlert({
+              title: 'Notice',
+              showCancelButton: true,
+              html:true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Continue to HelloSign",
+              text: 'MasseyHacks reserves the right to revoke admission if any false and/or incorrect information is submitted on the waiver.<br><br>If you do not want to e-sign, you can bring in the <a style="color: #0A1939" href="https://mh4.masseyhacks.ca/waiver" target="_blank"><b>hardcopy</b></a> to the registration desk on the day of the event.',
+              type: 'warning'
+          }, function () {
+              window.open('https://google.com','_blank');
+          });
       }
 
       $scope.inviteToSlack = function() {

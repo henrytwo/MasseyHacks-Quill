@@ -259,37 +259,63 @@ angular.module('reg')
               },
               onSuccess: function (event, fields) {
 
-                  _updateSchools();
+                  $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
 
-                  if ($scope.user.status.completedProfile) {
-                      if (JSON.stringify($scope.user.profile) === $scope.backupUser) {
-                          swal({
-                              title: "Warning",
-                              text: "You have not modified your application",
-                              type: "warning",
-                          });
+                  var noValidationError = true;
+
+                  if ($scope.user.profile.school == null || $scope.user.profile.school == undefined || ($scope.user.profile.school !== null && ($scope.user.profile.school.toLowerCase().includes('undefined')))) {
+                      $scope.fieldErrors.push('Hey! You didn\' fill in your school!');
+                      noValidationError = false;
+                  }
+
+                  if ($scope.user.profile.phone != null && !(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test($scope.user.profile.phone)) {
+                      $scope.fieldErrors.push('Hey! Your phone number isn\'t valid!');
+                      noValidationError = false;
+                  }
+
+                  if (noValidationError) {
+
+                      _updateSchools();
+
+                      if ($scope.user.status.completedProfile) {
+                          if (JSON.stringify($scope.user.profile) === $scope.backupUser) {
+                              swal({
+                                  title: "Warning",
+                                  text: "You have not modified your application",
+                                  type: "warning",
+                              });
+                          } else {
+
+                              swal({
+                                  title: "Whoa!",
+                                  text: "You can edit your application after submitting, but you risk losing your place in queue!",
+                                  type: "warning",
+                                  showCancelButton: true,
+                                  confirmButtonColor: "#DD6B55",
+                                  confirmButtonText: "Yes, resubmit",
+                                  closeOnConfirm: false
+                              }, function () {
+                                  _updateUser();
+                              });
+                          }
                       } else {
-
-                          swal({
-                              title: "Whoa!",
-                              text: "You can edit your application after submitting, but you risk losing your place in queue!",
-                              type: "warning",
-                              showCancelButton: true,
-                              confirmButtonColor: "#DD6B55",
-                              confirmButtonText: "Yes, resubmit",
-                              closeOnConfirm: false
-                          }, function () {
-                              _updateUser();
-                          });
+                          _updateUser();
                       }
-                  } else {
-                      _updateUser();
                   }
 
               },
               onFailure: function (formErrors, fields) {
                   $scope.fieldErrors = formErrors;
+
                   $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
+
+                  if ($scope.user.profile.school == null || $scope.user.profile.school == undefined || ($scope.user.profile.school !== null && ($scope.user.profile.school.toLowerCase().includes('undefined')))) {
+                      $scope.fieldErrors.push('Hey! You didn\' fill in your school!');
+                  }
+
+                  if ($scope.user.profile.phone != null && !(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test($scope.user.profile.phone)) {
+                      $scope.fieldErrors.push('Hey! Your phone number isn\'t valid!');
+                  }
               }
 
           });
@@ -345,7 +371,10 @@ angular.module('reg')
                       }
                   });
                   $scope.user.profile.diet = drs;
-                  $scope.user.profile.name = $scope.user.profile.firstname + " " + $scope.user.profile.lastname;
+
+                  if (($scope.user.profile.school == null || $scope.user.profile.school == undefined || ($scope.user.profile.school !== null && ($scope.user.profile.school.toLowerCase().includes('undefined')))) && oldSchool !== null) {
+                      $scope.user.profile.school = oldSchool;
+                  }
 
                   // Update user profile
                   UserService
@@ -374,7 +403,6 @@ angular.module('reg')
         }
         $scope.fieldErrors = null;
         $scope.error = null;
-        $scope.user.profile.name = $scope.user.profile.firstname + " " + $scope.user.profile.lastname;
 
         // Super jank code to get the school to not appear as null
 
@@ -382,17 +410,10 @@ angular.module('reg')
             $scope.user.profile.school = oldSchool;
         }
 
-        if ($scope.user.profile.school == null || $scope.user.profile.school == undefined || ($scope.user.profile.school !== null && ($scope.user.profile.school.toLowerCase().includes('undefined')))) {
 
-            $scope.error = 'Hey! You didn\' fill in your school!';
 
-        }
-        else if ($scope.user.profile.phone != null && !(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test($scope.user.profile.phone)) {
-            $scope.error = 'Hey! Your phone number isn\'t valid!';
-        }
-        else {
-            $('.ui.form').form('validate form');
+        $('.ui.form').form('validate form');
 
-        }
+
       };
 }]);

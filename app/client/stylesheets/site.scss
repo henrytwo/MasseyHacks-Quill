@@ -74,7 +74,14 @@ body {
  */
 .sweet-alert {
   font-family: $font-body;
-  margin-left: -240px !important;
+
+  @media all and (max-width: 540px) {
+    left: 4px;
+    right: 4px;
+  }
+  @media all and (min-width: 540px) {
+    margin-left: -240px !important;
+  }
 }
 
 /**

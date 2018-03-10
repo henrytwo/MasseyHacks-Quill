@@ -238,6 +238,11 @@ var status = {
         required: true,
         default: false,
     },
+    sentConfirmation: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     waitlisted: {
         type: Boolean,
         required: true,
@@ -442,6 +447,11 @@ var schema = new mongoose.Schema({
         type: [String],
     },
 
+    numVotes : {
+      type: Number,
+      default: 0
+    },
+
     votedBy: {
         type: [String]
     },
@@ -590,8 +600,6 @@ schema.statics.validateProfile = function (id, profile, cb) {
     */
 
     var good = !(
-        profile.name.length > 0 &&
-        profile.name.length < 200 &&
         profile.firstname.length < 100 &&
         profile.firstname.length > 0 &&
         profile.lastname.length < 100 &&
@@ -600,11 +608,12 @@ schema.statics.validateProfile = function (id, profile, cb) {
         profile.essayproject.length <= 500 &&
         (profile.pasthackathon == null || (profile.pasthackathon != null && profile.pasthackathon.length <= 500)) &&
         (profile.freeComment == null || (profile.freeComment != null &&profile.freeComment.length <= 500)) &&
-        (profile.github == null || (profile.github != null && profile.github.length <= 50)) &&
-        (profile.site == null || (profile.site != null && profile.site.length <= 50)) &&
-        (profile.phone == null || (profile.phone != null && profile.phone.length <= 50 && (/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test(profile.phone))) &&
+        (profile.workshop == null || (profile.workshop != null &&profile.workshop.length <= 250)) &&
+        (profile.github == null || (profile.github != null && profile.github.length <= 240)) &&
+        (profile.site == null || (profile.site != null && profile.site.length <= 240)) &&
+        (profile.phone == null || (profile.phone != null && profile.phone.length <= 10 && (/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test(profile.phone))) &&
         (profile.departing == null || (profile.departing != null && profile.departing.length <= 50)) &&
-        (profile.devpost == null || (profile.devpost != null && profile.devpost.length <= 50)) &&
+        (profile.devpost == null || (profile.devpost != null && profile.devpost.length <= 240)) &&
         profile.school.length <= 100 &&
         profile.termsAndCond &&
         ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1 &&

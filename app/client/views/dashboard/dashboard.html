@@ -37,7 +37,7 @@
         <div class="ui divider"></div>
 
         <div id="QRContainer" ng-show="user.status.confirmed && !user.volunteer">
-          <img id="QR" ng-src="{{qr}}">
+          <img id="QR" ng-src="{{qr}}" style="min-width: 200px; max-width: 250px; width: 100%; height: auto;">
         </div>
 
         <p>
@@ -183,11 +183,13 @@
           </div>
 
           <div class="ui sea-serpent button"
+               style="min-width: 200px; width: 100%"
                ui-sref="app.confirmation">
             Confirm your spot
           </div>
 
           <div class="ui vermilion button"
+               style="min-width: 200px; width: 100%"
                ng-click="declineAdmission()">
             Sorry, I can't make it
           </div>
@@ -228,26 +230,28 @@
           </div>
 
           <div class="ui sea-serpent button"
+               style="min-width: 200px; width: 100%"
                ui-sref="app.confirmation">
-            {{pastConfirmation ? 'View' : 'Edit'}} your confirmation information
+            {{pastConfirmation ? 'View' : 'Edit'}} confirmation
           </div>
-
-          <div class="ui vermilion button"
-               ng-click="declineAdmission()">
-            Sorry, I can't make it
-          </div>
-
-          <br>
 
           <div class="ui sea-serpent button"
+               style="min-width: 200px; width: 100%"
                ng-click="inviteToSlack()">
             Send Slack invitation
           </div>
 
           <div class="ui sea-serpent button"
+               style="min-width: 200px; width: 100%"
                ng-click="getWaiver()">
             Get Waiver
           </div>
+
+          <div class="ui vermilion button"
+               style="min-width: 200px; width: 100%"
+               ng-click="declineAdmission()">
+            Sorry, I can't make it
+          </div><br>
 
         </div>
 
@@ -258,7 +262,7 @@
 
           <p>
             We're sorry to hear that you won't be able to make it to MasseyHacks IV! :(<br>
-            Maybe next year! We hope you see you again soon.
+            Thank you for your interest and we hope to see you next year.
           </p>
         </div>
 

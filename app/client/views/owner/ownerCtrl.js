@@ -7,8 +7,9 @@ angular.module('reg')
 
             $scope.settings = {};
             SettingsService
-                .getPrivateSettings()
+                .getPublicSettings()
                 .success(function(settings){
+                    settings['log'] = [];
                     updateSettings(settings);
                 });
 
@@ -63,6 +64,14 @@ angular.module('reg')
                     date.getMinutes()
                 );
             }
+
+            $scope.getLog = function () {
+                SettingsService
+                    .getPrivateSettings()
+                    .success(function(settings){
+                        updateSettings(settings);
+                    });
+            };
 
             $scope.updateRegistrationTimes = function(){
                 // Clean the dates and turn them to ms.

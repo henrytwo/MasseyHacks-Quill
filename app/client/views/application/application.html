@@ -250,9 +250,10 @@
         </div>
 
         <div class="field">
-          <label> What workshops would you like to see at MasseyHacks IV <span style="color: red"></span> </label>
+          <label> What workshops would you like to see at MasseyHacks IV? <span style="color: red"></span> </label>
           <input type="text"
                  name="workshops"
+                 id="workshops"
                  maxlength="250"
                  ng-model="user.profile.workshop">
         </div>
@@ -285,7 +286,7 @@
           <label> Link to your portfolio </label>
           <input type="text"
                  name="github"
-                 maxlength="50"
+                 maxlength="240"
                  placeholder="https://hacker.io"
                  ng-model="user.profile.site">
         </div>
@@ -294,7 +295,7 @@
           <label> Link to your GitHub profile </label>
           <input type="text"
                  name="github"
-                 maxlength="50"
+                 maxlength="240"
                  placeholder="https://github.com/hacker"
                  ng-model="user.profile.github">
         </div>
@@ -303,13 +304,15 @@
           <label> Link to your Devpost profile </label>
           <input type="text"
                  name="github"
-                 maxlength="50"
+                 maxlength="240"
                  placeholder="https://devpost.com/hacker"
                  ng-model="user.profile.devpost">
         </div>
 
         <br><br>
         <div class="divided title">Final questions</div>
+
+        <p><strong style="color: darkred">If you have already formed a team for MasseyHacks IV, please enter the names and emails of your teammates in the <i>Free Comment</i> section. Teams must have a size of 4 or less.</strong></p>
 
         <div class="field">
           <label>And finally… Spaces or tabs?</label>
