@@ -104,7 +104,7 @@ controller.sendLaggerEmails = function(users, callback) {
     };
 
     var locals = {
-      nickname: user.nickname,
+      nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
       dashUrl: ROOT_URL
     };
 
@@ -132,7 +132,7 @@ controller.sendRejectEmails = function(users, callback) {
     };
 
     var locals = {
-      nickname: user.nickname,
+      nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
       dashUrl: ROOT_URL
     };
 
@@ -160,7 +160,7 @@ controller.sendRejectEmails = function(users, callback) {
     };
 
     var locals = {
-      nickname: user.nickname,
+      nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
       dashUrl: ROOT_URL,
       qr: ''
     };
@@ -199,7 +199,7 @@ controller.sendApplicationEmail = function(user, callback) {
   };
 
   var locals = {
-    nickname: user.nickname,
+    nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
     dashUrl: ROOT_URL
   };
 
@@ -230,7 +230,7 @@ controller.sendAdmittanceEmail = function(user, callback) {
  };
 
  var locals = {
-   nickname: user.nickname,
+   nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
    dashUrl: ROOT_URL,
    confirmBy: formatTime(user.status.confirmBy)
  };
@@ -263,7 +263,7 @@ controller.sendConfirmationEmail = function(user, token, callback) {
  };
 
  var locals = {
-   nickname: user.nickname,
+   nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
    userId: user.id,
    dashUrl: ROOT_URL,
  };
@@ -297,7 +297,7 @@ controller.sendDeclinedEmail = function(user, token, callback) {
  };
 
  var locals = {
-   nickname: user.nickname,
+   nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
  };
 
 
@@ -331,7 +331,7 @@ controller.sendVerificationEmail = function(user, token, callback) {
 
   var locals = {
     verifyUrl: ROOT_URL + '/verify/' + token,
-    nickname: user.nickname
+    nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname
   };
 
   console.log(locals.verifyUrl);
@@ -370,7 +370,7 @@ controller.sendPasswordResetEmail = function(user, token, callback) {
 
   var locals = {
     actionUrl: ROOT_URL + '/reset/' + token,
-    nickname: user.nickname
+    nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname
   };
 
   /**
@@ -406,7 +406,7 @@ controller.sendPasswordChangedEmail = function(user, callback){
   };
 
   var locals = {
-    nickname: user.nickname,
+    nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
     dashUrl: ROOT_URL
   };
 

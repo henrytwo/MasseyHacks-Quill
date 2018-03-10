@@ -565,7 +565,7 @@ angular.module('reg')
                   },
                   {
                       name: 'Votes',
-                      value: user.numVotes.length + '/5'
+                      value: user.numVotes + '/5'
                   }
               ]
           },
