@@ -266,7 +266,7 @@ UserController.createUser = function(email, password, nickname, callback) {
             u.email = email;
             u.nickname = nickname;
             u.profile.name = nickname;
-            u.profile.sname = nickname;
+            u.sname = nickname;
             u.password = User.generateHash(password);
             u.id = id;
 

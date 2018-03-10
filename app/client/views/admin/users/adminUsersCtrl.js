@@ -566,6 +566,10 @@ angular.module('reg')
                   {
                       name: 'Votes',
                       value: user.numVotes + '/5'
+                  },
+                  {
+                      name: 'Wave',
+                      value: user.wave
                   }
               ]
           },

@@ -259,16 +259,18 @@ angular.module('reg')
               },
               onSuccess: function (event, fields) {
 
-                  $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
-
                   var noValidationError = true;
 
                   if ($scope.user.profile.school == null || $scope.user.profile.school == undefined || ($scope.user.profile.school !== null && ($scope.user.profile.school.toLowerCase().includes('undefined')))) {
+
+                      $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
                       $scope.fieldErrors.push('Hey! You didn\' fill in your school!');
                       noValidationError = false;
                   }
 
                   if ($scope.user.profile.phone != null && !(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test($scope.user.profile.phone)) {
+
+                      $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
                       $scope.fieldErrors.push('Hey! Your phone number isn\'t valid!');
                       noValidationError = false;
                   }
