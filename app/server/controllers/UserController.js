@@ -394,9 +394,9 @@ UserController.getPage = function(query, callback){
   if(query.filter.bus === 'true') {
     statusFilter.push({'confirmation.bus': 'true'});
   }
-    if(query.filter.declined === 'true') {
-        statusFilter.push({'status.declined': 'true'});
-    }
+  if(query.filter.declined === 'true') {
+    statusFilter.push({'status.declined': 'true'});
+  }
   if(query.filter.rejected === 'true') {
       statusFilter.push({'status.rejected': 'true'});
   }
@@ -695,23 +695,35 @@ UserController.updateProfileById = function (id, profile, callback){
       }
   
       Settings.getCurrentWave(function (err, currentWave) {
-        User.findOneAndUpdate({
-            _id: id,
-            verified: true
-          },
-          {
-            $set: {
-              'sname': profile.name.toLowerCase(),
-              'wave':currentWave,
-              'lastUpdated': Date.now(),
-              'profile': profileValidated,
-              'status.completedProfile': true
-            }
-          },
-          {
-            new: true
-          },
-          callback);
+          User.findOne(
+              {
+                  _id: id,
+                  verified: true
+              },
+              function (err, user) {
+                  var d = Date.now();
+                  var lastUpdated = (Date.now() > user.lastUpdated) ? Date.now() : user.lastUpdated;
+
+                  User.findOneAndUpdate({
+                          _id: id,
+                          verified: true
+                      },
+                      {
+                          $set: {
+                              'sname': profile.name.toLowerCase(),
+                              'wave':currentWave,
+                              'lastUpdated': lastUpdated,
+                              'profile': profileValidated,
+                              'status.completedProfile': true
+                          }
+                      },
+                      {
+                          new: true
+                      },
+                      callback
+                  );
+              }
+          );
       });
       });
   });
@@ -1429,7 +1441,7 @@ UserController.voteRejectUser = function(id, adminUser, callback){
                         user.status.rejected = true;
                         console.log("Rejected user");
 
-                        UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, null);
+                        UserController.addToLog("MasseyHacks Admission Authority soft rejected " + user.email, null);
                     }
                     else if (user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
                         user.status.admitted = true;
@@ -1512,7 +1524,7 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
                                     user.status.rejected = true;
                                     console.log("Rejected user");
 
-                                    UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, null);
+                                    UserController.addToLog("MasseyHacks Admission Authority soft rejected " + user.email, null);
                                 } else {
                                     console.log(user);
                                     console.log(user.votedBy);

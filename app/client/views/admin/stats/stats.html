@@ -121,11 +121,11 @@
 
         <h4>Note: Votes may not show up as 100% complete due to automated admission system.</h4>
 
-        <div class="item">
+        <div class="item"  style="overflow-x: scroll">
           <div class="content">
             <table class="ui celled selectable compact users table">
               <tr ng-repeat="line in stats.review track by $index" style="height: 50px">
-                <th ng-repeat="section in line track by $index">{{section}}</th>
+                <th ng-repeat="section in line track by $index" style="min-width: 150px">{{section}}</th>
               </tr>
             </table>
           </div>
