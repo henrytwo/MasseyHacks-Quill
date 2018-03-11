@@ -96,7 +96,7 @@ angular.module('reg')
             _setupForm();
         })
         .fail(function(data){
-            console.log( "Error loading iban.json" );
+            //console.log( "Error loading iban.json" );
         });
 
       $scope.onBankCountryUpdate = function() {
@@ -720,3 +720,4 @@ angular.module('reg')
       };
 
     }]);
+

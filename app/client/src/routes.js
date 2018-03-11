@@ -330,3 +330,4 @@ angular.module('reg')
       });
 
     }]);
+

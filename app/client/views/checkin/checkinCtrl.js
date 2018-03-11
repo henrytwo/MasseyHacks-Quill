@@ -42,7 +42,7 @@ angular.module('reg')
                     $scope.filterUsers();
                     $('#qrInput').attr("value", data);
                     $scope.filterUsers();
-                    console.log(data);
+                    //console.log(data);
                     UserService
                         .QRcheckIn(data)
                         .success(function (user) {
@@ -101,7 +101,7 @@ angular.module('reg')
             });
 
             $scope.switchCam = function () {
-                console.log("switch");
+                //console.log("switch");
                 Instascan.Camera.getCameras().then(function (cameras) {
                     if (cameras.length > 0) {
                         if (camNum + 1 < cameras.length) {
@@ -110,7 +110,7 @@ angular.module('reg')
                             camNum = 0;
                         }
 
-                        console.log(camNum);
+                        //console.log(camNum);
                         scanner.start(cameras[camNum]);
                     } else {
                         console.error('No cameras found.');
@@ -121,7 +121,7 @@ angular.module('reg')
             }
 
             $scope.flip = function () {
-                console.log("flip");
+                //console.log("flip");
                 var cam = document.getElementById('preview');
 
                 if (flipped) {

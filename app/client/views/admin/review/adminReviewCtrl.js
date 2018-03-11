@@ -38,7 +38,7 @@ angular.module('reg')
       function getWave() {
         UserService.getWave().success(function(data){
           $scope.wave = data;
-          console.log($scope.wave)
+          //console.log($scope.wave)
         });
       }
 
@@ -593,3 +593,4 @@ angular.module('reg')
 
 
     }]);
+

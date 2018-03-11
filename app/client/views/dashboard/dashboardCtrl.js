@@ -20,7 +20,7 @@ angular.module('reg')
       $scope.DASHBOARD = DASHBOARD;
       $scope.Utils = Utils;
 
-      console.log(user);
+      //console.log(user);
 
       for (var msg in $scope.DASHBOARD) {
         if ($scope.DASHBOARD[msg].includes('[APP_DEADLINE]')) {
@@ -162,7 +162,7 @@ angular.module('reg')
         if($scope.user.status.confirmed){
           $http.get('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + id)
           .then(function(response){
-            console.log(response.data)
+            //console.log(response.data)
             document.getElementById('QRContainer').innerHTML = response.data;
           });
         }
@@ -564,3 +564,4 @@ angular.module('reg')
 
       }
     }]);
+

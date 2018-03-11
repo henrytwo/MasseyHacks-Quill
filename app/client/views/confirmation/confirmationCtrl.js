@@ -86,3 +86,4 @@ angular.module('reg')
       };
 
     }]);
+

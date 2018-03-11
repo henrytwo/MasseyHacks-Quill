@@ -246,10 +246,7 @@ UserController.createUser = function(email, password, nickname, callback) {
 
   // Check that there isn't a user with this email already.
   User.count(function(err, count){
-    console.log(count);
     var id = generateID(count);
-    console.log(id);
-
     canRegister(email, password, function(err, valid){
 
       if (err || !valid){
@@ -327,8 +324,6 @@ UserController.getAllMaster = function (callback) {
 UserController.getAll = function (callback) {
   User.find({volunteer: false}).exec(function(err, users){
 
-      console.log(users);
-
       for (var i = 0; i < users.length; i++) {
           users[i] = removeSensitiveStaff(users[i]);
       }
@@ -360,8 +355,6 @@ UserController.getPage = function(query, callback){
       ]
   };
 
-  console.log(sort);
-
   if(typeof query.filter.text != "undefined") {
     var re = new RegExp(escapeRegExp(text), 'i');
     textFilter.push({ email: re });
@@ -373,7 +366,6 @@ UserController.getPage = function(query, callback){
   else {
     findQuery = {};
   }
-  console.log(query.filter)
 
  if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
@@ -450,7 +442,6 @@ UserController.getPage = function(query, callback){
 
       for (var i = 0; i < users.length; i++) {
           users[i] = removeSensitiveStaff(users[i]);
-          console.log(users[i].sname)
       }
 
       User.count(findQuery).exec(function(err, count){
@@ -650,7 +641,7 @@ UserController.updateProfileById = function (id, profile, callback){
 
   // Validate the user profile, and mark the user as profile completed
   // when successful.
-  console.log(profile);
+  console.log("Updating " + profile);
 
   csvValidation(profile, function(profileValidated){
       User.validateProfile(id, profile, function(err){
