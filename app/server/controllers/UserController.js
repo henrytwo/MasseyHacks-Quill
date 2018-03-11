@@ -94,7 +94,9 @@ UserController.loginWithToken = function(token, callback){
     }
     var u = removeSensitive(user);
 
-    UserController.addToLog(user.email + " successfully logged in with token", callback);
+    if (user.volunteer == true) {
+        UserController.addToLog(user.email + " successfully logged in with token", null);
+    }
 
     return callback(err, token, u);
   });
@@ -136,7 +138,9 @@ UserController.loginWithPassword = function(email, password, callback){
 
       if (!user.active) {
 
-          UserController.addToLog(user.email + " failed to log in with password", callback);
+          if (user.volunteer == true) {
+              UserController.addToLog(user.email + " failed to log in with password (Deactivated)", null);
+          }
 
           return callback({
               message: "User has been deactivated"
@@ -144,7 +148,9 @@ UserController.loginWithPassword = function(email, password, callback){
       }
       if (!user.checkPassword(password)) {
 
-          UserController.addToLog(user.email + " failed to log in with password", callback);
+          if (user.volunteer == true) {
+              UserController.addToLog(user.email + " failed to log in with password", null);
+          }
 
           return callback({
           message: "Incorrect username or password"
@@ -156,7 +162,9 @@ UserController.loginWithPassword = function(email, password, callback){
 
       var u = removeSensitive(user);
 
-      UserController.addToLog(user.email + " successfully logged in with password", callback);
+      if (user.volunteer == true) {
+          UserController.addToLog(user.email + " successfully logged in with password", callback);
+      }
 
       return callback(null, token, u);
   });
@@ -281,8 +289,6 @@ UserController.createUser = function(email, password, nickname, callback) {
                 // Send over a verification email
                 var verificationToken = u.generateEmailVerificationToken();
                 Mailer.sendVerificationEmail(u, verificationToken);
-
-                UserController.addToLog(u.email + " created an account", callback);
 
                 return callback(
                   null,
@@ -969,6 +975,8 @@ UserController.advanceWaitlist = function () {
                                     new: true
                                 },
                                 function(err, user) {
+                                    UserController.addToLog("Waitlisted advancer admitted " + user.email, null);
+
                                     var advanceUser = {'email':'waitlist_advancer@masseyhacks.ca'};
                                     UserController.admitUser(user._id, advanceUser, function(a, b){});
                                 });
@@ -1012,7 +1020,10 @@ UserController.declineById = function (id, callback){
         return callback(err);
       }
       Mailer.sendDeclinedEmail(user);
-      callback(err, user);
+
+        UserController.addToLog(user.email + " declined their invitation", callback);
+
+        callback(err, user);
     });
 };
 
@@ -1022,7 +1033,7 @@ UserController.declineById = function (id, callback){
  * @param  {String}   id            Id of the user
  * @param  {Function} callback      Callback with args (err, user)
  */
-UserController.rejectById = function (id, callback){
+UserController.rejectById = function (id, adminUser, callback){
 
   // You can only reject if you've been verified.
   User.findOneAndUpdate({
@@ -1046,6 +1057,8 @@ UserController.rejectById = function (id, callback){
       if (err || !user) {
         return callback(err);
       }
+      UserController.addToLog(adminUser.email + " force rejected " + user.email, null);
+
       Mailer.sendRejectEmails([user]);
       return callback(err, user);
     });
@@ -1057,7 +1070,7 @@ UserController.rejectById = function (id, callback){
  * @param  {String}   id            Id of the user
  * @param  {Function} callback      Callback with args (err, user)
  */
-UserController.unRejectById = function (id, callback){
+UserController.unRejectById = function (id, adminUser, callback){
 
   // You can only unreject if you've been verified and rejected
   User.findOneAndUpdate({
@@ -1079,7 +1092,9 @@ UserController.unRejectById = function (id, callback){
       if (err || !user) {
         return callback(err);
       }
-      return callback(err, user);
+
+        UserController.addToLog(adminUser.email + " unrejected " + user.email, null);
+        return callback(err, user);
     });
 };
 /**
@@ -1385,7 +1400,7 @@ UserController.voteRejectUser = function(id, adminUser, callback){
                 '_id': id,
                 'verified': true,
                 'status.rejected': false,
-                'stats.admitted': false,
+                'status.admitted': false,
                 'applicationAdmit' : {$nin : [adminUser.email]},
                 'applicationReject' : {$nin : [adminUser.email]}
             },{
@@ -1405,16 +1420,16 @@ UserController.voteRejectUser = function(id, adminUser, callback){
                     return callback(err);
                 }
 
-                UserController.addToLog(adminUser.email + " voted to reject " + user.email, callback);
-
                 if (!user.status.admitted && !user.status.rejected && !user.status.waitlisted) {
+
+                    UserController.addToLog(adminUser.email + " voted to reject " + user.email, null);
 
                     if (user.applicationReject.length >= 3 && user.applicationReject.length > user.applicationAdmit.length) {
                         user.status.admitted = false;
                         user.status.rejected = true;
                         console.log("Rejected user");
 
-                        UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, callback);
+                        UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, null);
                     }
                     else if (user.applicationAdmit.length >= 3 && user.applicationAdmit.length > user.applicationReject.length) {
                         user.status.admitted = true;
@@ -1422,7 +1437,7 @@ UserController.voteRejectUser = function(id, adminUser, callback){
                         user.status.admittedBy = "MasseyHacks Admission Authority";
                         console.log("Admitted user");
 
-                        UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, callback);
+                        UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, null);
                     }
 
 
@@ -1483,7 +1498,7 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
                     return callback(err);
                 }
 
-                UserController.addToLog(adminUser.email + " voted to admit " + user.email, callback);
+                UserController.addToLog(adminUser.email + " voted to admit " + user.email, null);
 
                 Settings.findOne({}, function(err, data){
                         var total = data.participants;
@@ -1497,7 +1512,7 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
                                     user.status.rejected = true;
                                     console.log("Rejected user");
 
-                                    UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, callback);
+                                    UserController.addToLog("MasseyHacks Admission Authority rejected " + user.email, null);
                                 } else {
                                     console.log(user);
                                     console.log(user.votedBy);
@@ -1508,13 +1523,13 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
                                             user.status.admittedBy = "MasseyHacks Admission Authority";
                                             console.log("Admitted user");
 
-                                            UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, callback);
+                                            UserController.addToLog("MasseyHacks Admission Authority admitted " + user.email, null);
                                         } else {
                                             user.status.waitlisted = true;
                                             user.status.rejected = false;
                                             console.log("Waitlisted User");
 
-                                            UserController.addToLog("MasseyHacks Admission Authority waitlisted " + user.email, callback);
+                                            UserController.addToLog("MasseyHacks Admission Authority waitlisted " + user.email, null);
                                         }
                                     }
                                 }
@@ -1550,7 +1565,7 @@ UserController.voteAdmitUser = function(id, adminUser, callback){
  * @param  {String}   user        User doing the admitting
  * @param  {Function} callback args(err, user)
  */
-UserController.admitUser = function(id, user, callback){
+UserController.admitUser = function(id, adminUser, callback){
 
   Settings.getRegistrationTimes(function(err, times){
     User
@@ -1563,7 +1578,7 @@ UserController.admitUser = function(id, user, callback){
           'status.statusReleased' : true,
           'status.waitlisted' : false,
           'status.admitted': true,
-          'status.admittedBy': user['email'],
+          'status.admittedBy': adminUser['email'],
           'status.confirmBy': Date.now() + 604800000
         }
       }, {
@@ -1573,7 +1588,10 @@ UserController.admitUser = function(id, user, callback){
         if (err || !user) {
           return callback(err);
         }
-        Mailer.sendAdmittanceEmail(user);
+
+          UserController.addToLog(adminUser.email + " force accepted " + user.email, null);
+
+          Mailer.sendAdmittanceEmail(user);
         return callback(err, user);
       });
     });
@@ -1587,7 +1605,19 @@ UserController.admitUser = function(id, user, callback){
  * @param  {String}   user     User checking in this person.
  * @param  {Function} callback args(err, user)
  */
-UserController.checkInById = function(id, user, callback){
+UserController.checkInById = function(id, adminUser, callback){
+
+  User.findOne({
+      _id: id,
+      verified: true
+  }, function (err, user) {
+      if (!user || !user.active) {
+          return callback(err, token, null);
+      }
+
+      UserController.addToLog(adminUser.email + " checked in " + user.email, null);
+  });
+
   User.findOneAndUpdate({
     _id: id,
     verified: true
@@ -1598,11 +1628,12 @@ UserController.checkInById = function(id, user, callback){
     }
   }, {
     new: true
-  },
-  callback);
+  }, callback);
 };
 
 UserController.activateById = function(id, user, callback){
+  UserController.addToLog(user.email + " activated " + user.email, null);
+
   User.findOneAndUpdate({
       _id: id
     },{
@@ -1611,12 +1642,13 @@ UserController.activateById = function(id, user, callback){
       }
     }, {
       new: true
-    },
-    callback);
+    },callback);
 };
 
 UserController.deactivateById = function(id, user, callback){
-  User.findOneAndUpdate({
+    UserController.addToLog(user.email + " deactivated " + user.email, null);
+
+    User.findOneAndUpdate({
       _id: id
     },{
       $set: {
@@ -1624,19 +1656,24 @@ UserController.deactivateById = function(id, user, callback){
       }
     }, {
       new: true
-    },
-    callback);
+    },callback);
+
 };
 
 UserController.remove = function(id, user, callback){
-  User.findOneAndRemove({
+    UserController.addToLog(user.email + " deleted " + user.email, null);
+
+    User.findOneAndRemove({
       _id: id
     }, callback);
 };
 
 UserController.inviteToSlack = function (id, callback){
     User.findById(id, function(err, user) {
+
         if (user.status.confirmed && user.status.admitted && user.status.statusReleased) {
+            UserController.addToLog(user.email + " requested slack invite", null);
+
             request.post({
                 url: 'https://' + process.env.SLACK_INVITE + '.slack.com/api/users.admin.invite',
                 form: {
@@ -1730,7 +1767,18 @@ UserController.addToLog = function (message, callback) {
  * @param  {String}   user     User checking in this person.
  * @param  {Function} callback args(err, user)
  */
-UserController.checkOutById = function(id, user, callback){
+UserController.checkOutById = function(id, adminUser, callback){
+    User.findOne({
+        _id: id,
+        verified: true
+    }, function (err, user) {
+        if (!user || !user.active) {
+            return callback(err, token, null);
+        }
+
+        UserController.addToLog(adminUser.email + " checked out " + user.email, null);
+    });
+
   User.findOneAndUpdate({
     _id: id,
     verified: true
@@ -1740,8 +1788,7 @@ UserController.checkOutById = function(id, user, callback){
     }
   }, {
     new: true
-  },
-  callback);
+  }, callback);
 };
 
 

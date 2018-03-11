@@ -78,7 +78,6 @@ module.exports = function(router) {
    * you are, indeed, an admin.
    */
   function isOwner(req, res, next){
-      console.log(req.headers['x-forwarded-for'] || req.connection.remoteAddress);
 
       var token = getToken(req);
 
@@ -621,6 +620,7 @@ module.exports = function(router) {
     // Accept the hacker. Admin only
     var id = req.params.id;
     var user = req.user;
+
     UserController.admitUser(id, user, defaultResponse(req, res));
   });
 
@@ -650,8 +650,9 @@ module.exports = function(router) {
   router.post('/users/:id/reject', isOwner, function(req, res){
     var confirmation = req.body.confirmation;
     var id = req.params.id;
+    var user = req.user;
 
-    UserController.rejectById(id, defaultResponse(req, res));
+    UserController.rejectById(id, user, defaultResponse(req, res));
   });
 
    /**
@@ -662,8 +663,9 @@ module.exports = function(router) {
   router.post('/users/:id/unreject', isOwner, function(req, res){
     var confirmation = req.body.confirmation;
     var id = req.params.id;
+    var user = req.user;
 
-    UserController.unRejectById(id, defaultResponse(req, res));
+    UserController.unRejectById(id, user, defaultResponse(req, res));
   });
 
   /**
