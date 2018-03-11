@@ -336,7 +336,7 @@ angular.module('reg')
                   var hackers = {};
 
                   for (var i = 0; i < rawData.length; i++) {
-                      if (rawData[i].reviewer) {
+                      if (rawData[i].reviewer || rawData[i].developer) {
                           reviewers.push(rawData[i].email);
                       }
                   }
