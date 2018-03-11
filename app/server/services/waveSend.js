@@ -148,9 +148,10 @@ waveSend.engageTimers = function(c) {
               console.log("Setting up timers for wave " + param);
 
               var accept = schedule.scheduledJobs[param];
-              var confirm = schedule.scheduledJobs["c" + param];
 
-              accept.reschedule(new Date(setting['wave' + param].timeClose + 604800000));
+              console.log(setting['wave' + param].timeSend);
+
+              accept.reschedule(new Date(setting['wave' + param].timeSend));
 
               console.log(accept.nextInvocation());
               console.log("Reschedule")
@@ -164,7 +165,7 @@ waveSend.engageTimers = function(c) {
 
               console.log(setting['wave' + param].timeClose + " ", Date.now());
 
-              schedule.scheduleJob(param, new Date(setting['wave' + param].timeClose + 604800000), waveAccept[parseInt(param)-1]);
+              schedule.scheduleJob(param, new Date(setting['wave' + param].timeSend), waveAccept[parseInt(param)-1]);
 
               console.log("Schedule")
           })

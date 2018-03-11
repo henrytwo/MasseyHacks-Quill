@@ -24,18 +24,22 @@ angular.module('reg')
                 settings.wave1.timeOpen = new Date(settings.wave1.timeOpen);
                 settings.wave1.timeClose = new Date(settings.wave1.timeClose);
                 settings.wave1.timeConfirm = new Date(settings.wave1.timeConfirm);
+                settings.wave1.timeSend = new Date(settings.wave1.timeSend);
 
                 settings.wave2.timeOpen = new Date(settings.wave2.timeOpen);
                 settings.wave2.timeClose = new Date(settings.wave2.timeClose);
                 settings.wave2.timeConfirm = new Date(settings.wave2.timeConfirm);
+                settings.wave2.timeSend = new Date(settings.wave2.timeSend);
 
                 settings.wave3.timeOpen = new Date(settings.wave3.timeOpen);
                 settings.wave3.timeClose = new Date(settings.wave3.timeClose);
                 settings.wave3.timeConfirm = new Date(settings.wave3.timeConfirm);
+                settings.wave3.timeSend = new Date(settings.wave3.timeSend);
 
                 settings.wave4.timeOpen = new Date(settings.wave4.timeOpen);
                 settings.wave4.timeClose = new Date(settings.wave4.timeClose);
                 settings.wave4.timeConfirm = new Date(settings.wave4.timeConfirm);
+                settings.wave4.timeSend = new Date(settings.wave4.timeSend);
 
                 $scope.settings = settings;
 
@@ -188,13 +192,13 @@ angular.module('reg')
               var timeClose = cleanDate($scope.settings["wave"+num].timeClose).getTime();
               var timeOpen = cleanDate($scope.settings["wave"+num].timeOpen).getTime();
               var timeConfirm = cleanDate($scope.settings["wave"+num].timeConfirm).getTime();
-
-              console.log($scope.settings)
+              var timeSend = cleanDate($scope.settings["wave"+num].timeSend).getTime();
 
               SettingsService
                 .updateWave({"timeOpen": timeOpen,
                              "timeClose": timeClose,
-                             "timeConfirm": timeConfirm}, num)
+                             "timeConfirm": timeConfirm,
+                             "timeSend": timeSend}, num)
                 .success(function(data) {
                   swal("Looks good!", "Wave " + num + " is updated.", "success");
                   updateSettings(data)

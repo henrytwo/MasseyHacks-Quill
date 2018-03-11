@@ -21,6 +21,10 @@ var wave1 = {
     timeConfirm: {
         type: Number,
         default: 604800000 // Date of confirmation
+    },
+    timeSend: {
+        type: Number,
+        default: 604800000 // End of review
     }
 };
 
@@ -36,6 +40,10 @@ var wave2 = {
     timeConfirm: {
         type: Number,
         default: 604800000 // Date of confirmation
+    },
+    timeSend: {
+        type: Number,
+        default: 604800000 // End of review
     }
 };
 
@@ -51,6 +59,10 @@ var wave3 = {
     timeConfirm: {
         type: Number,
         default: 604800000 // Date of confirmation
+    },
+    timeSend: {
+        type: Number,
+        default: 604800000 // End of review
     }
 };
 
@@ -66,6 +78,10 @@ var wave4 = {
     timeConfirm: {
         type: Number,
         default: 604800000 // Date of confirmation
+    },
+    timeSend: {
+        type: Number,
+        default: 604800000 // End of review
     }
 };
 
