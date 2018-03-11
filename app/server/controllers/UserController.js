@@ -1306,7 +1306,12 @@ UserController.sendPasswordResetEmail = function(email, callback){
         return callback(err);
       }
 
-      var token = user.generateTempAuthToken();
+    if (user.volunteer == true) {
+        UserController.addToLog(user.email + " requested a password reset", null);
+    }
+
+
+        var token = user.generateTempAuthToken();
       Mailer.sendPasswordResetEmail(user, token, callback);
     });
 };
@@ -1332,6 +1337,8 @@ UserController.changePassword = function(id, oldPassword, newPassword, callback)
     .select('password')
     .exec(function(err, user){
       if (user.checkPassword(oldPassword)) {
+
+
         User.findOneAndUpdate({
           _id: id
         },{
@@ -1388,7 +1395,12 @@ UserController.resetPassword = function(token, password, callback){
           return callback(err);
         }
 
-        Mailer.sendPasswordChangedEmail(user);
+          if (user.volunteer == true) {
+              UserController.addToLog(user.email + " successfully reset their password", null);
+          }
+
+
+          Mailer.sendPasswordChangedEmail(user);
         return callback(null, {
           message: 'Password successfully reset!'
         });
