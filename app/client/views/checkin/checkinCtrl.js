@@ -338,7 +338,7 @@ angular.module('reg')
 
 
             UserService
-                .getPageFull($stateParams.page, 50, $scope.filter, $scope.sortDate, 'timestamp')
+                .getPageFull($stateParams.page, 50, $scope.filter, false, 'sname')
                 .success(function (data) {
                     updatePage(data);
                 });

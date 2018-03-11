@@ -178,6 +178,7 @@ var removeSensitiveStaff = function(user) {
     delete u.salt;
     delete u.applicationAdmit;
     delete u.applicationReject;
+    delete u.lastUpdated;
 
     return u
 };

@@ -106,7 +106,7 @@ angular.module('reg')
               text: 'MasseyHacks reserves the right to revoke admission if any false and/or incorrect information is submitted on the waiver.<br><br>If you do not want to e-sign, you can bring in the <a style="color: #0A1939" href="https://mh4.masseyhacks.ca/waiver" target="_blank"><b>hardcopy</b></a> to the registration desk on the day of the event.',
               type: 'warning'
           }, function () {
-              window.open('https://google.com','_blank');
+              window.open('https://app.hellosign.com/s/8504f209','_blank');
           });
       }
 
