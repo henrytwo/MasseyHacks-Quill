@@ -120,3 +120,4 @@ angular.module('reg')
 
   }
   ]);
+

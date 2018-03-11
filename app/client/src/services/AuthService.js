@@ -60,7 +60,7 @@ angular.module('reg')
       };
 
       authService.register = function(email, password, nickname, onSuccess, onFailure) {
-        console.log("Attempting to register");
+        //console.log("Attempting to register");
         return $http
           .post('/auth/register', {
             email: email,
@@ -68,11 +68,11 @@ angular.module('reg')
             nickname: nickname
           })
           .success(function(data){
-            console.log("Account made successfully");
+            //console.log("Account made successfully");
             loginSuccess(data, onSuccess);
           })
           .error(function(data){
-            console.log("Account creation failed");
+            //console.log("Account creation failed");
             loginFailure(data, onFailure);
           });
       };
@@ -120,3 +120,4 @@ angular.module('reg')
       return authService;
     }
   ]);
+

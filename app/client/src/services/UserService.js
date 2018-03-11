@@ -262,3 +262,4 @@ angular.module('reg')
     };
   }
   ]);
+

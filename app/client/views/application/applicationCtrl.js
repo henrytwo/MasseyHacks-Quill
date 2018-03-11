@@ -107,7 +107,7 @@ angular.module('reg')
             return;
           })
           .error(function(res){
-            console.log("Failed to add new school");
+            //console.log("Failed to add new school");
           });
         }
       }

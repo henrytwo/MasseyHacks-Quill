@@ -20,3 +20,4 @@ angular.module('reg')
     .constant('TEAM',{
         NO_TEAM_REG_CLOSED: 'Unfortunately, it\'s too late to apply with a team.\nHowever, you can still form teams on your own before or during the event!',
     });
+

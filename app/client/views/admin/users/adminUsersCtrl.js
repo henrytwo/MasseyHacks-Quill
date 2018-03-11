@@ -409,7 +409,7 @@ angular.module('reg')
         .success(function(rawData){
           var data = rawData['users'];
 
-          console.log(data);
+          //console.log(data);
 
           var output = "";
           var titles = generateSections(data[0]);
@@ -703,3 +703,4 @@ angular.module('reg')
       $scope.selectUser = selectUser;
 
     }]);
+
