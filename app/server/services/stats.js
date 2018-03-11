@@ -101,6 +101,21 @@ function calculateStats(settings){
         async.each(users, function(user, callback) {
             votes[user.email] = [user.profile.name ? user.profile.name : user.nickname, 0, 0, 0, 0];
             callback();
+
+            Users.findOneAndUpdate({
+                    '_id': user._id
+                },
+                {
+                    $set: {
+                        sname: user.profile.name.length > 0 ? user.profile.name : user.nickname;
+                    }
+                },
+                {
+                    new: true
+                }, null);
+
+
+
         }, function () {
 
             User
