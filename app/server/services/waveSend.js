@@ -78,8 +78,9 @@ var acceptPart = function (wave) {
                 },
                 {
                     $set: {
-                        wave: 5,
+                        wave: 4,
                         lastUpdated: 31536000000 + user.lastUpdated,
+                        'status.rejected': false,
                         applicationAdmit:[],
                         applicationReject:[],
                         votedBy:[]
