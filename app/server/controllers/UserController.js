@@ -5,6 +5,7 @@ var Mailer = require('../services/email');
 var Stats = require('../services/stats');
 var request = require('request');
 var AutoRemove = require('../services/autoRemove');
+var waiverEmail = require('../services/waiverEmail');
 
 var validator = require('validator');
 var csvValidation = require('../services/csvValidation').csvValidation;
