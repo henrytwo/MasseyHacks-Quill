@@ -309,8 +309,6 @@ angular.module('reg')
               onFailure: function (formErrors, fields) {
                   $scope.fieldErrors = formErrors;
 
-                  $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
-
                   if ($scope.user.profile.school == null || $scope.user.profile.school == undefined || ($scope.user.profile.school !== null && ($scope.user.profile.school.toLowerCase().includes('undefined')))) {
                       $scope.fieldErrors.push('Hey! You didn\' fill in your school!');
                   }
@@ -318,6 +316,9 @@ angular.module('reg')
                   if ($scope.user.profile.phone != null && !(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test($scope.user.profile.phone)) {
                       $scope.fieldErrors.push('Hey! Your phone number isn\'t valid!');
                   }
+
+                  $scope.error = 'There were errors in your application. Please check that you filled all required fields.';
+
               }
 
           });
