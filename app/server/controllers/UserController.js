@@ -866,6 +866,9 @@ UserController.updateConfirmationById = function (id, confirmation, callback){
                                   if (err || !user) {
                                       return callback(err);
                                   }
+
+                                  UserController.addToLog(user.email + " confirmed their invitation", null);
+
                                   Mailer.sendConfirmationEmail(user);
                               });
                       }

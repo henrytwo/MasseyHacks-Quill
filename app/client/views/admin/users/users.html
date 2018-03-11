@@ -157,20 +157,24 @@
           <button
                   class="ui negative button"
                   ng-show="adminUser.reviewer || adminUser.developer"
-                  ng-click="voteRejectUser($event, selectedUser, $index)">
-            VOTE REJECT
+                  ng-click="voteRejectUser($event, selectedUser, $index)"
+                  ng-class="{disabled: selectedUser.status.rejected || selectedUser.status.admitted || selectedUser.votedBy.indexOf(adminUser.email) !== -1}">
+
+          VOTE REJECT
           </button>
           <button
                   class="ui positive button"
                   ng-show="adminUser.reviewer || adminUser.developer"
-                  ng-click="voteAdmitUser($event, selectedUser, $index)">
+                  ng-click="voteAdmitUser($event, selectedUser, $index)"
+                  ng-class="{disabled: selectedUser.status.rejected || selectedUser.status.admitted || selectedUser.votedBy.indexOf(adminUser.email) !== -1}">
             VOTE ACCEPT
           </button>
 
           <button
                   class="ui negative button"
                   ng-click="toggleReject($event, selectedUser, $index)"
-                  ng-show="adminUser.owner">
+                  ng-show="adminUser.owner"
+                  ng-class="{disabled: selectedUser.status.admitted}">
             <i ng-if="!selectedUser.status.rejected">Reject [FORCE]
             </i>
             <i ng-if="selectedUser.status.rejected">Unreject [FORCE]
@@ -179,7 +183,8 @@
           <button
                   class="ui positive button"
                   ng-click="acceptUser($event, selectedUser, $index)"
-                  ng-show="adminUser.owner">
+                  ng-show="adminUser.owner"
+                  ng-class="{disabled: selectedUser.status.rejected || selectedUser.status.admitted}">
             Accept [FORCE]
           </button>
           <div class="ui negative right labeled icon button">
