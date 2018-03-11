@@ -93,189 +93,188 @@ function calculateStats(settings){
 
     User
         .find({"reviewer":true, "developer":false})
-        .exec(function(err, users) {
-            if (err || !users) {
+        .exec(function(err, adminUsers) {
+            if (err || !adminUsers) {
                 throw err;
             }
 
-            async.each(users, function(user, callback) {
-                votes[user.email] = [user.profile.name ? user.profile.name : user.nickname, 0, 0, 0, 0];
-            });
-        });
-
-    User
-    .find({"admin": false,"owner":false,"volunteer":false})
-    .exec(function(err, users){
-      if (err || !users){
-        throw err;
-      }
-
-      newStats.total = users.length;
-
-      async.each(users, function(user, callback){
-
-          User.findOneAndUpdate({
-                  '_id': user._id
-              },
-              {
-                  $set: {
-                      sname: user.profile.name.length > 0 ? user.profile.name.toLowerCase() : user.nickname.toLowerCase()
-                  }
-              },
-              {
-                  new: true
-              }, function (err, u) {
-
-              });
-
-          for (var i = 0; i < user.votedBy.length; i++) {
-            if (user.votedBy[i] in votes) {
-                votes[user.votedBy[i]][user.wave] += 1;
+            for (var i = 0; i < adminUsers.length; i++) {
+                votes[adminUsers[i].email] = [adminUsers[i].profile.name ? adminUsers[i].profile.name : adminUsers[i].nickname, 0, 0, 0, 0];
             }
-          }
 
-        waveTotals[user.wave - 1] += 1;
+            User
+            .find({"admin": false,"owner":false,"volunteer":false})
+            .exec(function(err, users){
+              if (err || !users){
+                throw err;
+              }
 
-        // Count verified
-        newStats.verified += user.verified ? 1 : 0;
+              newStats.total = users.length;
 
-        newStats.rejected += user.rejected ? 1 : 0;
+              async.each(users, function(user, callback){
 
-        newStats.waitlisted += user.status.waitlisted ? 1 : 0;
-        newStats.bus += user.confirmation.bus ? 1 : 0;
+                  User.findOneAndUpdate({
+                          '_id': user._id
+                      },
+                      {
+                          $set: {
+                              sname: user.profile.name.length > 0 ? user.profile.name.toLowerCase() : user.nickname.toLowerCase()
+                          }
+                      },
+                      {
+                          new: true
+                      }, function () {
 
-        // Count submitted
-        newStats.submitted += user.status.completedProfile ? 1 : 0;
+                      });
 
-        // Count accepted
-        newStats.admitted += user.status.admitted ? 1 : 0;
-
-        // Count confirmed
-        newStats.confirmed += user.status.confirmed ? 1 : 0;
-
-        newStats.waiver += user.status.waiver ? 1 : 0;
-
-        // Count declined
-        newStats.declined += user.status.declined ? 1 : 0;
-
-        // Count checked in
-        newStats.checkedIn += user.status.checkedIn ? 1 : 0;
-
-
-          // Add to the gender
-          newStats.demo.gender[user.profile.gender] += 1;
-
-          if (user.profile.grade){
-              newStats.demo.grade[user.profile.grade] += 1;
-          }
-
-          // Count shirt sizes
-          if (user.profile.shirt in newStats.shirtSizes){
-              newStats.shirtSizes[user.profile.shirt] += 1;
-          }
-          // Dietary restrictions
-          if (user.profile.diet){
-              user.profile.diet.forEach(function(restriction){
-                  if (!newStats.dietaryRestrictions[restriction]){
-                      newStats.dietaryRestrictions[restriction] = 0;
+                  for (var i = 0; i < user.votedBy.length; i++) {
+                    if (user.votedBy[i] in votes) {
+                        votes[user.votedBy[i]][user.wave] += 1;
+                    }
                   }
-                  newStats.dietaryRestrictions[restriction] += 1;
-              });
-          }
 
-          if (user.profile.school) {
-              if (user.profile.school.toLowerCase().includes("massey")) {
-                  newStats.demo.massey += 1;
-              }
-              else {
-                  newStats.demo.nonmassey += 1;
-              }
-          }
+                waveTotals[user.wave - 1] += 1;
 
-          if (user.status.confirmed) {
+                // Count verified
+                newStats.verified += user.verified ? 1 : 0;
 
-              newStats.confirmedStat.total += 1;
-              newStats.confirmedStat.bus += user.confirmation.bus ? 1 : 0;
+                newStats.rejected += user.rejected ? 1 : 0;
 
-              // Add to the gender
-              newStats.confirmedStat.demo.gender[user.profile.gender] += 1;
+                newStats.waitlisted += user.status.waitlisted ? 1 : 0;
+                newStats.bus += user.confirmation.bus ? 1 : 0;
 
-              if (user.profile.grade){
-                  newStats.confirmedStat.demo.grade[user.profile.grade] += 1;
-              }
+                // Count submitted
+                newStats.submitted += user.status.completedProfile ? 1 : 0;
 
-              // Count shirt sizes
-              if (user.profile.shirt in newStats.confirmedStat.shirtSizes){
-                  newStats.confirmedStat.shirtSizes[user.profile.shirt] += 1;
-              }
-              // Dietary restrictions
-              if (user.profile.diet){
-                  user.profile.diet.forEach(function(restriction){
-                      if (!newStats.confirmedStat.dietaryRestrictions[restriction]){
-                          newStats.confirmedStat.dietaryRestrictions[restriction] = 0;
+                // Count accepted
+                newStats.admitted += user.status.admitted ? 1 : 0;
+
+                // Count confirmed
+                newStats.confirmed += user.status.confirmed ? 1 : 0;
+
+                newStats.waiver += user.status.waiver ? 1 : 0;
+
+                // Count declined
+                newStats.declined += user.status.declined ? 1 : 0;
+
+                // Count checked in
+                newStats.checkedIn += user.status.checkedIn ? 1 : 0;
+
+
+                  // Add to the gender
+                  newStats.demo.gender[user.profile.gender] += 1;
+
+                  if (user.profile.grade){
+                      newStats.demo.grade[user.profile.grade] += 1;
+                  }
+
+                  // Count shirt sizes
+                  if (user.profile.shirt in newStats.shirtSizes){
+                      newStats.shirtSizes[user.profile.shirt] += 1;
+                  }
+                  // Dietary restrictions
+                  if (user.profile.diet){
+                      user.profile.diet.forEach(function(restriction){
+                          if (!newStats.dietaryRestrictions[restriction]){
+                              newStats.dietaryRestrictions[restriction] = 0;
+                          }
+                          newStats.dietaryRestrictions[restriction] += 1;
+                      });
+                  }
+
+                  if (user.profile.school) {
+                      if (user.profile.school.toLowerCase().includes("massey")) {
+                          newStats.demo.massey += 1;
                       }
-                      newStats.confirmedStat.dietaryRestrictions[restriction] += 1;
-                  });
-              }
-
-              if (user.profile.school) {
-                  if (user.profile.school.toLowerCase().includes("massey")) {
-                      newStats.confirmedStat.demo.massey += 1;
+                      else {
+                          newStats.demo.nonmassey += 1;
+                      }
                   }
-                  else {
-                      newStats.confirmedStat.demo.nonmassey += 1;
-                  }
-              }
 
-        }
+                  if (user.status.confirmed) {
+
+                      newStats.confirmedStat.total += 1;
+                      newStats.confirmedStat.bus += user.confirmation.bus ? 1 : 0;
+
+                      // Add to the gender
+                      newStats.confirmedStat.demo.gender[user.profile.gender] += 1;
+
+                      if (user.profile.grade){
+                          newStats.confirmedStat.demo.grade[user.profile.grade] += 1;
+                      }
+
+                      // Count shirt sizes
+                      if (user.profile.shirt in newStats.confirmedStat.shirtSizes){
+                          newStats.confirmedStat.shirtSizes[user.profile.shirt] += 1;
+                      }
+                      // Dietary restrictions
+                      if (user.profile.diet){
+                          user.profile.diet.forEach(function(restriction){
+                              if (!newStats.confirmedStat.dietaryRestrictions[restriction]){
+                                  newStats.confirmedStat.dietaryRestrictions[restriction] = 0;
+                              }
+                              newStats.confirmedStat.dietaryRestrictions[restriction] += 1;
+                          });
+                      }
+
+                      if (user.profile.school) {
+                          if (user.profile.school.toLowerCase().includes("massey")) {
+                              newStats.confirmedStat.demo.massey += 1;
+                          }
+                          else {
+                              newStats.confirmedStat.demo.nonmassey += 1;
+                          }
+                      }
+
+                }
 
 
-          callback(); // let async know we've finished
-      }, function() {
+                  callback(); // let async know we've finished
+              }, function() {
 
-          console.log(votes, waveTotals);
+                  console.log(votes, waveTotals);
 
-          for (var voter in votes) {
-              var line = votes[voter];
+                  for (var voter in votes) {
+                      var line = votes[voter];
 
-              for (var i = 1; i < line.length; i++) {
-                  line[i] = line[i] + '/' + waveTotals[i - 1];
-              }
+                      for (var i = 1; i < line.length; i++) {
+                          line[i] = line[i] + '/' + waveTotals[i - 1];
+                      }
 
-              //console.log(line);
+                      //console.log(line);
 
-              newStats.review.push(line);
-          };
+                      newStats.review.push(line);
+                  };
 
-          //console.log(newStats.review);
+                  //console.log(newStats.review);
 
-          // Transform dietary restrictions into a series of objects
-          var restrictions = [];
-          _.keys(newStats.dietaryRestrictions)
-              .forEach(function (key) {
-                  restrictions.push({
-                      name: key,
-                      count: newStats.dietaryRestrictions[key]
-                  });
+                  // Transform dietary restrictions into a series of objects
+                  var restrictions = [];
+                  _.keys(newStats.dietaryRestrictions)
+                      .forEach(function (key) {
+                          restrictions.push({
+                              name: key,
+                              count: newStats.dietaryRestrictions[key]
+                          });
+                      });
+                  newStats.dietaryRestrictions = restrictions;
+
+                  var confirmedRestrictions = [];
+                  _.keys(newStats.confirmedStat.dietaryRestrictions)
+                      .forEach(function (key) {
+                          confirmedRestrictions.push({
+                              name: key,
+                              count: newStats.confirmedStat.dietaryRestrictions[key]
+                          });
+                      });
+                  newStats.confirmedStat.dietaryRestrictions = confirmedRestrictions;
+
+                  console.log('Stats updated!');
+                  newStats.lastUpdated = new Date();
+                  stats = newStats;
               });
-          newStats.dietaryRestrictions = restrictions;
-
-          var confirmedRestrictions = [];
-          _.keys(newStats.confirmedStat.dietaryRestrictions)
-              .forEach(function (key) {
-                  confirmedRestrictions.push({
-                      name: key,
-                      count: newStats.confirmedStat.dietaryRestrictions[key]
-                  });
-              });
-          newStats.confirmedStat.dietaryRestrictions = confirmedRestrictions;
-
-          console.log('Stats updated!');
-          newStats.lastUpdated = new Date();
-          stats = newStats;
-      });
+        });
     });
-
 }
 
 setInterval(function() {
