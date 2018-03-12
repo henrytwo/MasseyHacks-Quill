@@ -276,6 +276,9 @@ UserController.createUser = function(email, password, nickname, callback) {
             u.sname = nickname;
             u.password = User.generateHash(password);
             u.id = id;
+            u.timestamp = Date.now();
+            u.lastUpdated = Date.now();
+            u.passwordLastUpdated = Date.now();
 
             u.save(function(err){
               if (err){

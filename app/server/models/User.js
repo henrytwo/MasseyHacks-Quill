@@ -386,17 +386,17 @@ var schema = new mongoose.Schema({
     timestamp: {
         type: Number,
         required: true,
-        default: Date.now(),
+        default: 0,
     },
 
     lastUpdated: {
         type: Number,
-        default: Date.now(),
+        default: 0,
     },
 
     passwordLastUpdated: {
         type: Number,
-        default: Date.now(),
+        default: 0,
     },
 
     /*
