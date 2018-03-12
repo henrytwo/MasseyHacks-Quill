@@ -12,6 +12,7 @@ angular.module('reg')
       $scope.admin = adminUser;
       $scope.pages = [];
       $scope.users = [];
+      $scope.filter = {text:"", hacker: true, submitted: true, admitted: false, rejected: false};
       // to know when to filter by date
       $scope.sortDate = false;
       getWave();
@@ -64,7 +65,7 @@ angular.module('reg')
 
       if (adminUser.reviewer || adminUser.developer) {
         UserService
-            .getPageFull($stateParams.page, $stateParams.size, {text:"", hacker: true, submitted: true, admitted: false, rejected: false}, $scope.sortDate, 'lastUpdated')
+            .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
             .success(function (data) {
                 updatePage(data);
             });
@@ -74,7 +75,7 @@ angular.module('reg')
       $scope.sortByDate = function(){
         $scope.sortDate = !$scope.sortDate;
         UserService
-                  .getPageFull($stateParams.page, 500, {text:"", hacker: true, submitted: true, admitted: false, rejected: false}, $scope.sortDate, 'lastUpdated')
+                  .getPageFull($stateParams.page, 500, $scope.filter, $scope.sortDate, 'lastUpdated')
                   .success(function(data){
                     updatePage(data);
                   });
@@ -82,7 +83,7 @@ angular.module('reg')
 
       $scope.filterUsers = function() {
         UserService
-          .getPageFull($stateParams.page, $stateParams.size, {text:"", hacker: true, submitted: true, admitted: false, rejected: false}, $scope.sortDate, 'lastUpdated')
+          .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
           .success(function(data){
             updatePage(data);
           });

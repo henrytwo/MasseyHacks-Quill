@@ -78,6 +78,7 @@ angular.module('reg')
 
             $scope.pages = [];
             $scope.users = [];
+            $scope.filter = {text:"", hacker: true, submitted: true, admitted: true, rejected: false, confirmed: true, declined: false};
             $scope.sortDate = true;
 
             // Semantic-UI moves modal content into a dimmer at the top level.
