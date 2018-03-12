@@ -179,9 +179,8 @@ var removeSensitiveStaff = function(user) {
     delete u.salt;
     delete u.applicationAdmit;
     delete u.applicationReject;
-    delete u.lastUpdated;
 
-    return u
+    return u;
 };
 
 var removeSensitive = function(user) {
@@ -193,6 +192,7 @@ var removeSensitive = function(user) {
     delete u.applicationReject;
     delete u.votedBy;
     delete u.status.admittedBy;
+    delete u.lastUpdated;
 
     if (!user.status.statusReleased) {
         u.status.admitted = false;
