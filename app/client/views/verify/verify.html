@@ -6,7 +6,7 @@
         <div class="verify page">
 
           <div class="ui segment">
-            <div ng-show="success">
+            <div ng-show="success && !loading">
               <i class="green check circle icon"></i>
               <p>
                 Awesome! Your email has been verified!
@@ -17,10 +17,15 @@
                 Continue to Application
               </div>
             </div>
-            <div ng-show="!success">
+            <div ng-show="!success && !loading">
               <i class="red circle remove icon"></i>
               <p>
                 This token is invalid.
+              </p>
+            </div>
+            <div ng-show="loading">
+              <p>
+                Connecting to server
               </p>
             </div>
           </div>
