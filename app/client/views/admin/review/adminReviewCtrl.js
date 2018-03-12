@@ -442,7 +442,7 @@ angular.module('reg')
                     fields: [
                         {
                             name: 'Created On',
-                            value: formatTime(user.lastUpdated)
+                            value: formatTime(user.timestamp)
                         },{
                             name: 'Last Updated',
                             value: formatTime(user.lastUpdated)
