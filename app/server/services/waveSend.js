@@ -49,7 +49,7 @@ var ad = function (err, user) {
 var acceptPart = function (wave) {
     console.log("running Wave "+wave);
     Settings.findOne({}).exec(function(err, setting) {
-        Users.find({'wave': wave, 'status.admitted':true}).exec(function (err, data) {
+        Users.find({'wave': wave, 'status.admitted':true, 'status.statusReleased': false}).exec(function (err, data) {
             async.each(data, function (user, callback) {
                 console.log("admitting user " + user.email);
                 Users.findOneAndUpdate({
