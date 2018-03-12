@@ -70,7 +70,7 @@ var acceptPart = function (wave) {
         })
     });
 
-    Users.find({'wave': wave, 'status.rejected':true}).exec(function (err, data) {
+    Users.find({'wave': wave, 'status.rejected':true, 'status.statusReleased': false}).exec(function (err, data) {
         async.each(data, function (user, callback) {
             console.log("reject/pushback user " + user.email);
             Users.findOneAndUpdate({
