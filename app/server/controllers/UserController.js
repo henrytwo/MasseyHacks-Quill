@@ -119,7 +119,7 @@ UserController.loginWithPassword = function(email, password, callback){
 
   if (!validator.isEmail(email)){
     return callback({
-      message: 'Incorrect username or password'
+      message: 'Incorrect email or password'
     });
   }
 
@@ -133,7 +133,7 @@ UserController.loginWithPassword = function(email, password, callback){
       if (!user) {
 
           return callback({
-          message: "Incorrect username or password"
+          message: "Incorrect email or password"
         });
       }
 
@@ -154,7 +154,7 @@ UserController.loginWithPassword = function(email, password, callback){
           }
 
           return callback({
-          message: "Incorrect username or password"
+          message: "Incorrect email or password"
         });
       }
 
