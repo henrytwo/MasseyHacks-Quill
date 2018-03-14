@@ -102,12 +102,12 @@ var profile = {
 
     essayproject: {
         type: String,
-        maxlength: 500,
+        maxlength: 1500,
     },
 
     essaygain: {
         type: String,
-        maxlength: 500,
+        maxlength: 1500,
     },
 
     freeComment: {
@@ -604,8 +604,8 @@ schema.statics.validateProfile = function (id, profile, cb) {
         profile.firstname.length > 0 &&
         profile.lastname.length < 100 &&
         profile.lastname.length > 0 &&
-        profile.essaygain.length <= 500 &&
-        profile.essayproject.length <= 500 &&
+        profile.essaygain.length <= 1500 &&
+        profile.essayproject.length <= 1500 &&
         (profile.pasthackathon == null || (profile.pasthackathon != null && profile.pasthackathon.length <= 500)) &&
         (profile.freeComment == null || (profile.freeComment != null &&profile.freeComment.length <= 500)) &&
         (profile.workshop == null || (profile.workshop != null &&profile.workshop.length <= 250)) &&
