@@ -168,7 +168,7 @@ module.exports = function(router) {
                 form: {
                   payload: JSON.stringify({
                     "text":
-                    "``` \n" +
+                    "<@U8AJ6RS6B> <@U7F8VCUUX>\nAn issue was detected with the server.\n\n``` \n" +
                     "Request: \n " +
                     req.method + ' ' + req.url +
                     "\n ------------------------------------ \n" +
