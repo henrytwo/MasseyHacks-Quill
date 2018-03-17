@@ -87,6 +87,7 @@ angular.module('reg')
             }
           })
           .error(function(data){
+              console.log(data);
             if (onFailure) {
               onFailure(data);
             }

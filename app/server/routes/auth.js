@@ -147,9 +147,11 @@ module.exports = function(router){
    router.get('/verify/:token',
     function(req, res, next){
       var token = req.params.token;
+
       UserController.verifyByToken(token, function(err, user){
 
         if (err || !user){
+            console.log(err);
           return res.status(400).send(err);
         }
 
