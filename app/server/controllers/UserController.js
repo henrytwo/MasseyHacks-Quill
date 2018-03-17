@@ -119,7 +119,7 @@ UserController.loginWithPassword = function(email, password, callback){
 
   if (!validator.isEmail(email)){
     return callback({
-      message: 'Invalid email'
+      message: 'Incorrect email or password'
     });
   }
 
@@ -1117,7 +1117,7 @@ UserController.unRejectById = function (id, adminUser, callback){
 UserController.verifyByToken = function(token, callback){
   User.verifyEmailVerificationToken(token, function(err, email){
     User.findOneAndUpdate({
-      email: email
+      email: email.toLowerCase()
     },{
       $set: {
         'verified': true
