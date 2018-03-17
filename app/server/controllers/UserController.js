@@ -699,6 +699,7 @@ UserController.updateProfileById = function (id, profile, callback){
               function (err, user) {
                   var d = Date.now();
                   var lastUpdated = (Date.now() > user.lastUpdated) ? Date.now() : user.lastUpdated;
+                  var currentWave = (currentWave > user.wave) ? currentWave : user.wave;
 
                   User.findOneAndUpdate({
                           _id: id,
