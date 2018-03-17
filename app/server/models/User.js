@@ -548,7 +548,7 @@ schema.statics.verifyTempAuthToken = function (token, callback) {
 
 schema.statics.findOneByEmail = function (email) {
     return this.findOne({
-        email: email.toLowerCase()
+        email:  email ? email.toLowerCase() : email
     });
 };
 
