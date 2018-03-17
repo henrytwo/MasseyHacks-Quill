@@ -1684,8 +1684,12 @@ UserController.deactivateById = function(id, user, callback){
 
 };
 
-UserController.remove = function(id, user, callback){
-    UserController.addToLog(user.email + " deleted " + user.email, null);
+UserController.remove = function(id, adminUser, callback){
+    User.findOne({_id:id}, function (err, user) {
+        if (!err && user != null) {
+            UserController.addToLog(adminUser.email + " deleted " + user.email, null);
+        }
+    });
 
     User.findOneAndRemove({
       _id: id
