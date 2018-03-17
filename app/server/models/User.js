@@ -518,6 +518,8 @@ schema.statics.generateHash = function (password) {
  */
 schema.statics.verifyEmailVerificationToken = function (token, callback) {
     jwt.verify(token, JWT_SECRET, function (err, email) {
+        console.log('Verifying ' + email);
+
         return callback(err, email);
     });
 };
@@ -546,7 +548,7 @@ schema.statics.verifyTempAuthToken = function (token, callback) {
 
 schema.statics.findOneByEmail = function (email) {
     return this.findOne({
-        email: new RegExp('^' + email + '$', 'i')
+        email: email.toLowerCase()
     });
 };
 

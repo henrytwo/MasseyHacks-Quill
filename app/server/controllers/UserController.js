@@ -1119,7 +1119,7 @@ UserController.unRejectById = function (id, adminUser, callback){
 UserController.verifyByToken = function(token, callback){
   User.verifyEmailVerificationToken(token, function(err, email){
     User.findOneAndUpdate({
-      email: new RegExp('^' + email + '$', 'i')
+      email: email.toLowerCase()
     },{
       $set: {
         'verified': true
@@ -1686,8 +1686,12 @@ UserController.deactivateById = function(id, user, callback){
 
 };
 
-UserController.remove = function(id, user, callback){
-    UserController.addToLog(user.email + " deleted " + user.email, null);
+UserController.remove = function(id, adminUser, callback){
+    User.findOne({_id:id}, function (err, user) {
+        if (!err && user != null) {
+            UserController.addToLog(adminUser.email + " deleted " + user.email, null);
+        }
+    });
 
     User.findOneAndRemove({
       _id: id
