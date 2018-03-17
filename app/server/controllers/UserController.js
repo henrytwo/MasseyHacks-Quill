@@ -1117,7 +1117,7 @@ UserController.unRejectById = function (id, adminUser, callback){
 UserController.verifyByToken = function(token, callback){
   User.verifyEmailVerificationToken(token, function(err, email){
     User.findOneAndUpdate({
-      email: new RegExp('^' + escapeRegExp(email) + '$', 'i')
+      email: new RegExp('^' + email.replace('+', '\+') + '$', 'i')
     },{
       $set: {
         'verified': true
