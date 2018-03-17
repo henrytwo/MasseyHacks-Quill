@@ -119,7 +119,7 @@ UserController.loginWithPassword = function(email, password, callback){
 
   if (!validator.isEmail(email)){
     return callback({
-      message: 'Incorrect email or password'
+      message: 'Invalid email'
     });
   }
 
