@@ -151,7 +151,7 @@ module.exports = function(router){
       UserController.verifyByToken(token, function(err, user){
 
         if (err || !user){
-            console.log(err);
+          console.log(err);
           return res.status(400).send(err);
         }
 
