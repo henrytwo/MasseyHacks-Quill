@@ -223,12 +223,10 @@ angular.module('reg')
                         else {
                             $scope.users[index] = user;
                             swal("Action Performed", 'This user has been unrejected.', "success");
-                            $('.long.user.modal').modal('show');
                         }
                     })
                     .error(function (err) {
                         swal("Access Denied", "You do not have permission to perform this action.", "error");
-                        $('.long.user.modal').modal('show');
                     });
             });
 
