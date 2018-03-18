@@ -93,7 +93,7 @@ UserController.loginWithToken = function(token, callback){
     if (!user || !user.active) {
         return callback(err, token, null);
     }
-    var u = removeSensitive(user);
+    var u = UserController.removeSensitive(user);
 
     if (user.volunteer == true) {
         UserController.addToLog(user.email + " successfully logged in with token", null);
@@ -161,7 +161,7 @@ UserController.loginWithPassword = function(email, password, callback){
       // yo dope nice login here's a token for your troubles
       var token = user.generateAuthToken();
 
-      var u = removeSensitive(user);
+      var u = UserController.removeSensitive(user);
 
       if (user.volunteer == true) {
           UserController.addToLog(user.email + " successfully logged in with password", callback);
@@ -183,7 +183,7 @@ var removeSensitiveStaff = function(user) {
     return u;
 };
 
-var removeSensitive = function(user) {
+UserController.removeSensitive = function(user) {
   var u = user.toJSON();
 
     delete u.password;
@@ -630,7 +630,7 @@ UserController.exitSearch = function(id, callback) {
  */
 UserController.getById = function (id, callback){
   User.findById(id, function(err, user) {
-    return callback(false, removeSensitive(user));
+    return callback(false, UserController.removeSensitive(user));
   });
 };
 
