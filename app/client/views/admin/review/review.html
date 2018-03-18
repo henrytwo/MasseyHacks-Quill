@@ -102,6 +102,11 @@
         </div>
         <div class="actions">
           <button
+                  class="ui yellow button"
+                  ng-click="skipUser($event, selectedUser, $index)">
+            PASS
+          </button>
+          <button
                   class="ui negative button"
                   ng-click="voteRejectUser($event, selectedUser, $index)">
             VOTE REJECT

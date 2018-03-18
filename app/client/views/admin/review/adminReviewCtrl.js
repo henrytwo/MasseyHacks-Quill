@@ -145,26 +145,38 @@ angular.module('reg')
             }
           );
         } else {
-          UserService
-            .unReject(user._id)
-            .success(function(user){
-              if(index == null){ //we don't have index because toggleReject has been called in pop-up
-                for(var i = 0; i < $scope.users.length; i++){
-                  if($scope.users[i]._id === user._id){
-                    $scope.users[i] = user;
-                    selectUser(user);
-                    }
-                  }
-                }
-                else
-                 $scope.users[index] = user;
-              swal("Action Performed", 'This user has been unrejected.', "success");
-                $('.long.user.modal').modal('show');
-            })
-            .error(function(err) {
-                swal("Access Denied", "You do not have permission to perform this action.", "error");
-                $('.long.user.modal').modal('show');
-            });
+            if (!user.status.rejected){
+                swal({
+                        title: "Whoa, wait a minute!\n[FORCE ACTION]",
+                        text: "You are about to unreject this user!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, unreject.",
+                        closeOnConfirm: false
+                    },
+                    function() {
+                        UserService
+                            .unReject(user._id)
+                            .success(function (user) {
+                                if (index == null) { //we don't have index because toggleReject has been called in pop-up
+                                    for (var i = 0; i < $scope.users.length; i++) {
+                                        if ($scope.users[i]._id === user._id) {
+                                            $scope.users[i] = user;
+                                            selectUser(user);
+                                        }
+                                    }
+                                }
+                                else
+                                    $scope.users[index] = user;
+                                swal("Action Performed", 'This user has been unrejected.', "success");
+                                $('.long.user.modal').modal('show');
+                            })
+                            .error(function (err) {
+                                swal("Access Denied", "You do not have permission to perform this action.", "error");
+                                $('.long.user.modal').modal('show');
+                            });
+                    });
         }
       };
 
@@ -432,6 +444,26 @@ angular.module('reg')
                     });
 
             });
+        };
+
+
+        $scope.skipUser = function($event, user, index) {
+            $event.stopPropagation();
+
+            $('.long.user.modal').modal('hide');
+
+            $scope.users.push($scope.users.splice(index, 1));
+            swal("Action Performed", "Skipped", "success");
+
+            if ($scope.users.length > 0) {
+                $('.long.user.modal').modal('show');
+                selectUser($scope.users[0]);
+            }
+            else {
+                $('.long.user.modal').modal('hide');
+                swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
+            }
+
         };
 
 
