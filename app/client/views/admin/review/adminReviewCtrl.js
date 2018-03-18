@@ -454,8 +454,8 @@ angular.module('reg')
 
             $('.long.user.modal').modal('hide');
 
-            $scope.users.push($scope.users.splice(index, 1));
-            swal("Action Performed", "Skipped", "success");
+            $scope.users.splice(index, 1);
+            swal("Action Performed", "Skipped\nTsk tsk tsk :(", "success");
 
             if ($scope.users.length > 0) {
                 $('.long.user.modal').modal('show');
@@ -463,7 +463,7 @@ angular.module('reg')
             }
             else {
                 $('.long.user.modal').modal('hide');
-                swal("Review Complete", "Good job! You've reached the end of the review queue", "success");
+                swal("Review Complete", "Good job! You've skipped literally every person!", "success");
             }
 
         };
