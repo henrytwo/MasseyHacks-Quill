@@ -79,6 +79,9 @@ module.exports = function(router){
             console.log(err);
             return res.status(400).send(err);
           }
+
+          user = UserController.removeSensitive(user);
+
           return res.json(user);
       });
   });
@@ -115,6 +118,9 @@ module.exports = function(router){
       if (err || !user){
         return res.status(400).send(err);
       }
+
+      user = UserController.removeSensitive(user);
+
       return res.json(user);
     });
   });
@@ -154,6 +160,8 @@ module.exports = function(router){
           console.log(err);
           return res.status(400).send(err);
         }
+
+        user = UserController.removeSensitive(user);
 
         return res.json(user);
 
