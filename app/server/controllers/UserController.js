@@ -191,6 +191,7 @@ UserController.removeSensitive = function(user) {
     delete u.applicationAdmit;
     delete u.applicationReject;
     delete u.votedBy;
+    delete u.numVotes;
     delete u.status.admittedBy;
     delete u.lastUpdated;
 
