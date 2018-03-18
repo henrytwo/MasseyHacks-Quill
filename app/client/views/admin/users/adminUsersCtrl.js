@@ -153,7 +153,7 @@ angular.module('reg')
               $scope.users[index] = user;
               swal("Action Performed", user.profile.name + ' has been activated.', "success");
             }).error(function(err) {
-            swal("Access Denied", "You do not have permission to perform this action.", "error")
+                swal("Access Denied", "You do not have permission to perform this action.", "error");
           });
         }
       };
@@ -183,52 +183,56 @@ angular.module('reg')
                           selectUser(user);
                           }
                         }
-                      }
-                      else
-                        $scope.users[index] = user;
-                    swal("Action Performed", user.profile.name + ' has been rejected.', "success");
                     }
-                  else
-                    swal("Could not be rejected", 'User cannot be rejected if its not verified or it is admitted', "error");
+                    else {
+                        $scope.users[index] = user;
+                        swal("Action Performed", user.profile.name + ' has been rejected.', "success");
+                    }
+                  }
+                  else {
+                      swal("Could not be rejected", 'User cannot be rejected if its not verified or it is admitted', "error");
+                  }
                 })
                 .error(function(err) {
                     swal("Access Denied", "You do not have permission to perform this action.", "error")
                 });
-            }
-          );
+            });
         } else {
 
-            swal({
-                    title: "Whoa, wait a minute!\n[FORCE ACTION]",
-                    text: "You are about to unreject this user!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, unreject.",
-                    closeOnConfirm: false
-                },
-                function() {
-                    UserService
-                        .unReject(user._id)
-                        .success(function (user) {
-                            if (index == null) { //we don't have index because toggleReject has been called in pop-up
-                                for (var i = 0; i < $scope.users.length; i++) {
-                                    if ($scope.users[i]._id === user._id) {
-                                        $scope.users[i] = user;
-                                        selectUser(user);
-                                    }
+          swal({
+                title: "Whoa, wait a minute!\n[FORCE ACTION]",
+                text: "You are about to unreject this user!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, unreject.",
+                closeOnConfirm: false
+            },
+            function () {
+                UserService
+                    .unReject(user._id)
+                    .success(function (user) {
+                        if (index == null) { //we don't have index because toggleReject has been called in pop-up
+                            for (var i = 0; i < $scope.users.length; i++) {
+                                if ($scope.users[i]._id === user._id) {
+                                    $scope.users[i] = user;
+                                    selectUser(user);
                                 }
                             }
-                            else
-                                $scope.users[index] = user;
+                        }
+                        else {
+                            $scope.users[index] = user;
                             swal("Action Performed", 'This user has been unrejected.', "success");
                             $('.long.user.modal').modal('show');
-                        })
-                        .error(function (err) {
-                            swal("Access Denied", "You do not have permission to perform this action.", "error");
-                            $('.long.user.modal').modal('show');
-                        });
-                });
+                        }
+                    })
+                    .error(function (err) {
+                        swal("Access Denied", "You do not have permission to perform this action.", "error");
+                        $('.long.user.modal').modal('show');
+                    });
+            });
+
+        }
 
       };
 
@@ -276,8 +280,8 @@ angular.module('reg')
                       swal("Could not be accepted", 'User cannot be accepted if the user is rejected. Please remove rejection.', "error");
                   })
                   .error(function(err) {
-                      swal("Access Denied", "You do not have permission to perform this action.", "error")
-                  });;
+                      swal("Access Denied", "You do not have permission to perform this action.", "error");
+                  });
 
               });
 
