@@ -201,7 +201,7 @@ angular.module('reg')
 
           swal({
                 title: "Whoa, wait a minute!\n[FORCE ACTION]",
-                text: "You are about to unreject this user!",
+                text: "You are about to unreject " + user.profile.name + "!",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
