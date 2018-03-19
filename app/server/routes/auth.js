@@ -114,8 +114,8 @@ module.exports = function(router){
     var pass = req.body.password;
     var token = req.body.token;
 
-    UserController.resetPassword(token, pass, function(err, user){
-      if (err || !user){
+    UserController.resetPassword(token, pass, function(err, message){
+      if (err || !message){
         return res.status(400).send(err);
       }
 
@@ -123,7 +123,7 @@ module.exports = function(router){
       // Legit wtf is this user variable?
       // Bro pls
 
-      return res.json(user);
+      return res.json(message);
     });
   });
 
