@@ -700,7 +700,10 @@ UserController.updateProfileById = function (id, profile, callback){
               function (err, user) {
                   var d = Date.now();
                   var lastUpdated = (Date.now() > user.lastUpdated) ? Date.now() : user.lastUpdated;
-                  if (user.wave) {
+
+                  if (user.status.admitted || user.status.rejected) {
+                      currentWave = user.wave;
+                  } else if (user.wave) {
                       currentWave = (currentWave > user.wave) ? currentWave : user.wave;
                   }
 
