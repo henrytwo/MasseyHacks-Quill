@@ -119,7 +119,9 @@ module.exports = function(router){
         return res.status(400).send(err);
       }
 
-      user = UserController.removeSensitive(user);
+      // Fuck you MIT
+      // Legit wtf is this user variable?
+      // Bro pls
 
       return res.json(user);
     });

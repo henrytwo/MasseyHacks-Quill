@@ -184,7 +184,7 @@ var removeSensitiveStaff = function(user) {
 };
 
 UserController.removeSensitive = function(user) {
-  var u = user.toJSON();
+    var u = user.toJSON();
 
     delete u.password;
     delete u.salt;
