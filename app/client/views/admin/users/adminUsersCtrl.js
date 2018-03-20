@@ -382,26 +382,26 @@ angular.module('reg')
                       }
                   }
 
-                  var output = "Name;Email;Status;Admitted By (If Applicable);";
+                  var output = "Name,Email,Status,Admitted By (If Applicable),";
 
                   for(var i = 0; i < reviewers.length; i++){
-                      output += "\"" + reviewers[i] + "\";";
+                      output += "\"" + reviewers[i] + "\",";
                   }
                   output += "\n";
 
                   for (var key in hackers){
                       var row = hackers[key];
-                      output += "\"" + key + "\";";
+                      output += "\"" + key + "\",";
                       for (var i = 0; i < row.length; i++){
                           if(!row[i]){
-                              output += ";";
+                              output += ",";
                               continue;
                           }
                           var field = row[i];
                           try {
-                              output += "\"" + field.replace(/(\r\n|\n|\r|\t)/gm," ") + "\";";
+                              output += "\"" + field.replace(/(\r\n|\n|\r|\t)/gm," ") + "\",";
                           } catch (err){
-                              output += "\"" + field + "\";";
+                              output += "\"" + field + "\",";
                           }
 
                       }
@@ -431,7 +431,7 @@ angular.module('reg')
           var titles = generateSections(data[0]);
            for(var i = 0; i < titles.length; i++){
             for(var j = 0; j < titles[i].fields.length; j++){
-              output += "\"" + titles[i].fields[j].name + "\";";
+              output += "\"" + titles[i].fields[j].name + "\",";
             }
            }
            output += "\n";
@@ -442,14 +442,14 @@ angular.module('reg')
             for (var i = 0; i < row.length; i++){
               for(var j = 0; j < row[i].fields.length;j++){
                 if(!row[i].fields[j].value){
-                  output += ";";
+                  output += ",";
                   continue;
                 }
                 var field = row[i].fields[j].value;
                 try {
-                  output += "\"" + field.replace(/(\r\n|\n|\r|\t)/gm," ") + "\";";
+                  output += "\"" + field.replace(/(\r\n|\n|\r|\t)/gm," ") + "\",";
                 } catch (err){
-                  output += "\"" + field + "\";";
+                  output += "\"" + field + "\",";
                 }
               }
             }
