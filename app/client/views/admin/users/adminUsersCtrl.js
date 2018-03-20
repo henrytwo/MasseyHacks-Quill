@@ -382,7 +382,7 @@ angular.module('reg')
                       }
                   }
 
-                  var output = '"Name","Email","Status","Admitted By (If Applicable)",';
+                  var output = 'Name,Email,Status,Admitted By (If Applicable),';
 
                   for(var i = 0; i < reviewers.length; i++){
                       output += "\"" + reviewers[i] + "\",";
