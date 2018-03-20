@@ -360,7 +360,7 @@ angular.module('reg')
                   for (var x = 0; x < rawData.length; x++) {
                       if (!rawData[x].volunteer) {
 
-                          var hackerName = ((rawData[x].profile.name) ? rawData[x].profile.name : rawData[x].nickname) + "\",\"" + rawData[x].email;
+                          var hackerName = ((rawData[x].profile.name) ? rawData[x].profile.name : rawData[x].nickname) + "\";\"" + rawData[x].email;
 
                           hackers[hackerName] = [getState(rawData[x].status).toUpperCase(), rawData[x].status.admittedBy ? rawData[x].status.admittedBy : 'N/A'];
 
@@ -382,7 +382,7 @@ angular.module('reg')
                       }
                   }
 
-                  var output = 'Name,Email,Status,Admitted By (If Applicable),';
+                  var output = "Name,Email,Status,Admitted By (If Applicable),";
 
                   for(var i = 0; i < reviewers.length; i++){
                       output += "\"" + reviewers[i] + "\",";
@@ -419,53 +419,54 @@ angular.module('reg')
           });
       }
 
-       $scope.exportCSV = function() {
+    $scope.exportCSV = function() {
         UserService
-        .getPageFull(0, $stateParams.size, $scope.filter, false, 'sname')
-        .success(function(rawData){
-          var data = rawData['users'];
+            .getPageFull(0, $stateParams.size, $scope.filter, false, 'sname')
+            .success(function(rawData){
+                var data = rawData['users'];
 
-          //console.log(data);
+                //console.log(data);
 
-          var output = "";
-          var titles = generateSections(data[0]);
-           for(var i = 0; i < titles.length; i++){
-            for(var j = 0; j < titles[i].fields.length; j++){
-              output += "\"" + titles[i].fields[j].name + "\",";
-            }
-           }
-           output += "\n";
-
-
-          for (var rows = 0; rows < data.length; rows++){
-            row = generateSections(data[rows]);
-            for (var i = 0; i < row.length; i++){
-              for(var j = 0; j < row[i].fields.length;j++){
-                if(!row[i].fields[j].value){
-                  output += ",";
-                  continue;
+                var output = "";
+                var titles = generateSections(data[0]);
+                for(var i = 0; i < titles.length; i++){
+                    for(var j = 0; j < titles[i].fields.length; j++){
+                        output += "\"" + titles[i].fields[j].name + "\",";
+                    }
                 }
-                var field = row[i].fields[j].value;
-                try {
-                  output += "\"" + field.replace(/(\r\n|\n|\r|\t)/gm," ") + "\",";
-                } catch (err){
-                  output += "\"" + field + "\",";
+                output += "\n";
+
+
+                for (var rows = 0; rows < data.length; rows++){
+                    row = generateSections(data[rows]);
+                    for (var i = 0; i < row.length; i++){
+                        for(var j = 0; j < row[i].fields.length;j++){
+                            if(!row[i].fields[j].value){
+                                output += ",";
+                                continue;
+                            }
+                            var field = row[i].fields[j].value;
+                            try {
+                                output += "\"" + field.replace(/(\r\n|\n|\r|\t)/gm," ") + "\",";
+                            } catch (err){
+                                output += "\"" + field + "\",";
+                            }
+                        }
+                    }
+                    output += "\n";
                 }
-              }
-            }
-            output += "\n";
-          }
 
-          var element = document.createElement('a');
-          element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
-          element.setAttribute('download', "base " + new Date().toDateString() + ".csv");
-          element.style.display = 'none';
-          document.body.appendChild(element);
-          element.click();
-          document.body.removeChild(element);
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
+                element.setAttribute('download', "base " + new Date().toDateString() + ".csv");
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
 
-          });
-      }
+            });
+    }
+
 
       $scope.removeUser = function($event, user, index) {
         $event.stopPropagation();
