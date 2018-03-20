@@ -358,9 +358,9 @@ angular.module('reg')
                   }
 
                   for (var x = 0; x < rawData.length; x++) {
-                      if (!rawData[x].volunteer) {
+                      if (!rawData[x].volunteer && rawData[x].status.completedProfile) {
 
-                          var hackerName = ((rawData[x].profile.name) ? rawData[x].profile.name : rawData[x].nickname) + "\";\"" + rawData[x].email;
+                          var hackerName = ((rawData[x].profile.name) ? rawData[x].profile.name : rawData[x].nickname) + "\",\"" + rawData[x].email;
 
                           hackers[hackerName] = [getState(rawData[x].status).toUpperCase(), rawData[x].status.admittedBy ? rawData[x].status.admittedBy : 'N/A'];
 

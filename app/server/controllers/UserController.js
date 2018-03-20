@@ -316,7 +316,7 @@ UserController.getByToken = function (token, callback) {
 };
 
 UserController.getAllMaster = function (callback) {
-    User.find({'status.completedProfile':'true'}).sort({'sname' : 1}).select('+status.admittedBy').exec(function(err, users){
+    User.find({}).sort({'sname' : 1}).select('+status.admittedBy').exec(function(err, users){
         return callback(null, users);
     });
 };
