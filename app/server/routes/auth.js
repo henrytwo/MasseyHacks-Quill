@@ -80,7 +80,6 @@ module.exports = function(router){
             return res.status(400).send(err);
           }
 
-          user = UserController.removeSensitive(user);
 
           return res.json(user);
       });

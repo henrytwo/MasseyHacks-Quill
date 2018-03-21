@@ -10,6 +10,7 @@ angular.module('reg')
       // Is registration open?
       var Settings = settings.data;
       $scope.regIsOpen = Utils.isRegOpen(Settings);
+      $scope.loading = false;
 
       // Start state for login
       $scope.loginState = 'login';
@@ -20,6 +21,7 @@ angular.module('reg')
       }
 
       function onError(data){
+          $scope.loading = false;
         $scope.error = data.message;
       }
 
@@ -28,6 +30,7 @@ angular.module('reg')
       }
 
       $scope.login = function(){
+        $scope.loading = true;
         resetError();
         AuthService.loginWithPassword(
           $scope.email, $scope.password, onSuccess, onError);
@@ -41,12 +44,14 @@ angular.module('reg')
       };
 
       $scope.register = function(){
+        $scope.loading = true;
         // Poor mans form validation
         // That MIT guy was pretty lazy lol
         resetError();
         if ($scope.password === $scope.password_repeat) {
           if ($scope.nickname == null) {
-            $scope.error = "Please provide a nickname!"
+            $scope.loading = false;
+            $scope.error = "Please provide a nickname!";
           } 
           else {
             if($scope.regIsOpen){
@@ -55,7 +60,8 @@ angular.module('reg')
             }
           }
         } else {
-          $scope.error = "Passwords don't match."
+            $scope.loading = false;
+          $scope.error = "Passwords don't match.";
         }
       };
 
