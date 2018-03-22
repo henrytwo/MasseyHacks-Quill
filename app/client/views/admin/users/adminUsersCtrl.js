@@ -577,7 +577,7 @@ angular.module('reg')
                       value: user.status.admittedBy ? user.status.admittedBy : 'N/A'
                   },
                   {
-                    name: 'Voted by',
+                    name: 'Reviewed by',
                     value: user.votedBy
                   },
                   {
