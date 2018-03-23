@@ -161,7 +161,7 @@ function calculateStats(settings){
                 newStats.checkedIn += user.status.checkedIn ? 1 : 0;
 
 
-                if (user.status.submitted) {
+                if (user.status.completedProfile) {
 
                     // Add to the gender
                     newStats.demo.gender[user.profile.gender] += 1;
