@@ -1720,7 +1720,7 @@ UserController.inviteToSlack = function (id, callback){
                 if (err || body !== '{"ok":true}') {
 
                     if (body.includes('already_in_team')) {
-                        return callback('You have already join the Slack!\n(' + process.env.SLACK_INVITE + '.slack.com)');
+                        return callback('You have already joined the Slack!\n(' + process.env.SLACK_INVITE + '.slack.com)');
                     }
                     else if (body.includes('already_invited')) {
                         return callback('We already sent an invitation!\nBe sure to check your spam in case it was filtered :\'(\n\n(We sent it to ' + user.email + ')');
