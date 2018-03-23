@@ -1,6 +1,7 @@
 var Imap = require('imap'),
     inspect = require('util').inspect;
 var Users = require('../models/User');
+var UserController = require('../controllers/UserController');
 
 var imap = new Imap({
     user: process.env.waiverEmail,
@@ -65,7 +66,8 @@ var fetch_email = function() {
                                     },
                                     function(err, user) {
                                         if (user) {
-                                            console.log(user.email + "'s waiver has been recieved");
+                                            console.log(user.email + "'s waiver has been received");
+                                            UserController.addToLog(user.email + "'s waiver has been received", null);
                                         }
                                     });
                             }
