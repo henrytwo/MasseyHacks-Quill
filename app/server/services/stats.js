@@ -161,35 +161,38 @@ function calculateStats(settings){
                 newStats.checkedIn += user.status.checkedIn ? 1 : 0;
 
 
-                  // Add to the gender
-                  newStats.demo.gender[user.profile.gender] += 1;
+                if (user.status.submitted) {
 
-                  if (user.profile.grade){
-                      newStats.demo.grade[user.profile.grade] += 1;
-                  }
+                    // Add to the gender
+                    newStats.demo.gender[user.profile.gender] += 1;
 
-                  // Count shirt sizes
-                  if (user.profile.shirt in newStats.shirtSizes){
-                      newStats.shirtSizes[user.profile.shirt] += 1;
-                  }
-                  // Dietary restrictions
-                  if (user.profile.diet){
-                      user.profile.diet.forEach(function(restriction){
-                          if (!newStats.dietaryRestrictions[restriction]){
-                              newStats.dietaryRestrictions[restriction] = 0;
-                          }
-                          newStats.dietaryRestrictions[restriction] += 1;
-                      });
-                  }
+                    if (user.profile.grade) {
+                        newStats.demo.grade[user.profile.grade] += 1;
+                    }
 
-                  if (user.profile.school) {
-                      if (user.profile.school.toLowerCase().includes("massey")) {
-                          newStats.demo.massey += 1;
-                      }
-                      else {
-                          newStats.demo.nonmassey += 1;
-                      }
-                  }
+                    // Count shirt sizes
+                    if (user.profile.shirt in newStats.shirtSizes) {
+                        newStats.shirtSizes[user.profile.shirt] += 1;
+                    }
+                    // Dietary restrictions
+                    if (user.profile.diet) {
+                        user.profile.diet.forEach(function (restriction) {
+                            if (!newStats.dietaryRestrictions[restriction]) {
+                                newStats.dietaryRestrictions[restriction] = 0;
+                            }
+                            newStats.dietaryRestrictions[restriction] += 1;
+                        });
+                    }
+
+                    if (user.profile.school) {
+                        if (user.profile.school.toLowerCase().includes("massey")) {
+                            newStats.demo.massey += 1;
+                        }
+                        else {
+                            newStats.demo.nonmassey += 1;
+                        }
+                    }
+                }
 
                   if (user.status.confirmed) {
 
