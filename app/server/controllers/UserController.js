@@ -1705,7 +1705,7 @@ UserController.remove = function(id, adminUser, callback){
 UserController.inviteToSlack = function (id, callback){
     User.findById(id, function(err, user) {
 
-        if (user.status.confirmed && user.status.admitted && user.status.statusReleased) {
+        if (user.status.confirmed && user.status.admitted && user.status.statusReleased && !user.status.declined) {
             UserController.addToLog(user.email + " requested slack invite", null);
 
             request.post({
