@@ -138,7 +138,7 @@ function calculateStats(settings){
                 // Count verified
                 newStats.verified += user.verified ? 1 : 0;
 
-                newStats.rejected += user.rejected ? 1 : 0;
+                newStats.rejected += user.status.rejected ? 1 : 0;
 
                 newStats.waitlisted += user.status.waitlisted ? 1 : 0;
                 newStats.bus += user.confirmation.bus ? 1 : 0;

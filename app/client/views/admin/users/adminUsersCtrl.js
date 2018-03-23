@@ -672,7 +672,7 @@ angular.module('reg')
                 value: user.profile.devpost || 'N/A'
             },
             {
-                name: 'Github',
+                name: 'GitHub',
                 type: 'url',
                 value: user.profile.github || 'N/A'
             },

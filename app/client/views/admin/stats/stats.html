@@ -36,7 +36,7 @@
             <strong>
             Submitted Users
             </strong> :
-            {{stats.submitted}} ({{stats.submitted / stats.total * 100 | number: 1}}%)
+            {{stats.submitted}} ({{stats.submitted / stats.verified * 100 | number: 1}}%)
           </div>
         </div>
         <div class="ui divider"></div>
@@ -153,25 +153,25 @@
       <div class="item">
         <i class="female icon"></i>
         <div class="content">
-          <strong>Female</strong>: {{stats.demo.gender['F']}} ({{stats.demo.gender['F'] / stats.total * 100 | number:1}}%)
+          <strong>Female</strong>: {{stats.demo.gender['F']}} ({{stats.demo.gender['F'] / stats.submitted * 100 | number:1}}%)
         </div>
       </div>
       <div class="item">
         <i class="male icon"></i>
         <div class="content">
-          <strong>Male</strong>: {{stats.demo.gender['M']}} ({{stats.demo.gender['M'] / stats.total * 100 | number:1}}%)
+          <strong>Male</strong>: {{stats.demo.gender['M']}} ({{stats.demo.gender['M'] / stats.submitted * 100 | number:1}}%)
         </div>
       </div>
       <div class="item">
         <i class="other gender icon"></i>
         <div class="content">
-          <strong>Other</strong>: {{stats.demo.gender['O']}} ({{stats.demo.gender['O'] / stats.total * 100 | number:1}}%)
+          <strong>Other</strong>: {{stats.demo.gender['O']}} ({{stats.demo.gender['O'] / stats.submitted * 100 | number:1}}%)
         </div>
       </div>
       <div class="item">
         <i class="question icon"></i>
         <div class="content">
-          <strong>Did not respond</strong>: {{stats.demo.gender['N']}} ({{stats.demo.gender['N'] / stats.total * 100 | number:1 }}%)
+          <strong>Did not respond</strong>: {{stats.demo.gender['N']}} ({{stats.demo.gender['N'] / stats.submitted * 100 | number:1 }}%)
         </div>
       </div>
     </div>
@@ -181,19 +181,19 @@
     </div>
       <div class="ui list">
         <div class="item">
-          <strong>Grade <=8</strong> {{stats.demo.grade['<=8']}} ({{stats.demo.grade['<=8'] / stats.total * 100 | number: 1}}%)
+          <strong>Grade <=8</strong> {{stats.demo.grade['<=8']}} ({{stats.demo.grade['<=8'] / stats.submitted * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <strong>Grade 9</strong> {{stats.demo.grade['9']}} ({{stats.demo.grade['9'] / stats.total * 100 | number: 1}}%)
+          <strong>Grade 9</strong> {{stats.demo.grade['9']}} ({{stats.demo.grade['9'] / stats.submitted * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <strong>Grade 10</strong> {{stats.demo.grade['10']}} ({{stats.demo.grade['10'] / stats.total * 100 | number: 1}}%)
+          <strong>Grade 10</strong> {{stats.demo.grade['10']}} ({{stats.demo.grade['10'] / stats.submitted * 100 | number: 1}}%)
         </div>
         <div class="item">
-         <strong>Grade 11</strong> {{stats.demo.grade['11']}} ({{stats.demo.grade['11'] / stats.total * 100 | number: 1}}%)
+         <strong>Grade 11</strong> {{stats.demo.grade['11']}} ({{stats.demo.grade['11'] / stats.submitted * 100 | number: 1}}%)
         </div>
         <div class="item">
-          <strong>Grade 12</strong> {{stats.demo.grade['12']}} ({{stats.demo.grade['12'] / stats.total * 100 | number: 1}}%)
+          <strong>Grade 12</strong> {{stats.demo.grade['12']}} ({{stats.demo.grade['12'] / stats.submitted * 100 | number: 1}}%)
         </div>
       </div>
 
