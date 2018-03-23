@@ -294,7 +294,7 @@ angular.module('reg')
       }
 
       $scope.rowClass = function(user) {
-        if (user.rejected){
+        if (user.status.rejected){
           return 'negative';
         }
         if (user.status.confirmed) {
