@@ -407,7 +407,14 @@ module.exports = function(router) {
    * GET - Get a specific user.
    */
   router.get('/slack/:id', isOwnerOrAdmin, function(req, res){
-      UserController.inviteToSlack(req.params.id, res.json(data));
+      UserController.inviteToSlack(req.params.id, function(err, data){
+        if (err) {
+          res.status(500).send(err);
+        }
+        else {
+          return res.json(data);
+        }
+      });
   });
 
 
