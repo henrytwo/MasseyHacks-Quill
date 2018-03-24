@@ -176,7 +176,7 @@ schema.statics.getPrivateSettings = function(callback){
 
 schema.statics.getPublicSettings = function(callback){
     this
-        .findOne({}).select('-log')
+        .findOne({}).select('-log').select('-accumulator')
         .exec(callback);
 };
 

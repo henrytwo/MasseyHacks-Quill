@@ -247,8 +247,7 @@ UserController.createUser = function(email, password, nickname, callback) {
   email = email.toLowerCase();
 
   // Check that there isn't a user with this email already.
-  Settings.findOneAndUpdate({}, {$inc: {accumulator : -1}}, function(err, settings){
-    var id = generateID(settings.accumulator);
+
     canRegister(email, password, function(err, valid){
 
       if (err || !valid){
@@ -267,48 +266,50 @@ UserController.createUser = function(email, password, nickname, callback) {
             return callback({
               message: 'An account for this email already exists.'
             });
-          } else {
-
-            // Make a new user
-            var u = new User();
-            u.email = email;
-            u.nickname = nickname;
-            u.profile.name = nickname;
-            u.sname = nickname.toLowerCase();
-            u.password = User.generateHash(password);
-            u.id = id;
-            u.timestamp = Date.now();
-            u.lastUpdated = Date.now();
-            u.passwordLastUpdated = Date.now();
-
-            u.save(function(err){
-              if (err){
-                return callback(err);
-              } else {
-
-                // yay! success.
-                var token = u.generateAuthToken();
-
-                // Send over a verification email
-                var verificationToken = u.generateEmailVerificationToken();
-                Mailer.sendVerificationEmail(u, verificationToken);
-
-                return callback(
-                  null,
-                  {
-                    token: token,
-                    user: u
-                  }
-                );
-              }
-
-            });
-
           }
+          else {
 
+              Settings.findOneAndUpdate({}, {$inc: {accumulator : -1}}, function(err, settings) {
+                  var id = generateID(settings.accumulator);
+
+                  // Make a new user
+                  var u = new User();
+                  u.email = email;
+                  u.nickname = nickname;
+                  u.profile.name = nickname;
+                  u.sname = nickname.toLowerCase();
+                  u.password = User.generateHash(password);
+                  u.id = id;
+                  u.timestamp = Date.now();
+                  u.lastUpdated = Date.now();
+                  u.passwordLastUpdated = Date.now();
+
+                  u.save(function(err){
+                      if (err){
+                          return callback(err);
+                      } else {
+
+                          // yay! success.
+                          var token = u.generateAuthToken();
+
+                          // Send over a verification email
+                          var verificationToken = u.generateEmailVerificationToken();
+                          Mailer.sendVerificationEmail(u, verificationToken);
+
+                          return callback(
+                              null,
+                              {
+                                  token: token,
+                                  user: u
+                              }
+                          );
+                      }
+
+                  });
+              });
+          }
       });
     });
-  });
 };
 
 UserController.getByToken = function (token, callback) {
