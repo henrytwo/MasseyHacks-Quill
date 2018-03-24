@@ -247,8 +247,8 @@ UserController.createUser = function(email, password, nickname, callback) {
   email = email.toLowerCase();
 
   // Check that there isn't a user with this email already.
-  User.count(function(err, count){
-    var id = generateID(count);
+  Settings.findOneAndUpdate({}, {$inc: {accumulator : -1}}, function(err, settings){
+    var id = generateID(settings.accumulator);
     canRegister(email, password, function(err, valid){
 
       if (err || !valid){

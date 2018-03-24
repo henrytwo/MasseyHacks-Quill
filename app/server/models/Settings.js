@@ -94,6 +94,10 @@ var schema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  accumulator: {
+    type: Number,
+    default: 1000000 // Why not
+  },
   timeClose: {
     type: Number,
     default: Date.now() + 31104000000 // Add a year from now.
