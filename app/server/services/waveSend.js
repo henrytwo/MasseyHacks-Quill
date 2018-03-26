@@ -97,7 +97,7 @@ var acceptPart = function (wave) {
     Users.find({'wave':wave, completedProfile: false}).exec(function (err, usrs) {
         mailer.sendLaggerEmails(usrs);
 
-        Users.find({'wave':wave, 'status.admitted':false, 'status.rejected':false}).exec(function (err, users) {
+        Users.find({'wave':wave, 'status.admitted':false, 'status.rejected':false, 'status.waitlisted':false}).exec(function (err, users) {
             async.each(users, function (user, callback) {
                 console.log("running user " + user.email);
                 Users.findOneAndUpdate({
