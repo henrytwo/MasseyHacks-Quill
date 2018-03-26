@@ -1,7 +1,7 @@
 var Imap = require('imap'),
     inspect = require('util').inspect;
 var Users = require('../models/User');
-var UserController = require('../controllers/UserController');
+var Settings = require('../models/Settings');
 
 var imap = new Imap({
     user: process.env.waiverEmail,
@@ -10,6 +10,23 @@ var imap = new Imap({
     port: process.env.waiverPort,
     tls: true
 });
+
+var addToLog = function (message, callback) {
+
+    var marked_message = "[" + Date() + "] " + message;
+
+    console.log(marked_message);
+
+    Settings.findOneAndUpdate({}, {
+        $push: {
+            log : marked_message
+        }
+    }, {
+        new: true
+    }, function () {
+
+    }, callback);
+};
 
 function openInbox(cb) {
     imap.openBox('INBOX', false, cb);
@@ -67,7 +84,7 @@ var fetch_email = function() {
                                     function(err, user) {
                                         if (user) {
                                             console.log(user.email + "'s waiver has been received");
-                                            UserController.addToLog(user.email + "'s waiver has been received", null);
+                                            addToLog(user.email + "'s waiver has been received", null);
                                         }
                                     });
                             }
