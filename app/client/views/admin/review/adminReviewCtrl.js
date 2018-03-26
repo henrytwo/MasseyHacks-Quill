@@ -9,6 +9,7 @@ angular.module('reg')
 
       var adminUser = currentUser.data;
 
+      $scope.local = false;
       $scope.admin = adminUser;
       $scope.pages = [];
       $scope.users = [];
@@ -85,7 +86,16 @@ angular.module('reg')
         UserService
           .getPageFull($stateParams.page, $stateParams.size, $scope.filter, $scope.sortDate, 'lastUpdated')
           .success(function(data){
-            updatePage(data);
+
+              if ($scope.local) {
+                  for (var user in data) {
+                      if (user.profile.departing.toLowerCase().indexOf('windsor') == -1) {
+                          delete data[user];
+                      }
+                  }
+              }
+
+              updatePage(data);
           });
       }
 
