@@ -89,7 +89,7 @@ angular.module('reg')
 
               if ($scope.local) {
                   for (var user in data) {
-                      if (user.profile.departing.toLowerCase().indexOf('windsor') == -1) {
+                      if (data[user].profile.departing.toLowerCase().indexOf('windsor') == -1) {
                           delete data[user];
                       }
                   }
