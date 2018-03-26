@@ -194,6 +194,7 @@ UserController.removeSensitive = function(user) {
     delete u.numVotes;
     delete u.status.admittedBy;
     delete u.lastUpdated;
+    delete u.wave;
 
     if (!user.status.statusReleased) {
         u.status.admitted = false;
