@@ -88,9 +88,9 @@ angular.module('reg')
           .success(function(data){
 
               if ($scope.local) {
-                  for (var user in data) {
-                      if (data[user].profile.departing.toLowerCase().indexOf('windsor') == -1) {
-                          delete data[user];
+                  for (var i = 0; i < data.length; i++) {
+                      if (data[i].profile.departing.toLowerCase().indexOf('windsor') == -1) {
+                          data.splice(i, 1);
                       }
                   }
               }
