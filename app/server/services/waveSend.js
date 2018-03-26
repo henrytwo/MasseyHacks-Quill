@@ -81,6 +81,7 @@ var acceptPart = function (wave) {
                         wave: 4,
                         lastUpdated: 31536000000 + user.lastUpdated,
                         'status.rejected': false,
+                        numVotes: 0,
                         applicationAdmit:[],
                         applicationReject:[],
                         votedBy:[]
@@ -88,13 +89,20 @@ var acceptPart = function (wave) {
                 },
                 {
                     new: true
-                }, null);
+                }, function (err, user) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("User " + user.email + " has been pushed back to wave " + user.wave)
+                    }
+
+                });
 
             callback()
         })
     });
 
-    Users.find({'wave':wave, completedProfile: false}).exec(function (err, usrs) {
+    Users.find({'status.completedProfile': false}).exec(function (err, usrs) {
         mailer.sendLaggerEmails(usrs);
 
         Users.find({'wave':wave, 'status.admitted':false, 'status.rejected':false}).exec(function (err, users) {
