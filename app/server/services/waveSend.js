@@ -94,7 +94,7 @@ var acceptPart = function (wave) {
         })
     });
 
-    Users.find({'wave':wave, completedProfile: false}).exec(function (err, usrs) {
+    Users.find({'status.completedProfile': false}).exec(function (err, usrs) {
         mailer.sendLaggerEmails(usrs);
 
         Users.find({'wave':wave, 'status.admitted':false, 'status.rejected':false, 'status.waitlisted':false}).exec(function (err, users) {
