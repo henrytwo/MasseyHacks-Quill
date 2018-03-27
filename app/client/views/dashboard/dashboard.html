@@ -226,13 +226,17 @@
           </div>
 
           <div class="markdown">
-            <b>Don’t forget that we cannot admit you into the event until your waiver has been signed.</b> It's never too early to start thinking about your hack! We hope to see you on April 28th ready and excited for your 24 hours of hacking!
+            <span ng-show="!user.status.waiver"><b>Don’t forget that we cannot admit you into the event until your waiver has been signed.</b><br></span>
+            <span ng-show="user.status.waiver"><b>Your waiver has been received successfully.</b><br></span>
+
+            <br>It's never too early to start thinking about your hack! We hope to see you on April 28th ready and excited for your 24 hours of hacking!
           </div>
 
           <div class="ui sea-serpent button"
                style="min-width: 200px; width: 100%"
-               ui-sref="app.confirmation">
-            {{pastConfirmation ? 'View' : 'Edit'}} confirmation
+               ng-show="!user.status.waiver"
+               ng-click="getWaiver()">
+            Get Waiver
           </div>
 
           <div class="ui sea-serpent button"
@@ -243,8 +247,8 @@
 
           <div class="ui sea-serpent button"
                style="min-width: 200px; width: 100%"
-               ng-click="getWaiver()">
-            Get Waiver
+               ui-sref="app.confirmation">
+            {{pastConfirmation ? 'View' : 'Edit'}} confirmation
           </div>
 
           <div class="ui vermilion button"
