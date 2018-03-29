@@ -164,7 +164,7 @@ angular.module('reg')
         if (!user.status.rejected){
           swal({
             title: "Whoa, wait a minute!\n[FORCE ACTION]",
-            text: "You are about to reject " + user.profile.name + "!",
+            text: "You are about to reject " + user.profile.name + "!\n\nTHIS USER WILL BE IMMEDIATELY NOTIFIED",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -201,7 +201,7 @@ angular.module('reg')
 
           swal({
                 title: "Whoa, wait a minute!\n[FORCE ACTION]",
-                text: "You are about to unreject " + user.profile.name + "!",
+                text: "You are about to unreject " + user.profile.name + "!\nTHIS ACTION CANNOT BE UNDONE WITHOUT NOTIFYING THE USER AT THE DASHBOARD LEVEL",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -239,7 +239,7 @@ angular.module('reg')
 
         swal({
           title: "Whoa, wait a minute!\n[FORCE ACTION]",
-          text: "You are about to accept " + user.profile.name + "!",
+          text: "You are about to accept " + user.profile.name + "!\n\nTHIS USER WILL BE IMMEDIATELY NOTIFIED",
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",
@@ -287,7 +287,113 @@ angular.module('reg')
 
       };
 
-      function formatTime(time){
+    $scope.injectAdmitUser = function($event, user, index) {
+        $event.stopPropagation();
+
+        swal({
+            title: "Whoa, wait a minute!\n[FORCE ACTION]",
+            text: "You are about to inject 2 ADMIT votes into " + user.profile.name + "!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, inject.",
+            closeOnConfirm: false
+        }, function(){
+
+            swal({
+                title: "Are you sure?",
+                text: "Your account will be logged as having rigged this user. " +
+                "Remember, this power is a privilege.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, inject this user.",
+                closeOnConfirm: false
+            }, function(){
+
+                UserService
+                    .injectAdmitUser(user._id)
+                    .success(function(user){
+                        if(user != ""){// User cannot be found if user is rejected
+                            if(index == null){ //we don't have index because acceptUser has been called in pop-up
+                                for(var i = 0; i < $scope.users.length; i++){
+                                    if($scope.users[i]._id === user._id){
+                                        $scope.users[i] = user;
+                                        selectUser(user);
+                                    }
+                                }
+                            }
+                            else
+                                $scope.users[index] = user;
+                            swal("Action Performed", user.profile.name + ' has been injected.', "success");
+                        }
+                        else
+                            swal("Could not be accepted", 'User cannot be injected if the user is rejected. Please remove rejection.', "error");
+                    })
+                    .error(function(err) {
+                        swal("Access Denied", "You do not have permission to perform this action.", "error");
+                    });
+
+            });
+
+        });
+
+    };
+    $scope.injectRejectUser = function($event, user, index) {
+            $event.stopPropagation();
+
+            swal({
+                title: "Whoa, wait a minute!\n[FORCE ACTION]",
+                text: "You are about to inject 2 REJECTION votes into " + user.profile.name + "!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, inject.",
+                closeOnConfirm: false
+            }, function(){
+
+                swal({
+                    title: "Are you sure?",
+                    text: "Your account will be logged as having rigged this user. " +
+                    "Remember, this power is a privilege.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, inject this user.",
+                    closeOnConfirm: false
+                }, function(){
+
+                    UserService
+                        .injectRejectUser(user._id)
+                        .success(function(user){
+                            if(user != ""){// User cannot be found if user is rejected
+                                if(index == null){ //we don't have index because acceptUser has been called in pop-up
+                                    for(var i = 0; i < $scope.users.length; i++){
+                                        if($scope.users[i]._id === user._id){
+                                            $scope.users[i] = user;
+                                            selectUser(user);
+                                        }
+                                    }
+                                }
+                                else
+                                    $scope.users[index] = user;
+                                swal("Action Performed", user.profile.name + ' has been injected.', "success");
+                            }
+                            else
+                                swal("Could not be accepted", 'User cannot be injected if the user is rejected. Please remove rejection.', "error");
+                        })
+                        .error(function(err) {
+                            swal("Access Denied", "You do not have permission to perform this action.", "error");
+                        });
+
+                });
+
+            });
+
+        };
+
+
+        function formatTime(time){
         if (time) {
           return moment(time).format('MMMM Do YYYY, h:mm:ss a');
         }

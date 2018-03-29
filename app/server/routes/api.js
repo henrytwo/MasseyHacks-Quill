@@ -74,6 +74,32 @@ module.exports = function(router) {
 
 
     /**
+     * Using the access token provided, check to make sure that
+     * you are, indeed, an admin.
+     */
+    function isDeveloper(req, res, next){
+
+        var token = getToken(req);
+
+        UserController.getByToken(token, function(err, user){
+
+            if (err) {
+                return res.status(500).send(err);
+            }
+
+            if (user && user.developer){
+                req.user = user;
+                return next();
+            }
+
+            return res.status(401).send({
+                message: 'Get outta here, punk!'
+            });
+
+        });
+    }
+
+    /**
    * Using the access token provided, check to make sure that
    * you are, indeed, an admin.
    */
@@ -618,7 +644,23 @@ module.exports = function(router) {
     // });
   });
 
-  /**
+  router.post('/users/:id/injectAdmit', isDeveloper, function(req, res){
+      // Accept the hacker. Admin only
+      var id = req.params.id;
+      var user = req.user;
+
+      UserController.injectAdmitUser(id, user, defaultResponse(req, res));
+  });
+
+  router.post('/users/:id/injectReject', isDeveloper, function(req, res){
+      // Accept the hacker. Admin only
+      var id = req.params.id;
+      var user = req.user;
+      UserController.injectRejectUser(id, user, defaultResponse(req, res));
+  });
+
+
+    /**
    * Admit a user. ADMIN ONLY, DUH
    *
    * Also attaches the user who did the admitting, for liabaility.

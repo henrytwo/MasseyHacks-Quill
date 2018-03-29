@@ -201,6 +201,16 @@ angular.module('reg')
         return $http.post(base + id + '/remove');
       },
 
+      injectAdmitUser: function (id) {
+          tokenActive();
+          return $http.post(base + id + '/injectAdmit');
+      },
+
+      injectRejectUser: function (id) {
+          tokenActive();
+          return $http.post(base + id + '/injectReject');
+      },
+
       deactivate: function(id){
           tokenActive();
         return $http.post(base + id + '/deactivate');

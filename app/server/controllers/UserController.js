@@ -391,6 +391,9 @@ UserController.getPage = function(query, callback){
   if(query.filter.needsReimbursement === 'true') {
     statusFilter.push({'profile.needsReimbursement': 'true'});
   }
+  if(query.filter.noReimbursement === 'true') {
+    statusFilter.push({'profile.needsReimbursement': {$ne: 'true'}});
+  }
   if(query.filter.bus === 'true') {
     statusFilter.push({'confirmation.bus': 'true'});
   }
@@ -402,6 +405,20 @@ UserController.getPage = function(query, callback){
   }
   if(query.filter.waiver === 'true') {
       statusFilter.push({'status.waiver': 'true'});
+  }
+  if(query.filter.noState === 'true') {
+      statusFilter.push({'status.admitted': 'false'});
+      statusFilter.push({'status.waitlisted': 'false'});
+      statusFilter.push({'status.rejected': 'false'});
+  }
+  if(query.filter.noWaiver === 'true') {
+      statusFilter.push({'status.waiver': 'false'});
+      statusFilter.push({'status.admitted': 'true'});
+  }
+  if(query.filter.noConfirmed === 'true') {
+      statusFilter.push({'status.confirmed': 'false'});
+      statusFilter.push({'status.rejected': 'false'});
+      statusFilter.push({'status.admitted': 'true'});
   }
   if(query.filter.waitlisted === 'true') {
       statusFilter.push({'status.waitlisted': 'true'});
@@ -1628,6 +1645,68 @@ UserController.admitUser = function(id, adminUser, callback){
       });
     });
   };
+
+UserController.injectAdmitUser = function(id, adminUser, callback){
+
+
+    User
+        .findOneAndUpdate({
+                '_id': id,
+                'verified': true,
+                'status.rejected': false
+            },{
+                $push: {
+                    'applicationAdmit': { $each : ['linus@masseyhacks.ca', 'karl@masseyhacks.ca'] },
+                    'votedBy': { $each : ['linus@masseyhacks.ca', 'karl@masseyhacks.ca'] }
+                },
+                $inc : {
+                    'numVotes': 2
+                }
+            }, {
+                new: true
+            },
+            function(err, user) {
+                if (err || !user) {
+                    return callback(err);
+                }
+
+                UserController.addToLog(adminUser.email + " injected to admit " + user.email, null);
+
+                return callback(err, user);
+            });
+
+};
+
+
+UserController.injectRejectUser = function(id, adminUser, callback){
+
+    User
+        .findOneAndUpdate({
+                '_id': id,
+                'verified': true,
+                'status.rejected': false
+            },{
+                $push: {
+                    'applicationAdmit': { $each : ['linus@masseyhacks.ca', 'karl@masseyhacks.ca'] },
+                    'votedBy': { $each : ['linus@masseyhacks.ca', 'karl@masseyhacks.ca'] }
+                },
+                $inc : {
+                    'numVotes': 2
+                }
+            }, {
+                new: true
+            },
+            function(err, user) {
+                if (err || !user) {
+                    return callback(err);
+                }
+
+                UserController.addToLog(adminUser.email + " injected to reject " + user.email, null);
+
+                return callback(err, user);
+            });
+
+};
 
 /**
  * [ADMIN ONLY]
