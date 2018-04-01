@@ -44,6 +44,8 @@ angular.module('reg')
 
                 $scope.settings = settings;
 
+                $scope.showEmail = false;
+
             }
 
 
