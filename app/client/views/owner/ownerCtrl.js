@@ -214,6 +214,42 @@ angular.module('reg')
                 })
             }
 
+            $scope.rejectall = function () {
+                swal({
+                    title: "Whoa, wait a minute!",
+                    text: "You are about to reject EVERYONE that have not been admitted",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, proceed",
+                    closeOnConfirm: false
+                }, function(){
+
+                    swal({
+                        title: "Are you sure?",
+                        text: "Your account will be logged as having done this. " +
+                        "Remember, this power is a privilege.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, proceed",
+                        closeOnConfirm: false
+                    }, function(){
+
+                        UserService
+                            .sendRejectEmails()
+                            .success(function(){
+                                swal("Action Performed", 'Users have been rejected', "success");
+                            })
+                            .error(function(err) {
+                                swal("Error", "An error occurred.", "error");
+                            });
+
+                    });
+
+                });
+            }
+
             $scope.updateWave = function(num) {
               var timeClose = cleanDate($scope.settings["wave"+num].timeClose).getTime();
               var timeOpen = cleanDate($scope.settings["wave"+num].timeOpen).getTime();

@@ -1298,14 +1298,31 @@ UserController.sendEmailsToNonCompleteProfiles = function(callback) {
 }
 
 UserController.sendRejectEmails = function(callback) {
-  User.find({"status.rejected": true}, 'email nickname', function (err, users) {
-    if (err) {
-      return callback(err);
-    }
+  User.find({$or:[{"status.rejected": true, "status.statusReleased": false}, {"status.rejected":false, "status.admitted":false, "status.waitlisted": false}]}, function (err, users) {
+      if (err) {
+          return callback(err);
+      }
+
+      for (var i = 0; i < users.length; i++) {
+          User.findOneAndUpdate({
+                  _id: users[i]._id
+              },{
+                  $set: {
+                      "status.rejected": true,
+                      "status.statusReleased": true
+                  }
+              }).exec(function(err, user) {
+                  if (err) {
+                      console.log("error" + err);
+                  } else {
+                      UserController.addToLog("Rejection email has been sent to " + user.email);
+                  }
+          });
+      }
     Mailer.sendRejectEmails(users);
     return callback(err);
   });
-}
+};
 
 UserController.sendConfirmationLaggerEmails = function(callback) {
     Settings.getCurrentConfirmationWave(function (e, wave) {

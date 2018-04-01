@@ -673,6 +673,11 @@ module.exports = function(router) {
     UserController.admitUser(id, user, defaultResponse(req, res));
   });
 
+    router.post('/users/sendRejectEmails', isOwner, function(req, res){
+
+        UserController.sendRejectEmails(defaultResponse(req, res));
+    });
+
   router.post('/users/:id/remove', isOwner, function (req, res) {
     var id = req.params.id;
     var user = req.user;
@@ -775,9 +780,6 @@ module.exports = function(router) {
   /**
   * Send emails to rejected applicants
   */
- router.post('/users/sendRejectEmails', isOwner, function(req, res){
-   UserController.sendRejectEmails(defaultResponse(req, res));
- });
 
  router.post('/users/sendConfirmationLaggerEmails', isOwner, function(req, res){
     UserController.sendConfirmationLaggerEmails(defaultResponse(req, res));
