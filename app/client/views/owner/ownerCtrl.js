@@ -3,7 +3,8 @@ angular.module('reg')
         '$scope',
         '$sce',
         'SettingsService',
-        function($scope, $sce, SettingsService){
+        'UserService',
+        function($scope, $sce, SettingsService, UserService){
 
             $scope.settings = {};
             SettingsService
@@ -180,6 +181,31 @@ angular.module('reg')
                         updateSettings(data);
                     });
             };
+
+            $scope.sendConfirmationLaggerEmails = function () {
+
+                swal({
+                    title: "Confirm Send CONFIRMATION lagger emails",
+                    text: "Send emails to all who haven't confirmed",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, send",
+                    closeOnConfirm: false
+                }, function(){
+
+                    UserService
+                        .sendConfirmationLaggerEmails()
+                        .success(function(user){
+                            swal("Action Performed", "Emails sent", "success");
+
+                        })
+                        .error(function(err) {
+                            swal("Error", "Action could not be performed.", "error");
+                        });
+
+                });
+            }
 
             $scope.updateParticipantCount = function () {
                 SettingsService.updateParticipantCount($scope.settings.participants).success(function (data) {

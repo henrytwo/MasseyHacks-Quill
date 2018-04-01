@@ -92,6 +92,38 @@ function sendOne(templateName, options, data, callback){
   });
 }
 
+
+controller.sendConfirmationLaggerEmails = function(users, callback) {
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i];
+
+        var options = {
+            to: user.email,
+            subject: "[MasseyHacks IV] - You haven't confirmed your invitation to MasseyHacks IV!"
+        };
+
+        var locals = {
+            nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
+            dashUrl: ROOT_URL,
+            deadline: formatTime(user.status.confirmBy)
+        };
+
+        console.log('Sending confirmation lagger email to address ' + user.email);
+        sendOne('email-lagger-confirmation', options, locals, function(err, info){
+            if (err){
+                console.log(err);
+            }
+            if (info){
+                console.log(info.message);
+            }
+            if (callback){
+                callback(err, info);
+            }
+        });
+    }
+}
+
+
 controller.sendLaggerEmails = function(users, callback) {
   for (var i = 0; i < users.length; i++) {
     var user = users[i];

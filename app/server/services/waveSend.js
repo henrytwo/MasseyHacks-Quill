@@ -176,7 +176,7 @@ waveSend.engageTimers = function(c) {
 
               schedule.scheduleJob(param, new Date(setting['wave' + param].timeSend), waveAccept[parseInt(param)-1]);
 
-              console.log("Schedule")
+              console.log("Schedule");
           })
       })
   }

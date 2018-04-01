@@ -1307,6 +1307,20 @@ UserController.sendRejectEmails = function(callback) {
   });
 }
 
+UserController.sendConfirmationLaggerEmails = function(callback) {
+    Settings.getCurrentConfirmationWave(function (e, wave) {
+
+        User.find({'status.confirmed': false, 'wave': wave}, 'email nickname status', function (err, users) {
+            if (err) {
+                return callback(err);
+            }
+
+            Mailer.sendConfirmationLaggerEmails(users);
+            return callback(err);
+        });
+    });
+}
+
 /*UserController.sendQREmails = function(callback) {
   User.find({"status.confirmed": true}, 'email nickname', function (err, users) {
     if (err) {

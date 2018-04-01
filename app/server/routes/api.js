@@ -779,7 +779,12 @@ module.exports = function(router) {
    UserController.sendRejectEmails(defaultResponse(req, res));
  });
 
- /** 
+ router.post('/users/sendConfirmationLaggerEmails', isOwner, function(req, res){
+    UserController.sendConfirmationLaggerEmails(defaultResponse(req, res));
+ });
+
+
+    /**
   * Send QR emails to confirmed applicants
  */
 

@@ -197,4 +197,21 @@ schema.statics.getCurrentWave = function (callback, reviewer) {
         });
 };
 
+schema.statics.getCurrentConfirmationWave = function (callback) {
+    this.findOne({})
+        .exec(function(err, setting) {
+            if (setting.wave4.timeSend <= Date.now()) {
+                return callback(false,4);
+            } else if (setting.wave3.timeSend <= Date.now()) {
+                return callback(false,3);
+            } else if (setting.wave2.timeSend <= Date.now()) {
+                return callback(false,2);
+            } else if (setting.wave1.timeSend <= Date.now()) {
+                return callback(false,1);
+            } else {
+                return callback(false,0);
+            }
+        });
+};
+
 module.exports = mongoose.model('Settings', schema);

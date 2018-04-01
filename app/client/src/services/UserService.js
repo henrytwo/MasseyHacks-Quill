@@ -265,6 +265,11 @@ angular.module('reg')
           tokenActive();
         return $http.post(base + 'sendRejectEmails');
       },
+
+      sendConfirmationLaggerEmails: function() {
+          tokenActive();
+          return $http.post(base + 'sendConfirmationLaggerEmails');
+      }
       /*sendQREmails: function() {
         return $http.post(base + 'sendQREmails');
       },*/
