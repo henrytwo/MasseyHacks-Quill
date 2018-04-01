@@ -77,6 +77,20 @@ angular.module('reg')
           });
       };
 
+      function parseJwt (token) {
+          var base64Url = token.split('.')[1];
+          var base64 = base64Url.replace('-', '+').replace('_', '/');
+          return JSON.parse(window.atob(base64));
+      }
+
+      authService.getExpire = function () {
+          var token = Session.getToken();
+
+          if (token) {
+              return parseJwt(token).exp;
+          }
+      }
+
       authService.verify = function(token, onSuccess, onFailure) {
         return $http
           .get('/auth/verify/' + token)
