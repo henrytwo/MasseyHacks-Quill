@@ -279,12 +279,23 @@
 
 
   <div class="column ui orange segment">
-    <div class="ui field">
+    <div class="ui checkbox">
+      <input type="checkbox" id="showEmailButtons" ng-model="showEmail">
+      <label for="showEmailButtons"><h5>Show Email Buttons</h5></label>
+    </div>
+
+    <div class="ui field" ng-show="showEmail">
       <div
               class="ui green button"
               ng-click="sendConfirmationLaggerEmails()">
         Send Confirmation Lagger Emails
       </div>
+        <div
+                class="ui red button"
+                ng-click="rejectall()">
+            Reject All
+        </div>
+
     </div>
 
   </div>

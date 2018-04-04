@@ -44,6 +44,8 @@ angular.module('reg')
 
                 $scope.settings = settings;
 
+                $scope.showEmail = false;
+
             }
 
 
@@ -212,6 +214,42 @@ angular.module('reg')
                     swal("Looks good!", "Updated participant count to " + $scope.settings.participants, "success");
                     updateSettings(data);
                 })
+            }
+
+            $scope.rejectall = function () {
+                swal({
+                    title: "Whoa, wait a minute!",
+                    text: "You are about to reject EVERYONE that have not been admitted",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, proceed",
+                    closeOnConfirm: false
+                }, function(){
+
+                    swal({
+                        title: "Are you sure?",
+                        text: "Your account will be logged as having done this. " +
+                        "Remember, this power is a privilege.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, proceed",
+                        closeOnConfirm: false
+                    }, function(){
+
+                        UserService
+                            .sendRejectEmails()
+                            .success(function(){
+                                swal("Action Performed", 'Users have been rejected', "success");
+                            })
+                            .error(function(err) {
+                                swal("Error", "An error occurred.", "error");
+                            });
+
+                    });
+
+                });
             }
 
             $scope.updateWave = function(num) {

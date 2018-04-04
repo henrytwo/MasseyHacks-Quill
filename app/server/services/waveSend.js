@@ -70,62 +70,69 @@ var acceptPart = function (wave) {
         })
     });
 
-    Users.find({'wave': wave, 'status.rejected':true, 'status.statusReleased': false}).exec(function (err, data) {
-        async.each(data, function (user, callback) {
-            console.log("reject/pushback user " + user.email);
-            Users.findOneAndUpdate({
-                    '_id': user._id
-                },
-                {
-                    $set: {
-                        wave: 4,
-                        lastUpdated: 31536000000 + user.lastUpdated,
-                        'status.rejected': false,
-                        numVotes: 0,
-                        applicationAdmit:[],
-                        applicationReject:[],
-                        votedBy:[]
-                    }
-                },
-                {
-                    new: true
-                }, function (err, user) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log("User " + user.email + " has been pushed back to wave " + user.wave)
-                    }
-
-                });
-
-            callback()
-        })
-    });
-
-    Users.find({'status.completedProfile': false}).exec(function (err, usrs) {
-        mailer.sendLaggerEmails(usrs);
-
-        Users.find({'wave':wave, 'status.admitted':false, 'status.rejected':false, 'status.waitlisted':false}).exec(function (err, users) {
-            async.each(users, function (user, callback) {
-                console.log("running user " + user.email);
+    if (wave !== 4) {
+        Users.find({'wave': wave, 'status.rejected':true, 'status.statusReleased': false}).exec(function (err, data) {
+            async.each(data, function (user, callback) {
+                console.log("reject/pushback user " + user.email);
                 Users.findOneAndUpdate({
                         '_id': user._id
                     },
                     {
                         $set: {
-                            wave: wave+1
+                            wave: 4,
+                            lastUpdated: 31536000000 + user.lastUpdated,
+                            'status.rejected': false,
+                            numVotes: 0,
+                            applicationAdmit:[],
+                            applicationReject:[],
+                            votedBy:[]
                         }
                     },
                     {
                         new: true
                     }, function (err, user) {
-                        console.log("user " + user.email + "has been postponed");
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("User " + user.email + " has been pushed back to wave " + user.wave)
+                        }
+
                     });
 
                 callback()
             })
         });
-    });
+
+        Users.find({'status.completedProfile': false}).exec(function (err, usrs) {
+            mailer.sendLaggerEmails(usrs);
+
+            Users.find({
+                'wave': wave,
+                'status.admitted': false,
+                'status.rejected': false,
+                'status.waitlisted': false
+            }).exec(function (err, users) {
+                async.each(users, function (user, callback) {
+                    console.log("running user " + user.email);
+                    Users.findOneAndUpdate({
+                            '_id': user._id
+                        },
+                        {
+                            $set: {
+                                wave: wave + 1
+                            }
+                        },
+                        {
+                            new: true
+                        }, function (err, user) {
+                            console.log("user " + user.email + "has been postponed");
+                        });
+
+                    callback()
+                })
+            });
+        });
+    }
 };
 
 var waveA = function () {
