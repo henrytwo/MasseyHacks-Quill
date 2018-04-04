@@ -706,6 +706,10 @@ angular.module('reg')
                 name: 'Last Updated',
                 value: formatTime(user.lastUpdated)
               },{
+                    name: 'Password Last Updated',
+                    value: formatTime(user.passwordLastUpdated)
+                }
+              ,{
                 name: 'Confirm By',
                 value: formatTime(user.status.confirmBy) || 'N/A'
               },{
