@@ -368,6 +368,7 @@ UserController.getPage = function(query, callback){
     textFilter.push({ 'profile.name': re });
     textFilter.push({ 'teamCode': re });
     textFilter.push({ 'profile.school': re });
+    textFilter.push({ 'profile.departing': re });
     textFilter.push({ 'id': re });
   }
   else {
