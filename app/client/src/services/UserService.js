@@ -257,7 +257,7 @@ angular.module('reg')
       },
 
       sendLaggerEmails: function() {
-          tokenActive();
+        tokenActive();
         return $http.post(base + 'sendlagemails');
       },
 

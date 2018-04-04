@@ -124,17 +124,21 @@ controller.sendConfirmationLaggerEmails = function(users, callback) {
 }
 
 
-controller.sendLaggerEmails = function(users, callback) {
+controller.sendLaggerEmails = function(soon, due, users, callback) {
+
+  console.log("soon: " + soon);
+
   for (var i = 0; i < users.length; i++) {
     var user = users[i];
     var options = {
       to: user.email,
-      subject: "[MasseyHacks IV] - We are still waiting for your application!"
+      subject: "[MasseyHacks IV] - " + (soon ? ("Applications close on " + formatTime(due)) : ("We are still waiting for your application!"))
     };
 
     var locals = {
       nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
-      dashUrl: ROOT_URL
+      dashUrl: ROOT_URL,
+      submitBy: formatTime(due)
     };
 
     console.log('Sending lagger email to address ' + user.email);

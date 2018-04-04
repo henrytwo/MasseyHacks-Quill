@@ -209,6 +209,31 @@ angular.module('reg')
                 });
             }
 
+            $scope.sendLaggerEmails = function () {
+
+                swal({
+                    title: "Confirm Send APPLICATION lagger emails",
+                    text: "Send emails to all who haven't submitted",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, send",
+                    closeOnConfirm: false
+                }, function(){
+
+                    UserService
+                        .sendLaggerEmails()
+                        .success(function(user){
+                            swal("Action Performed", "Emails sent", "success");
+
+                        })
+                        .error(function(err) {
+                            swal("Error", "Action could not be performed.", "error");
+                        });
+
+                });
+            }
+
             $scope.updateParticipantCount = function () {
                 SettingsService.updateParticipantCount($scope.settings.participants).success(function (data) {
                     swal("Looks good!", "Updated participant count to " + $scope.settings.participants, "success");

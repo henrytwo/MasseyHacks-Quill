@@ -1288,13 +1288,23 @@ UserController.sendVerificationEmailById = function(id, callback){
 };
 
 UserController.sendEmailsToNonCompleteProfiles = function(callback) {
-  User.find({"status.completedProfile": false}, 'email nickname', function (err, users) {
-    if (err) {
-      return callback(err);
-    }
-    Mailer.sendLaggerEmails(users);
-    return callback(err);
+  Settings.findOne({}, function (error, settings) {
+      if (error) {
+          return callback(error);
+      }
+
+      User.find({"status.completedProfile": false, "volunteer": false}, 'email nickname', function (err, users) {
+          if (err) {
+              return callback(err);
+          }
+
+          console.log(settings.timeClose - Date.now());
+
+          Mailer.sendLaggerEmails(settings.timeClose - Date.now() < 691200000, settings.timeClose, users);
+          return callback(err);
+      });
   });
+
 }
 
 UserController.sendRejectEmails = function(callback) {
@@ -1327,7 +1337,7 @@ UserController.sendRejectEmails = function(callback) {
 UserController.sendConfirmationLaggerEmails = function(callback) {
     Settings.getCurrentConfirmationWave(function (e, wave) {
 
-        User.find({'status.confirmed': false, 'wave': wave}, 'email nickname status', function (err, users) {
+        User.find({'status.confirmed': false, 'wave': wave, "volunteer": false}, 'email nickname status', function (err, users) {
             if (err) {
                 return callback(err);
             }

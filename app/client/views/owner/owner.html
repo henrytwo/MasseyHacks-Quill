@@ -285,11 +285,18 @@
     </div>
 
     <div class="ui field" ng-show="showEmail">
-      <div
-              class="ui green button"
-              ng-click="sendConfirmationLaggerEmails()">
-        Send Confirmation Lagger Emails
-      </div>
+        <div
+                class="ui green button"
+                ng-click="sendConfirmationLaggerEmails()">
+          Send Confirmation Lagger Emails
+        </div>
+
+        <div
+                class="ui green button"
+                ng-click="sendLaggerEmails()">
+          Send Application Lagger Emails
+        </div>
+
         <div
                 class="ui red button"
                 ng-click="rejectall()">
