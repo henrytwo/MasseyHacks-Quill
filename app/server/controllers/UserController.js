@@ -378,6 +378,9 @@ UserController.getPage = function(query, callback){
  if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
   }
+  if(query.filter.notSubmitted === 'true') {
+      statusFilter.push({'status.completedProfile': 'false'});
+  }
   if(query.filter.submitted === 'true') {
     statusFilter.push({'status.completedProfile': 'true'});
   }

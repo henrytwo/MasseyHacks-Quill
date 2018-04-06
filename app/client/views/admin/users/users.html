@@ -21,6 +21,10 @@
             <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.verified">
             <label style="padding-left: 20px"> Verified </label>
           </div>
+        <div class="ui checkbox" style="padding-right: 10px">
+          <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.notSubmitted">
+          <label style="padding-left: 20px"> Not Submitted </label>
+        </div>
           <div class="ui checkbox" style="padding-right: 10px">
             <input type="checkbox"  ng-change="filterUsers()" ng-model="filter.submitted">
             <label style="padding-left: 20px"> Submitted </label>
