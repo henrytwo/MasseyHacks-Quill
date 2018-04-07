@@ -173,38 +173,51 @@ UserController.loginWithPassword = function(email, password, callback){
 
 
 var removeSensitiveStaff = function(user) {
-    var u = user.toJSON();
 
-    delete u.password;
-    delete u.salt;
-    delete u.applicationAdmit;
-    delete u.applicationReject;
+    if (user != null) {
 
-    return u;
+        var u = user.toJSON();
+
+        delete u.password;
+        delete u.salt;
+        delete u.applicationAdmit;
+        delete u.applicationReject;
+
+        return u;
+    }
+
+    return null;
 };
 
 UserController.removeSensitive = function(user) {
-    var u = user.toJSON();
 
-    delete u.password;
-    delete u.salt;
-    delete u.applicationAdmit;
-    delete u.applicationReject;
-    delete u.votedBy;
-    delete u.numVotes;
-    delete u.status.admittedBy;
-    delete u.lastUpdated;
-    delete u.wave;
+    if (user != null) {
+        var u = user.toJSON();
 
-    if (!user.status.statusReleased) {
-        u.status.admitted = false;
-        u.status.declined = false;
-        u.status.rejected = false;
-        u.status.waitlisted = false;
+        delete u.password;
+        delete u.salt;
+        delete u.applicationAdmit;
+        delete u.applicationReject;
+        delete u.votedBy;
+        delete u.numVotes;
+        delete u.status.admittedBy;
+        delete u.lastUpdated;
+        delete u.wave;
+
+        if (!user.status.statusReleased) {
+            u.status.admitted = false;
+            u.status.declined = false;
+            u.status.rejected = false;
+            u.status.waitlisted = false;
+        }
+
+        return u;
     }
 
-  return u
+    return null;
 };
+
+
 
 /**
  * Create a new user given an email and a password.
