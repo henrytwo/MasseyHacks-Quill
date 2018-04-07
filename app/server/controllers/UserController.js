@@ -422,6 +422,7 @@ UserController.getPage = function(query, callback){
   if(query.filter.noConfirmed === 'true') {
       statusFilter.push({'status.confirmed': 'false'});
       statusFilter.push({'status.rejected': 'false'});
+      statusFilter.push({'status.declined': 'false'});
       statusFilter.push({'status.admitted': 'true'});
   }
   if(query.filter.waitlisted === 'true') {
