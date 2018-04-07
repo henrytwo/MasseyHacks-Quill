@@ -35,7 +35,7 @@ angular.module('reg')
         function ($scope, $stateParams, UserService, $state) {
 
             loadScript("https://rawgit.com/schmich/instascan-builds/master/instascan.min.js", function () {
-                scanner = new Instascan.Scanner({video: document.getElementById('preview'), mirror:false, scanPeriod: 3});
+                scanner = new Instascan.Scanner({video: document.getElementById('preview'), mirror:false});
 
                 scanner.addListener('scan', function (data, image) {
                     //Change the input fields value and send post request to the backend
