@@ -124,7 +124,7 @@ controller.sendConfirmationLaggerEmails = function(users, callback) {
 }
 
 
-controller.sendLaggerEmails = function(soon, due, users, callback) {
+controller.sendLaggerEmails = function(users, soon, due, callback) {
 
   console.log("soon: " + soon);
 

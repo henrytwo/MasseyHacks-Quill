@@ -1318,7 +1318,7 @@ UserController.sendEmailsToNonCompleteProfiles = function(callback) {
 
           console.log(settings.timeClose - Date.now());
 
-          Mailer.sendLaggerEmails(settings.timeClose - Date.now() < 691200000, settings.timeClose, users);
+          Mailer.sendLaggerEmails(users, settings.timeClose - Date.now() < 691200000, settings.timeClose);
           return callback(err);
       });
   });
