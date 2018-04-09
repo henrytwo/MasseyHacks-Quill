@@ -1802,7 +1802,7 @@ UserController.checkInById = function(id, adminUser, callback){
 };
 
 UserController.activateById = function(id, user, callback){
-  UserController.addToLog(user.email + " activated " + user.email, null);
+  UserController.addToLog(user.email + " activated " + id, null);
 
   User.findOneAndUpdate({
       _id: id
@@ -1816,7 +1816,7 @@ UserController.activateById = function(id, user, callback){
 };
 
 UserController.deactivateById = function(id, user, callback){
-    UserController.addToLog(user.email + " deactivated " + user.email, null);
+    UserController.addToLog(user.email + " deactivated " + id, null);
 
     User.findOneAndUpdate({
       _id: id
