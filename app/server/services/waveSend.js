@@ -104,7 +104,10 @@ var acceptPart = function (wave) {
         });
 
         Users.find({'status.completedProfile': false}).exec(function (err, usrs) {
-            mailer.sendLaggerEmails(usrs);
+
+            if (wave !== 4) {
+                mailer.sendLaggerEmails(usrs);
+            }
 
             Users.find({
                 'wave': wave,
