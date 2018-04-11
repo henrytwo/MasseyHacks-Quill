@@ -7,7 +7,7 @@ var Settings = require('../app/server/models/Settings');
 var shuffleSeed = require('shuffle-seed');
 var async = require('async');
 
-User.find({'status.noConfirmation': true}).exec(function (err, data) {
+User.find({'status.admitted': true}).exec(function (err, data) {
     async.each(data, function (user, callback) {
         console.log("pushing back dis man:" + user.email);
         User.findOneAndUpdate({
@@ -16,7 +16,7 @@ User.find({'status.noConfirmation': true}).exec(function (err, data) {
             {
                 $set: {
                     'status.noConfirmation': false,
-                    'status.confirmBy': 1523848557454.0
+                    'status.confirmBy': 1524455940000.0
                 }
             },
             {
