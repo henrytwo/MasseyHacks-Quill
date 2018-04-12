@@ -394,6 +394,21 @@ UserController.getPage = function(query, callback){
   if(query.filter.notSubmitted === 'true') {
       statusFilter.push({'status.completedProfile': 'false'});
   }
+  if(query.filter.gr8 === 'true') {
+      statusFilter.push({'profile.grade': '<=8'});
+  }
+  if(query.filter.gr9 === 'true') {
+      statusFilter.push({'profile.grade': '9'});
+  }
+  if(query.filter.gr10 === 'true') {
+      statusFilter.push({'profile.grade': '10'});
+  }
+  if(query.filter.gr11 === 'true') {
+      statusFilter.push({'profile.grade': '11'});
+  }
+  if(query.filter.gr12 === 'true') {
+      statusFilter.push({'profile.grade': '12'});
+  }
   if(query.filter.submitted === 'true') {
     statusFilter.push({'status.completedProfile': 'true'});
   }
