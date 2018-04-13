@@ -452,6 +452,7 @@ UserController.getPage = function(query, callback){
       statusFilter.push({'status.rejected': 'false'});
       statusFilter.push({'status.declined': 'false'});
       statusFilter.push({'status.admitted': 'true'});
+      statusFilter.push({'status.statusReleased': 'true'});
   }
   if(query.filter.waitlisted === 'true') {
       statusFilter.push({'status.waitlisted': 'true'});
@@ -1370,7 +1371,7 @@ UserController.sendRejectEmails = function(callback) {
 UserController.sendConfirmationLaggerEmails = function(callback) {
     Settings.getCurrentConfirmationWave(function (e, wave) {
 
-        User.find({'status.confirmed': false, 'wave': wave, "volunteer": false}, 'email nickname status', function (err, users) {
+        User.find({'status.confirmed': false, 'wave': wave, "volunteer": false, "status.statusReleased": true}, 'email nickname status', function (err, users) {
             if (err) {
                 return callback(err);
             }
