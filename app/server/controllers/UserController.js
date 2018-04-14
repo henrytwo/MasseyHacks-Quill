@@ -1081,6 +1081,7 @@ UserController.declineById = function (id, callback){
         'lastUpdated': Date.now(),
         'status.confirmed': false,
         'status.declined': true,
+        'confirmation.bus': false,
         'teamCode': null
       }
     }, {
