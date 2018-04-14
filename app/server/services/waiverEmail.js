@@ -85,6 +85,8 @@ var fetch_email = function() {
                                         if (user) {
                                             console.log(user.email + "'s waiver has been received");
                                             addToLog(user.email + "'s waiver has been received", null);
+                                        } else {
+                                            addToLog('broooo da sheit? dis bois (' + user.email + ') has da non existianting email bro')
                                         }
                                     });
                             }
