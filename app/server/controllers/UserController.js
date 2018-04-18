@@ -726,7 +726,6 @@ UserController.updateProfileById = function (id, profile, callback){
             message: "Sorry, registration is closed."
           });
         }
-      });
 
       if (!profile.submittedApplication) {
         // Send application success email after first application submission
@@ -776,10 +775,9 @@ UserController.updateProfileById = function (id, profile, callback){
                       {
                           new: true
                       },
-                      callback
-                  );
-              }
-          );
+                      callback);
+              });
+      });
       });
       });
   });
