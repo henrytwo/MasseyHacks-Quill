@@ -7,7 +7,7 @@ angular.module('reg')
     'UserService',
     function(currentUser, $scope, $state, $stateParams, UserService){
 
-      var ethnicity = {'W':'White / Caucasian', 'B':'Black / African American', 'NA':'Native', 'A':'sian or Pacific Islander', 'H':'Hispanic', 'O':'Other / Multiple', 'N':'Prefer not to say'};
+      var ethnicity = {'W':'White / Caucasian', 'B':'Black / African American', 'NA':'Native', 'A':'Asian or Pacific Islander', 'H':'Hispanic', 'O':'Other / Multiple', 'N':'Prefer not to say'};
 
       $scope.adminUser = currentUser.data;
 
