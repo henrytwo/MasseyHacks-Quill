@@ -7,6 +7,8 @@ angular.module('reg')
     'UserService',
     function(currentUser, $scope, $state, $stateParams, UserService){
 
+      var ethnicity = {'W':'White / Caucasian', 'B':'Black / African American', 'NA':'Native', 'A':'sian or Pacific Islander', 'H':'Hispanic', 'O':'Other / Multiple', 'N':'Prefer not to say'};
+
       $scope.adminUser = currentUser.data;
 
       $scope.param = 'sname';
@@ -722,10 +724,12 @@ angular.module('reg')
                 name: 'Checked In',
                 value: formatTime(user.status.checkInTime) || 'N/A'
               },{
-                name: 'Name',
-                value: user.profile.name
-              }
-              ,{
+                    name: 'First Name',
+                    value: user.profile.firstname
+              },{
+                    name: 'Last Name',
+                    value: user.profile.lastname
+              },{
                 name: 'Email',
                 value: user.email
               },{
@@ -757,7 +761,7 @@ angular.module('reg')
                 value: user.profile.grade
               },{
                 name: 'Ethnicity',
-                value: user.profile.ethnicity
+                value: ethnicity[user.profile.ethnicity]
               },{
                 name: 'Dietary Restrictions',
                 value: user.profile.diet
