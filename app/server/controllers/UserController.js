@@ -1341,7 +1341,7 @@ UserController.sendEmailsToNonCompleteProfiles = function(callback) {
 }
 
 UserController.sendRejectEmails = function(callback) {
-  User.find({$or:[{"status.rejected": true, "status.statusReleased": false}, {"status.rejected":false, "status.admitted":false, "status.waitlisted": false}]}, function (err, users) {
+  User.find({$or:[{"status.rejected": true, "status.statusReleased": false}, {"status.rejected":false, "status.admitted":false, "status.waitlisted": false, "status.submitted": true}]}, function (err, users) {
       if (err) {
           return callback(err);
       }
@@ -1381,15 +1381,15 @@ UserController.sendConfirmationLaggerEmails = function(callback) {
     });
 }
 
-/*UserController.sendQREmails = function(callback) {
-  User.find({"status.confirmed": true}, 'email nickname', function (err, users) {
+UserController.sendQREmails = function(callback) {
+  User.find({"status.confirmed": true, "volunteer": false}, 'email nickname profile id', function (err, users) {
     if (err) {
       return callback(err);
     }
     Mailer.sendQREmails(users);
     return callback(err);
   });
-}*/
+}
 
 /**
  * Password reset email

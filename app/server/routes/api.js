@@ -2,7 +2,7 @@ var UserController = require('../controllers/UserController');
 var SettingsController = require('../controllers/SettingsController');
 
 var aws = require('aws-sdk');
-//var qrcode = require('qrcode-generator');
+var qrcode = require('qrcode-generator');
 var request = require('request');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
@@ -231,9 +231,9 @@ module.exports = function(router) {
   QR-CODE GENERATION
   */
 
-  /*function generateQR(data){
+  function generateQR(data){
     var typeNumber = 2;
-    var errorCorrectionLevel = 'L';
+    var errorCorrectionLevel = 'H';
     var qr = qrcode(typeNumber, errorCorrectionLevel);
     qr.addData(data);
     qr.make();
@@ -243,7 +243,7 @@ module.exports = function(router) {
   router.get('/qr/:id', function(req, res) {
     var id = req.params.id;
     res.send(generateQR(id));
-  });*/
+  });
 
   //Checking in with QR
 
@@ -785,6 +785,10 @@ module.exports = function(router) {
  router.post('/users/sendConfirmationLaggerEmails', isOwner, function(req, res){
     UserController.sendConfirmationLaggerEmails(defaultResponse(req, res));
  });
+
+    router.post('/users/qrEmails', isOwner, function(req, res){
+        UserController.sendQREmails(defaultResponse(req, res));
+    });
 
 
     /**

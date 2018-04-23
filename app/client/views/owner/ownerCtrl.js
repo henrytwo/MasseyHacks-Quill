@@ -184,6 +184,31 @@ angular.module('reg')
                     });
             };
 
+            $scope.sendQREmails = function () {
+
+                swal({
+                    title: "Confirm Send QR emails",
+                    text: "Send emails to all confirmed",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, send",
+                    closeOnConfirm: false
+                }, function(){
+
+                    UserService
+                        .sendQREmails()
+                        .success(function(user){
+                            swal("Action Performed", "Emails sent", "success");
+
+                        })
+                        .error(function(err) {
+                            swal("Error", "Action could not be performed.", "error");
+                        });
+
+                });
+            }
+
             $scope.sendConfirmationLaggerEmails = function () {
 
                 swal({

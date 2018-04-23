@@ -269,7 +269,17 @@ angular.module('reg')
       sendConfirmationLaggerEmails: function() {
           tokenActive();
           return $http.post(base + 'sendConfirmationLaggerEmails');
+      },
+
+      sendQREmails: function() {
+          tokenActive();
+          return $http.post(base + 'qrEmails');
       }
+
+
+
+
+
       /*sendQREmails: function() {
         return $http.post(base + 'sendQREmails');
       },*/

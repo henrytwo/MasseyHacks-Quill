@@ -1,5 +1,6 @@
 var path = require('path');
 var moment = require('moment');
+var http = require('request');
 
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
@@ -184,33 +185,22 @@ controller.sendRejectEmails = function(users, callback) {
   }
 }
 
-/*controller.sendQREmails = function(users, callback) {
+controller.sendQREmails = function(users, callback) {
   for (var i = 0; i < users.length; i++) {
     var user = users[i];
     var options = {
       to: user.email,
-      subject: "[MasseyHacks IV] - Final decisions for MasseyHacks IV!"
+      subject: "[MasseyHacks IV] - Get ready to hack!"
     };
 
     var locals = {
       nickname: (user.profile.name != null && user.profile.firstname != null && user.profile.firstname.length > 0 && user.profile.name.length > 0) ? user.profile.firstname : user.nickname,
       dashUrl: ROOT_URL,
-      qr: ''
+      qr: user.id
     };
 
-    getQRCode = function(id){
-      
-      $http.get('/api/qr/' + id)
-      .then(function(response){
-        locals.qr = response.data;
-      });
-    }
 
-    getQRCode(user.id);
-
-
-
-    console.log('Sending reject email to address ' + user.email);
+    console.log('Sending QR email to address ' + user.email);
     sendOne('email-qr', options, locals, function(err, info){
       if (err){
         console.log(err);
@@ -223,7 +213,7 @@ controller.sendRejectEmails = function(users, callback) {
       }
     });
   }
-}*/
+}
 
 controller.sendApplicationEmail = function(user, callback) {
   var options = {
