@@ -721,7 +721,7 @@ UserController.updateProfileById = function (id, profile, callback){
           });
         }
 
-        if (now > times.timeClose){
+        if (now > times.timeClose || (user.status.released && (user.status.rejected  || user.status.waitlisted  || user.status.admitted))){
           return callback({
             message: "Sorry, registration is closed."
           });
@@ -740,7 +740,7 @@ UserController.updateProfileById = function (id, profile, callback){
       }
 
       if (profileValidated.firstname != null && profileValidated.lastname != null && profileValidated.firstname.length > 0 && profileValidated.lastname.length > 0) {
-          profile.name = profile.firstname + " " + profile.lastname
+          profile.name = profile.firstname + " " + profile.lastname;
       }
   
       Settings.getCurrentWave(function (err, currentWave) {
