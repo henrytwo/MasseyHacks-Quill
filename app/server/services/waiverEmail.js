@@ -71,7 +71,7 @@ var fetch_email = function() {
                                 console.log(buffer[1]);
                                 var process = buffer[1].split(" ");
                                 if (process[process.length-1] === "by") {
-                                    process = [buffer[2]];
+                                    process = [buffer[2].slice(1)];
                                 }
 
                                 Users.findOneAndUpdate({
