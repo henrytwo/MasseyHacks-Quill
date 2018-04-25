@@ -721,7 +721,7 @@ UserController.updateProfileById = function (id, profile, callback){
           });
         }
 
-        if (now > times.timeClose || (user.status.released && (user.status.rejected  || user.status.waitlisted  || user.status.admitted))){
+        if (now > times.timeClose){
           return callback({
             message: "Sorry, registration is closed."
           });
@@ -750,6 +750,13 @@ UserController.updateProfileById = function (id, profile, callback){
                   verified: true
               },
               function (err, user) {
+
+                  if (user.status.released && (user.status.rejected  || user.status.waitlisted  || user.status.admitted)){
+                      return callback({
+                          message: "Sorry, registration is closed."
+                      });
+                  }
+
                   var d = Date.now();
                   var lastUpdated = (Date.now() > user.lastUpdated) ? Date.now() : user.lastUpdated;
 
