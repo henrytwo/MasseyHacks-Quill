@@ -70,6 +70,9 @@ var fetch_email = function() {
                             if (buffer[0] === "From: HelloSign <noreply@mail.hellosign.com>") {
                                 console.log(buffer[1]);
                                 var process = buffer[1].split(" ");
+                                if (process[process.length-1] === "by") {
+                                    process = [buffer[2].slice(1)];
+                                }
 
                                 Users.findOneAndUpdate({
                                         'email': process[process.length-1]

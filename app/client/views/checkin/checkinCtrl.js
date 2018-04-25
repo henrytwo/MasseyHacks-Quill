@@ -1,26 +1,3 @@
-function loadScript(url, callback){
-
-  var script = document.createElement("script")
-  script.type = "text/javascript";
-
-  if (script.readyState){  //IE
-    script.onreadystatechange = function(){
-      if (script.readyState == "loaded" ||
-        script.readyState == "complete"){
-        script.onreadystatechange = null;
-        callback();
-      }
-    };
-  } else {  //Others
-    script.onload = function(){
-      callback();
-    };
-  }
-
-  script.src = url;
-  document.getElementsByTagName("head")[0].appendChild(script);
-}
-
 var scanner;
 var camNum = 0;
 var flipped = true;
@@ -34,7 +11,7 @@ angular.module('reg')
         '$state',
         function ($scope, $stateParams, UserService, $state) {
 
-            loadScript("https://raw.githubusercontent.com/chaelli/instascan/master/dist/instascan.min.js", function () {
+            $.getScript( "https://rawgit.com/schmich/instascan-builds/master/instascan.min.js").done(function () {
                 scanner = new Instascan.Scanner({video: document.getElementById('preview'), mirror:false});
 
                 scanner.addListener('scan', function (data, image) {
