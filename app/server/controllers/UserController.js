@@ -388,6 +388,9 @@ UserController.getPage = function(query, callback){
     findQuery = {};
   }
 
+    if(query.filter.checkedIn === 'true') {
+        statusFilter.push({'status.checkedIn': 'true'});
+    }
  if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
   }
