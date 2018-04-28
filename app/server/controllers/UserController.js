@@ -391,6 +391,9 @@ UserController.getPage = function(query, callback){
     if(query.filter.checkedIn === 'true') {
         statusFilter.push({'status.checkedIn': 'true'});
     }
+    if(query.filter.notCheckedIn === 'true') {
+        statusFilter.push({'status.checkedIn': 'false', 'status.confirmed':'true'});
+    }
  if(query.filter.verified === 'true') {
     statusFilter.push({'verified': 'true'});
   }
