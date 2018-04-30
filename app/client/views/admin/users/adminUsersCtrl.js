@@ -695,6 +695,10 @@ angular.module('reg')
                   {
                       name: 'Wave',
                       value: user.wave
+                  },
+                  {
+                      name: 'Checkin Time',
+                      value: user.status.checkInTime
                   }
               ]
           },
