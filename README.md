@@ -23,33 +23,6 @@ Edit the configuration file in `.env` for your setup, and then run the applicati
 ```
 gulp server
 ```
-
-# Deploying to server:
-
-You first need your ssh-key added to the server. Then, add a new git remote
-```
-git remote add dokku dokku@94.237.29.37:junction
-```
-
-Now you can push your changes to the server by running
-```
-git push dokku master
-```
-or if you want to push some other branch than master,
-```
-git push dokku <branch>:master
-```
-
-# Git management
-
-* `production` branch runs at `94.237.29.37` at port 80
-* `staging` branch is used to test changes before merging them to production. This is not currently used.
-* `development` branch is used for development. Please branch new features from this branch.
-* `master` is a stable version of the site and should only be merged into when all the features are 100% working.
-
-The workflow is to first create new feature branches from `development` and merge into it when the feature is stable.
-After we want to see the changes live we merge `development` into `staging` and finally into `production`.
-
 # Customizing for your event
 
 ###### _If you're using Quill for your event, please add yourself to this [list][users]. It takes less than a minute, but knowing that our software is helping real events keeps us going ♥_
